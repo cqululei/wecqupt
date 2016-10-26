@@ -147,7 +147,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #00c200;
+  color: #7f848a;
   height: 90rpx;
   border-top: 1px solid #ddd;
   margin-top: -1px;
@@ -195,7 +195,7 @@
   font-size: 120rpx;
   line-height: 1;
   padding: 0 20rpx;
-  color: #ff9b44;
+  color: #ffbf92;
 }
 .ykt-cost{
   display: flex;
@@ -216,7 +216,7 @@
 }
 .ykt-cost-total{
   font-size: 40rpx;
-  color: #ff9b44;
+  color: #ffbf92;
   padding: 0 10rpx;
 }
 /**借阅信息**/
@@ -304,7 +304,7 @@
   padding: 0 10rpx;
 }
 .sdf-value{
-  color: #ff9b44;
+  color: #ffbf92;
   font-size: 100rpx;
   font-weight: bold;
   padding: 0 15rpx;
