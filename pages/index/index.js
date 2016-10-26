@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 var app = getApp();
+var util = require('../../utils/util');
 Page({
   data: {
     core: [
@@ -15,6 +16,7 @@ Page({
       { id: 'sdf', name: '电费查询' },
       { id: 'bx', name: '物业报修' }
     ],
+    user: { xh: 2013211664, sfz_h6: 176053, ykt_id: 1634355 },
     card: {
       'kb': {
         show: true,
@@ -26,12 +28,14 @@ Page({
         }
       },
       'ykt': {
-        show: true, //一卡通数据有大量延迟，主页卡片暂不予展示。
+        show: false,
         data: {
-          'balance': '250.50',
-          'cost': {
-            value: ['7.50', '7.50'],
-            total: '15.00'
+          'last_time': '',
+          'balance': 0,
+          'cost_status': false,
+          'today_cost': {
+            value: [],
+            total: 0
           }
         }
       },
@@ -45,8 +49,75 @@ Page({
         }
       },
       'sdf': {
-        show: true
+        show: false,
+        data: {
+          'room': '',
+          'record_time': '',
+          'cost': 0,
+          'spend': 0
+        }
       }
     }
+  },
+  onLoad: function(){
+    var _this = this;
+    //获取一卡通数据
+    wx.request({
+      url: 'http://we.cqupt.edu.cn.cqupt.congm.in/api/get_yktcost.php',
+      data: {
+        yktID: _this.data.user.ykt_id
+      },
+      success: function(res) {
+        if(res.data.status === 200){
+          var list = res.data.data;
+          if(list.length > 0){
+            var last = list[0],
+                last_time = last.time.split(' ')[0],
+                now_time = util.formatTime(new Date()).split(' ')[0];
+            //筛选并计算当日消费
+            for(var i = 0, today_cost = [], cost_total = 0; i < list.length; i++){
+              if(list[i].time.split(' ')[0] == now_time && list[i].cost.indexOf('-') == 0){
+                var cost_value = Math.abs(parseInt(list[i].cost));
+                today_cost.push(cost_value);
+                cost_total += cost_value;
+              }
+            }
+            if(today_cost.length){
+              _this.setData({
+                'card.ykt.data.today_cost.value': today_cost,
+                'card.ykt.data.today_cost.total': cost_total,
+                'card.ykt.data.cost_status': true
+              });
+            }
+            _this.setData({
+              'card.ykt.data.last_time': last_time,
+              'card.ykt.data.balance': last.balance,
+              'card.ykt.show': true	  //设为false（一卡通数据有大量延迟，主页卡片暂不予展示）
+            });
+          }
+        }
+      }
+    });
+    //获取水电费数据
+    wx.request({
+      url: 'http://we.cqupt.edu.cn.cqupt.congm.in/api/get_elec.php',
+      data: {
+        buildingNo: 15,
+        floor: 4,
+        room: 15
+      },
+      success: function(res) {
+        if(res.data.status === 200){
+          var info = res.data.data;
+          _this.setData({
+            'card.sdf.data.room': info.room.split('-').join('栋'),
+            'card.sdf.data.record_time': info.record_time.split(' ')[0],
+            'card.sdf.data.cost': info.elec_cost,
+            'card.sdf.data.spend': info.elec_spend,
+            'card.sdf.show': true
+          });
+        }
+      }
+    });
   }
 });

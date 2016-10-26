@@ -99,7 +99,6 @@
 .card-info-hd{
   display: flex;
   justify-content: space-between;
-  color: #acacac;
 }
 .card-info-left{
   display: flex;
@@ -107,16 +106,19 @@
 }
 .card-info-right{
   display: flex;
+  color: #acacac;
   flex-direction: column;
 }
 .card-info-name{
-  font-size: 36rpx;
+  font-size: 38rpx;
   letter-spacing: 1px;
+  color: #acacac;
 }
 .card-info-number{
   font-size: 24rpx;
   line-height: 225%;
   text-indent: 1px;
+  color: #aaa;
 }
 .main-ending{
   display: flex;
@@ -184,7 +186,7 @@
   align-items: flex-end;
   justify-content: center;
   font-weight: bold;
-  padding: 20rpx 0;
+  padding: 25rpx 0 30rpx;
 }
 .ykt-balance-text{
   font-size: 40rpx;
@@ -211,6 +213,7 @@
 }
 .ykt-cost-value{
   font-size: 34rpx;
+  font-weight: normal;
   color: #777;
   padding: 0 10rpx;
 }
@@ -218,6 +221,9 @@
   font-size: 40rpx;
   color: #ffbf92;
   padding: 0 10rpx;
+}
+.ykt-no-cost{
+  color: #bbb;
 }
 /**借阅信息**/
 .main-card-item#jy .card-item-bd{
