@@ -65,7 +65,7 @@ wecqupt
 | 14  | 学生查询     | pages/core/xs/xs           | ✔       |        | ✔       |          |
 | 15  | 一卡通       | pages/core/ykt/ykt         |         |        | ✔       |          |
 | 16  | 借阅信息     | pages/core/jy/jy           |         |        | ✔       |          |
-| 17  | 学费信息     | pages/core/xf/xf           | ✔       |        | ✔       |          |
+| 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       |          |
 | 18  | 水电费查询   | pages/core/sdf/sdf         |         |        | ✔       |          |
 | 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |          |
 | 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |          |
@@ -139,7 +139,7 @@ $ git remote add origin git@github.com:lanshan-studio/wecqupt.git
 
 #### 1、pull代码并更新master至你自己的分支
 ```
-[你的分支]:$ git add .
+[你的分支]:$ git add 你修改的文件
 ```
 ```
 [你的分支]:$ git commit -m "提交信息"
