@@ -29,7 +29,7 @@
   },
   "tabBar": {
     "color": "#7f848a",
-    "selectedColor": "#09ba07",
+    "selectedColor": "#9edeca",
     "backgroundColor": "#f7f6fb",
     "list": [{
       "pagePath": "pages/index/index",
@@ -44,8 +44,8 @@
     }, {
       "pagePath": "pages/more/more",
       "text": "更多",
-      "iconPath": "/images/index/more2.png",
-      "selectedIconPath": "/images/index/more2@active.png"
+      "iconPath": "/images/index/more.png",
+      "selectedIconPath": "/images/index/more@active.png"
     }]
   }
 }
