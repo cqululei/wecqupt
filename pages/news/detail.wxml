@@ -1,4 +1,4 @@
 <!--detail.wxml-->
 <view class="container">
-  
+  <text>你猜</text>
 </view>
