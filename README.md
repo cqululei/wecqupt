@@ -66,7 +66,7 @@ wecqupt
 | 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       |        | ✔       |          |
 | 14  | 学生查询     | pages/core/xs/xs           | ✔       |        | ✔       |          |
 | 15  | 一卡通       | pages/core/ykt/ykt         |         |        | ✔       |          |
-| 16  | 借阅信息     | pages/core/jy/jy           |         |        | ✔?      |          |
+| 16  | 借阅信息     | pages/core/jy/jy           | ✔       |        | ✔?      |          |
 | 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       |          |
 | 18a | 水电费查询   | pages/core/sdf/sdf         |         |        | ✔       |          |
 | 18b | 寝室绑定     | pages/core/sdf/bd          |         |        |         |          |

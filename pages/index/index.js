@@ -92,7 +92,7 @@ Page({
             _this.setData({
               'card.ykt.data.last_time': last_time,
               'card.ykt.data.balance': last.balance,
-              'card.ykt.show': true	  //设为false（一卡通数据有大量延迟，主页卡片暂不予展示）
+              'card.ykt.show': true	  //设为false（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片可不予展示）
             });
           }
         }

@@ -110,7 +110,7 @@
   flex-direction: column;
 }
 .card-info-name{
-  font-size: 38rpx;
+  font-size: 36rpx;
   letter-spacing: 1px;
   color: #acacac;
 }
@@ -129,7 +129,7 @@
 }
 .main-ending-text{
   color: #ccc;
-  font-size: 16rpx;
+  font-size: 18rpx;
   padding: 0 16rpx;
   text-align: center;
   white-space: nowrap;
@@ -171,12 +171,11 @@
   color: #777;
 }
 .kb-item-when{
-  font-size: 16rpx;
   line-height: 125%;
   color: #bbb;
 }
 .kb-item-where{
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #999;
   letter-spacing: 1px;
 }
@@ -222,6 +221,9 @@
   color: #ffbf92;
   padding: 0 10rpx;
 }
+.ykt-title{
+  font-size: 26rpx;
+}
 .ykt-no-cost{
   color: #bbb;
 }
@@ -255,7 +257,7 @@
 }
 .jy-pickup-time{
   text-align: right;
-  font-size: 16rpx;
+  font-size: 18rpx;
   word-wrap: break-word;
   white-space: nowrap;
 }
@@ -295,7 +297,7 @@
 }
 /**水电费**/
 .main-card-item#sdf .card-item-bd{
-  padding-bottom: 100rpx;
+  padding-bottom: 80rpx;
 }
 .sdf-hd{
   color: #acacac;
