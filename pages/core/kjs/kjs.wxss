@@ -1,1 +1,191 @@
 /**kjs.wxss**/
+
+page {
+
+    position: relative;
+    height: 91%; 
+}
+
+.container {
+
+    border-top: 1px solid #F8E2EB;
+    padding: 0 0 0 39rpx;
+    height: 100%;
+    color: #000;
+    background: #FFF;
+}
+
+
+/* ==========================================================================
+   main-roomUl
+ ============================================================================ */
+.main-roomUl {
+
+    display: flex; 
+    flex-flow: column nowrap;
+    padding: 53rpx 0 0 0;
+    height: 41%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+    .roomUl-floor {
+
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: column nowrap;
+        margin-top: 27rpx;
+        padding: 0 30rpx 20rpx 50rpx;
+        background: url('/images/core/kjs/classroom-icon.png') no-repeat scroll 0 0;
+    }
+        .floor {
+
+            display: flex;
+            flex: 0 0 auto;
+            flex-flow: row wrap;
+        }
+            .floor text {
+            
+                flex: 1;
+                padding-bottom: 31rpx;
+                min-width: 25%;
+                letter-spacing: 0.1rem;
+            }
+
+/* ==========================================================================
+   main-condition
+ ============================================================================ */
+.main-condition {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+}
+    .condition {
+
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row nowrap;
+        padding: 0 0 0 39rpx;
+        height: 121rpx;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+        .condition-li {
+
+            flex: 0 0 auto;
+            width: 121rpx;
+            line-height: 121rpx;
+            text-align: center;
+        }
+        .week-active,
+        .day-active,
+        .classTime-active,
+        .building-active {
+            color: #FFF;
+            font-weight: 900;
+        }
+
+
+
+/* main-condition > condition-week
+ ============================================================================ */
+.condition-week {
+
+    background-color: #FBFAF9;
+}
+    .week-active {
+
+        background: url('/images/core/kjs/week-icon.png') no-repeat scroll 15rpx 15rpx;
+    }
+
+
+/* main-condition > condition-day
+ ============================================================================ */
+.condition-day {
+
+    background-color: #F1F1F2;
+}
+    .day-active {
+
+        background: url('/images/core/kjs/day-icon.png') no-repeat scroll 15rpx 15rpx;
+    }
+
+ /* main-condition > condition-classTime
+ ============================================================================ */
+.condition-classTime {
+
+    background-color: #FBFAF9;
+    overflow: hidden;
+}
+    .classTime-active {
+
+        background: url('/images/core/kjs/classTime-icon.png') no-repeat scroll 15rpx 15rpx;
+    }
+
+ /* main-condition > condition-building
+ ============================================================================ */
+.condition-building {
+
+    background-color: #F1F1F2;
+    overflow: hidden;
+}
+    .building-active {
+
+        background: url('/images/core/kjs/building-icon.png') no-repeat scroll 15rpx 15rpx;
+    }
+
+
+ /* main-condition > query-button
+ ============================================================================ */
+.query{
+
+    
+}
+    .query-button {
+
+        display: block;
+        padding: 0;
+        color: #FFF;
+        background-color: #5ec8f7;
+    }
+
+/*4/4s*/
+@media only screen
+and (min-device-height: 320px)
+and (max-device-height: 480px)
+and (orientation: portrait) {
+    
+    page {
+        height: 87%;
+    }
+
+    .week-active,
+    .day-active,
+    .classTime-active,
+    .building-active {
+        background-position: 0 0;
+    }
+
+}
+
+/*5*/
+@media only screen
+and (min-device-height: 500px) 
+and (max-device-height: 568px) 
+and (orientation: portrait) {
+  
+    page {
+        height: 89.3%;
+    }
+
+    .week-active,
+    .day-active,
+    .classTime-active,
+    .building-active {
+        background-position: 0 0;
+    }
+}

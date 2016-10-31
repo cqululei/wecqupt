@@ -1,4 +1,53 @@
 <!--kjs.wxml-->
 <view class="container">
-  
+    <!--显示空教室信息-->
+    <view class="main-roomUl">
+        <!--楼层-->
+        <view class="roomUl-floor" wx:for="{{testData}}">
+            <!--楼层的空教室-->
+            <view class="floor">
+                <text wx:for="{{item}}">{{item.num}}({{item.p}})</text>
+            </view>
+        </view>
+    </view>
+    <!--选择要查询的条件-->
+    <view class="main-condition">
+        <!--选择周-->
+        <view class="condition-week condition">
+            <view class="week-active condition-li">第一周</view>
+            <view class="condition-li" wx:for="{{weekData}}">{{item}}</view>
+        </view>
+        <!--选择天-->
+        <view class="condition-day condition">
+            <view class="day-active condition-li">MON</view>
+            <view class="condition-li">TUE</view>
+            <view class="condition-li">WED</view>
+            <view class="condition-li">THU</view>
+            <view class="condition-li">FRI</view>
+            <view class="condition-li">SAT</view>
+            <view class="condition-li">SUN</view>
+        </view>
+        <!--选择课程时间段-->
+        <view class="condition-classTime condition">
+            <view class="classTime-active condition-li">1-2</view>
+            <view class="condition-li">3-4</view>
+            <view class="condition-li">5-6</view>
+            <view class="condition-li">7-8</view>
+            <view class="condition-li">9-10</view>
+            <view class="condition-li">11-12</view>
+        </view>
+        <!--选择教学楼-->
+        <view class="condition-building condition">
+            <view class="building-active condition-li">二教</view>
+            <view class="condition-li">三教</view>
+            <view class="condition-li">四教</view>
+            <view class="condition-li">五教</view>
+            <view class="condition-li">八教</view>
+            <view class="condition-li">其他</view>
+        </view>
+        <!--查询按钮-->
+        <view class="query">
+            <button class="query-button" hover-class="none">查 询</button>
+        </view>
+    </view>
 </view>
