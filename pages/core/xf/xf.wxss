@@ -3,7 +3,6 @@
     padding-left: 30rpx;
     padding-right: 30rpx;
     background-color: #f7f7f7;
-    font-family: "微软雅黑";
 }
 
 /** 学费title **/
@@ -23,11 +22,12 @@
     flex-direction: column;
 }
 .xf-stu-info text {
+    font-size: 28rpx;
     line-height: 45rpx; 
 }
 .xf-title {
     font-size: 44rpx;
-    font-weight: 500;
+    font-weight: 600;
     color: #000;
 }
 .xf-title-icon {
@@ -49,6 +49,7 @@
     margin-bottom: 14.6rpx;
     background-color: #ffffff;
     border-radius: 4px;
+    transition: height 0.5s ease-in-out;
 }
 .xf-type-item text {    
     font-size: 30rpx;
@@ -65,11 +66,10 @@
     flex-direction: column;   
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.5s ease-in-out;
+    transition: max-height 0.2s ease-in-out;
 }
 .xf-detail-show {
-    height: auto;  
-    max-height: 1800rpx;  
+    max-height: 1000rpx;  
 }
 .xf-detail text {
     line-height: 74rpx;
@@ -80,18 +80,19 @@
 .xf-item-icon{
     width: 35rpx;
     height: 20rpx;  
-    transition: transform .5s;
+    transition: transform .2s;
     transform: rotate(0deg);
-}
-.xf-head-show {
 }
 .xf-head-show .xf-item-icon{
     transform: rotate(180deg);
 }
 
 /**列表展开时标题的颜色变化 **/
+.xf-type-name {
+    transition: color ease-out .2s;
+}
 .xf-head-show .xf-type-name {
-    transition: color ease-in-out .5s;
+    transition: color ease-out .2s;
     color: #c8c8c8;
 }
 
