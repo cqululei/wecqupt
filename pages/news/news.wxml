@@ -7,7 +7,7 @@
   </scroll-view>
   <view class="content">
     <block wx:for="{{data.list}}">
-      <navigator url="/pages/news/detail?id={{item.id}}" wx:if="{{filter.active === 'all' || filter.active == item.type}}">
+      <navigator url="/pages/news/{{item.type}}_detail?id={{item.id}}" wx:if="{{filter.active === 'all' || filter.active == item.type}}">
         <view class="list-item {{item.type}}">
           <view class="list-item-left">
             <text class="list-item-title">{{item.title}}</text>
