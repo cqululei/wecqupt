@@ -99,7 +99,6 @@
 .card-info-hd{
   display: flex;
   justify-content: space-between;
-  color: #acacac;
 }
 .card-info-left{
   display: flex;
@@ -107,16 +106,19 @@
 }
 .card-info-right{
   display: flex;
+  color: #acacac;
   flex-direction: column;
 }
 .card-info-name{
   font-size: 36rpx;
   letter-spacing: 1px;
+  color: #acacac;
 }
 .card-info-number{
   font-size: 24rpx;
   line-height: 225%;
   text-indent: 1px;
+  color: #aaa;
 }
 .main-ending{
   display: flex;
@@ -127,7 +129,7 @@
 }
 .main-ending-text{
   color: #ccc;
-  font-size: 16rpx;
+  font-size: 18rpx;
   padding: 0 16rpx;
   text-align: center;
   white-space: nowrap;
@@ -147,7 +149,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #00c200;
+  color: #7f848a;
   height: 90rpx;
   border-top: 1px solid #ddd;
   margin-top: -1px;
@@ -169,12 +171,11 @@
   color: #777;
 }
 .kb-item-when{
-  font-size: 16rpx;
   line-height: 125%;
   color: #bbb;
 }
 .kb-item-where{
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #999;
   letter-spacing: 1px;
 }
@@ -184,7 +185,7 @@
   align-items: flex-end;
   justify-content: center;
   font-weight: bold;
-  padding: 20rpx 0;
+  padding: 25rpx 0 30rpx;
 }
 .ykt-balance-text{
   font-size: 40rpx;
@@ -195,7 +196,7 @@
   font-size: 120rpx;
   line-height: 1;
   padding: 0 20rpx;
-  color: #ff9b44;
+  color: #ffbf92;
 }
 .ykt-cost{
   display: flex;
@@ -211,13 +212,20 @@
 }
 .ykt-cost-value{
   font-size: 34rpx;
+  font-weight: normal;
   color: #777;
   padding: 0 10rpx;
 }
 .ykt-cost-total{
   font-size: 40rpx;
-  color: #ff9b44;
+  color: #ffbf92;
   padding: 0 10rpx;
+}
+.ykt-title{
+  font-size: 26rpx;
+}
+.ykt-no-cost{
+  color: #bbb;
 }
 /**借阅信息**/
 .main-card-item#jy .card-item-bd{
@@ -249,7 +257,7 @@
 }
 .jy-pickup-time{
   text-align: right;
-  font-size: 16rpx;
+  font-size: 18rpx;
   word-wrap: break-word;
   white-space: nowrap;
 }
@@ -289,7 +297,7 @@
 }
 /**水电费**/
 .main-card-item#sdf .card-item-bd{
-  padding-bottom: 100rpx;
+  padding-bottom: 80rpx;
 }
 .sdf-hd{
   color: #acacac;
@@ -304,7 +312,7 @@
   padding: 0 10rpx;
 }
 .sdf-value{
-  color: #ff9b44;
+  color: #ffbf92;
   font-size: 100rpx;
   font-weight: bold;
   padding: 0 15rpx;

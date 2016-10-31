@@ -56,7 +56,7 @@
   padding-right: 10rpx;
 }
 .list-item-title{
-  font-size: 32rpx;
+  font-size: 28rpx;
   line-height: 200%;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -64,7 +64,7 @@
   overflow: hidden;
 }
 .list-item-time{
-  font-size: 16rpx;
+  font-size: 22rpx;
   line-height: 125%;
   opacity: 0.6;
 }
