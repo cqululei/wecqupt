@@ -140,20 +140,15 @@ $ git remote add origin git@github.com:lanshan-studio/wecqupt.git
 ## 提交
 > 每个人创建自己的分支进行开发，开发完成后再通过pull request至master分支。
 
-#### 1、pull代码并更新master至你自己的分支
+#### 1、将master更新至你自己的分支
+【有重大更新时才执行】
+* 在github上进行create pull request，进行如下选择：
+  * base: 你的分支
+  * compare: master
+* 自己同意 pull request
+* 将远程自己分支pull
 ```
-[你的分支]:$ git add 你修改的文件
-```
-```
-[你的分支]:$ git commit -m "提交信息"
-```
-pull master代码
-```
-[你的分支]:$ git pull origin master:master
-```
-更新master代码到你的分支
-```
-[你的分支]:$ git rebase master
+[你的分支]:$ git pull origin 你的分支名
 ```
 
 #### 2、提交你的代码至github
@@ -162,6 +157,7 @@ pull master代码
 ```
 
 #### 3、开发完成后，提交你的代码至master
+
 * 在github上进行create pull request，进行如下选择：
   * base: master
   * compare: 你的分支
