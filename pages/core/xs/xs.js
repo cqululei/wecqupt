@@ -150,7 +150,7 @@ Page({
           curData.display = false; // 添加控制隐藏列表信息显示的标识
           curData.headImg = curData.headImg || '/images/core/xs/default-head-img.png'; 
           curData.activeName =  curXm.activeName || '';
-          curData.xm =  curXm.xm || curXm;
+          curData.xm =  numberSign ? curXm : curXm.xm;
         }
 
         return data;
