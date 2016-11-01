@@ -94,7 +94,7 @@ Page({
     }
 
     // 对输入类型进行处理 inputValue:String / to Number(10位)
-    if (typeof parseInt(inputValue, 10) === 'number') {
+    if (!isNaN(parseInt(inputValue, 10))) {
 
       if (inputValue.length < 10) {
 
