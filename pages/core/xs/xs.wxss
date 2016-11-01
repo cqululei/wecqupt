@@ -98,7 +98,7 @@
     .error-title {
 
         margin-top: 20rpx;
-         font-size: 2em;
+        font-size: 2em;
     }
 
         .error-input text,

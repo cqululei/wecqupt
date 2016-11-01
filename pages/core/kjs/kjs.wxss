@@ -34,7 +34,7 @@ page {
         flex: 0 0 auto;
         flex-flow: column nowrap;
         margin-top: 27rpx;
-        padding: 0 30rpx 20rpx 50rpx;
+        padding: 0 0 20rpx 80rpx;
         background: url('/images/core/kjs/classroom-icon.png') no-repeat scroll 0 0;
     }
         .floor {
@@ -44,12 +44,34 @@ page {
             flex-flow: row wrap;
         }
             .floor text {
-            
-                flex: 1;
+                
+                flex: 0 0 auto;
                 padding-bottom: 31rpx;
                 min-width: 25%;
+                font-size: 0.7rem;
                 letter-spacing: 0.1rem;
             }
+/* ==========================================================================
+   error-info
+ ============================================================================ */
+.error-info {
+
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 20rpx 0 0 50rpx;
+}
+    .info-status,
+    .info-errorMessage {
+
+        margin-top: 20rpx;
+        font-size: 2em;
+    }
+        .info-status text,
+        .info-errorMessage text {
+            
+            color: red;
+            font-weight: 900;
+        }
 
 /* ==========================================================================
    main-condition
@@ -99,7 +121,7 @@ page {
 }
     .week-active {
 
-        background: url('/images/core/kjs/week-icon.png') no-repeat scroll 15rpx 15rpx;
+        background: url('/images/core/kjs/week-icon.png') no-repeat scroll 15rpx 10rpx;
     }
 
 
@@ -111,7 +133,7 @@ page {
 }
     .day-active {
 
-        background: url('/images/core/kjs/day-icon.png') no-repeat scroll 15rpx 15rpx;
+        background: url('/images/core/kjs/day-icon.png') no-repeat scroll 15rpx 10rpx;
     }
 
  /* main-condition > condition-classTime
@@ -123,7 +145,7 @@ page {
 }
     .classTime-active {
 
-        background: url('/images/core/kjs/classTime-icon.png') no-repeat scroll 15rpx 15rpx;
+        background: url('/images/core/kjs/classTime-icon.png') no-repeat scroll 15rpx 10rpx;
     }
 
  /* main-condition > condition-building
@@ -135,7 +157,7 @@ page {
 }
     .building-active {
 
-        background: url('/images/core/kjs/building-icon.png') no-repeat scroll 15rpx 15rpx;
+        background: url('/images/core/kjs/building-icon.png') no-repeat scroll 15rpx 10rpx;
     }
 
 
