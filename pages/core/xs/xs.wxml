@@ -6,8 +6,8 @@
     <view class="header-search">
       <!--搜索框-->
       <view class="{{header.searchChange ? 'search-input' : 'search-input js-fous-input'}}">
-        <input class="input-text" bindtap="bindSearchTap" bindchange="bindKeyChange" type="text" name="search" 
-          value="{{header.searchChange ? '' : header.inputValue}}"/>
+        <input class="input-text" bindtap="bindSearchTap" bindinput="bindKeyInput" type="text" name="search" 
+          value="{{header.searchChange ? ' ' : header.inputValue}}" maxlength="10"/>
         <text class="input-cancel-button" bindtap="bindCancelSearchTap" hidden="{{header.searchChange}}">取消</text>
       </view>
       <!--搜索框的提示信息-->
@@ -17,6 +17,13 @@
       </view>
     </view>
   </view>
+
+  <!--搜索出错提示消息-->
+  <view class="search-error" hidden="{{errObj.errorDisplay}}">
+    <view class="error-input">您输入的是：<text>{{errObj.errorInputValue}}</text></view>
+    <view class="error-title">提示：<text>{{errObj.errorMessage}}</text></view>
+  </view>
+
   <!--页面主体部分-->
   <view class="main" hidden="{{main.mainDisplay}}">
     <!--主体部分标题-->
@@ -24,7 +31,7 @@
       <text class="title-text">学生名单</text>
     </view>
     <!--主体部分内容列表-->
-    <view class="main-list" wx:for="{{testData}}">
+    <view class="main-list" wx:for="{{testData}}" wx:key="xh">
       <!--列表的一个元素的模板结构-->
       <view class="list-item" bindtap="bindOpenList" data-index="{{index}}">
         <!--信息直接显示部分-->
@@ -33,9 +40,9 @@
             <image class="item-content-image" src="{{item.headImg}}"/>
             <view class="item-content-state">
               <view class="content-state-name">
-                <text class="state-name-active">{{item.activeName}}</text>字
+                <text class="state-name-active">{{item.activeName}}</text>{{item.xm}}
               </view>
-              <text class="content-state-stuId">学号:{{item.stuId}}</text>
+              <text class="content-state-stuId">学号:{{item.xh}}</text>
             </view>
           </view>
           <!--信息直接显示部分的下拉标识-->
@@ -45,10 +52,11 @@
         </view>
         <!--信息隐藏的下拉列表-->
         <view class="item-ul" hidden="{{!item.display}}">
-          <view class="item-ul-class item-ul-li">班级<text class="ul-li-content">{{item.classId}}</text></view>
-          <view class="item-ul-gendor item-ul-li">性别<text class="ul-li-content">{{item.gendor}}</text></view>
-          <view class="item-ul-major item-ul-li">专业名<text class="ul-li-content">{{item.major}}</text></view>
-          <view class="item-ul-college item-ul-li">学院名<text class="ul-li-content">{{item.college}}</text></view>
+          <view class="item-ul-class item-ul-li">班级<text class="ul-li-content">{{item.bj}}</text></view>
+           <view class="item-ul-grade item-ul-li">年级<text class="ul-li-content">{{item.nj}}</text></view>
+          <view class="item-ul-gendor item-ul-li">性别<text class="ul-li-content">{{item.xb}}</text></view>
+          <view class="item-ul-major item-ul-li">专业名<text class="ul-li-content">{{item.zym}}</text></view>
+          <view class="item-ul-college item-ul-li">学院名<text class="ul-li-content">{{item.yxm}}</text></view>
         </view>
       </view>
     </view>
