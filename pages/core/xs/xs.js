@@ -182,7 +182,16 @@ Page({
       });
     }
 
-    setTimeout(function () {
+    // 函数节流实现函数
+    function trottle(method, context) {
+      
+      clearTimeout(method.timer);
+      method.timer = setTimeout(function () {
+        method.apply(context);
+      },1000);
+    } 
+
+    trottle(function () {
 
       wx.request({
         url: 'http://we.cqupt.edu.cn/api/get_student_info.php', 
@@ -202,7 +211,7 @@ Page({
         }
       });
 
-    }, 1000);
+    }, this);
 
   },
 
