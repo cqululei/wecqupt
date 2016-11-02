@@ -29,7 +29,7 @@ Page({
     data.show[id] = !this.data.show[id];
     this.setData(data);
   },
-  onReady: function(){
+  onLoad: function(){
 
   }
 });
