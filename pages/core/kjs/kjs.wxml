@@ -41,9 +41,15 @@
         </view>
         <!--选择课程时间段-->
         <view class="condition-classTime condition" catchtap="chooseClaasTime">
-            <block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="">
-                <view class="{{item.index === conditionSigns.classTimeSign ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="{{item.index}}" bindtap="classTimeTap">{{item.time}}</view>
-            </block>
+            <!--<block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="">
+                <view class="{{item.index === conditionSigns.classTimeSign.a ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="{{item.index}}" bindtap="classTimeTap">{{item.time}}</view>
+            </block>-->
+            <view class="{{conditionSigns.classTimeSign.time0 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="1@2" bindtap="classTimeTap">1-2</view>
+            <view class="{{conditionSigns.classTimeSign.time1 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="3@4" bindtap="classTimeTap">3-4</view>
+            <view class="{{conditionSigns.classTimeSign.time2 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="5@6" bindtap="classTimeTap">5-6</view>
+            <view class="{{conditionSigns.classTimeSign.time3 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="7@8" bindtap="classTimeTap">7-8</view>
+            <view class="{{conditionSigns.classTimeSign.time4 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="9@10" bindtap="classTimeTap">9-10</view>
+            <view class="{{conditionSigns.classTimeSign.time5 ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="11@12" bindtap="classTimeTap">11-12</view>
         </view>
         <!--选择教学楼-->
         <view class="condition-building condition" catchtap="chooseBuilding">
