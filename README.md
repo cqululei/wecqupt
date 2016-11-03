@@ -42,10 +42,12 @@ wecqupt
 
 ### 参考资料
 
-* （重要）官方开发文档：https://mp.weixin.qq.com/debug/wxadoc/dev/
+* 官方文档：https://mp.weixin.qq.com/debug/wxadoc/introduction/
+  * （重要）开发：https://mp.weixin.qq.com/debug/wxadoc/dev/
+  * 设计：https://mp.weixin.qq.com/debug/wxadoc/design/
+  * 运营：https://mp.weixin.qq.com/debug/wxadoc/product/
 * 开发工具：https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html
 * 更多资料：https://github.com/Aufree/awesome-wechat-weapp
-* 设计指南：https://mp.weixin.qq.com/debug/wxadoc/design/
 * flex布局
   * 语法篇：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
   * 实例篇：http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
@@ -73,13 +75,13 @@ wecqupt
 | 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |          |
 | 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |          |
 | 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       |        | ✔       |          |
-| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔       |          |
+| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔?      |          |
 |     | 教务公告     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | OA公告      | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 会议通知     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 学术讲座     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 综合新闻     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-| 20  | 资讯详情     | pages/news/detail          | ✔       |        | ✔       |          |
+| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔?      |          |
 | 3a  | **【更多】** | pages/more/more            | ✔       |        | ✘       |          |
 | 3b  | 绑定用户     | (同上)                      | (修改中) |        |         |          |
 |     | 用户信息     | (同上)                      | ✘       | ✘      |         |          |
