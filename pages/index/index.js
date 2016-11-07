@@ -63,7 +63,7 @@ Page({
     var _this = this;
     //获取一卡通数据
     wx.request({
-      url: 'http://we.cqupt.edu.cn.cqupt.congm.in/api/get_yktcost.php',
+      url: app._server + '/api/get_yktcost.php',
       data: {
         yktID: _this.data.user.ykt_id
       },
@@ -91,7 +91,7 @@ Page({
             }
             _this.setData({
               'card.ykt.data.last_time': last_time,
-              'card.ykt.data.balance': last.balance,
+              'card.ykt.data.balance': parseFloat(last.balance),
               'card.ykt.show': true	  //设为false（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片可不予展示）
             });
           }
@@ -100,7 +100,7 @@ Page({
     });
     //获取水电费数据
     wx.request({
-      url: 'http://we.cqupt.edu.cn.cqupt.congm.in/api/get_elec.php',
+      url: app._server + '/api/get_elec.php',
       data: {
         buildingNo: 15,
         floor: 4,
