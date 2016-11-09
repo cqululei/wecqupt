@@ -1,4 +1,19 @@
 <!--ykt.wxml-->
 <view class="container">
-  
+    <view class="ykt-ye">
+        <text class="ykt-ye-name">余额</text>
+        <text class="ykt-ye-money">
+            <text>11.11</text>元
+        </text>
+    </view>
+    <canvas style="width: 1000rpx; height: 300rpx;" canvas-id="firstCanvas"></canvas> 
+    <view class="ykt-detail-wraper">
+        <view class="ykt-head {{showDetail ? 'ykt-head-show' : ''}}" bindtap="slideDetail">
+            <text class="ykt-type-name">消费详情</text>
+            <image class="ykt-icon" src="/images/core/icon_ykt.png" />
+        </view>                
+        <view class="ykt-detail {{showDetail ? 'ykt-detail-show' : ''}}">
+            <text>详情详情</text>
+        </view>
+    </view>
 </view>

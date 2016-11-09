@@ -16,9 +16,7 @@ Page({
         console.log(res);
         _this.setData({
           jyData: res.data.data
-        });
-      console.log(res.data.data);
-        
+        });        
       }
     });
   }
