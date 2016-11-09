@@ -34,18 +34,18 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",
-      "iconPath": "/images/index/index.png",
-      "selectedIconPath": "/images/index/index@active.png"
+      "iconPath": "images/index/index.png",
+      "selectedIconPath": "images/index/index@active.png"
     }, {
       "pagePath": "pages/news/news",
       "text": "资讯",
-      "iconPath": "/images/index/news.png",
-      "selectedIconPath": "/images/index/news@active.png"
+      "iconPath": "images/index/news.png",
+      "selectedIconPath": "images/index/news@active.png"
     }, {
       "pagePath": "pages/more/more",
       "text": "更多",
-      "iconPath": "/images/index/more.png",
-      "selectedIconPath": "/images/index/more@active.png"
+      "iconPath": "images/index/more.png",
+      "selectedIconPath": "images/index/more@active.png"
     }]
   }
 }
