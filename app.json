@@ -20,16 +20,16 @@
   ],
   "window":{
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#9edeca",
+    "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "We重邮",
-    "backgroundColor": "#9edeca", 
+    "backgroundColor": "#7acfa6", 
     "backgroundTextStyle": "light",
     "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#7f848a",
-    "selectedColor": "#9edeca",
+    "selectedColor": "#7acfa6",
     "backgroundColor": "#f7f6fb",
     "list": [{
       "pagePath": "pages/index/index",

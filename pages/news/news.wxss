@@ -22,13 +22,18 @@
   flex-direction: column;
   padding: 5rpx 20rpx 0;
 }
+.content-ending{
+  color: #bbb;
+  text-align: center;
+  margin: 30rpx auto;
+}
 .list-item{
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 120rpx;
   margin-bottom: 20rpx;
-  border-radius: 4rpx;
+  border-radius: 3px;
   box-shadow: 1px 2px 3px #ddd;
   padding: 0 30rpx;
   color: #fff;
@@ -56,15 +61,15 @@
   padding-right: 10rpx;
 }
 .list-item-title{
-  font-size: 28rpx;
-  line-height: 200%;
+  font-size: 13pt;
+  line-height: 175%;
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
   overflow: hidden;
 }
 .list-item-time{
-  font-size: 22rpx;
+  font-size: 10pt;
   line-height: 125%;
   opacity: 0.6;
 }
