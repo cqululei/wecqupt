@@ -42,10 +42,12 @@ wecqupt
 
 ### 参考资料
 
-* （重要）官方开发文档：https://mp.weixin.qq.com/debug/wxadoc/dev/
+* 官方文档：https://mp.weixin.qq.com/debug/wxadoc/introduction/
+  * （重要）开发：https://mp.weixin.qq.com/debug/wxadoc/dev/
+  * 设计：https://mp.weixin.qq.com/debug/wxadoc/design/
+  * 运营：https://mp.weixin.qq.com/debug/wxadoc/product/
 * 开发工具：https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html
 * 更多资料：https://github.com/Aufree/awesome-wechat-weapp
-* 设计指南：https://mp.weixin.qq.com/debug/wxadoc/design/
 * flex布局
   * 语法篇：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
   * 实例篇：http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
@@ -55,33 +57,33 @@ wecqupt
 ### 功能及页面
 > 共17个页面，3个主tabnav页面
 >
-> `✘`表示无该任务、`✔`表示已完成、`?`表示待确定/待修改
+> `✘`表示无该任务、`✔`表示已完成、`?`表示不够完善
 
 | 编号 | 功能        | 路径                        | 视觉设计 | 页面重构 | 后端接口 | 数据交互  |
 |:---:| ----------- | -------------------------- |:-------:|:------:|:-------:|:--------:|
 | 1   | **【主页】** | pages/index/index(.wxml)   | ✔       | ✔      | ✘       |          |
-| 10  | 课表查询     | pages/core/kb/kb           |         |        | ✔?      |          |
-| 11  | 成绩查询     | pages/core/cj/cj           |         |        | ✔       |          |
-| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      |         |          |
-| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       |        | ✔       |          |
-| 14  | 学生查询     | pages/core/xs/xs           | ✔       |        | ✔       |          |
-| 15  | 一卡通       | pages/core/ykt/ykt         |         |        | ✔       |          |
+| 10  | 课表查询     | pages/core/kb/kb           | ✔       |        | ✔       |          |
+| 11  | 成绩查询     | pages/core/cj/cj           | ✔       | ✔      | ✔       |          |
+| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔       |          |
+| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔       |          |
+| 14  | 学生查询     | pages/core/xs/xs           | ✔       | ✔      | ✔       |          |
+| 15  | 一卡通       | pages/core/ykt/ykt         | ✔       |        | ✔?      |          |
 | 16  | 借阅信息     | pages/core/jy/jy           | ✔       |        | ✔?      |          |
 | 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       |          |
-| 18a | 水电费查询   | pages/core/sdf/sdf         |         |        | ✔       |          |
-| 18b | 寝室绑定     | pages/core/sdf/bd          |         |        |         |          |
+| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       |        | ✔       |          |
+|     | 寝室绑定     | (同上)                      | ✔       |        |         |          |
 | 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |          |
 | 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |          |
 | 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       |        | ✔       |          |
-| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      |         |          |
+| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔       |          |
 |     | 教务公告     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | OA公告      | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 会议通知     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 学术讲座     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 综合新闻     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-| 20  | 资讯详情     | pages/news/detail          | ✔       |        |         |          |
+| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |          |
 | 3a  | **【更多】** | pages/more/more            | ✔       |        | ✘       |          |
-| 3b  | 绑定用户     | (同上)                      |         |        |         |          |
+| 3b  | 绑定用户     | (同上)                      | ✔       |        |         |          |
 |     | 用户信息     | (同上)                      | ✘       | ✘      |         |          |
 | 30  | 关于        | pages/more/about           | ✔       |        | ✘       | ✘         |
 |     | 反馈        | (可提交至github-new issue)  | ✔       |        |         |           |
@@ -97,7 +99,7 @@ wecqupt
 | 杨奇奇   | 视觉设计交互（分页面）    |
 | 刘浩     | 后台接口完善（基于i重邮） |
 | 宋思辰   | 页面10、11、12          |
-| 吴鹏举   | 页面13、14、18a、18b    |
+| 吴鹏举   | 页面13、14、18          |
 | 苏丹     | 页面15、16、17         |
 | 王晓宇   | 页面19a、19b、19c      |
 | 莫小君   | 页面20、30             |
@@ -140,20 +142,15 @@ $ git remote add origin git@github.com:lanshan-studio/wecqupt.git
 ## 提交
 > 每个人创建自己的分支进行开发，开发完成后再通过pull request至master分支。
 
-#### 1、pull代码并更新master至你自己的分支
+#### 1、将master更新至你自己的分支
+【有重大更新时才执行】
+* 在github上进行create pull request，进行如下选择：
+  * base: 你的分支
+  * compare: master
+* 自己同意 pull request
+* 将远程自己分支pull
 ```
-[你的分支]:$ git add 你修改的文件
-```
-```
-[你的分支]:$ git commit -m "提交信息"
-```
-pull master代码
-```
-[你的分支]:$ git pull origin master:master
-```
-更新master代码到你的分支
-```
-[你的分支]:$ git rebase master
+[你的分支]:$ git pull origin 你的分支名
 ```
 
 #### 2、提交你的代码至github
@@ -162,6 +159,7 @@ pull master代码
 ```
 
 #### 3、开发完成后，提交你的代码至master
+
 * 在github上进行create pull request，进行如下选择：
   * base: master
   * compare: 你的分支
