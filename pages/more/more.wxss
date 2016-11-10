@@ -33,7 +33,7 @@
 }
 .user-name {
   font-size: 16pt;
-  line-height: 150%;
+  line-height: 160%;
   letter-spacing: 1px;
 }
 .user-id {

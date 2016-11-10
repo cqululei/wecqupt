@@ -18,6 +18,7 @@
         </view>
       </navigator>
     </block>
-    <text class="content-ending" bindtap="getNewsList">点击加载更多</text>
   </view>
+  
+  <text class="content-ending">{{active.remind}}</text>
 </view>
