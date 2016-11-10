@@ -3,35 +3,50 @@
 var app = getApp();
 Page({
   data: {
-    filter: {
-      list: [
-        { 'type': 'all', name: '全部' },
-        { 'type': 'jw', name: '教务公告' },
-        { 'type': 'oa', name: 'OA公告' },
-        { 'type': 'hy', name: '会议通知' },
-        { 'type': 'jz', name: '学术讲座' },
-        { 'type': 'new', name: '综合新闻' }
-      ],
-      'active': 'all'
-    },
-    data: {
-      list: [
-        { 'type': 'jw', 'id': 1, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'oa', 'id': 2, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'oa', 'id': 3, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'jw', 'id': 4, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'hy', 'id': 5, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'new', 'id': 6, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' },
-        { 'type': 'jz', 'id': 7, 'title': '2016-2017学年第一学期特殊选课审核结果公示', 'time': '2016年09月29日' }
-      ]
+    page: 0,
+    list: [
+      { id: 0, 'type': 'all', name: '头条', url: 'get_newslist.php' },
+      { id: 1, 'type': 'jw', name: '教务公告', url: 'news/jwgg_list.php' },
+      { id: 2, 'type': 'oa', name: 'OA公告', url: 'news/oa_list.php' },
+      { id: 3, 'type': 'hy', name: '会议通知', url: 'news/hytz_list.php' },
+      { id: 4, 'type': 'jz', name: '学术讲座', url: 'news/xsjz_list.php' },
+      { id: 5, 'type': 'new', name: '综合新闻', url: 'news/zhxw_list.php' },
+    ],
+    'active': {
+      'type': 'all',
+      data: []
     }
   },
-  onReady: function(){
-
+  onLoad: function(){
+    app.showLoadToast();
+    this.getNewsList(0);
+  },
+  getNewsList: function(newsTpyeId){
+    var _this = this;
+    _this.setData({
+      'page': _this.data.page + 1
+    });
+    //获取资讯列表
+    wx.request({
+      url: app._server + '/api/' + _this.data.list[newsTpyeId].url,
+      data: {
+        page: _this.data.page
+      },
+      success: function(res) {
+        _this.setData({
+          'active.data': _this.data.active.data.concat(res.data.data)
+        });
+        wx.hideToast();
+      }
+    });
   },
   changeFilter: function(e){
     this.setData({
-      'filter.active': e.target.id
+      'active.type': e.target.id,
+      'active.data': [],
+      'page': 0
     });
+    app.showLoadToast();
+    this.getNewsList(e.target.dataset.id);
   }
 });

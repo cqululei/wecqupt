@@ -70,8 +70,8 @@ wecqupt
 | 15  | 一卡通       | pages/core/ykt/ykt         | ✔       |        | ✔?      |          |
 | 16  | 借阅信息     | pages/core/jy/jy           | ✔       |        | ✔?      |          |
 | 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       |          |
-| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       |        | ✔       |          |
-|     | 寝室绑定     | (同上)                      | ✔       |        |         |          |
+| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       | ✔      | ✔       |          |
+|     | 寝室绑定     | (同上)                      | ✔       | ✔      |         |          |
 | 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |          |
 | 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |          |
 | 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       |        | ✔       |          |
@@ -82,12 +82,24 @@ wecqupt
 |     | 学术讲座     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 |     | 综合新闻     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
 | 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |          |
-| 3a  | **【更多】** | pages/more/more            | ✔       |        | ✘       |          |
+| 3a  | **【更多】** | pages/more/more            | ✔       | ✔      | ✘       |          |
 | 3b  | 绑定用户     | (同上)                      | ✔       |        |         |          |
 |     | 用户信息     | (同上)                      | ✘       | ✘      |         |          |
 | 30  | 关于        | pages/more/about           | ✔       |        | ✘       | ✘         |
 |     | 反馈        | (可提交至github-new issue)  | ✔       |        |         |           |
 |     | Logo       |  -                         | ✔       | ✘      | ✘       | ✘         |
+
+> 页面主色调
+>
+> * 绿：`#7acfa6`
+>
+> * 蓝：`#73b4ef`
+>
+> * 紫：`#9f8bea`
+>
+> * 红：`#e286ab`
+>
+> * 黄：`#ffcb63`
 
 ### 分工
 > 项目期限：10月底前 / 微信小程序上线前
@@ -127,8 +139,8 @@ $ git remote add origin git@github.com:lanshan-studio/wecqupt.git
 ```
 
 #### 3、打开微信web开发者工具，并添加项目
-* **AppID** 选择 无AppID
-* **项目名称** 填写为 wecqupt
+* **AppID**
+* **项目名称** 填写为 We重邮
 * **项目目录** 选择clone出的git仓库
 
 #### 开发注意：

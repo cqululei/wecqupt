@@ -16,7 +16,6 @@ Page({
       { id: 'sdf', name: '电费查询' },
       { id: 'bx', name: '物业报修' }
     ],
-    user: { xh: 2013211664, sfz_h6: 176053, ykt_id: 1634355 },
     card: {
       'kb': {
         show: true,
@@ -61,11 +60,21 @@ Page({
   },
   onLoad: function(){
     var _this = this;
+    //获取课表数据
+    wx.request({
+      url: app._server + '/api/get_kebiao.php',
+      data: {
+        xh: app._user.xs.xh
+      },
+      success: function(res) {
+        
+      }
+    });
     //获取一卡通数据
     wx.request({
       url: app._server + '/api/get_yktcost.php',
       data: {
-        yktID: _this.data.user.ykt_id
+        yktID: app._user.xs.ykt_id
       },
       success: function(res) {
         if(res.data.status === 200){
@@ -101,11 +110,7 @@ Page({
     //获取水电费数据
     wx.request({
       url: app._server + '/api/get_elec.php',
-      data: {
-        buildingNo: 15,
-        floor: 4,
-        room: 15
-      },
+      data: app._user.room,
       success: function(res) {
         if(res.data.status === 200){
           var info = res.data.data;
