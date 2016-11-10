@@ -250,7 +250,7 @@ Page({
     }
   },
 
-  onReady: function () {
+  onLoad: function () {
 
   }
 });

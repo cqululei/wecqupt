@@ -256,7 +256,7 @@ Page({
   },
 
 
-  onReady: function(){
+  onLoad: function(){
 
     // 初始默认显示
     sendRequest.apply(this, [ this.data.requestData ]);

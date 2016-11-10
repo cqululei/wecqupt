@@ -5,6 +5,12 @@ var app = getApp();
 // 处理成功请求
 function doSuccess(data) {
 
+  if (data === null) {
+
+    doFail.apply(this, [ {message: '未查找到相关信息!'} ]);
+    return false;
+  }
+
   // 将数值转化为字符串
   function toStr(num) {
 
@@ -38,6 +44,7 @@ function doSuccess(data) {
 function doFail(err) {
 
   this.setData({
+    'error.display': false,
     'error.message': err.message
   });
 }
@@ -137,6 +144,9 @@ function filtration(value) {
 
 Page({
   data: {
+    userInfo: {
+      userName: ''
+    },
     buildingNo: ['1', '2', '3', '5', '6', '7'], // 下拉列表实现
     dormitoryNo: ['102', '205', '309', '507', '616', '717'], // 下拉列表实现
     curBuilding: '',
@@ -254,8 +264,26 @@ Page({
     });
   },
 
+  onLoad: function(){
 
-  onReady: function(){
-
+    var that = this
+    wx.checkSession({
+      success: function(){
+       
+        //登录态未过期
+      },
+      fail: function(){
+        //登录态过期
+        wx.login();
+        //调用应用实例的方法获取全局数据
+        app.getUserInfo(function(userInfo){
+        
+          //更新数据
+          that.setData({
+            'userInfo.userName': userInfo.nickName
+          })
+        })
+      }
+    });
   }
 });

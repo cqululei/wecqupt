@@ -36,7 +36,7 @@
         <!--result-userInfo-->
         <view class="result-userInfo result-model">
             <view class="userInfo-basic">
-                <text class="basic-name">唐不苦</text>
+                <text class="basic-name">{{userInfo.userName}}</text>
                 <text class="basic-time">{{renderData.nowTime}}</text>
             </view>
             <view class="userInfo-dormitory">
