@@ -2,7 +2,9 @@
 
 .container {
 
-    background: #F7F7F7 url('/images/core/xs/bg.png') no-repeat;
+    /*background: #F7F7F7 url('/images/core/xs/bg.png') no-repeat;*/
+    /*微信暂不支持静态bgimg文件，改用服务器url*/
+    background: #F7F7F7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
     background-size: 250rpx 250rpx;
     background-position: 50% 50%;
     padding: 0;
@@ -40,7 +42,9 @@
     width: 100%;
 }
     .js-fous-input {
-        background: url('/images/core/xs/search-sign.png') no-repeat;
+        /*background: url('/images/core/xs/search-sign.png') no-repeat;*/
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/xs/search-sign.png') no-repeat;
         background-size: 30rpx 30rpx;
         background-position: 25rpx 50%;
 
@@ -136,6 +140,7 @@
         flex-flow: column nowrap;
         align-items: stretch;
         background-color: #fff;
+        font-size: 11pt;
     }
   /* main-list > item
  ============================================================================ */
@@ -223,11 +228,13 @@
 
         .ul-li-kb {
 
-            background: url('/images/core/kb.png') no-repeat;
+            /*background: url('/images/core/kb.png') no-repeat;*/
+            /*微信暂不支持静态bgimg文件，改用服务器url*/
+            background: url('https://we.cqu.pt/app/images/core/kb.png') no-repeat;
             background-size: 30rpx 30rpx;
             background-position: 0 50%;
             color: #888;
-            font-size: 9pt;
+            font-size: 10pt;
             padding-left: 40rpx;
         }
             

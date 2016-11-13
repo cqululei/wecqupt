@@ -267,7 +267,7 @@ Page({
         }
       },
       fail: function(res) {
-        console.log(res);
+        
         doFail(res.errMsg);
       },
       complete: function() {
