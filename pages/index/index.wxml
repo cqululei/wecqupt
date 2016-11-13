@@ -75,7 +75,6 @@
             <text class="ykt-cost-text">元</text>
           </view>
         </block>
-        <text class="ykt-no-cost" wx:else>一卡通数据有一定延迟，无法成功获取到今日数据。</text>
       </view>
     </view>
     
@@ -161,7 +160,7 @@
 
   <view class="main-ending">
     <view class="main-ending-line"></view>
-    <text class="main-ending-text">我是一个乖巧的结尾</text>
+    <view class="main-ending-text">我是一个乖巧的结尾</view>
     <view class="main-ending-line"></view>
   </view>
 

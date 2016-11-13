@@ -1,8 +1,9 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/news/news",
     "pages/news/detail",
+    "pages/more/login",
     "pages/more/more",
     "pages/more/about",
     "pages/core/kb/kb",
@@ -18,18 +19,17 @@
     "pages/core/bx/bx_apply",
     "pages/core/bx/bx_detail"
   ],
-  "window":{
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#9edeca",
+  "window": {
+    "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "We重邮",
-    "backgroundColor": "#9edeca", 
+    "backgroundColor": "#7acfa6", 
     "backgroundTextStyle": "light",
     "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#7f848a",
-    "selectedColor": "#9edeca",
+    "selectedColor": "#7acfa6",
     "backgroundColor": "#f7f6fb",
     "list": [{
       "pagePath": "pages/index/index",
@@ -47,5 +47,8 @@
       "iconPath": "images/index/more.png",
       "selectedIconPath": "images/index/more@active.png"
     }]
+  },
+  "networkTimeout": {
+    "request": 10000
   }
 }
