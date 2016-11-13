@@ -21,9 +21,6 @@
     line-height: 110rpx;
     padding-right: 26rpx;
 }
-canvas {
-    margin-left: 20rpx;
-}
 
 .ykt-detail-wraper {
     display: flex;
@@ -55,9 +52,18 @@ canvas {
 .ykt-detail-show {
     max-height: 1000rpx;  
 }
-.ykt-detail text {
+.detail-list {
+    display: flex;
+    justify-content: space-between;
     line-height: 74rpx;
     border-bottom: 1px solid #d4d4d4;
+}
+.detail-type {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 74rpx;
+    border-bottom: 1px solid #d4d4d4;
+
 }
 
 .ykt-icon{
@@ -68,4 +74,10 @@ canvas {
 }
 .ykt-head-show .ykt-icon{
     transform: rotate(180deg);
+}
+
+.canvas-wraper {
+    width: 100%;
+    height: 700rpx;
+    overflow: hidden;
 }
