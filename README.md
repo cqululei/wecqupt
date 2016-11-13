@@ -1,7 +1,7 @@
 We重邮
 ===
 
-官网：http://we.cqu.pt \ http://we.cqupt.edu.cn
+官网：https://we.cqu.pt \ http://we.cqupt.edu.cn
 
 ### 目录结构
 ```
@@ -42,10 +42,12 @@ wecqupt
 
 ### 参考资料
 
-* （重要）官方开发文档：https://mp.weixin.qq.com/debug/wxadoc/dev/
+* 官方文档：https://mp.weixin.qq.com/debug/wxadoc/introduction/
+  * （重要）开发：https://mp.weixin.qq.com/debug/wxadoc/dev/
+  * 设计：https://mp.weixin.qq.com/debug/wxadoc/design/
+  * 运营：https://mp.weixin.qq.com/debug/wxadoc/product/
 * 开发工具：https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html
 * 更多资料：https://github.com/Aufree/awesome-wechat-weapp
-* 设计指南：https://mp.weixin.qq.com/debug/wxadoc/design/
 * flex布局
   * 语法篇：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
   * 实例篇：http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
@@ -55,37 +57,49 @@ wecqupt
 ### 功能及页面
 > 共17个页面，3个主tabnav页面
 >
-> `✘`表示无该任务、`✔`表示已完成、`?`表示待确定/待修改
+> `✘`表示无该任务、`✔`表示已完成、`?`表示需要修改、`~`表示数据待完善
 
 | 编号 | 功能        | 路径                        | 视觉设计 | 页面重构 | 后端接口 | 数据交互  |
 |:---:| ----------- | -------------------------- |:-------:|:------:|:-------:|:--------:|
 | 1   | **【主页】** | pages/index/index(.wxml)   | ✔       | ✔      | ✘       |          |
-| 10  | 课表查询     | pages/core/kb/kb           | (设计中) |        | ✔?      |          |
-| 11  | 成绩查询     | pages/core/cj/cj           | (修改中) |        | ✔       |          |
-| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      |         |          |
-| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔       |          |
-| 14  | 学生查询     | pages/core/xs/xs           | ✔       | ✔      | ✔       |          |
-| 15  | 一卡通       | pages/core/ykt/ykt         | (完善中) |        | ✔       |          |
-| 16  | 借阅信息     | pages/core/jy/jy           | ✔       |        | ✔?      |          |
-| 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       |          |
-| 18  | 水电费查询   | pages/core/sdf/sdf         | (修改中) |        | ✔       |          |
-|     | 寝室绑定     | (同上)                      | (修改中) |        |         |          |
+| 10  | 课表查询     | pages/core/kb/kb           | ✔?      |        | ✔       |          |
+| 11  | 成绩查询     | pages/core/cj/cj           | ✔       | ✔      | ✔       |          |
+| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔       |          |
+| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔       | ✔        |
+| 14  | 学生查询     | pages/core/xs/xs           | ✔       | ✔      | ✔       | ✔        |
+| 15  | 一卡通       | pages/core/ykt/ykt         | ✔       |        | ✔~      |          |
+| 16  | 借阅信息     | pages/core/jy/jy           | ✔       | ✔      | ✔~      | ✔        |
+| 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       | ✔        |
+| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       | ✔      | ✔       |          |
+|     | 寝室绑定     | (同上)                      | ✔       | ✔      |         |          |
 | 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |          |
 | 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |          |
 | 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       |        | ✔       |          |
-| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔       |          |
-|     | 教务公告     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-|     | OA公告      | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-|     | 会议通知     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-|     | 学术讲座     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-|     | 综合新闻     | (同上)                      | ✘       | ✘      | ✔       | ✘        |
-| 20  | 资讯详情     | pages/news/detail          | ✔       |        | ✔       |          |
-| 3a  | **【更多】** | pages/more/more            | ✔       |        | ✘       |          |
-| 3b  | 绑定用户     | (同上)                      | (修改中) |        |         |          |
+| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔       | ✔        |
+|     | 教务公告     | (同上)                      | ✘       | ✘      | ✔       | ✔        |
+|     | OA公告      | (同上)                      | ✘       | ✘      | ✔       | ✔        |
+|     | 会议通知     | (同上)                      | ✘       | ✘      | ✔       | ✔        |
+|     | 学术讲座     | (同上)                      | ✘       | ✘      | ✔       | ✔        |
+|     | 综合新闻     | (同上)                      | ✘       | ✘      | ✔       | ✔        |
+| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |          |
+| 3a  | **【更多】** | pages/more/more            | ✔       | ✔      | ✘       |          |
+| 3b  | 绑定用户     | (同上)                      | ✔       | ✔?     |         |          |
 |     | 用户信息     | (同上)                      | ✘       | ✘      |         |          |
 | 30  | 关于        | pages/more/about           | ✔       |        | ✘       | ✘         |
 |     | 反馈        | (可提交至github-new issue)  | ✔       |        |         |           |
 |     | Logo       |  -                         | ✔       | ✘      | ✘       | ✘         |
+
+> 页面主色调
+>
+> * 绿：`#7acfa6`
+>
+> * 蓝：`#73b4ef`
+>
+> * 紫：`#9f8bea`
+>
+> * 红：`#e286ab`
+>
+> * 黄：`#ffcb63`
 
 ### 分工
 > 项目期限：10月底前 / 微信小程序上线前
@@ -125,8 +139,8 @@ $ git remote add origin git@github.com:lanshan-studio/wecqupt.git
 ```
 
 #### 3、打开微信web开发者工具，并添加项目
-* **AppID** 选择 无AppID
-* **项目名称** 填写为 wecqupt
+* **AppID**
+* **项目名称** 填写为 We重邮
 * **项目目录** 选择clone出的git仓库
 
 #### 开发注意：
