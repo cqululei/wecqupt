@@ -40,7 +40,7 @@
     </view>
 
     <!--一卡通-->
-    <view class="main-card-item" id="ykt" wx:if="{{card.ykt.show}}">
+    <view class="main-card-item" id="ykt" wx-if="{{card.ykt.show}}">
       <navigator url="/pages/core/ykt/ykt">
         <view class="card-item-hd">
           <image class="card-item-icon" src="/images/core/ykt.png" />
@@ -53,7 +53,7 @@
       <view class="card-item-bd">
         <view class="card-info-hd">
           <view class="card-info-left">
-            <text>余额：</text>
+            <text class="ykt-title">余额：</text>
           </view>
           <view class="card-info-right">
             <view>截止时间：{{card.ykt.data.last_time}}</view>
@@ -64,7 +64,7 @@
           <text class="ykt-balance-text">元</text>
         </view>
         <block wx:if="{{card.ykt.data.cost_status}}">
-          <text>今日消费：</text>
+          <text class="ykt-title">今日消费：</text>
           <view class="ykt-cost">
             <block wx:for="{{card.ykt.data.today_cost.value}}">
               <text class="ykt-cost-value">{{item}}</text>
@@ -75,7 +75,6 @@
             <text class="ykt-cost-text">元</text>
           </view>
         </block>
-        <text class="ykt-no-cost" wx:else>一卡通数据有大量延迟，目前数据仅供参考。</text>
       </view>
     </view>
     
@@ -161,7 +160,7 @@
 
   <view class="main-ending">
     <view class="main-ending-line"></view>
-    <text class="main-ending-text">我是一个乖巧的结尾</text>
+    <view class="main-ending-text">我是一个乖巧的结尾</view>
     <view class="main-ending-line"></view>
   </view>
 
