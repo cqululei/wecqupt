@@ -1,9 +1,12 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     //调用函数登录
     this.getUser();
     //调用API从本地缓存中获取数据
+  },
+  onShow: function() {
+    //判断是否绑定
   },
   getUser: function(){
     var _this = this;
@@ -45,7 +48,7 @@ App({
     wx.showToast({
       title: title || '加载中',
       icon: 'loading',
-      duration: duration || 2000
+      duration: duration || 10000
     });
   },
   _server: 'https://we.cqu.pt',

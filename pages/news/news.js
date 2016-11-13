@@ -21,20 +21,22 @@ Page({
     }
   },
   onLoad: function(){
-    app.showLoadToast();
     this.getNewsList(0);
+  },
+  onPullDownRefresh: function(){
+    this.setData({
+      'page': 0
+    });
+    this.getNewsList(this.data.active.id);
   },
   onReachBottom: function(){
     var _this = this;
-    _this.setData({
-      'active.remind': '正在加载中'
-    });
     if(_this.data.active.showMore){
-      app.showLoadToast();
       _this.getNewsList(_this.data.active.id);
     }
   },
   getNewsList: function(tpyeId){
+    app.showLoadToast();
     var _this = this;
     if(_this.data.page >= 5){
       _this.setData({
@@ -43,6 +45,9 @@ Page({
       });
       wx.hideToast();
     }else{
+      _this.setData({
+        'active.remind': '正在加载中'
+      });
       //获取资讯列表
       wx.request({
         url: app._server + '/api/' + _this.data.list[tpyeId].url,
@@ -54,7 +59,8 @@ Page({
             if(res.data.data){
               _this.setData({
                 'page': _this.data.page + 1,
-                'active.data': _this.data.active.data.concat(res.data.data)
+                'active.data': _this.data.active.data.concat(res.data.data),
+                'active.remind': '下拉加载更多'
               });
             }else{
               _this.setData({
@@ -63,7 +69,19 @@ Page({
               });
             }
             wx.hideToast();
+          }else{
+            _this.setData({
+              'active.remind': '错误'
+            });
           }
+        },
+        fail: function(res){
+          _this.setData({
+            'active.remind': '请求超时'
+          });
+        },
+        complete: function(){
+          wx.stopPullDownRefresh();
         }
       });
     }
@@ -77,7 +95,6 @@ Page({
       'active.remind': '下拉加载更多',
       'page': 0
     });
-    app.showLoadToast();
     this.getNewsList(e.target.dataset.id);
   }
 });

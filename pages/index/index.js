@@ -110,7 +110,7 @@ Page({
     //获取水电费数据
     wx.request({
       url: app._server + '/api/get_elec.php',
-      data: app._user.room,
+      data: app._user.xs.room,
       success: function(res) {
         if(res.data.status === 200){
           var info = res.data.data;
