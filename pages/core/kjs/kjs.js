@@ -36,7 +36,7 @@ function sendRequest(requestData){
     });
   }
 
-  console.log(requestData);
+  // console.log(requestData);
 
   if (requestData.classNo === '') {
     doFail('查询的时间段不能为空!');
