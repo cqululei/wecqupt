@@ -24,26 +24,28 @@
     </view>
   </view>
 
-  <navigator url="#" class="issue-link">
-    <view class="issue-btn">
-      <image class="btn-icon" src="/images/more/issue.png" />
-      <text>反馈</text>
-      <view class="btn-open">
-        <image class="btn-enter" src="/images/more/enter.png" />
-      </view>
-    </view>
-  </navigator>
-  <navigator url="#" class="about-link">
-    <view class="issue-btn">
-      <image class="btn-icon" src="/images/more/about.png" />
-      <text>关于</text>
-      <view class="btn-open">
+  <view class="more-list">
+    <navigator url="#" class="issue-link">
+      <view class="issue-btn">
+        <image class="btn-icon" src="/images/more/issue.png" />
+        <text>反馈</text>
+        <view class="btn-open">
           <image class="btn-enter" src="/images/more/enter.png" />
+        </view>
       </view>
-    </view>
-  </navigator>
+    </navigator>
+    <navigator url="/pages/more/about" class="about-link">
+      <view class="issue-btn">
+        <image class="btn-icon" src="/images/more/about.png" />
+        <text>关于</text>
+        <view class="btn-open">
+            <image class="btn-enter" src="/images/more/enter.png" />
+        </view>
+      </view>
+    </navigator>
+  </view>
 
-  <navigator url="#" class="login-btn">
+  <navigator url="/pages/more/login" class="login-btn">
     <text>切换绑定</text>
   </navigator>
 
