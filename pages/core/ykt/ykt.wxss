@@ -30,20 +30,22 @@
 .ykt-detail {
     display: flex;
     flex-direction: column;   
+    padding: 0 10rpx;
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.2s ease-in-out;
     background: #FAF9F7
 }
 .ykt-detail text {
-    padding: 0 27rpx;
+    font-size: 25rpx;
 }
 .ykt-head {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 37rpx 27rpx;
     border-radius: 4px;
-    background: #7F848A;
+    background: #FAD864;
 }
 .ykt-type-name {
     font-size: 28rpx;
@@ -58,13 +60,14 @@
     line-height: 74rpx;
     border-bottom: 1px solid #d4d4d4;
 }
-.detail-type {
-    display: flex;
-    justify-content: flex-end;
-    line-height: 74rpx;
-    border-bottom: 1px solid #d4d4d4;
-
+.detail-list:last-child {
+    border: none;
 }
+
+
+/*.detail-type {
+    justify-content: flex-end;
+}*/
 
 .ykt-icon{
     width: 35rpx;

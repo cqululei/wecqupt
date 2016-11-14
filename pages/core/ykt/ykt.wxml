@@ -22,7 +22,7 @@
                 <text>余额</text>
             </view>
             <view class="detail-list" wx:for="{{dict}}" wx:for-item="itemName">
-                <text>{{itemName.time}}</text>
+                <text class="time">{{itemName.time}}</text>
                 <text>{{itemName.transaction}}</text>
                 <text>{{itemName.cost}}</text>
                 <text>{{itemName.balance}}</text>
