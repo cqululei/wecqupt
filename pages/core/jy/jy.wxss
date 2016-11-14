@@ -1,1 +1,48 @@
 /**jy.wxss**/
+.container {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    background-color: #f7f7f7;
+    font-family: "微软雅黑";
+}
+.current-type {
+    font-size: 28rpx;
+    line-height: 93rpx;
+}
+.book-wraper {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 18rpx 0;
+    margin-bottom: 20rpx;
+    background: #fff;
+}
+.book-name {  
+    font-size: 36rpx;
+    line-height: 50rpx;
+    text-align: center;
+}
+.book-info {
+    display: flex;
+    flex-direction: column;
+    width: 460rpx;
+    justify-content: space-around;
+    align-items: center;
+}
+.book-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10rpx;
+    font-size: 28rpx;
+}
+.book-date text {
+    line-height: 47rpx;
+}
+
+.book-img {
+    margin-right: -20rpx;
+    height: 200rpx;
+    width: 200rpx;
+    opacity:0.3;
+}
