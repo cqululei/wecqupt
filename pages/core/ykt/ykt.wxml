@@ -3,12 +3,10 @@
     <view class="ykt-ye">
         <text class="ykt-ye-name">余额</text>
         <text class="ykt-ye-money">
-            <text>{{dict[0].balance}}</text>元
+            <text>11.11</text>元
         </text>
     </view>
-    <view class="canvas-wraper">
-        <canvas bindtouchend="canvasTap" style="width: 100%; height: 100%;" canvas-id="firstCanvas"></canvas> 
-    </view>
+    <canvas id="ykt-canvas" canvas-id="firstCanvas"></canvas> 
     <view class="ykt-detail-wraper">
         <view class="ykt-head {{showDetail ? 'ykt-head-show' : ''}}" bindtap="slideDetail">
             <text class="ykt-type-name">消费详情</text>

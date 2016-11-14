@@ -21,7 +21,10 @@
     line-height: 110rpx;
     padding-right: 26rpx;
 }
-
+#ykt-canvas {
+    width: 100%;
+    height: 310px;
+}
 .ykt-detail-wraper {
     display: flex;
     flex-direction: column;
