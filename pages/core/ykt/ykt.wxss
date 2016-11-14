@@ -63,12 +63,6 @@
 .detail-list:last-child {
     border: none;
 }
-
-
-/*.detail-type {
-    justify-content: flex-end;
-}*/
-
 .ykt-icon{
     width: 35rpx;
     height: 20rpx;  
@@ -81,6 +75,15 @@
 
 .canvas-wraper {
     width: 100%;
-    height: 700rpx;
+    height: 750rpx;
     overflow: hidden;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+}
+.detail text {
+    line-height: 74rpx;
+    border-bottom: 1px solid #d4d4d4;
 }

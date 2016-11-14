@@ -15,7 +15,7 @@
             <image class="ykt-icon" src="/images/core/icon_ykt.png" />
         </view>                
         <view class="ykt-detail {{showDetail ? 'ykt-detail-show' : ''}}">
-            <view class="detail-list detail-type">
+            <!--<view class="detail-list detail-type">
                 <text class="time">具体消费时间</text>
                 <text>消费类型</text>
                 <text>消费金额</text>
@@ -26,6 +26,14 @@
                 <text>{{itemName.transaction}}</text>
                 <text>{{itemName.cost}}</text>
                 <text>{{itemName.balance}}</text>
+            </view>-->
+            <view class="detail">
+                <text>消费时间：{{tapDetail.time}}</text>
+                <text>消费类型：{{tapDetail.transaction}}</text>
+                <text>消费金额：{{tapDetail.cost}}</text>
+                <text>消费设备：{{tapDetail.device}}</text>
+                <text>消费地点：{{tapDetail.address}}</text>
+                <text>余额：{{tapDetail.balance}}</text>
             </view>
         </view>
     </view>

@@ -5,7 +5,8 @@ Page({
   data: {
       showDetail: false,
       dict: [],
-      points: []   
+      points: [],
+      tapDetail: {}
   },
   onLoad: function(){
       var _this = this;
@@ -78,7 +79,7 @@ Page({
   },
 
   // 绘制横轴&纵轴&网格线
-  drawLineXY: function(options) {
+    drawLineXY: function(options) {
       var context = options.context,
           gridMarginLeft = options.gridMarginLeft,
           gridMarginTop = options.gridMarginTop,
@@ -125,9 +126,13 @@ Page({
            
       // 绘制横网格&纵轴金额  
       for (var i = 0; i <= gridNum; i ++) {
-
+          var numY = 0;
           // 纵轴金额
-          var numY = Math.round(tmp_minY + spaceYe * i);        
+          if (i === 0) {
+              numY = 0;
+          } else {
+              numY = Math.round(tmp_minY + spaceYe * i);   
+          }               
           context.beginPath();
             context.moveTo(xArr[0] + gridMarginLeft, canvasHeight - spaceY * i);
             context.lineTo(xArr[xArr.length - 1] + gridMarginLeft, canvasHeight - spaceY * i);
@@ -211,7 +216,7 @@ Page({
           pointArr.push({
               x: x,
               y: y,
-              detail: _this.data.dict.slice(0, 10).reverse()
+              detail: _this.data.dict.slice(0, 10).reverse()[i]
           });
       }  
       _this.setData({
@@ -235,7 +240,10 @@ Page({
           diffX = Math.abs(tapX - points[i].x);
           diffY = Math.abs(tapY - points[i].y);
           if (diffX < 10 && diffY < 10) {
-              console.log(diffX, diffY);
+              this.setData({
+                  tapDetail: points[i].detail
+              });
+              console.log(this.data.tapDetail);
           }
       }
   },
