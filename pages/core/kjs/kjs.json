@@ -1,7 +1,5 @@
 {
   "navigationBarBackgroundColor": "#E394B3",
-  "navigationBarTextStyle": "#FFF",
   "navigationBarTitleText": "空教室",
-  "backgroundColor": "#E394B3",
-  "backgroundTextStyle": "light"
+  "backgroundColor": "#E394B3"
 }

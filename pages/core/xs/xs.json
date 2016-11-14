@@ -1,7 +1,6 @@
 {
   "navigationBarBackgroundColor": "#B79EDF",
-  "navigationBarTextStyle": "#FEFFFF",
   "navigationBarTitleText": "学生查询",
-  "backgroundColor": "#F7F7F7",
-  "backgroundTextStyle": "light"
+  "backgroundColor": "#B79EDF",
+  "enablePullDownRefresh": false
 }

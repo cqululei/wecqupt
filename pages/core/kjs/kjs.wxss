@@ -9,7 +9,7 @@ page {
 
     border-top: 1px solid #F8E2EB;
     background: #fff;
-    padding-bottom: 600rpx;
+    padding-bottom: 480rpx;
     box-sizing: border-box;
 }
 
@@ -30,7 +30,9 @@ page {
         flex-flow: column nowrap;
         margin-top: 20rpx;
         padding: 0 0 0 65rpx;
-        background: url('/images/core/kjs/classroom-icon.png') no-repeat;
+        /*background: url('/images/core/kjs/classroom-icon.png') no-repeat;*/
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/kjs/classroom-icon.png') no-repeat;
         background-size: 30rpx 25rpx;
         background-position: 15rpx 8rpx;
     }
@@ -45,31 +47,10 @@ page {
                 flex: 0 0 auto;
                 padding-bottom: 25rpx;
                 min-width: 20%;
-                font-size: 0.7rem;
+                font-size: 11pt;
                 letter-spacing: 0.1rem;
                 text-align: center;
             }
-/* ==========================================================================
-   error-info
- ============================================================================ */
-.error-info {
-
-    display: flex;
-    flex-flow: column nowrap;
-    margin: 20rpx 0 0 50rpx;
-}
-    .info-status,
-    .info-errorMessage {
-
-        margin-top: 20rpx;
-        font-size: 2em;
-    }
-        .info-status text,
-        .info-errorMessage text {
-            
-            color: red;
-            font-weight: 900;
-        }
 
 /* ==========================================================================
    main-condition
@@ -83,13 +64,14 @@ page {
     display: flex;
     flex-flow: column wrap;
     width: 100%;
-    height: 600rpx;
+    height: 480rpx;
+    border-top: 1rpx solid #F1F1F2;
 }
     .condition {
 
         display: flex;
         box-sizing: border-box;
-        padding: 0 0 0 30rpx;
+        padding: 0;
         width: 100%;
         height: 120rpx;
         white-space: nowrap;
@@ -109,18 +91,25 @@ page {
             color: #FFF;
             font-weight: 900;
         }
-
+        .scroll-space {
+            
+            display: inline-block;
+            width: 30rpx;
+            height: 30rpx;
+        }
 
 
 /* main-condition > condition-week
  ============================================================================ */
 .condition-week {
 
-    background-color: #FBFAF9;
+    background-color: #FBFAF8;
 }
     .week-active {
 
-        background: url('/images/core/kjs/week-icon.png') no-repeat;
+        /*background: url('/images/core/kjs/week-icon.png') no-repeat;*/
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/kjs/week-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
         background-position: 50% 50%;
     }
@@ -135,6 +124,8 @@ page {
     .day-active {
 
         background: url('/images/core/kjs/day-icon.png') no-repeat;
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/kjs/day-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
         background-position: 50% 50%;
     }
@@ -143,12 +134,14 @@ page {
  ============================================================================ */
 .condition-classTime {
 
-    background-color: #FBFAF9;
+    background-color: #FBFAF8;
     overflow: hidden;
 }
     .classTime-active {
 
         background: url('/images/core/kjs/classTime-icon.png') no-repeat;
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/kjs/classTime-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
         background-position: 50% 50%;
     }
@@ -163,28 +156,8 @@ page {
     .building-active {
 
         background: url('/images/core/kjs/building-icon.png') no-repeat;
+        /*微信暂不支持静态bgimg文件，改用服务器url*/
+        background: url('https://we.cqu.pt/app/images/core/kjs/building-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
         background-position: 50% 50%;
-    }
-
-
- /* main-condition > query-button
- ============================================================================ */
-.query{
-
-    background-color: #FBFAF9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 120rpx;
-    
-}
-    .query-button {
-
-        display: block;
-        width: 94%;
-        padding: 0;
-        color: #FFF;
-        background-color: #5ec8f7;
-        margin: 0 3%;
     }
