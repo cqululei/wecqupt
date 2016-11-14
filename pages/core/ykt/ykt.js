@@ -3,14 +3,21 @@
 var app = getApp();
 Page({
   data: {
+      count: 12,
+      width: 0,
       showDetail: false,
       dict: [],
       points: []   
   },
   onLoad: function(){
       var _this = this;
+      wx.getSystemInfo({
+          success: function(res) {
+              _this.data.width = res.windowWidth;
+          }
+      });
       wx.request({
-          url: "http://we.cqupt.edu.cn/api/get_yktcost.php",
+          url: app._server + "/api/get_yktcost.php",
           data: {
               yktID: "1636792"
           },
@@ -19,23 +26,21 @@ Page({
               _this.setData({
                 dict: res.data.data
               });
-        
               /*
-              * 获取最近十天的消费数据绘制折线图
+              * 获取最近十次的消费数据绘制折线图
               **/
-              var dict = _this.data.dict.slice(0, 10).reverse();  
-              console.log(dict);      
+              var dict = _this.data.dict.slice(0, _this.data.count).reverse();  
+              console.log(dict);
               var len = dict.length,
                   xArr = [],           // x轴坐标
                   yArr = [],           // 余额点在画布中的纵坐标
                   tmp_yArr = [],       // 余额
-                  spaceX = 37,         // 表示横坐标的间隔距离
-                  canvasWidth = 800,
+                  canvasWidth = _this.data.width,
+                  spaceX = (canvasWidth-40)/(_this.data.count-1),   // 表示横坐标的间隔距离
                   canvasHeight = 300,
                   gridMarginTop = 15,  // 折线图上距离
                   gridMarginLeft = 20, // 折线图左距离
                   gridNum = 5;
-
               // 余额&横坐标
               for(var i = 0; i < len; i ++){  
                   xArr.push(i * spaceX);  
