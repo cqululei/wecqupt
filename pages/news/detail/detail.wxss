@@ -6,7 +6,7 @@
 .title{
     font-size: 44rpx;
     margin-top: 50rpx;
-    line-height: 50rpx;
+    line-height: 60rpx;
 }
 .info{
     margin-top: 41rpx;
@@ -36,25 +36,28 @@
 }
 .file{
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 40rpx;
     height: 140rpx;
     background-color: #fcfcfc;
     border: 1rpx solid #ececec;
     display: flex;
-    justify-content:space-around;
+    justify-content:space-between;
     align-items: center;
+}
+.fileNameSource{
+    flex-grow: 2;
+    margin-left: 60rpx;
 }
 .file-name{
     display: block;
     font-size: 32rpx;
-    margin-left: -90rpx;
 }
 .file-source{
     display: block;
     font-size: 28rpx;
     color: #919191;
     margin-top: 20rpx;
-    margin-left: -90rpx;
-
 }
 .file-img{
     width: 40rpx;

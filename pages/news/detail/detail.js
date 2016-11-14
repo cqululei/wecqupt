@@ -9,9 +9,9 @@ Page({
     core: "", // 机构
     content: "",// 新闻内容
     file: "", // 附件，true or false
-    size: "",// 附件大小
-    fileName: "", // 附件名称
-    fileSource: ""// 附件来源
+    size: "234kb",// 附件大小
+    fileName: "这是附件这是附件.rar", // 附件名称
+    fileSource: "教务在线"// 附件来源
   },
   // 点击附件下载
   downloadFile: function(){
@@ -30,7 +30,7 @@ Page({
     
   },
   
-  onReady: function(){
+  onLoad: function(){
     var _this = this;
     wx.showToast({
       title: '加载中',
