@@ -81,6 +81,7 @@ Page({
       },
       complete: function() {
         wx.hideToast();
+        wx.stopPullDownRefresh();
       }
     });
   },
@@ -153,5 +154,11 @@ Page({
 
     // 初始默认显示
     this.sendRequest();
-  }
+  },
+
+  //下拉更新
+  onPullDownRefresh: function(){
+
+    this.sendRequest();
+  },
 });

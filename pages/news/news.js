@@ -71,7 +71,6 @@ Page({
                 'active.remind': '没有更多啦'
               });
             }
-            wx.hideToast();
           }else{
             _this.setData({
               'active.remind': '错误'
@@ -84,6 +83,7 @@ Page({
           });
         },
         complete: function(){
+          wx.hideToast();
           wx.stopPullDownRefresh();
         }
       });
