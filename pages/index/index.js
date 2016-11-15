@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var util = require('../../utils/util');
 Page({
   data: {
     core: [
@@ -82,7 +81,7 @@ Page({
           if(list.length > 0){
             var last = list[0],
                 last_time = last.time.split(' ')[0],
-                now_time = util.formatTime(new Date()).split(' ')[0];
+                now_time = app.util.formatTime(new Date()).split(' ')[0];
             //筛选并计算当日消费
             for(var i = 0, today_cost = [], cost_total = 0; i < list.length; i++){
               if(list[i].time.split(' ')[0] == now_time && list[i].cost.indexOf('-') == 0){

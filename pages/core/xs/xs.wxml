@@ -46,25 +46,25 @@
         </view>
         <!--信息隐藏的下拉列表-->
         <view class="item-ul" hidden="{{!item.display}}">
-          <view class="item-ul-class item-ul-li">
-            <text class="ul-li-label">班级</text>
-            <text class="ul-li-content">{{item.bj}}</text>
-          </view>
-          <view class="item-ul-grade item-ul-li">
-            <text class="ul-li-label">年级</text>
-            <text class="ul-li-content">{{item.nj}}</text>
-          </view>
           <view class="item-ul-gendor item-ul-li">
             <text class="ul-li-label">性别</text>
             <text class="ul-li-content">{{item.xb}}</text>
+          </view>
+          <view class="item-ul-college item-ul-li">
+            <text class="ul-li-label">学院名</text>
+            <text class="ul-li-content">{{item.yxm}}</text>
           </view>
           <view class="item-ul-major item-ul-li">
             <text class="ul-li-label">专业名</text>
             <text class="ul-li-content">{{item.zym}}</text>
           </view>
-          <view class="item-ul-college item-ul-li">
-            <text class="ul-li-label">学院名</text>
-            <text class="ul-li-content">{{item.yxm}}</text>
+          <view class="item-ul-grade item-ul-li">
+            <text class="ul-li-label">年级</text>
+            <text class="ul-li-content">{{item.nj}}</text>
+          </view>
+          <view class="item-ul-class item-ul-li">
+            <text class="ul-li-label">班级</text>
+            <text class="ul-li-content">{{item.bj}}</text>
           </view>
           <view class="item-ul-kb item-ul-li">
             <text class="ul-li-label">课表</text>

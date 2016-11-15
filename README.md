@@ -72,10 +72,10 @@ wecqupt
 | 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       | ✔       | ✔      |        |
 | 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       | ✔      | ✔       |         |        |        |
 |     | 寝室绑定     | (同上)                      | ✔       | ✔      |         |         |        |        |
-| 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       |        | ✔       |         |        |        |
-| 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       |        | ✔       |         |        |        |
-| 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       |        | ✔       |         |        |        |
-| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔~       | ✔       | ✔      |        |
+| 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       | ✔      | ✔       | ✔       |        |        |
+| 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       | ✔      | ✔       | ✔       |        |        |
+| 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       | ✔      | ✔       | ✔       |        |        |
+| 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔~      | ✔       | ✔      |        |
 |     |教务公告/OA公告/会议通知/学术讲座/综合新闻|(同上)| ✘       | ✘      | ✔       | ✘       | ✔      | ✘      |
 | 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |         |        |        |
 | 3a  | **【更多】** | pages/more/more            | ✔       | ✔      | ✘       |         |        |        |
