@@ -11,6 +11,7 @@ Page({
     main: {
       mainDisplay: true, // main 显示的变化标识
       total: 0,
+      sum: 0,
       page: 0,
       message: '上滑加载更多'
     },
@@ -219,6 +220,7 @@ Page({
         'testData': that.data.testData.concat(reDdata),
         'main.mainDisplay': false,
         'main.total': data.total,
+        'main.sum': that.data.main.sum += data.rows.length,
         'messageObj.messageDisplay': messageDisplay
       });
 
@@ -226,7 +228,7 @@ Page({
         that.bindOpenList(0);
       }
 
-      if(data.total <= data.rows.length) {
+      if(data.total <= that.data.main.sum) {
         that.setData({
           'main.message': '已全部加载'
         });

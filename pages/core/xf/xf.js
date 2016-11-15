@@ -11,28 +11,41 @@ Page({
   // 页面加载
   onLoad: function() {
     var _this = this;
+    app.showLoadToast();
     wx.request({
-      url: "http://we.cqupt.edu.cn/api/get_jzsf.php",
+      url: app._server + "/api/get_jzsf.php",
       data: {
-        yktID: "1636792"
+        yktID: app._user.xs.ykt_id
       },
       success: function(res) {
-        console.log(res);
 
-        // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
-        var list = res.data.data;
-        for (var i = 0, len = list.length; i < len; ++i) {
-          list[i].open = false;         
+        if(res.data.status === 200) {
+          // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
+          var list = res.data.data.reverse();
+          for (var i = 0, len = list.length; i < len; ++i) {
+            list[i].open = false;         
+          }
+
+          _this.setData({
+            xfData: list,
+            stuInfo: {
+              sno: list[0].StuID,
+              sname: list[0].StuName
+            }
+          });
+        } else {
+          //doFail
         }
 
-        _this.setData({
-          xfData: list,
-          stuInfo: {
-            sno: list[0].StuID,
-            sname: list[0].StuName
-          }
-        });
+      },
+      
+      fail: function(res) {
+          //doFail
+      },
 
+      complete: function() {
+
+        wx.hideToast();
       }
     });
   },

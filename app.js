@@ -51,6 +51,9 @@ App({
       duration: duration || 10000
     });
   },
+  util: require('./utils/util'),
+  key: function(data){ return this.util.key(data) },
+  _i: 'test',
   _server: 'https://we.cqu.pt',
   _user: {
     wx: {},

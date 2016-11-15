@@ -56,7 +56,6 @@
         font-size: 11pt;
         height: 85rpx;
         line-height: 85rpx;
-        letter-spacing: 1px;
     }
     .input-confirm-button {
 
@@ -198,6 +197,12 @@
         width: 30rpx;
         height: 30rpx;
         padding: 20rpx;
+        transition: transform .2s;
+        transform: rotate(0deg);
+    }
+    .list-sign-icon-show {
+
+        transform: rotate(180deg);
     }
   /* main-list > item > item-ul
  ============================================================================ */
@@ -218,7 +223,7 @@
         .ul-li-label {
             
             color: #888;
-            width: 120rpx;
+            width: 48pt;
         }
 
         .ul-li-content {
