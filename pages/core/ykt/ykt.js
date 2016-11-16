@@ -3,12 +3,14 @@
 var app = getApp();
 Page({
   data: {
-      count: 12,
-      width: 0,
-      showDetail: false,
-      dict: [],
-      points: [],
-      tapDetail: {}
+      count: 12,         // 展示的消费次数
+      width: 0,          // 画布宽
+      height: 300,       // 画布高
+      showDetail: false, // 详情show
+      dict: [],          // 所有消费数据
+      points: [],        // 余额点的集合
+      tapDetail: {},     // 每个点对应的详情集合
+      lineLeft: -5       // 详情垂直线的初始左边距 
   },
   onLoad: function(){
       var _this = this;
@@ -25,12 +27,12 @@ Page({
           success: function(res) {
               console.log(res);
               _this.setData({
-                dict: res.data.data
+                dict: res.data.data.slice(0, _this.data.count).reverse()
               });
               /*
-              * 获取最近十次的消费数据绘制折线图
+              * 获取最近12次的消费数据绘制折线图
               **/
-              var dict = _this.data.dict.slice(0, _this.data.count).reverse();  
+              var dict = _this.data.dict;  
               console.log(dict);
               var len = dict.length,
                   xArr = [],           // x轴坐标
@@ -38,7 +40,7 @@ Page({
                   tmp_yArr = [],       // 余额
                   canvasWidth = _this.data.width,
                   spaceX = (canvasWidth-40)/(_this.data.count-1),   // 表示横坐标的间隔距离
-                  canvasHeight = 300,
+                  canvasHeight = _this.data.height,
                   gridMarginTop = 15,  // 折线图上距离
                   gridMarginLeft = 20, // 折线图左距离
                   gridNum = 5;
@@ -77,14 +79,15 @@ Page({
             
               wx.drawCanvas({
                   canvasId: "firstCanvas",
-                  actions: context.getActions() // 获取绘图动作数组
+                  actions: context.getActions(), // 获取绘图动作数组
+                  reserve: true
               });        
           }
       });
   },
 
   // 绘制横轴&纵轴&网格线
-    drawLineXY: function(options) {
+  drawLineXY: function(options) {
       var context = options.context,
           gridMarginLeft = options.gridMarginLeft,
           gridMarginTop = options.gridMarginTop,
@@ -167,8 +170,7 @@ Page({
           len = options.len,
           spaceX = options.spaceX;
     
-      var pointArr = [],
-          _this = this;
+      var pointArr = [];
 
       /* 
       * 点集的纵坐标
@@ -195,13 +197,14 @@ Page({
 
       // 连折线
       for(var i=0 ;i < len - 1; i++){  
-          var x = xArr[i];                 
+                       
           context.beginPath();
             context.moveTo(gridMarginLeft + i * spaceX, canvasHeight-yArr[i]);
             context.lineTo(xArr[i + 1] + gridMarginLeft, canvasHeight-yArr[i + 1]);
             context.stroke();          
           context.closePath();
       }   
+      
         
       //描点  
       context.setStrokeStyle("#EA2000");
@@ -221,11 +224,12 @@ Page({
           pointArr.push({
               x: x,
               y: y,
-              detail: _this.data.dict.slice(0, 10).reverse()[i]
+              detail: this.data.dict[i]
           });
       }  
-      _this.setData({
-          points: pointArr
+      this.setData({
+          points: pointArr,
+          tapDetail: pointArr[this.data.count - 1].detail
       });
   },
 
@@ -233,23 +237,39 @@ Page({
   canvasTap: function(e) {      
 
       // 手指在画布中的坐标        
-      var tapX = e.changedTouches[0].x,
-          tapY = e.changedTouches[0].y,        
+      var tapX = e.detail.x,
+          tapY = e.detail.y,        
           pointsLen = this.data.points.length,
           points = this.data.points,
           diffX = 0,
-          diffY = 0;
-    
+          diffY = 0,
+          _this = this;
+
       // 若手指与点距离小于10，则显示详情
       for (var i = 0; i < pointsLen; i ++) {
           diffX = Math.abs(tapX - points[i].x);
           diffY = Math.abs(tapY - points[i].y);
-          if (diffX < 10 && diffY < 10) {
+          if (diffX <= 10) {
               this.setData({
                   tapDetail: points[i].detail
-              });
-              console.log(this.data.tapDetail);
-          }
+                  //lineLeft: 20+(this.data.width-40)/(this.data.count-1)*i
+              });            
+              // 如果触摸在比当前位置的右边
+              if (tapX > points[i].x) {
+                //   console.log(Math.round(20+(_this.data.width-40)/(_this.data.count-1)*i));
+                  var timer = setInterval(function() {
+                      console.log(_this.data.lineLeft);
+                      if (_this.data.lineLeft < Math.round(20+(_this.data.width-40)/(_this.data.count-1)*i)) {
+                          _this.setData({
+                              lineLeft: _this.data.lineLeft + 1
+                          });                         
+                      } else {
+                          clearInterval(timer);
+                      }
+                      
+                  }, 1000);
+              }          
+          }             
       }
   },
   
