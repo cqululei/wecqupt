@@ -22,7 +22,7 @@ Page({
     this.setData(data);
   },
   onLoad: function(){
-<<<<<<< HEAD
+// <<<<<<< HEAD
     var _this = this;
     wx.request({
       url: "http://we.cqupt.edu.cn/api/get_ks.php",
@@ -32,8 +32,8 @@ Page({
       },
       success: function(res) {
         console.log(res);
-=======
->>>>>>> 11d520657165d699e56319cec3d3161759b7f076
+// =======
+// >>>>>>> 11d520657165d699e56319cec3d3161759b7f076
 
         if (res.data.status == 200){
 
