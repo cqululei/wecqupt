@@ -74,7 +74,7 @@ Page({
         xh: app._user.xs.xh
       },
       success: function(res) {
-        
+
       }
     });
     //获取一卡通数据
