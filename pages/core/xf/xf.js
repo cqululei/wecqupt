@@ -12,7 +12,7 @@ Page({
   onLoad: function() {
     var _this = this;
     wx.request({
-      url: "http://we.cqupt.edu.cn/api/get_jzsf.php",
+      url: "https://we.cqu.pt/api/get_jzsf.php",
       data: {
         yktID: "1636792"
       },

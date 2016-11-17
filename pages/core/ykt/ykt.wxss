@@ -2,6 +2,8 @@
 .container {
     background-color: #fff;
 }
+
+/* 今日余额 */
 .ykt-ye {
     display: flex;
     flex-direction: column;
@@ -25,6 +27,8 @@
     padding-right: 26rpx;
 }
 
+
+/* 详情盒子 */
 .ykt-detail-wraper {
     display: flex;
     flex-direction: column;
@@ -75,6 +79,8 @@
 .ykt-head-show .ykt-icon{
     transform: rotate(0deg);
 }
+
+/* canvas */
 .grid-wraper {
     position: relative;
     overflow: hidden;

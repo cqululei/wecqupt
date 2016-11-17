@@ -251,24 +251,10 @@ Page({
           diffY = Math.abs(tapY - points[i].y);
           if (diffX <= 10) {
               this.setData({
-                  tapDetail: points[i].detail
-                  //lineLeft: 20+(this.data.width-40)/(this.data.count-1)*i
+                  tapDetail: points[i].detail,
+                  lineLeft: 20+(this.data.width-40)/(this.data.count-1)*i
               });            
-              // 如果触摸在比当前位置的右边
-              if (tapX > points[i].x) {
-                //   console.log(Math.round(20+(_this.data.width-40)/(_this.data.count-1)*i));
-                  var timer = setInterval(function() {
-                      console.log(_this.data.lineLeft);
-                      if (_this.data.lineLeft < Math.round(20+(_this.data.width-40)/(_this.data.count-1)*i)) {
-                          _this.setData({
-                              lineLeft: _this.data.lineLeft + 1
-                          });                         
-                      } else {
-                          clearInterval(timer);
-                      }
-                      
-                  }, 1000);
-              }          
+            
           }             
       }
   },
