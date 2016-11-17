@@ -45,7 +45,7 @@ Page({
                   yArr = [],           // 余额点在画布中的纵坐标
                   tmp_yArr = [],       // 余额
                   canvasWidth = _this.data.width,
-                  spaceX = (canvasWidth-40)/(_this.data.count-1),   // 表示横坐标的间隔距离
+                  spaceX = (canvasWidth-2*_this.data.gridMarginLeft)/(_this.data.count-1),   // 表示横坐标的间隔距离
                   canvasHeight = _this.data.height,
                   gridMarginTop = 15,  // 折线图上距离
                   gridMarginLeft = _this.data.gridMarginLeft, // 折线图左距离
