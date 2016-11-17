@@ -6,11 +6,11 @@
         <view class="xf-title-info">
             <text class="xf-title">学费查询</text>
             <view class="xf-stu-info">
-                <text>学号：{{stuInfo.sno}}</text>
-                <text>姓名：{{stuInfo.sname}}</text>
+                <text>学号：{{id}}</text>
+                <text>姓名：{{name}}</text>
             </view>            
         </view> 
-        <image class="xf-title-icon" src="/images/core/xf.png" />
+        <image class="xf-title-icon" src="/images/core/xf.png"></image>
     </view>
 
     <!-- 学费查询类型 -->
@@ -19,7 +19,7 @@
             <view class="xf-type-item {{itemName.open ? 'xf-item-show' : ''}}">
                 <view class="xf-head" id="{{itemName.Schoolyears}}" bindtap="slideDetail">
                     <text class="xf-type-name">{{itemName.Schoolyears}}学年</text>
-                    <image class="xf-item-icon" src="/images/core/common/down.png" />
+                    <image class="xf-item-icon" src="/images/core/common/down.png"></image>
                 </view>                
                 <view class="xf-detail">
                     <view class="xf-detail-item">

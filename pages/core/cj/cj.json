@@ -1,5 +1,6 @@
 {    
-    "navigationBarBackgroundColor": "#e195b2",
+    "navigationBarBackgroundColor": "#e78ab0",
     "navigationBarTitleText": "成绩查询" ,
-    "backgroundColor": "#e195b2"  
+    "backgroundColor": "#e78ab0",
+    "enablePullDownRefresh": false
 }

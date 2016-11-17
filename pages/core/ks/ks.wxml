@@ -2,14 +2,12 @@
 <view class="container">
     <view class="ks-header">
         <view class="ks-text">
-            <text class="ks-header-title">考试查询</text>
+            <text class="ks-header-title">考试安排</text>
             <text class="ks-header-info-ksName">{{ks.ksName}}</text>
-            <text class="ks-header-info">学生学号: {{ks.stuId}}</text>
-            <text class="ks-header-info">学生姓名: {{ks.stuName}}</text>
+            <text class="ks-header-info">学号：{{ks.stuId}}</text>
+            <text class="ks-header-info">姓名：{{ks.stuName}}</text>
         </view>
-        <view class="ks-bg">
-            <image src="/images/core/ks.png"></image>
-        </view>
+        <image class="ks-bg" src="/images/core/ks.png"></image>
     </view>
 
     <view class="ks-class-ctn">

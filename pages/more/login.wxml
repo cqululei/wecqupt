@@ -1,8 +1,8 @@
 <!--login.wxml-->
 <view class="container">
   <view class="login-hd">
-    <image class="title" src="/images/more/title.png" mode="aspectFit" />
-    <image class="logo" src="/images/more/logo.png" />
+    <image class="title" src="/images/more/title.png" mode="aspectFit"></image>
+    <image class="logo" src="/images/more/logo.png"></image>
   </view>
 
   <view class="login-bd">
@@ -17,7 +17,7 @@
       </view>
       <view class="login-help" bindtap="showHelp">
         <text>帮助</text>
-        <image class="login-help-img" src="/images/more/help.png" />
+        <image class="login-help-img" src="/images/more/help.png"></image>
       </view>
     </form>
     <navigator class="confirm-btn" bindtap="bind">
@@ -29,7 +29,7 @@
     <view class="box">
       <view class="box-hd">
         <text class="box-title">帮助</text>
-        <image class="box-close" src="/images/more/close.png" bindtap="hideHelp" />
+        <image class="box-close" src="/images/more/close.png" bindtap="hideHelp"></image>
       </view>
       <view class="box-bd">
         <view class="help-q">1、帐号和密码是什么？</view>

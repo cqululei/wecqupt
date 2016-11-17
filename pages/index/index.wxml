@@ -4,7 +4,7 @@
   <view class="main-core">
     <block wx:for="{{core}}" wx:key="id">
       <navigator class="main-core-item" url="{{!isBind ? '/pages/more/login' : '/pages/core/'+item.id+'/'+item.id}}">
-        <image class="core-item-icon" src="/images/core/{{item.id}}.png" />
+        <image class="core-item-icon" src="/images/core/{{item.id}}.png"></image>
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
     </block>
@@ -17,10 +17,10 @@
     <view class="main-card-item" id="kb" wx:if="{{card.kb.show}}">
       <navigator url="/pages/core/kb/kb">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/kb.png" />
+          <image class="card-item-icon" src="/images/core/kb.png"></image>
           <text class="card-item-name">今日课表</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -44,10 +44,10 @@
     <view class="main-card-item" id="ykt" wx-if="{{card.ykt.show}}">
       <navigator url="/pages/core/ykt/ykt">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/ykt.png" />
+          <image class="card-item-icon" src="/images/core/ykt.png"></image>
           <text class="card-item-name">一卡通</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -83,10 +83,10 @@
     <view class="main-card-item" id="jy" wx:if="{{card.jy.show}}">
       <navigator url="/pages/core/jy/jy">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/jy.png" />
+          <image class="card-item-icon" src="/images/core/jy.png"></image>
           <text class="card-item-name">借阅信息</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -128,10 +128,10 @@
     <view class="main-card-item" id="sdf" wx:if="{{card.sdf.show}}">
       <navigator url="/pages/core/sdf/sdf">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/sdf.png" />
+          <image class="card-item-icon" src="/images/core/sdf.png"></image>
           <text class="card-item-name">电费查询</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>

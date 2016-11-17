@@ -11,6 +11,10 @@ Page({
   // 页面加载
   onLoad: function() {
     var _this = this;
+    _this.setData({
+      id: app._user.xs.xh,
+      name: app._user.xs.name
+    });
     app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_jzsf.php",

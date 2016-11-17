@@ -30,7 +30,7 @@ App({
             _this._user.wx = info.userInfo;
             //发送code与微信用户信息，获取学生数据
             wx.request({
-              // method: 'POST',
+              method: 'POST',
               url: _this._server + '/api/users/get_info.php',
               data: {
                 code: res.code,
