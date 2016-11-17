@@ -8,7 +8,7 @@ Page({
   onLoad: function() {
     var _this = this;
     wx.request({
-      url: "https://we.cqu.pt/api/get_booklist.php",
+      url: "http://we.cqupt.edu.cn/api/get_booklist.php",
       data: {
         yktID: "1636792"
       },
