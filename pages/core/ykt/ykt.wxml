@@ -3,7 +3,7 @@
     <view class="ykt-ye">
         <text class="ykt-ye-name">余额</text>
         <text class="ykt-ye-money">
-            <text>{{dict[dict.length - 1].balance}}</text>元
+            <text>{{balance}}</text>元
         </text>
     </view>
     <view class="grid-wraper">

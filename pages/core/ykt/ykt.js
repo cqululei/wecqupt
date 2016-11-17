@@ -10,7 +10,9 @@ Page({
       dict: [],          // 所有消费数据
       points: [],        // 余额点的集合
       tapDetail: {},     // 每个点对应的详情集合
-      lineLeft: -5       // 详情垂直线的初始左边距 
+      lineLeft: -5,      // 详情垂直线的初始左边距
+      gridMarginLeft: 20,
+      balance: 0 
   },
   onLoad: function(){
       var _this = this;
@@ -25,14 +27,18 @@ Page({
               yktID: "1636792"
           },
           success: function(res) {
-              console.log(res);
+
+              var data = res.data.data.slice(0, _this.data.count).reverse();
               _this.setData({
-                dict: res.data.data.slice(0, _this.data.count).reverse()
+                  dict: data,
+                  balance: data[data.length - 1].balance
               });
+              console.log(_this.data.balance);
+
               /*
               * 获取最近12次的消费数据绘制折线图
               **/
-              var dict = _this.data.dict;  
+              var dict = _this.data.dict;              
               console.log(dict);
               var len = dict.length,
                   xArr = [],           // x轴坐标
@@ -42,8 +48,9 @@ Page({
                   spaceX = (canvasWidth-40)/(_this.data.count-1),   // 表示横坐标的间隔距离
                   canvasHeight = _this.data.height,
                   gridMarginTop = 15,  // 折线图上距离
-                  gridMarginLeft = 20, // 折线图左距离
+                  gridMarginLeft = _this.data.gridMarginLeft, // 折线图左距离
                   gridNum = 5;
+
               // 余额&横坐标
               for(var i = 0; i < len; i ++){  
                   xArr.push(i * spaceX);  
@@ -186,7 +193,7 @@ Page({
           spaceYe = (tmp_maxY - tmp_minY) / gridNum,     
           spaceY = (canvasHeight - gridMarginTop) / gridNum;
       for(var i = 0; i < len; i++){  
-        yArr.push((tmp_yArr[i] - tmp_minY)*spaceY/spaceYe);
+          yArr.push((tmp_yArr[i] - tmp_minY)*spaceY/spaceYe);
       } 
 
       /* 
@@ -252,7 +259,7 @@ Page({
           if (diffX <= 10) {
               this.setData({
                   tapDetail: points[i].detail,
-                  lineLeft: 20+(this.data.width-40)/(this.data.count-1)*i
+                  lineLeft: this.data.gridMarginLeft + (this.data.width-40)/(this.data.count-1)*i
               });            
             
           }             
