@@ -104,7 +104,7 @@
 }
 .xf-item-show .xf-type-name {
     transition: color .15s ease-in-out;
-    color: #9f8bea;
+    color: #8271bf;
 }
 
 .xf-TotalTuition, .xf-ApartmentPay, .xf-CollectingPay {

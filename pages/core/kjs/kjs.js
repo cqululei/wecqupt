@@ -29,6 +29,8 @@ Page({
 
   // 发送请求的函数
   sendRequest: function(query, bd){
+    
+    app.showLoadToast();
 
     var that = this;
     var requestData, activeData = that.data.active;
@@ -62,7 +64,6 @@ Page({
       });
     }
 
-    app.showLoadToast();
     // 发送请求
     wx.request({
       url: app._server + '/api/get_empty_room.php', 

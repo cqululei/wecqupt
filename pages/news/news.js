@@ -21,7 +21,7 @@ Page({
     }
   },
   onLoad: function(){
-    this.getNewsList(0);
+    // this.getNewsList(0);
   },
   //下拉更新
   onPullDownRefresh: function(){

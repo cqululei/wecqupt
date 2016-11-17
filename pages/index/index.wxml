@@ -2,15 +2,16 @@
 <view class="container">
   <!--功能导航-->
   <view class="main-core">
-    <block wx:for="{{core}}">
-      <navigator class="main-core-item" url="/pages/core/{{item.id}}/{{item.id}}">
+    <block wx:for="{{core}}" wx:key="id">
+      <navigator class="main-core-item" url="{{!isBind ? '/pages/more/login' : '/pages/core/'+item.id+'/'+item.id}}">
         <image class="core-item-icon" src="/images/core/{{item.id}}.png" />
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
     </block>
   </view>
+  <view wx:if="{{!isBind}}" class="not-bind"><text>未绑定</text></view>
   <!--卡片列表-->
-  <view class="main-card">
+  <view wx:else class="main-card">
   
     <!--今日课表-->
     <view class="main-card-item" id="kb" wx:if="{{card.kb.show}}">
@@ -24,7 +25,7 @@
         </view>
       </navigator>
       <view class="card-item-bd">
-        <view class="kb-item" wx:for="{{card.kb.data.list}}">
+        <view class="kb-item" wx:for="{{card.kb.data.list}}" wx:key="when">
           <view class="kb-item-left">
             <text class="kb-item-what">{{item.what}}</text>
             <text class="kb-item-when">{{item.when}}</text>
@@ -66,7 +67,7 @@
         <block wx:if="{{card.ykt.data.cost_status}}">
           <text class="ykt-title">今日消费：</text>
           <view class="ykt-cost">
-            <block wx:for="{{card.ykt.data.today_cost.value}}">
+            <block wx:for="{{card.ykt.data.today_cost.value}}" wx:key="*this">
               <text class="ykt-cost-value">{{item}}</text>
               <text class="ykt-cost-text" wx:if="{{ index != card.ykt.data.today_cost.value.length - 1}}">+</text>
             </block>
@@ -101,7 +102,7 @@
           </view>
         </view>
         <view class="jy-list">
-          <view class="jy-item" wx:for="{{card.jy.data.list}}">
+          <view class="jy-item" wx:for="{{card.jy.data.list}}" wx:key="book_name">
             <view class="jy-book">
               <view class="jy-pickup-time">
                 <text class="jy-pickup-time-value">{{item.pickup_time}}</text>

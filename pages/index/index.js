@@ -3,6 +3,7 @@
 var app = getApp();
 Page({
   data: {
+    isBind: false,
     core: [
       { id: 'kb', name: '课表查询' },
       { id: 'cj', name: '成绩查询' },
@@ -59,6 +60,13 @@ Page({
   },
   onLoad: function(){
     var _this = this;
+    //绑定状态
+    _this.setData({
+      'isBind': !app._user.xs.is_bind
+    });
+    if(!app._user.xs.is_bind){
+      return false;
+    }
     //获取课表数据
     wx.request({
       url: app._server + '/api/get_kebiao.php',

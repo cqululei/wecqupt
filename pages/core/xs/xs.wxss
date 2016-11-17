@@ -178,7 +178,7 @@
                 letter-spacing: 1px;
             }
                 .state-name-active {
-                    color: #7858ad;
+                    color: #8271bf;
                 }
             .content-state-stuId {
 

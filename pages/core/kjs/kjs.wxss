@@ -123,7 +123,7 @@ page {
 }
     .day-active {
 
-        background: url('/images/core/kjs/day-icon.png') no-repeat;
+        /*background: url('/images/core/kjs/day-icon.png') no-repeat;*/
         /*微信暂不支持静态bgimg文件，改用服务器url*/
         background: url('https://we.cqu.pt/app/images/core/kjs/day-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
@@ -139,7 +139,7 @@ page {
 }
     .classTime-active {
 
-        background: url('/images/core/kjs/classTime-icon.png') no-repeat;
+        /*background: url('/images/core/kjs/classTime-icon.png') no-repeat;*/
         /*微信暂不支持静态bgimg文件，改用服务器url*/
         background: url('https://we.cqu.pt/app/images/core/kjs/classTime-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
@@ -155,7 +155,7 @@ page {
 }
     .building-active {
 
-        background: url('/images/core/kjs/building-icon.png') no-repeat;
+        /*background: url('/images/core/kjs/building-icon.png') no-repeat;*/
         /*微信暂不支持静态bgimg文件，改用服务器url*/
         background: url('https://we.cqu.pt/app/images/core/kjs/building-icon.png') no-repeat;
         background-size: 100rpx 100rpx;
