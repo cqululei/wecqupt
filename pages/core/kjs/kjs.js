@@ -29,6 +29,8 @@ Page({
 
   // 发送请求的函数
   sendRequest: function(query, bd){
+    
+    app.showLoadToast();
 
     var that = this;
     var requestData, activeData = that.data.active;
@@ -53,16 +55,11 @@ Page({
     }
 
     // 对失败进行处理
-    function doFail() {
+    function doFail(message) {
 
-      wx.showToast({
-        title: '请求失败',
-        icon: 'loading',
-        duration: 2000
-      });
+      app.showErrorModal(message);
     }
 
-    app.showLoadToast();
     // 发送请求
     wx.request({
       url: app._server + '/api/get_empty_room.php', 
@@ -73,11 +70,11 @@ Page({
           //执行回调函数
           if(bd){ bd(that); }
         }else{
-          doFail();
+          doFail(res.data.message);
         }
       },
       fail: function(res) {
-        doFail();
+        doFail(res.errMsg);
       },
       complete: function() {
         wx.hideToast();

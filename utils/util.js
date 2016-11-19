@@ -24,49 +24,22 @@ function isPlainObject(obj){
     for(var key in obj){}
     return key === undefined || obj.hasOwnProperty(key);
 }
-
-var transQuery = {
-  //字符串请求参数转化为对象
-  parse: function(str) {
-    if(!((typeof str == 'string') && str.constructor == String)){ return false; }
-    try{  
-      var obj = {},
-          arr = str.split('&');
-      arr.forEach(function(e) {
-        var item = e.split('=');
-        obj[item[0]] = item[1];
-      });
-      return obj;
-    }catch(err){ console.log(err); }
-  },
-  //序列化一个键值对象为字符串
-  stringify: function(obj) {
+function cloneObj(obj){
     if(!isPlainObject(obj)){ return false; }
-    var arr = [];
-    for(var key in obj){
-        if(obj.hasOwnProperty(key)) {
-            arr.push(key+'='+obj[key]);
-        };
-    }
-    return arr.join('&');
-  }
+    return JSON.parse(JSON.stringify(obj));
 }
 
 //md5&base64
 var md5 = require('md5.min.js'), base64 = require('base64.min.js'),
-sign = function(_data) {
-    console.log(_data);
-    _data['\x74\x6f\x6b\x65\x6e'] = getApp()['\x5f\x69'];
-    console.log(_data);
-    console.log(transQuery.stringify(_data));
-    return md5(transQuery.stringify(_data));
+sign = function(data) {
+  var _data = cloneObj(data);
+  _data['\x74\x6f\x6b\x65\x6e'] = base64.decode(getApp()['\x5f\x74']);
+  return md5(JSON.stringify(_data));
 },
 key = function(data) {
   if(!isPlainObject(data)){ return false; }
-  data.timestamp = new Date().getTime();
+  data.timestamp = parseInt(new Date().getTime().toString().substr(0,10));
   data.sign = sign(data);
-  console.log(data);
-    console.log(JSON.stringify(data));
   return {
     key: base64.encode(JSON.stringify(data))
   };
@@ -74,6 +47,7 @@ key = function(data) {
 
 module.exports = {
   formatTime: formatTime,
-  transQuery: transQuery,
+  md5: md5,
+  base64: base64,
   key: key
 }

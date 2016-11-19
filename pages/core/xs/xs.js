@@ -164,15 +164,21 @@ Page({
               arrXm = xm.split(''),
               strIndex = xm.indexOf(str),
               strLength = str.length;
+          if(strIndex == -1){
+            return {
+              activeName: '',
+              xm: xm
+            };
+          }else{
+            activeName = xm.substr(strIndex, strLength);
+            arrXm.splice(strIndex, strLength);
+            xm = arrXm.join('');
 
-          activeName = xm.substr(strIndex, strLength);
-          arrXm.splice(strIndex, strLength);
-          xm = arrXm.join('');
-
-          return {
-            activeName: activeName || '',
-            xm: xm || ''
-          };
+            return {
+              activeName: activeName || '',
+              xm: xm || ''
+            };
+          }
         }
 
         // 对学号的匹配部分进行高亮划分
@@ -182,15 +188,22 @@ Page({
               arrXh = xh.split(''),
               strIndex = xh.indexOf(str),
               strLength = str.length;
+          if(strIndex == -1){
+            return {
+              activeXh: '',
+              xh: xh
+            };
+          }else{
+            activeXh = xh.substr(strIndex, strLength);
+            console.log(activeXh)
+            arrXh.splice(strIndex, strLength);
+            xh = arrXh.join('');
 
-          activeXh = xh.substr(strIndex, strLength);
-          arrXh.splice(strIndex, strLength);
-          xh = arrXh.join('');
-
-          return {
-            activeXh: activeXh || '',
-            xh: xh || ''
-          };
+            return {
+              activeXh: activeXh || '',
+              xh: xh || ''
+            };
+          }
         }
 
         for (var i = 0; i < len; i++) {
@@ -242,9 +255,6 @@ Page({
       var message = typeof err === 'undefined' ? '未搜索到相关结果' : err;
       
       setMessageObj(false, message);
-      that.setData({
-        'main.mainDisplay': true
-      });
     }
 
     that.setData({
@@ -265,11 +275,13 @@ Page({
           doSuccess(res.data.data, true);
         }else{
 
+          app.showErrorModal(res.data.message);
           doFail(res.data.message);
         }
       },
       fail: function(res) {
         
+        app.showErrorModal(res.errMsg);
         doFail(res.errMsg);
       },
       complete: function() {

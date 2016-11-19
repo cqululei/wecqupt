@@ -21,26 +21,30 @@ Page({
     }
   },
   onLoad: function(){
-    this.getNewsList(0);
+    
   },
   //下拉更新
   onPullDownRefresh: function(){
     this.setData({
+      'active.data': [],
+      'active.showMore': true,
+      'active.remind': '上滑加载更多',
       'page': 0
     });
-    this.getNewsList(this.data.active.id);
+    this.getNewsList();
   },
   //上滑加载更多
   onReachBottom: function(){
     var _this = this;
     if(_this.data.active.showMore){
-      _this.getNewsList(_this.data.active.id);
+      _this.getNewsList();
     }
   },
   //获取新闻列表
   getNewsList: function(tpyeId){
-    app.showLoadToast();
     var _this = this;
+    tpyeId = tpyeId || _this.data.active.id;
+    app.showLoadToast();
     if(_this.data.page >= 5){
       _this.setData({
         'active.showMore': false,
@@ -72,14 +76,16 @@ Page({
               });
             }
           }else{
+            app.showErrorModal(res.data.message);
             _this.setData({
-              'active.remind': '错误'
+              'active.remind': '加载失败'
             });
           }
         },
         fail: function(res){
+          app.showErrorModal(res.errMsg);
           _this.setData({
-            'active.remind': '请求超时'
+            'active.remind': '网络错误'
           });
         },
         complete: function(){

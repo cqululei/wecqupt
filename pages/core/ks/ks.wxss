@@ -1,41 +1,41 @@
 /**ks.wxss**/
 .container{
-    background: rgb(247, 247, 247);
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    background-color: #f7f7f7;
 }
 .ks-header{
-    height: 320rpx;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 50rpx 0;
 }
 .ks-text{
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
-    padding-left: 60rpx;
+    padding-left: 25rpx;
 }
 .ks-header-title{
-    font-size: 44rpx;
-    color: rgb(51,51,51);
-    padding-bottom: 15rpx;
+    font-size: 20pt;
+    font-weight: bold;
+    line-height: 150%;
+    margin-bottom: 15rpx;
+    color: #222;
 }
 .ks-header-info,.ks-header-info-ksName{
-    font-size: 28rpx;
-    color: rgb(178,178,178);
-    padding-top: 10rpx;
+    font-size: 11pt;
+    line-height: 160%; 
+    color: #888;
 }
 
 .ks-bg{
-    display: flex;
-    text-align: right;
-    background-size: 200rpx 200rpx;
-    padding-right: 60rpx;
-    opacity: 0.4;
-}
-.ks-bg image{
+    display: block;
     width: 200rpx;
     height: 200rpx;
+    padding-right: 5rpx;
+    opacity: .3;
 }
 
 .ks-class-ctn{

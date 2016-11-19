@@ -1,6 +1,6 @@
 /**index.wxss**/
 .container{
-  padding-bottom: 300rpx;
+  padding-bottom: 0;
   background-color: #f0eff5;
   background-repeat: no-repeat;
   background-size: 100% auto; 
@@ -41,6 +41,9 @@
   margin: 5rpx;
 }
 /**卡片列表**/
+.main-card {
+  padding-bottom: 300rpx;
+}
 .main-card-item{
   display: flex;
   flex-direction: column;

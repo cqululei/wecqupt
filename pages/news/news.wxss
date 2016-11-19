@@ -50,7 +50,7 @@
   background-color: #ffcb63;
 }
 .list-item.jz{
-  background-color: #e286ab;
+  background-color: #e78ab0;
 }
 .list-item.new{
   background-color: #7acfa6;
