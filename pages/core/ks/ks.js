@@ -10,7 +10,6 @@ Page({
   togglePage: function (e) {
     var id = e.currentTarget.id, data = {};
     data.show = [];
-    console.log(this.data.class.length);
     for (var i = 0, len = this.data.class.length; i < len; i++) {
         data.show[i] = false;
     }
@@ -26,8 +25,7 @@ Page({
     wx.request({
       url: app._server + "/api/get_ks.php",
       data: {
-        xh: "2014211418",
-        sfzh: "204875"
+        xh: "2016212956"
       },
       success: function(res) {
         console.log(res);

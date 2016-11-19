@@ -40,13 +40,6 @@
   display: block;
   margin: 5rpx;
 }
-.not-bind {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 300rpx;
-}
 /**卡片列表**/
 .main-card {
   padding-bottom: 300rpx;

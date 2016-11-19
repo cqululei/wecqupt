@@ -3,13 +3,17 @@
   <!--功能导航-->
   <view class="main-core">
     <block wx:for="{{core}}" wx:key="id">
-      <navigator class="main-core-item" url="{{!isBind ? '/pages/more/login' : '/pages/core/'+item.id+'/'+item.id}}">
+      <navigator class="main-core-item" url="{{remind == '未绑定' ? '/pages/more/login' : '/pages/core/'+item.id+'/'+item.id}}">
         <image class="core-item-icon" src="/images/core/{{item.id}}.png"></image>
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
     </block>
   </view>
-  <view wx:if="{{!isBind}}" class="not-bind"><text>未绑定</text></view>
+  <view wx:if="{{remind}}" class="remind-box">
+    <image class="remind-img" src="/images/index/nothing.png"></image>
+    <text class="remind-text">{{remind}}</text>
+    <navigator wx:if="{{remind == '未绑定'}}" url="/pages/more/login" class="remind-btn">前往绑定</navigator>
+  </view>
   <!--卡片列表-->
   <view wx:else class="main-card">
   
@@ -57,7 +61,7 @@
             <text class="ykt-title">余额：</text>
           </view>
           <view class="card-info-right">
-            <view>截止时间：{{card.ykt.data.last_time}}</view>
+            <view>截至时间：{{card.ykt.data.last_time}}</view>
           </view>
         </view>
         <view class="ykt-balance">
@@ -141,7 +145,7 @@
             <text class="card-info-name">{{card.sdf.data.room}}</text>
           </view>
           <view class="card-info-right">
-            <view>截止时间：{{card.sdf.data.record_time}}</view>
+            <view>截至时间：{{card.sdf.data.record_time}}</view>
           </view>
         </view>
         <text class="sdf-hd">本月用电：</text>
