@@ -29,7 +29,7 @@
       <!--列表的一个元素的模板结构-->
       <view class="list-item">
         <!--信息直接显示部分-->
-        <view class="item">
+        <view class="item" data-index="{{index}}" bindtap="bindOpenList">
           <view class="item-content">
             <image class="item-content-image" src="{{item.headImg}}"></image>
             <view class="item-content-state">
@@ -40,7 +40,7 @@
             </view>
           </view>
           <!--信息直接显示部分的下拉标识-->
-          <view class="list-sign" data-index="{{index}}" bindtap="bindOpenList">
+          <view class="list-sign">
             <image class="list-sign-icon {{!item.display ? 'list-sign-icon-show' : ''}}" src="/images/core/common/down.png"></image>
           </view>
         </view>

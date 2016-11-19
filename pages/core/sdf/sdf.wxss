@@ -1,238 +1,112 @@
 /**sdf.wxss**/
-
-.container {
-
-    display: flex;
-    color: #000;
-    background: #f0eff5;
+.container{
+    background-color: #fff;
+    padding: 30rpx;
 }
-
-    .query-page,
-    .result-page {
-
-        display: flex;
-        flex: 1;
-        flex-flow: column nowrap;
-        align-content: space-around;
-        height: 100%;
-    }
-
-    .sameBtn {
-
-        color: #FFF;
-        background-color: #5dc8f7;
-        letter-spacing: 15rpx;
-    }
-
-/* ==========================================================================
-   query-page
- ============================================================================ */
-.query-page {
-
-    font-family: "微软雅黑";
+.remind-btn {
+    background-color: #ffcb63;
+    border-color: #e0b358;
 }
-
-/* query-image
- ============================================================================ */
-.query-image {
-
-    flex: 1;
-    width: 100%;
-    height: 619rpx;
-}
-
-/* query-form
- ============================================================================ */
-.query-form {
-
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 1;
-    padding: 0 30rpx;
-}
-    .error-layout {
-
-        display: flex;
-        flex: 1;
-        padding: 30rpx 0;
-        height: 1.8em;
-    }
-
-    .error-display {
-
-        font-size: 1.8em;
-        color: red;
-        text-indent: 1em;
-    }
-    
-    .form-input {
-
-        flex: 1;
-        margin: 16rpx 0;
-        background-color: #FFF;
-        /*background: #fff url('/images/core/sdf/arrowsdown.png') no-repeat scroll 96% center;*/
-        font-size: 1.6em;
-        color: #7F848A;
-    }
-
-        .form-input input {
-
-            border: 1px solid #eee;
-            padding: 20rpx 0 20rpx 42rpx;
-            width: 90%;
-        }
-
-    .form-dormitoryNo {
-
-        margin: 45rpx 0 100rpx 0;
-    }
-
- /* ==========================================================================
-   result-page
- ============================================================================ */
 .result-page {
-
-    padding: 50rpx 30rpx 0 30rpx;
-    height: 100%;
-    font-size: 1.7em;
-    color: #7F848A;
-    background-color: #FFF;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    font-size: 11pt;
 }
-    .result-model {
+.result-model {
+    display: flex;
+    flex-flow: column;
+    border-radius: 3px;
+    color: #555;
+    background-color: #faf9f7;
+    overflow: hidden;
+}
 
-        display: flex;
-        flex: 1;
-        flex-flow: column nowrap;
-        background-color: #FAF9F7;
-    }
-
-/* result-userInfo
- ============================================================================ */
 .result-userInfo {
 
-    padding: 43rpx 30rpx 12rpx 40rpx;
+    display: flex;
+    align-items: stretch;
+    padding: 35rpx 30rpx;
 }
-    .userInfo-basic {
 
-        display: flex;
-        flex: 1;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        padding: 13rpx 0 38rpx 0;
-    }
-        .basic-name {
-
-            flex: 1;
-            font-size: 1.5em;
-        }
-
-        .basic-time {
-
-            flex: 1;
-            font-size: 0.8em;
-            text-align: right;
-        }
     .userInfo-dormitory {
 
         display: flex;
-        flex: 1;
-        flex-flow: row nowrap;
+        align-items: center;
         justify-content: space-between;
-        height: 58rpx;
-        line-height: 58rpx;
-        font-size: 0.8em;
+        margin: 10rpx 0 20rpx;
     }
         .dormitory-info {
-
-            flex: 1;
+            font-size: 20pt;
+            line-height: 150%;
+            letter-spacing: 1px;
         }
         .dormitory-resetBtn {
-
-            flex: none;
-            margin: 0;
-            padding: 0;
-            width: 166rpx;
-            height: 58rpx;
-            line-height: 58rpx;
-            font-size: 1.2em;
-            letter-spacing: 0;
-            background-color: #7F848A;
+            font-size: 9pt;
+            padding: 5rpx 20rpx;
+            text-align: center;
+            background-color: #ffcb63;
+            border-radius: 3px; 
+            color: #fff;
         }
 
- /* result-chargeInfo
- ============================================================================ */
+    .userInfo-basic {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #888;
+    }
+        .basic-name {
+            font-size: 11pt;
+            line-height: 150%;
+        }
+        .basic-time {
+            font-size: 10pt;
+        }
+
 .result-chargeInfo {
 
     display: flex;
-    flex: 1;
-    flex-flow: row nowrap;
-    margin: 30rpx 0;
-    background-color: #FFF;
+    flex-direction: row;
+    margin: 20rpx 0;
 }
     .chargeInfo-model {
-
+        
         flex: 1;
-        padding: 13rpx 50rpx 0 18rpx;
-        background-color: #FAF9F7;
+        padding: 35rpx 30rpx;
     }
 
     .chargeInfo-num {
 
-        margin-right: 35rpx;
+        margin-right: 10rpx;
     }
-        .chargeInfo-model-title {
+    .chargeInfo-cost {
 
-            font-size: 0.7em;
+        margin-left: 10rpx;
+    }
+        .chargeInfo-model-title{
+
+            margin-bottom: 30rpx;
         }
-
         .chargeInfo-model-info {
 
-            margin-top: 65rpx;
-            text-align: right;
+            text-align: center;
         }
             .model-info {
 
-                margin-right: 10rpx;
-                font-size: 2em;
+                font-size: 25pt;
+                line-height: 100%;
+                padding: 0 10rpx 0 20rpx;
             }
 
-/* result-specificInfo
- ============================================================================ */
 .result-specificInfo {
     
-    flex: 2;
-    padding: 0 40rpx;
+    padding: 35rpx 30rpx;
 }
     .specificInfo-item {
 
         display: flex;
-        flex: 1;
-        flex-flow: row nowrap;
         justify-content: space-between;
-        padding: 34rpx 0 50rpx 0;
+        padding: 25rpx 0;
     }
-        .specificInfo-item text {
-
-            flex: 1;
-        }
-        .specificInfo-item .specificInfo-item-value {
-
-            text-align: right;
-        }
-
-/* result-returnBtn
- ============================================================================ */
-.result-returnBtn {
-
-    margin-top: 100rpx;
-    display: block;
-}
-
-/* result-image
- ============================================================================ */
-.result-image {
-
-    flex: 1;
-    width: 100%;
-    height: 90rpx;
-}

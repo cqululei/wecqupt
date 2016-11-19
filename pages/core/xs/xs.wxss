@@ -2,9 +2,9 @@
 
 .container {
 
-    /*background: #F7F7F7 url('/images/core/xs/bg.png') no-repeat;*/
+    /*background: #f7f7f7 url('/images/core/xs/bg.png') no-repeat;*/
     /*微信暂不支持静态bgimg文件，改用服务器url*/
-    background: #F7F7F7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
+    background: #f7f7f7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
     background-size: 250rpx 250rpx;
     background-position: 50% 50%;
     padding: 0;

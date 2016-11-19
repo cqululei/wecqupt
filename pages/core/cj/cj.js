@@ -3,6 +3,7 @@
 var app = getApp();
 Page({
   data: {
+    remind: '加载中...',
     cjInfo : [
 
     ],
@@ -17,40 +18,69 @@ Page({
   },
   onLoad: function(){
     var _this = this;
+    if(!app._user.xs.xh || !app._user.xs.xm){
+      app.showErrorModal('未绑定');
+      _this.setData({
+        remind: '未绑定'
+      });
+      return false;
+    }
     _this.setData({
       id: app._user.xs.xh,
-      name: app._user.xs.name
+      name: app._user.xs.xm
     });
     app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_kscj.php",
       data: {
         xh: app._user.xs.xh,
-        sfzh: app._user.xs.sfz_h6
+        sfzh: app._user.xs.sfzh
       },
       success: function(res) {
 
-        var _data = res.data.data;
+        if(res.data.status === 200) {
+          if(!res.data.data || !res.data.data.length){
+            _this.setData({
+              remind: '暂无数据'
+            });
+            return false;
+          }
+          var _data = res.data.data;
 
-        var term = _data[0].term;
-        var xh = _data[0].xh;
-        var year = term.slice(0,4);
-        var semester = term.slice(4);
-        var yearIn = xh.slice(0,4);
-        var xqName_grade = changeNum(year - yearIn + 1);
-        var xqName_semester = (semester == 1) ? '上' : '下';
-        var xqName = {
-          grade: xqName_grade,
-          semester: xqName_semester,
-          term: term
-        };
-        
-        _this.setData({
-          cjInfo: _data,
-          xqName: xqName
-        });
+          var term = _data[0].term;
+          var xh = _data[0].xh;
+          var year = term.slice(0,4);
+          var semester = term.slice(4);
+          var yearIn = xh.slice(0,4);
+          var xqName_grade = changeNum(year - yearIn + 1);
+          var xqName_semester = (semester == 1) ? '上' : '下';
+          var xqName = {
+            grade: xqName_grade,
+            semester: xqName_semester,
+            term: term
+          };
+          
+          _this.setData({
+            cjInfo: _data,
+            xqName: xqName,
+            remind: ''
+          });
+        } else {
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: '加载失败'
+          });
+        }
 
       },
+
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          remind: '网络错误'
+        });
+      },
+
       complete: function(){
         wx.hideToast();
       }

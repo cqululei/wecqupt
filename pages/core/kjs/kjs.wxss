@@ -7,7 +7,6 @@ page {
 
 .container {
 
-    border-top: 1px solid #F8E2EB;
     background: #fff;
     padding-bottom: 480rpx;
     box-sizing: border-box;

@@ -2,6 +2,7 @@
 .container {
     padding-left: 30rpx;
     padding-right: 30rpx;
+    padding-bottom: 0;
     background-color: #f7f7f7;
 }
 

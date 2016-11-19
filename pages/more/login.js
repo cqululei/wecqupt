@@ -10,20 +10,39 @@ Page({
     passwd: ''
   },
   onLoad: function(){
-    
+
   },
   bind: function() {
-    
+    var _this = this;
+    if(!_this.data.userid || !_this.data.passwd){
+      console.log('不能为空');
+      return false;
+    }
     wx.request({
       method: 'POST',
       url: app._server + '/api/users/bind.php',
-      data: {
-        code: res.code,
-        key: info.encryptedData,
-        iv: info.iv
-      },
+      data: app.key({
+        openid: app._user.wx.openid,
+        xh: _this.data.userid,
+        sfzh: _this.data.passwd
+      }),
       success: function(res){
-        console.log(res);
+        if(res.data.status === 200){
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'success',
+            duration: 2000
+          });
+          app.getUser();
+          wx.redirectTo({
+            url: '/pages/index/index'
+          });
+        }else{
+          console.log('绑定异常');
+        }
+      },
+      fail: function(res){
+        console.log('绑定失败');
       }
     });
   },

@@ -4,6 +4,7 @@
     "pages/news/news",
     "pages/news/detail",
     "pages/more/login",
+    "pages/more/append",
     "pages/more/more",
     "pages/more/about",
     "pages/core/kb/kb",

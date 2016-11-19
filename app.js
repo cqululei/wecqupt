@@ -1,26 +1,12 @@
 //app.js
 App({
   onLaunch: function() {
-    //调用函数登录
-    this.getUser();
     //调用API从本地缓存中获取数据
   },
-  onShow: function() {
-    wx.showModal({
-      title: '未绑定帐号',
-      content: 'We重邮需要绑定帐号才能够正常使用，是否前往绑定？',
-      confirmText: '前往',
-      success: function(res) {
-        if(res.confirm){
-          wx.navigateTo({
-            url: '/pages/more/login'
-          });
-        }
-      }
-    });
-  },
-  getUser: function() {
+  //getUser函数，在index中调用
+  getUser: function(success_cb, fail_cb) {
     var _this = this;
+    _this.showLoadToast();
     //登录
     wx.login({
       success: function(res){
@@ -38,15 +24,30 @@ App({
                 iv: info.iv
               },
               success: function(res){
-                console.log(res);
-                if(res.data.status === 200 || res.data.status === 203){
-                  _this._user.xs = res.data.data;
+                if(res.data.status){
+                  var data = JSON.parse(_this.util.base64.decode(res.data.data));
+                  _this._user.is_bind = data.is_bind;
+                  _this._user.wx.openid = data.openid;
+                  _this._user.xs = data.student;
+                  _this._t = data['\x74\x6f\x6b\x65\x6e'];
+                  if(!data.is_bind){
+                    wx.navigateTo({
+                      url: '/pages/more/login'
+                    });
+                  }
+                  //成功回调函数
+                  typeof success_cb == "function" && success_cb();
                 }else{
-                  console.log('登录异常');
+                  //失败回调函数
+                  typeof fail_cb == "function" && fail_cb(res.data.message);
                 }
               },
               fail: function(res){
-                console.log('请求失败');
+                //失败回调函数
+                typeof fail_cb == "function" && fail_cb(res.errMsg);
+              },
+              complete: function(){
+                wx.hideToast();
               }
             });
           });
@@ -62,6 +63,13 @@ App({
       }
     });
   },
+  showErrorModal: function(content){
+    wx.showModal({
+      title: '加载失败',
+      content: content || '未知错误',
+      showCancel: false
+    });
+  },
   showLoadToast: function(title, duration){
     wx.showToast({
       title: title || '加载中',
@@ -71,12 +79,11 @@ App({
   },
   util: require('./utils/util'),
   key: function(data){ return this.util.key(data) },
-  _i: 'test',
   _server: 'https://we.cqu.pt',
   _user: {
     //微信数据
     wx: {},
     //学生数据
-    xs: { name: '闵聪', xh: 2013211664, sfz_h6: 176053, ykt_id: 1634355, room: { buildingNo: 15, floor: 4, room: 15 } }
+    xs: {}
   }
 });
