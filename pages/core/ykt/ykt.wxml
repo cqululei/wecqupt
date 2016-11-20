@@ -1,10 +1,18 @@
 <!--ykt.wxml-->
 <view class="container">
-    <view class="ykt-ye">
-        <text class="ykt-ye-name">余额</text>
-        <text class="ykt-ye-money">
-            <text>{{dict[dict.length - 1].balance}}</text>元
-        </text>
+    <view class="ykt-card">
+        <view class="ykt-black-line"></view>
+        <view class="ykt-content">
+            <view class="ykt-ye">
+                <text class="ykt-ye-name">余额</text>
+                <text class="ykt-ye-money">
+                    <text>{{dict[dict.length - 1].balance}}</text>元
+                </text>
+            </view>
+            <view class="ykt-img">
+                <image src="/images/core/ykt.png"></image>
+            </view>
+        </view>
     </view>
     <view class="grid-wraper">
         <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
@@ -14,7 +22,7 @@
     <view class="ykt-detail-wraper">
         <view class="ykt-head {{showDetail ? 'ykt-head-show' : ''}}" bindtap="slideDetail">
             <text class="ykt-type-name">消费详情</text>
-            <image class="ykt-icon" src="/images/core/icon_ykt.png" />
+            <image class="ykt-icon" src="/images/core/icon_ykt.png"></image>
         </view>                
         <view class="ykt-detail {{showDetail ? 'ykt-detail-show' : ''}}">            
             <view class="detail-list">
