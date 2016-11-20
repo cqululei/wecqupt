@@ -37,15 +37,15 @@ Page({
       icon: 'loading',
       duration: 10000
     })
-
+    console.log(options.id);
 
     
     wx.request({
       url: 'https://we.cqu.pt/api/get_news_detail.php',
       //资讯id
       data: {
-        type: "oa",
-        id: options.id
+        type: "new",
+        id: "34191"
       },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
