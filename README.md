@@ -71,7 +71,7 @@ wecqupt
 | 1   | **【主页】** | pages/index/index(.wxml)   | ✔       | ✔      | ✘       |         |        |        |
 | 10  | 课表查询     | pages/core/kb/kb           | ✔       |        | ✔       |         |        |        |
 | 11  | 成绩查询     | pages/core/cj/cj           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
-| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔~      |         |        |        |
+| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔~      | ✔       |        |        |
 | 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
 | 14  | 学生查询     | pages/core/xs/xs           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
 | 15  | 一卡通       | pages/core/ykt/ykt         | ✔       | ✔      | ✔~      | ✔       |        |        |
