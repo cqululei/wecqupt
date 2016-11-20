@@ -23,7 +23,7 @@
     text-indent: 46rpx;
     font-size: 28rpx;
     line-height: 42rpx;
-    /*margin-top: 0rpx;*/
+    /*margin: 40rpx 0 40rpx 0;*/
 }
 .bottom{
     background: #000;

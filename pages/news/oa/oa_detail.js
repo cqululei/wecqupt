@@ -3,32 +3,32 @@
 var app = getApp();
 Page({
   data: {
-    title: "标题",// 新闻标题
+    title: "",// 新闻标题
     date: "",// 发布日期
     author: "", // 发布作者
     content: "",// 新闻内容
-    file: "", // 附件，true or false
-    size: "234kb",// 附件大小
-    fileName: "这是附件这是附件.rar", // 附件名称
-    fileSource: "教务在线"// 附件来源
+    file: false, // 附件，true or false
+    size: "",// 附件大小
+    fileName: "", // 附件名称
+    fileSource: ""// 附件来源
   },
-  // 点击附件下载
-  downloadFile: function(){
+  // // 点击附件下载
+  // downloadFile: function(){
 
-    wx.downloadFile({
-      url: 'http://source.lattecake.com/files/2016/09/demo.zip', //仅为示例，并非真实的资源
-      success: function(res) {
-        wx.saveFile({
-          tempFilePath: res.tempFilePath,
-          success: function(res) {
-            var savedFilePath = res.savedFilePath;
-            console.log(savedFilePath);
-          }
-        })
-      }
-    })
+  //   wx.downloadFile({
+  //     url: 'http://source.lattecake.com/files/2016/09/demo.zip', //仅为示例，并非真实的资源
+  //     success: function(res) {
+  //       wx.saveFile({
+  //         tempFilePath: res.tempFilePath,
+  //         success: function(res) {
+  //           var savedFilePath = res.savedFilePath;
+  //           console.log(savedFilePath);
+  //         }
+  //       })
+  //     }
+  //   })
     
-  },
+  // },
   
   onLoad: function(options){
     var _this = this;
@@ -44,7 +44,6 @@ Page({
         returnText=returnText.replace(/&mdash/gi,'-');
         returnText=returnText.replace(/&ldquo/gi,'“');
         returnText=returnText.replace(/&rdquo/gi,'”');
-
         return returnText;
     }
 
@@ -73,9 +72,10 @@ Page({
             'content': convertHtmlToText(res.data.data.body) // 新闻内容
           })
           // 如果存在附件则提取附件里面的信息
-          if(res.data.file){
+          if(res.data.data.fjlist){
+            var fjlist = res.data.data.fjlist;
             wx.downloadFile({
-              url: 'http://source.lattecake.com/files/2016/09/demo.zip', //仅为示例，并非真实的资源
+              url: fjlist.flink, //仅为示例，并非真实的资源
               success: function(res) {
                 wx.getSavedFileInfo({
                   filePath: res.tempFilePath, //仅做示例用，非真正的文件路径
@@ -90,9 +90,11 @@ Page({
                       }
                     var size = bytesToSize(res.size);
                     _this.setData({
-                      'size': size  // 附件大小
+                      "file": true,
+                      'size': size,  // 附件大小
+                      'fileName': fjlist.fjtitle, // 附件名称
+                      'fileSource': "oa公告"
                     });
-                    console.log(size);
                   }
                 })
               }
