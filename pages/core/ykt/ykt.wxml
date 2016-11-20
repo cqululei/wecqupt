@@ -1,4 +1,30 @@
 <!--ykt.wxml-->
 <view class="container">
-  
+    <view class="ykt-ye">
+        <text class="ykt-ye-name">余额</text>
+        <text class="ykt-ye-money">
+            <text>{{balance}}</text>元
+        </text>
+    </view>
+    <view class="grid-wraper">
+        <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
+        <view class="line" style="left: {{lineLeft}}px;"></view>
+    </view>
+    
+    <view class="ykt-detail-wraper">
+        <view class="ykt-head {{showDetail ? 'ykt-head-show' : ''}}" bindtap="slideDetail">
+            <text class="ykt-type-name">消费详情</text>
+            <image class="ykt-icon" src="/images/core/icon_ykt.png" />
+        </view>                
+        <view class="ykt-detail {{showDetail ? 'ykt-detail-show' : ''}}">            
+            <view class="detail-list">
+                <text>消费时间：{{tapDetail.time}}</text>
+                <text>消费类型：{{tapDetail.transaction}}</text>
+                <text>消费金额：{{tapDetail.cost}}</text>
+                <text>消费设备：{{tapDetail.device}}</text>
+                <text>消费地点：{{tapDetail.address}}</text>
+                <text>余额：{{tapDetail.balance}}</text>
+            </view>
+        </view>
+    </view>
 </view>

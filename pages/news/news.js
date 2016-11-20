@@ -18,25 +18,34 @@ Page({
       'type': 'all',
       data: [],
       showMore: true,
-      remind: '下拉加载更多'
+      remind: '上滑加载更多'
     }
   },
   onLoad: function(){
-    app.showLoadToast();
-    this.getNewsList(0);
+    
   },
+  //下拉更新
+  onPullDownRefresh: function(){
+    this.setData({
+      'active.data': [],
+      'active.showMore': true,
+      'active.remind': '上滑加载更多',
+      'page': 0
+    });
+    this.getNewsList();
+  },
+  //上滑加载更多
   onReachBottom: function(){
     var _this = this;
-    _this.setData({
-      'active.remind': '正在加载中'
-    });
     if(_this.data.active.showMore){
-      app.showLoadToast();
-      _this.getNewsList(_this.data.active.id);
+      _this.getNewsList();
     }
   },
+  //获取新闻列表
   getNewsList: function(tpyeId){
     var _this = this;
+    tpyeId = tpyeId || _this.data.active.id;
+    app.showLoadToast();
     if(_this.data.page >= 5){
       _this.setData({
         'active.showMore': false,
@@ -44,6 +53,9 @@ Page({
       });
       wx.hideToast();
     }else{
+      _this.setData({
+        'active.remind': '正在加载中'
+      });
       //获取资讯列表
       wx.request({
         url: app._server + '/api/' + _this.data.list[tpyeId].url,
@@ -55,7 +67,8 @@ Page({
             if(res.data.data){
               _this.setData({
                 'page': _this.data.page + 1,
-                'active.data': _this.data.active.data.concat(res.data.data)
+                'active.data': _this.data.active.data.concat(res.data.data),
+                'active.remind': '上滑加载更多'
               });
             }else{
               _this.setData({
@@ -63,22 +76,36 @@ Page({
                 'active.remind': '没有更多啦'
               });
             }
-            wx.hideToast();
+          }else{
+            app.showErrorModal(res.data.message);
+            _this.setData({
+              'active.remind': '加载失败'
+            });
           }
+        },
+        fail: function(res){
+          app.showErrorModal(res.errMsg);
+          _this.setData({
+            'active.remind': '网络错误'
+          });
+        },
+        complete: function(){
+          wx.hideToast();
+          wx.stopPullDownRefresh();
         }
       });
     }
   },
+  //获取焦点
   changeFilter: function(e){
     this.setData({
       'active.id': e.target.dataset.id,
       'active.type': e.target.id,
       'active.data': [],
       'active.showMore': true,
-      'active.remind': '下拉加载更多',
+      'active.remind': '上滑加载更多',
       'page': 0
     });
-    app.showLoadToast();
     this.getNewsList(e.target.dataset.id);
   }
 });

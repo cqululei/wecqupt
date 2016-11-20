@@ -2,29 +2,34 @@
 <view class="container">
   <!--功能导航-->
   <view class="main-core">
-    <block wx:for="{{core}}">
-      <navigator class="main-core-item" url="/pages/core/{{item.id}}/{{item.id}}">
-        <image class="core-item-icon" src="/images/core/{{item.id}}.png" />
+    <block wx:for="{{core}}" wx:key="id">
+      <navigator class="main-core-item" url="{{remind == '未绑定' ? '/pages/more/login' : '/pages/core/'+item.id+'/'+item.id}}">
+        <image class="core-item-icon" src="/images/core/{{item.id}}.png"></image>
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
     </block>
   </view>
+  <view wx:if="{{remind}}" class="remind-box">
+    <image class="remind-img" src="/images/index/nothing.png"></image>
+    <text class="remind-text">{{remind}}</text>
+    <navigator wx:if="{{remind == '未绑定'}}" url="/pages/more/login" class="remind-btn">前往绑定</navigator>
+  </view>
   <!--卡片列表-->
-  <view class="main-card">
+  <view wx:else class="main-card">
   
     <!--今日课表-->
     <view class="main-card-item" id="kb" wx:if="{{card.kb.show}}">
       <navigator url="/pages/core/kb/kb">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/kb.png" />
+          <image class="card-item-icon" src="/images/core/kb.png"></image>
           <text class="card-item-name">今日课表</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
       <view class="card-item-bd">
-        <view class="kb-item" wx:for="{{card.kb.data.list}}">
+        <view class="kb-item" wx:for="{{card.kb.data.list}}" wx:key="when">
           <view class="kb-item-left">
             <text class="kb-item-what">{{item.what}}</text>
             <text class="kb-item-when">{{item.when}}</text>
@@ -43,10 +48,10 @@
     <view class="main-card-item" id="ykt" wx-if="{{card.ykt.show}}">
       <navigator url="/pages/core/ykt/ykt">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/ykt.png" />
+          <image class="card-item-icon" src="/images/core/ykt.png"></image>
           <text class="card-item-name">一卡通</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -56,7 +61,7 @@
             <text class="ykt-title">余额：</text>
           </view>
           <view class="card-info-right">
-            <view>截止时间：{{card.ykt.data.last_time}}</view>
+            <view>截至时间：{{card.ykt.data.last_time}}</view>
           </view>
         </view>
         <view class="ykt-balance">
@@ -66,7 +71,7 @@
         <block wx:if="{{card.ykt.data.cost_status}}">
           <text class="ykt-title">今日消费：</text>
           <view class="ykt-cost">
-            <block wx:for="{{card.ykt.data.today_cost.value}}">
+            <block wx:for="{{card.ykt.data.today_cost.value}}" wx:key="*this">
               <text class="ykt-cost-value">{{item}}</text>
               <text class="ykt-cost-text" wx:if="{{ index != card.ykt.data.today_cost.value.length - 1}}">+</text>
             </block>
@@ -82,10 +87,10 @@
     <view class="main-card-item" id="jy" wx:if="{{card.jy.show}}">
       <navigator url="/pages/core/jy/jy">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/jy.png" />
+          <image class="card-item-icon" src="/images/core/jy.png"></image>
           <text class="card-item-name">借阅信息</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -101,7 +106,7 @@
           </view>
         </view>
         <view class="jy-list">
-          <view class="jy-item" wx:for="{{card.jy.data.list}}">
+          <view class="jy-item" wx:for="{{card.jy.data.list}}" wx:key="book_name">
             <view class="jy-book">
               <view class="jy-pickup-time">
                 <text class="jy-pickup-time-value">{{item.pickup_time}}</text>
@@ -127,10 +132,10 @@
     <view class="main-card-item" id="sdf" wx:if="{{card.sdf.show}}">
       <navigator url="/pages/core/sdf/sdf">
         <view class="card-item-hd">
-          <image class="card-item-icon" src="/images/core/sdf.png" />
+          <image class="card-item-icon" src="/images/core/sdf.png"></image>
           <text class="card-item-name">电费查询</text>
           <view class="card-item-more">
-            <image class="card-item-open" src="/images/index/open.png" />
+            <image class="card-item-open" src="/images/index/open.png"></image>
           </view>
         </view>
       </navigator>
@@ -140,7 +145,7 @@
             <text class="card-info-name">{{card.sdf.data.room}}</text>
           </view>
           <view class="card-info-right">
-            <view>截止时间：{{card.sdf.data.record_time}}</view>
+            <view>截至时间：{{card.sdf.data.record_time}}</view>
           </view>
         </view>
         <text class="sdf-hd">本月用电：</text>

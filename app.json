@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/news/news",
     "pages/news/new/new_detail",
@@ -8,6 +8,8 @@
     "pages/news/hy/hy_detail",
     "pages/news/jz/jz_detail",
     "pages/news/jw/jw_detail",
+    "pages/more/login",
+    "pages/more/append",
     "pages/more/more",
     "pages/more/about",
     "pages/core/kb/kb",
@@ -23,8 +25,7 @@
     "pages/core/bx/bx_apply",
     "pages/core/bx/bx_detail"
   ],
-  "window":{
-    "backgroundTextStyle": "light",
+  "window": {
     "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "We重邮",
@@ -52,5 +53,8 @@
       "iconPath": "images/index/more.png",
       "selectedIconPath": "images/index/more@active.png"
     }]
+  },
+  "networkTimeout": {
+    "request": 10000
   }
 }

@@ -3,9 +3,60 @@
 var app = getApp();
 Page({
   data: {
-    
+    remind: '加载中...',
+    jyData: []
   },
-  onReady: function(){
-
+  onLoad: function() {
+    this.getData();
+  },
+  onPullDownRefresh: function(){
+    this.getData();
+  },
+  getData: function() {
+    var _this = this;
+    if(!app._user.xs.xh || !app._user.xs.xm){
+      app.showErrorModal('未绑定');
+      _this.setData({
+        remind: '未绑定'
+      });
+      return false;
+    }
+    app.showLoadToast();
+    wx.request({
+      url: app._server + "/api/get_booklist.php",
+      data: {
+        yktID: app._user.xs.ykth
+      },
+      success: function(res) {
+        if(res.data.status === 200) {
+          if(!res.data.data || !res.data.data.length){
+            _this.setData({
+              remind: '暂无数据'
+            });
+            return false;
+          }
+          _this.setData({
+            jyData: res.data.data,
+            remind: ''
+          });
+        }else{
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: '加载失败'
+          });
+        }
+      },
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          remind: '网络错误'
+        });
+      },
+      complete: function() {
+        wx.hideToast();
+        wx.stopPullDownRefresh();
+      }
+    });
   }
+ 
 });

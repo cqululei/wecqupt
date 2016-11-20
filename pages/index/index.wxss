@@ -1,11 +1,13 @@
 /**index.wxss**/
 .container{
-  padding-bottom: 300rpx;
+  padding-bottom: 0;
   background-color: #f0eff5;
-  background-image: url('../../images/index/tri.png');
   background-repeat: no-repeat;
   background-size: 100% auto; 
   background-position: bottom center;
+  /*background-image: url('/images/index/tri.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/tri.png');
 }
 /**功能导航**/
 .main-core{
@@ -39,6 +41,9 @@
   margin: 5rpx;
 }
 /**卡片列表**/
+.main-card {
+  padding-bottom: 300rpx;
+}
 .main-card-item{
   display: flex;
   flex-direction: column;
@@ -52,16 +57,24 @@
   overflow: hidden;
 }
 .main-card-item#kb{
-  background-image: url('../../images/index/kb-bg.png');
+  /*background-image: url('/images/index/kb-bg.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/kb-bg.png');
 }
 .main-card-item#ykt{
-  background-image: url('../../images/index/ykt-bg.png');
+  /*background-image: url('/images/index/ykt-bg.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/ykt-bg.png');
 }
 .main-card-item#jy{
-  background-image: url('../../images/index/jy-bg.png');
+  /*background-image: url('/images/index/jy-bg.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/jy-bg.png');
 }
 .main-card-item#sdf{
-  background-image: url('../../images/index/sdf-bg.png');
+  /*background-image: url('/images/index/sdf-bg.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/sdf-bg.png');
 }
 .card-item-hd{
   display: flex;
@@ -252,9 +265,11 @@
   box-sizing: border-box;
   width: 176rpx;
   height: 231rpx;
-  background-image: url('../../images/index/jy-book.png');
+  /*background-image: url('/images/index/jy-book.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  background-image: url('https://we.cqu.pt/app/images/index/jy-book.png');
   background-size: 100% 100%;
-  padding: 5rpx 7rpx 50rpx 28rpx;
+  padding: 5rpx 5rpx 50rpx 30rpx;
   color: #fff;
   margin-bottom: 10rpx;
 }
