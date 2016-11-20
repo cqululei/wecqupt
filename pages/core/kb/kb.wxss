@@ -1,1 +1,130 @@
 /**kb.wxss**/
+.container{
+
+}
+.kb-ctn{
+    width: 100%;
+    height: 1236rpx;
+    display: flex;
+}
+.kb-num-ctn{
+    width: 30rpx;
+    height: 1236rpx;
+    text-align: center;
+    background: #fff;
+}
+.kb-num-ctn view{
+    height: 100rpx;
+    line-height: 100rpx;
+    box-sizing: border-box;
+}
+.mg-4{
+    margin-bottom: 4rpx;
+}
+.mg-12{
+    margin-bottom: 12rpx;
+}
+.kb-cards-ctn{
+    overflow: scroll;
+}
+.kb-cards-scroll{
+    width: 924rpx;
+    height: 1236rpx;
+    display: flex;
+    align-items: stretch;
+    z-index: 0;
+}
+.kb-cards-column{
+    display: inline-block;
+    width: 120rpx;
+    height: 1236rpx;
+    background: #fff;
+    overflow: hidden;
+    margin-right: 12rpx;
+    z-index: 99;
+}
+
+.kb-card{
+    position: relative;
+    width: 120rpx;
+    height: 200rpx;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 5rpx;
+    z-index: 100;
+    color: #fff;
+}
+
+.kb-card-content{
+    background: #eee;
+    width: 120rpx;
+    height: 200rpx;
+    padding: 0 12rpx;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+.kb-card-place-num{
+    font-size: 13pt;
+    padding: 17rpx 0;
+}
+.kb-card-place-words{
+    font-size: 9pt;
+    padding: 17rpx 0;
+    line-height: 100%;    
+}
+.kb-card-name{
+    font-size: 10pt;
+    padding-bottom: 8rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    line-height: 130%;
+}
+.kb-bg{
+    position: absolute;
+    width: 120rpx;
+    height: 1236rpx;
+    background: -webkit-gradient(linear, left top, left bottom, from(#deefff), color-stop(0.5, #abd2f6), to(#deefff));
+    z-index: 1;
+}
+.green{
+    background: #7acfa6;
+}
+.blue{
+    background: #73b4ef;
+}
+.purple{
+    background: #9f8bea;
+}
+.red{
+    background: #e286ab;
+}
+.yellow{
+    background: #ffcb63;
+}
+
+
+.kb-info-ctn{
+    position: fixed;
+    width: 100%;
+    height: 100rpx;
+    left: 0;
+    bottom: 0;
+    border-top-left-radius: 15rpx;
+    border-top-right-radius: 15rpx;
+    background: #56a5ee;
+    z-index: 1000;
+}
+.kb-info-title{
+    color: #fff;
+    padding: 0 55rpx;
+    display: flex;
+}
+.kb-info-week{
+    line-height: 100rpx;
+}
+
