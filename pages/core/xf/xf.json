@@ -1,5 +1,6 @@
 {    
-    "navigationBarBackgroundColor": "#B69EDE",
-    "navigationBarTitleText": "学费查询" ,
-    "backgroundColor": "#B69EDE"  
+    "navigationBarBackgroundColor": "#9f8bea",
+    "navigationBarTitleText": "学费查询",
+    "backgroundColor": "#9f8bea",
+    "enablePullDownRefresh": false
 }

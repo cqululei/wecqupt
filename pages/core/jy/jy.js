@@ -3,23 +3,54 @@
 var app = getApp();
 Page({
   data: {
+    remind: '加载中...',
     jyData: []
   },
   onLoad: function() {
+    this.getData();
+  },
+  onPullDownRefresh: function(){
+    this.getData();
+  },
+  getData: function() {
     var _this = this;
+    if(!app._user.xs.xh || !app._user.xs.xm){
+      app.showErrorModal('未绑定');
+      _this.setData({
+        remind: '未绑定'
+      });
+      return false;
+    }
+    app.showLoadToast();
     wx.request({
-      url: "http://we.cqupt.edu.cn/api/get_booklist.php",
+      url: app._server + "/api/get_booklist.php",
       data: {
-        yktID: "1636792"
+        yktID: app._user.xs.ykth
       },
       success: function(res) {
-        console.log(res);
+        if(res.data.status === 200) {
+          _this.setData({
+            jyData: res.data.data,
+            remind: ''
+          });
+        }else{
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: res.data.message
+          });
+        }
+      },
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
         _this.setData({
-          jyData: res.data.data
-        });        
+          remind: '网络错误'
+        });
+      },
+      complete: function() {
+        wx.hideToast();
+        wx.stopPullDownRefresh();
       }
     });
   }
-
  
 });

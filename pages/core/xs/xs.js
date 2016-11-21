@@ -11,6 +11,7 @@ Page({
     main: {
       mainDisplay: true, // main 显示的变化标识
       total: 0,
+      sum: 0,
       page: 0,
       message: '上滑加载更多'
     },
@@ -163,15 +164,21 @@ Page({
               arrXm = xm.split(''),
               strIndex = xm.indexOf(str),
               strLength = str.length;
+          if(strIndex == -1){
+            return {
+              activeName: '',
+              xm: xm
+            };
+          }else{
+            activeName = xm.substr(strIndex, strLength);
+            arrXm.splice(strIndex, strLength);
+            xm = arrXm.join('');
 
-          activeName = xm.substr(strIndex, strLength);
-          arrXm.splice(strIndex, strLength);
-          xm = arrXm.join('');
-
-          return {
-            activeName: activeName || '',
-            xm: xm || ''
-          };
+            return {
+              activeName: activeName || '',
+              xm: xm || ''
+            };
+          }
         }
 
         // 对学号的匹配部分进行高亮划分
@@ -181,15 +188,22 @@ Page({
               arrXh = xh.split(''),
               strIndex = xh.indexOf(str),
               strLength = str.length;
+          if(strIndex == -1){
+            return {
+              activeXh: '',
+              xh: xh
+            };
+          }else{
+            activeXh = xh.substr(strIndex, strLength);
+            console.log(activeXh)
+            arrXh.splice(strIndex, strLength);
+            xh = arrXh.join('');
 
-          activeXh = xh.substr(strIndex, strLength);
-          arrXh.splice(strIndex, strLength);
-          xh = arrXh.join('');
-
-          return {
-            activeXh: activeXh || '',
-            xh: xh || ''
-          };
+            return {
+              activeXh: activeXh || '',
+              xh: xh || ''
+            };
+          }
         }
 
         for (var i = 0; i < len; i++) {
@@ -219,6 +233,7 @@ Page({
         'testData': that.data.testData.concat(reDdata),
         'main.mainDisplay': false,
         'main.total': data.total,
+        'main.sum': that.data.main.sum += data.rows.length,
         'messageObj.messageDisplay': messageDisplay
       });
 
@@ -226,7 +241,7 @@ Page({
         that.bindOpenList(0);
       }
 
-      if(data.total <= data.rows.length) {
+      if(data.total <= that.data.main.sum) {
         that.setData({
           'main.message': '已全部加载'
         });
@@ -240,9 +255,6 @@ Page({
       var message = typeof err === 'undefined' ? '未搜索到相关结果' : err;
       
       setMessageObj(false, message);
-      that.setData({
-        'main.mainDisplay': true
-      });
     }
 
     that.setData({
@@ -263,11 +275,13 @@ Page({
           doSuccess(res.data.data, true);
         }else{
 
+          app.showErrorModal(res.data.message);
           doFail(res.data.message);
         }
       },
       fail: function(res) {
         
+        app.showErrorModal(res.errMsg);
         doFail(res.errMsg);
       },
       complete: function() {

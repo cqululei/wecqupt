@@ -1,9 +1,9 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var util = require('../../utils/util');
 Page({
   data: {
+    remind: '加载中...',
     core: [
       { id: 'kb', name: '课表查询' },
       { id: 'cj', name: '成绩查询' },
@@ -18,13 +18,8 @@ Page({
     ],
     card: {
       'kb': {
-        show: true,
-        data: {
-          'list': [
-            { what: '计算机新技术', when: '1 - 2 节', where: '5201' },
-            { what: '专业综合实验', when: '7 - 8 节', where: '信科楼S331' }
-          ]
-        }
+        show: false,
+        data: {}
       },
       'ykt': {
         show: false,
@@ -39,7 +34,7 @@ Page({
         }
       },
       'jy': {
-        show: true,
+        show: false,
         data: {
           'list': [
             { 'book_name': '从你的全世界路过', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 },
@@ -58,7 +53,37 @@ Page({
       }
     }
   },
+  //下拉更新
+  onPullDownRefresh: function(){
+    if(app._user.is_bind){
+      _this.getCardData();
+    }
+  },
   onLoad: function(){
+    this.login();
+  },
+  login: function(){
+    var _this = this;
+    app.getUser(function(){
+      //判断绑定状态
+      if(!app._user.is_bind){
+        _this.setData({
+          'remind': '未绑定'
+        });
+      }else{
+        _this.setData({
+          'remind': ''
+        });
+        _this.getCardData();
+      }
+    }, function(message){
+      app.showErrorModal(message);
+      _this.setData({
+        'remind': '加载失败'
+      });
+    });
+  },
+  getCardData: function(){
     var _this = this;
     //获取课表数据
     wx.request({
@@ -67,14 +92,35 @@ Page({
         xh: app._user.xs.xh
       },
       success: function(res) {
-
+        if(res.data.status === 200){
+          var info = res.data.data,
+              lessons = info.lessons[info.day-1],
+              list = [];
+          for(var i = 0; i < 6; i++){
+            for(var j = 0; j < lessons[i].length; j++){
+              var lesson = lessons[i][j];
+              if(lesson.weeks && lesson.weeks.indexOf(parseInt(info.week)) !== -1){
+                list.push({
+                  when: (i+1) + ' - ' + (i+lesson.number) + '节',
+                  what: lesson.name,
+                  where: lesson.place.trim()
+                });
+              }
+            }
+          }
+          _this.setData({
+            'card.kb.data': list,
+            'card.kb.show': true,
+            'card.kb.nothing': !list.length
+          });
+        }
       }
     });
     //获取一卡通数据
     wx.request({
       url: app._server + '/api/get_yktcost.php',
       data: {
-        yktID: app._user.xs.ykt_id
+        yktID: app._user.xs.ykth
       },
       success: function(res) {
         if(res.data.status === 200){
@@ -82,7 +128,7 @@ Page({
           if(list.length > 0){
             var last = list[0],
                 last_time = last.time.split(' ')[0],
-                now_time = util.formatTime(new Date()).split(' ')[0];
+                now_time = app.util.formatTime(new Date()).split(' ')[0];
             //筛选并计算当日消费
             for(var i = 0, today_cost = [], cost_total = 0; i < list.length; i++){
               if(list[i].time.split(' ')[0] == now_time && list[i].cost.indexOf('-') == 0){
@@ -107,22 +153,24 @@ Page({
         }
       }
     });
-    //获取水电费数据
-    wx.request({
-      url: app._server + '/api/get_elec.php',
-      data: app._user.xs.room,
-      success: function(res) {
-        if(res.data.status === 200){
-          var info = res.data.data;
-          _this.setData({
-            'card.sdf.data.room': info.room.split('-').join('栋'),
-            'card.sdf.data.record_time': info.record_time.split(' ')[0],
-            'card.sdf.data.cost': info.elec_cost,
-            'card.sdf.data.spend': info.elec_spend,
-            'card.sdf.show': true
-          });
+    if(!!app._user.xs.room && !!app._user.xs.room.length){
+      //获取水电费数据
+      wx.request({
+        url: app._server + '/api/get_elec.php',
+        data: app._user.xs.room,
+        success: function(res) {
+          if(res.data.status === 200){
+            var info = res.data.data;
+            _this.setData({
+              'card.sdf.data.room': info.room.split('-').join('栋'),
+              'card.sdf.data.record_time': info.record_time.split(' ')[0],
+              'card.sdf.data.cost': info.elec_cost,
+              'card.sdf.data.spend': info.elec_spend,
+              'card.sdf.show': true
+            });
+          }
         }
-      }
-    });
+      });
+    }
   }
 });

@@ -2,9 +2,9 @@
 
 .container {
 
-    /*background: #F7F7F7 url('/images/core/xs/bg.png') no-repeat;*/
+    /*background: #f7f7f7 url('/images/core/xs/bg.png') no-repeat;*/
     /*微信暂不支持静态bgimg文件，改用服务器url*/
-    background: #F7F7F7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
+    background: #f7f7f7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
     background-size: 250rpx 250rpx;
     background-position: 50% 50%;
     padding: 0;
@@ -56,7 +56,6 @@
         font-size: 11pt;
         height: 85rpx;
         line-height: 85rpx;
-        letter-spacing: 1px;
     }
     .input-confirm-button {
 
@@ -179,7 +178,7 @@
                 letter-spacing: 1px;
             }
                 .state-name-active {
-                    color: #7858ad;
+                    color: #8271bf;
                 }
             .content-state-stuId {
 
@@ -198,6 +197,12 @@
         width: 30rpx;
         height: 30rpx;
         padding: 20rpx;
+        transition: transform .2s;
+        transform: rotate(0deg);
+    }
+    .list-sign-icon-show {
+
+        transform: rotate(180deg);
     }
   /* main-list > item > item-ul
  ============================================================================ */
@@ -218,7 +223,7 @@
         .ul-li-label {
             
             color: #888;
-            width: 120rpx;
+            width: 48pt;
         }
 
         .ul-li-content {

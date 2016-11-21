@@ -12,7 +12,7 @@
       </view>
       <!--搜索框的提示信息-->
       <view class="search-state" hidden="{{!header.searchChange}}">
-        <image class="search-icon" src="/images/core/xs/search-sign.png" />
+        <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
         <text class="state-text">姓名 / 学号 / 班级</text>
       </view>
     </view>
@@ -29,9 +29,9 @@
       <!--列表的一个元素的模板结构-->
       <view class="list-item">
         <!--信息直接显示部分-->
-        <view class="item">
+        <view class="item" data-index="{{index}}" bindtap="bindOpenList">
           <view class="item-content">
-            <image class="item-content-image" src="{{item.headImg}}"/>
+            <image class="item-content-image" src="{{item.headImg}}"></image>
             <view class="item-content-state">
               <view class="content-state-name">
                 <text class="state-name-active">{{item.activeName}}</text>{{item.normalXm}}
@@ -40,31 +40,31 @@
             </view>
           </view>
           <!--信息直接显示部分的下拉标识-->
-          <view class="list-sign" data-index="{{index}}" bindtap="bindOpenList">
-            <image class="list-sign-icon" src="{{item.display ? '/images/core/common/up.png' : '/images/core/common/down.png'}}" />
+          <view class="list-sign">
+            <image class="list-sign-icon {{!item.display ? 'list-sign-icon-show' : ''}}" src="/images/core/common/down.png"></image>
           </view>
         </view>
         <!--信息隐藏的下拉列表-->
         <view class="item-ul" hidden="{{!item.display}}">
-          <view class="item-ul-class item-ul-li">
-            <text class="ul-li-label">班级</text>
-            <text class="ul-li-content">{{item.bj}}</text>
-          </view>
-          <view class="item-ul-grade item-ul-li">
-            <text class="ul-li-label">年级</text>
-            <text class="ul-li-content">{{item.nj}}</text>
-          </view>
           <view class="item-ul-gendor item-ul-li">
             <text class="ul-li-label">性别</text>
             <text class="ul-li-content">{{item.xb}}</text>
+          </view>
+          <view class="item-ul-college item-ul-li">
+            <text class="ul-li-label">学院名</text>
+            <text class="ul-li-content">{{item.yxm}}</text>
           </view>
           <view class="item-ul-major item-ul-li">
             <text class="ul-li-label">专业名</text>
             <text class="ul-li-content">{{item.zym}}</text>
           </view>
-          <view class="item-ul-college item-ul-li">
-            <text class="ul-li-label">学院名</text>
-            <text class="ul-li-content">{{item.yxm}}</text>
+          <view class="item-ul-grade item-ul-li">
+            <text class="ul-li-label">年级</text>
+            <text class="ul-li-content">{{item.nj}}</text>
+          </view>
+          <view class="item-ul-class item-ul-li">
+            <text class="ul-li-label">班级</text>
+            <text class="ul-li-content">{{item.bj}}</text>
           </view>
           <view class="item-ul-kb item-ul-li">
             <text class="ul-li-label">课表</text>

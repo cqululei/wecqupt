@@ -40,7 +40,7 @@
         <!--选择课程时间段-->
         <scroll-view scroll-x class="condition-classTime condition" catchtap="chooseClaasTime">
             <view class="scroll-space"></view>
-            <block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="item.index">
+            <block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="index">
                 <block wx:if="{{!!item}}">
                     <view class="{{index == active.classNo ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="{{index}}">{{item.time}}</view>
                 </block>
