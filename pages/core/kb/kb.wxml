@@ -1,5 +1,6 @@
 <!--kb.wxml-->
 <view class="container">
+    
     <view class="kb-ctn">
         <view class="kb-num-ctn">
             <view>1</view>
@@ -20,403 +21,93 @@
                 
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '1'}}" class="kb-bg"></view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{mon0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周一</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{mon}}" wx:for-index="wid">
+                        <block wx:for="{{mon[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{mon1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{mon2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                        <!--<template is="cardItem"/>-->
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{mon3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{mon4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{mon5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
                 <view class="kb-cards-column">
-                    <view wx:if="{{day == '2'}}" class="kb-bg"></view>                
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{tue0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view wx:if="{{day == '2'}}" class="kb-bg"></view> 
+                    <view class="kb-title">周二</view>            
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{tue}}" wx:for-index="wid">
+                        <block wx:for="{{tue[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
+                        </block>
                     </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{tue1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{tue2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{tue3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{tue4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{tue5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    
                 </view>
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '3'}}" class="kb-bg"></view>                
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{wed0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周三</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{wed}}" wx:for-index="wid">
+                        <block wx:for="{{wed[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{wed1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{wed2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{wed3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{wed4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{wed5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '4'}}" class="kb-bg"></view>                
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{thu0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周四</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{thu}}" wx:for-index="wid">
+                        <block wx:for="{{thu[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{thu1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{thu2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{thu3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{thu4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{thu5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '5'}}" class="kb-bg"></view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{fri0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周五</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{fri}}" wx:for-index="wid">
+                        <block wx:for="{{fri[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{fri1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{fri2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{fri3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{fri4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{fri5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '6'}}" class="kb-bg"></view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sat0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周六</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{sat}}" wx:for-index="wid">
+                        <block wx:for="{{sat[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{sat1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sat2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{sat3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sat4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{sat5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
                 <view class="kb-cards-column">
                     <view wx:if="{{day == '0'}}" class="kb-bg"></view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sun0}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
+                    <view class="kb-title">周天</view>
+                    <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{sun}}" wx:for-index="wid">
+                        <block wx:for="{{sun[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
+                            <view wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                 <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
                                 <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
                                 <text class="kb-card-name">{{cards.name}}</text>
                             </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{sun1}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sun2}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-12">
-                        <view wx:for="{{sun3}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card mg-4">
-                        <view wx:for="{{sun4}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="kb-card">
-                        <view wx:for="{{sun5}}" wx:for-item="cards">
-                            <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-                                <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-                                <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-                                <text class="kb-card-name">{{cards.name}}</text>
-                            </view>
-                        </view>
+                        </block>
                     </view>
                 </view>
             </scroll-view>
@@ -426,7 +117,7 @@
         <view class="kb-info-title">
             <text class="kb-info-week">{{day_cn}}({{week}})</text>
             <swiper indicator-dots="false" autoplay="false">
-                <block wx:for="{{weeks}}">
+                <block wx:key="{{index}}" wx:for="{{weeks}}">
                     <swiper-item>
                         {{item}}
                     </swiper-item>
@@ -436,17 +127,3 @@
     </view>
 </view>
 
-<!--
-  index: int
-  msg: string
-  time: string
--->
-<!--<template name="cardItem">
-    <view wx:for='{{mon2}}' wx:for-item="cards">
-        <view class="mg-4 kb-card-content {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week}}">
-            <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
-            <text wx:if="{{cards.place > '99999'}}" class="kb-card-place-words">{{cards.place}}</text>
-            <text class="kb-card-name">{{cards.name}}</text>
-        </view>
-    </view>
-</template>-->

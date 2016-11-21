@@ -2,13 +2,26 @@
 .container{
 
 }
+
+.kb-title{
+    position: relative;
+    width: 120rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    top: 0;
+    background: #fff;
+    overflow: hidden;
+    text-align: center;
+    z-index: 999;
+}
 .kb-ctn{
     width: 100%;
-    height: 1236rpx;
+    height: 1336rpx;
     display: flex;
 }
 .kb-num-ctn{
     width: 30rpx;
+    margin-top: 40rpx;
     height: 1236rpx;
     text-align: center;
     background: #fff;
@@ -77,7 +90,7 @@
 }
 .kb-card-name{
     font-size: 10pt;
-    padding-bottom: 8rpx;
+    padding-bottom: 4rpx;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -90,6 +103,22 @@
     height: 1236rpx;
     background: -webkit-gradient(linear, left top, left bottom, from(#deefff), color-stop(0.5, #abd2f6), to(#deefff));
     z-index: 1;
+}
+.k-sec{
+    position: absolute;
+    /*margin-top: 104rpx;*/
+    top: 0;
+    z-index: 999;
+}
+.k-sec::before{
+    content: '';
+    position: absolute;
+    display: inline-block;
+    margin: 4rpx 90rpx;
+    width: 12rpx;
+    height: 6rpx;
+    border-radius: 2rpx;
+    background: #fff;
 }
 .green{
     background: #7acfa6;
