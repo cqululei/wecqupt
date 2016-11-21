@@ -32,6 +32,13 @@ Page({
   },
   sendRequest: function() {
       var _this = this;
+      if(!app._user.xs.ykth){
+        app.showErrorModal('未绑定');
+        _this.setData({
+            remind: '未绑定'
+        });
+        return false;
+      }
       wx.request({
           url: app._server + "/api/get_yktcost.php",
           data: {
@@ -45,6 +52,7 @@ Page({
                     balance: parseFloat(data[data.length - 1].balance),
                     last_time: data[data.length - 1].time.split(' ')[0],
                     ykt_id: app._user.xs.ykth,
+                    lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
                     remind: ''
                 });
 
@@ -103,14 +111,6 @@ Page({
                     actions: context.getActions(), // 获取绘图动作数组
                     reserve: true
                 });
-
-                // 垂直线初始化默认位置
-                _this.canvasTap({
-                    detail: {
-                        x: canvasWidth - gridMarginLeft,
-                        y: 0
-                    }
-                });
               }else{
                 app.showErrorModal(res.data.message);
                 _this.setData({
@@ -154,6 +154,7 @@ Page({
           spaceY = gridHeight / gridNum;
 
       // 绘制竖网格
+      context.setLineWidth(1);
       context.setLineCap("round");
       context.setStrokeStyle("#cccccc");
       for (var i = 0; i < xArr.length; i ++) {
@@ -273,10 +274,13 @@ Page({
             context.fillText(tmp_yArr[i], pointArr[i].x + 3, pointArr[i].y - 3);  // 消费金额
             context.fillText(i + 1, pointArr[i].x - 3, canvasHeight - 5); // 消费次数(横轴)              
           context.closePath();
-      }   
+
+        pointArr[i].detail.balance = parseFloat(pointArr[i].detail.balance);
+      }
       
       this.setData({
-          points: pointArr
+          points: pointArr,
+          tapDetail: pointArr[pointArr.length-1].detail
       });
   },
 
@@ -292,8 +296,6 @@ Page({
           iwidth = (_this.data.width-2*_this.data.gridMarginLeft)/(_this.data.count-1);
       
       var i = Math.round((tapX - _this.data.gridMarginLeft) / iwidth);
-
-      points[i].detail.balance = parseFloat(points[i].detail.balance);
 
       _this.setData({
           tapDetail: points[i].detail,
