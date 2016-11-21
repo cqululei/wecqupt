@@ -28,8 +28,11 @@
           </view>
         </view>
       </navigator>
-      <view class="card-item-bd">
-        <view class="kb-item" wx:for="{{card.kb.data.list}}" wx:key="when">
+      <view wx:if="{{card.kb.nothing}}" class="card-item-bd kb-nothing">
+        <text>今天居然没有课~😆</text>
+      </view>
+      <view wx:else class="card-item-bd">
+        <view class="kb-item" wx:for="{{card.kb.data}}" wx:key="when">
           <view class="kb-item-left">
             <text class="kb-item-what">{{item.what}}</text>
             <text class="kb-item-when">{{item.when}}</text>
