@@ -37,6 +37,14 @@
   flex-direction: column;
   padding-left: 25rpx;
 }
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10pt;
+  line-height: 140%;
+  color: #aaa;
+}
 .user-name {
   font-size: 16pt;
   line-height: 160%;
@@ -44,7 +52,7 @@
 }
 .user-id {
   font-size: 11pt;
-  color: #9b9b9b;
+  color: #8b8b8b;
 }
 .info-bd {
   display: flex;
@@ -52,7 +60,7 @@
   padding: 25rpx 15rpx 0 5rpx;
   font-size: 11pt;
   line-height: 150%;
-  color: #9b9b9b;
+  color: #8b8b8b;
 }
 .info-bd-left, .info-bd-right {
   display: flex;
