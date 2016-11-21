@@ -4,7 +4,7 @@
     <view wx:if="{{remind}}" class="remind-box">
         <image class="remind-img" src="/images/index/nothing.png"></image>
         <text class="remind-text">{{remind}}</text>
-        <navigator wx:if="{{remind !== '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
+        <navigator wx:if="{{remind == '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
     </view>
 
     <!--result-page-->

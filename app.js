@@ -26,9 +26,11 @@ App({
               success: function(res){
                 if(res.data.status){
                   var data = JSON.parse(_this.util.base64.decode(res.data.data));
+                  console.log(data);
                   _this._user.is_bind = data.is_bind;
                   _this._user.wx.openid = data.openid;
                   _this._user.xs = data.student;
+                  _this._time = data.time;
                   _this._t = data['\x74\x6f\x6b\x65\x6e'];
                   if(!data.is_bind){
                     wx.navigateTo({
@@ -85,5 +87,6 @@ App({
     wx: {},
     //学生数据
     xs: {}
-  }
+  },
+  _time: {} //当前学期周数
 });

@@ -32,12 +32,6 @@ Page({
       success: function(res) {
 
         if(res.data.status === 200) {
-          if(!res.data.data || !res.data.data.length){
-            _this.setData({
-              remind: '暂无数据'
-            });
-            return false;
-          }
           // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
           var list = res.data.data.reverse();
           for (var i = 0, len = list.length; i < len; ++i) {
@@ -56,7 +50,7 @@ Page({
         } else {
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: '加载失败'
+            remind: res.data.message
           });
         }
 

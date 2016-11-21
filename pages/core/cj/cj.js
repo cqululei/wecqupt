@@ -39,12 +39,6 @@ Page({
       success: function(res) {
 
         if(res.data.status === 200) {
-          if(!res.data.data || !res.data.data.length){
-            _this.setData({
-              remind: '暂无数据'
-            });
-            return false;
-          }
           var _data = res.data.data;
 
           var term = _data[0].term;
@@ -68,7 +62,7 @@ Page({
         } else {
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: '加载失败'
+            remind: res.data.message
           });
         }
 
