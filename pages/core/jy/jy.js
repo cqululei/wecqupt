@@ -29,12 +29,6 @@ Page({
       },
       success: function(res) {
         if(res.data.status === 200) {
-          if(!res.data.data || !res.data.data.length){
-            _this.setData({
-              remind: '暂无数据'
-            });
-            return false;
-          }
           _this.setData({
             jyData: res.data.data,
             remind: ''
@@ -42,7 +36,7 @@ Page({
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: '加载失败'
+            remind: res.data.message
           });
         }
       },

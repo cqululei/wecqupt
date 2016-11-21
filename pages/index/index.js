@@ -18,13 +18,8 @@ Page({
     ],
     card: {
       'kb': {
-        show: true,
-        data: {
-          'list': [
-            { what: '计算机新技术', when: '1 - 2 节', where: '5201' },
-            { what: '专业综合实验', when: '7 - 8 节', where: '信科楼S331' }
-          ]
-        }
+        show: false,
+        data: {}
       },
       'ykt': {
         show: false,
@@ -39,7 +34,7 @@ Page({
         }
       },
       'jy': {
-        show: true,
+        show: false,
         data: {
           'list': [
             { 'book_name': '从你的全世界路过', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 },
@@ -97,7 +92,28 @@ Page({
         xh: app._user.xs.xh
       },
       success: function(res) {
-
+        if(res.data.status === 200){
+          var info = res.data.data,
+              lessons = info.lessons[info.day-1],
+              list = [];
+          for(var i = 0; i < 6; i++){
+            for(var j = 0; j < lessons[i].length; j++){
+              var lesson = lessons[i][j];
+              if(lesson.weeks && lesson.weeks.indexOf(parseInt(info.week)) !== -1){
+                list.push({
+                  when: (i+1) + ' - ' + (i+lesson.number) + '节',
+                  what: lesson.name,
+                  where: lesson.place.trim()
+                });
+              }
+            }
+          }
+          _this.setData({
+            'card.kb.data': list,
+            'card.kb.show': true,
+            'card.kb.nothing': !list.length
+          });
+        }
       }
     });
     //获取一卡通数据

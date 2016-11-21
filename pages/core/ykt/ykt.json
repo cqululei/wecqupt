@@ -1,5 +1,6 @@
 {
-    "navigationBarBackgroundColor": "#fadd7f",
+    "navigationBarBackgroundColor": "#ffcb63",
     "navigationBarTitleText": "一卡通" ,
-    "backgroundColor": "#fadd7f"  
+    "backgroundColor": "#ffcb63",
+    "enablePullDownRefresh": false
 }

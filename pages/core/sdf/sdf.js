@@ -35,12 +35,6 @@ Page({
       success: function(res) {
         if(res.data.status == 200){
           var info = res.data.data;
-          if(!info || !info.length){
-            _this.setData({
-              remind: '暂无数据'
-            });
-            return false;
-          }
           _this.setData({
             'renderData': info,
             'renderData.room_name': info.room.split('-').join('栋'),
@@ -50,7 +44,7 @@ Page({
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: '加载失败'
+            remind: res.data.message
           });
         }
       },
