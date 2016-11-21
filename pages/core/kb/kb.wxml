@@ -115,14 +115,32 @@
     </view>
     <view class="kb-info-ctn">
         <view class="kb-info-title">
-            <text class="kb-info-week">{{day_cn}}({{week}})</text>
-            <swiper indicator-dots="false" autoplay="false">
-                <block wx:key="{{index}}" wx:for="{{weeks}}">
-                    <swiper-item>
-                        {{item}}
-                    </swiper-item>
-                </block>
-            </swiper>
+            <text class="kb-info-week">{{day_cn}}</text>
+            <view class="kb-swiper-mask-left"></view>
+            <view class="kb-swipers">
+                <!--<swiper current="{{_current}}" bindchange="currentChange({{current}})" class="kb-week-swiper" duration="1000">
+                    <block wx:key="{{index}}" wx:for="{{_weeks1}}">
+                        <swiper-item class="kb-week-swiper-item item{{index}}">
+                            <text>{{item}}</text>
+                        </swiper-item>
+                    </block>
+                </swiper>-->
+                <swiper current="{{_current}}" bindchange="currentChange" class="kb-week-swiper" duration="100">
+                    <block wx:key="{{index}}" wx:for="{{weeks}}">
+                        <swiper-item class="kb-week-swiper-item item{{index}}">
+                            <text>{{item}}</text>
+                        </swiper-item>
+                    </block>
+                </swiper>
+                <!--<swiper current="{{_current}}" bindchange="currentChange({{current}})" class="kb-week-swiper" duration="1000">
+                    <block wx:key="{{index}}" wx:for="{{_weeks2}}">
+                        <swiper-item class="kb-week-swiper-item item{{index}}">
+                            <text>{{item}}</text>
+                        </swiper-item>
+                    </block>
+                </swiper>-->
+            </view>
+            <view class="kb-swiper-mask-right"></view>
         </view>
     </view>
 </view>

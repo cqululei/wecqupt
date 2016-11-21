@@ -16,7 +16,7 @@
 }
 .kb-ctn{
     width: 100%;
-    height: 1336rpx;
+    height: 1286rpx;
     display: flex;
 }
 .kb-num-ctn{
@@ -42,7 +42,7 @@
 }
 .kb-cards-scroll{
     width: 924rpx;
-    height: 1236rpx;
+    height: 1276rpx;
     display: flex;
     align-items: stretch;
     z-index: 0;
@@ -50,7 +50,7 @@
 .kb-cards-column{
     display: inline-block;
     width: 120rpx;
-    height: 1236rpx;
+    height: 1276rpx;
     background: #fff;
     overflow: hidden;
     margin-right: 12rpx;
@@ -100,7 +100,7 @@
 .kb-bg{
     position: absolute;
     width: 120rpx;
-    height: 1236rpx;
+    height: 1276rpx;
     background: -webkit-gradient(linear, left top, left bottom, from(#deefff), color-stop(0.5, #abd2f6), to(#deefff));
     z-index: 1;
 }
@@ -156,4 +156,38 @@
 .kb-info-week{
     line-height: 100rpx;
 }
-
+.kb-swipers{
+    position: absolute;
+    right: 72rpx;
+    width: 360rpx;
+}
+.kb-week-swiper{
+    display: inline-block;
+    width: 360rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    
+}
+.kb-week-swiper-item{
+    width: 360rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    
+}
+.kb-swiper-mask-left{
+    position: absolute;
+    z-index: 999;
+    right: 390rpx;
+    width: 60rpx;
+    height: 100rpx;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0.7)), to(rgba(86,165,238,0)));    
+}
+.kb-swiper-mask-right{
+    position: absolute;
+    z-index: 999;
+    right: 72rpx;
+    width: 90rpx;
+    height: 100rpx;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0)), to(rgba(86,165,238,0.7)));    
+}
