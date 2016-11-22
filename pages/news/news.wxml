@@ -9,8 +9,8 @@
   
   <!--新闻列表-->
   <view class="content">
-    <block wx:for="{{active.data}}" wx:key="articleid">
-      <navigator url="/pages/news/{{item.type}}_detail?id={{item.articleid}}">
+    <block wx:for="{{active.data}}" wx:key="item.articleid">
+      <navigator url="/pages/news/{{item.type}}/{{item.type}}_detail?id={{item.articleid}}">
         <view class="list-item {{item.type}}">
           <view class="list-item-left">
             <text class="list-item-title">{{item.title}}</text>
