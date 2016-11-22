@@ -2,7 +2,14 @@
 .container{
 
 }
-
+.blur-area{
+    position: relative;
+    display: flex;
+    transition: filter .3s;
+}
+.blur{
+    filter: blur(3px);    
+}
 .kb-title{
     position: relative;
     width: 120rpx;
@@ -15,14 +22,16 @@
     z-index: 999;
 }
 .kb-ctn{
+    position: absolute;
     width: 100%;
-    height: 1286rpx;
-    display: flex;
+    height: 1276rpx;
+    z-index: 0;
 }
 .kb-num-ctn{
+    position: relative;
+    z-index: 200;
     width: 30rpx;
-    margin-top: 40rpx;
-    height: 1236rpx;
+    height: 1276rpx;
     text-align: center;
     background: #fff;
 }
@@ -31,20 +40,25 @@
     line-height: 100rpx;
     box-sizing: border-box;
 }
+.mg-4-t{
+    margin-top: 40rpx;
+}
 .mg-4{
     margin-bottom: 4rpx;
 }
 .mg-12{
     margin-bottom: 12rpx;
 }
-.kb-cards-ctn{
-    overflow: scroll;
-}
+
 .kb-cards-scroll{
+    position: absolute;
+    top: 0;
+    left: 30rpx;
     width: 924rpx;
     height: 1276rpx;
-    display: flex;
-    align-items: stretch;
+    display: fixed;
+    flex-flow: row nowrap;
+    overflow: scroll;
     z-index: 0;
 }
 .kb-cards-column{
@@ -190,4 +204,28 @@
     width: 90rpx;
     height: 100rpx;
     background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0)), to(rgba(86,165,238,0.7)));    
+}
+
+.kb-detail{
+    display: none;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(125,125,125,.3);
+    z-index: 300;
+
+}
+.detail{
+    display: block;
+}
+.kb-detail-card{
+    float: right;
+    margin-left: -110rpx;
+    box-shadow: 0 0 10px 1px #999;
+}
+.kb-detaile-card-ctn{
+    position: absolute;
+    width: 140rpx;
 }

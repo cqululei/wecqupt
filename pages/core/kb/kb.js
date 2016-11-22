@@ -4,16 +4,78 @@ var app = getApp();
 Page({
   data: {
     _current: 0,
-    _weeks1 : ['','第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周'],
-    _weeks2 : ['第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周',''],
+    scroll: {
+      top: 60,
+      left: 300
+    },
+    blur: '',
     weeks : ['第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周']
   },
   onLoad: function(){
     var xh = "2014211418";
     this.get_kb(xh);
   },
-  currentChange: function(event){
-    var current = event.detail.current
+  showDetail: function(e){
+    var data = e.currentTarget.dataset;
+
+    this.setData({
+      tapTarget: {
+        week : data.week,
+        class: data.class
+      },
+      blur: 'blur',
+      detail: 'detail'
+    });
+    var animation;
+    var that = this;
+    var _top = this.data.scroll.top,
+        _left = this.data.scroll.left;
+    function scrollAnimation() {
+      if(_top==0&&_left==0){
+          animation = null;
+          return true;
+      }
+      if(_top < 10){
+        _top = 0;
+      } else {
+        _top -= 10;
+      }
+      if(_left < 10){
+        _left = 0;
+      } else {
+        _left -= 10;
+      }
+
+      that.setData({
+        scroll: {
+          top: _top,
+          left: _left
+        },
+      });
+      
+      animation = requestAnimationFrame(scrollAnimation);
+    }
+    animation = requestAnimationFrame(scrollAnimation);
+    console.log(e.target.dataset);
+  },
+  onScroll: function(e){
+    this.setData({
+      scroll: {
+        top: e.detail.scrollTop,
+        left: e.detail.scrollLeft
+      },
+    });
+  },
+  hideDetail: function(){
+    if (this.data.blur != ''){
+      this.setData({
+        blur: '',
+        detail: ''
+      });
+    }
+  },
+  currentChange: function(e){
+    var current = e.detail.current
     this.setData({
       _current: current,
       week : current+1
@@ -60,7 +122,6 @@ Page({
               }
             }
           }
-          console.log(colorsDic); 
 
           var day = _data.day;
           var week = _data.week;
@@ -96,6 +157,7 @@ Page({
             day_cn : day_cn,
             week : week,
             _current : week-1,
+            lessons : _data.lessons,
             mon: mon,
             tue: tue,
             wed: wed,
