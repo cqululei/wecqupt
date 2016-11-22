@@ -15,9 +15,10 @@ Page({
   bind: function() {
     var _this = this;
     if(!_this.data.userid || !_this.data.passwd){
-      console.log('不能为空');
+      app.showErrorModal(res.data.message);
       return false;
     }
+    app.showLoadToast();
     wx.request({
       method: 'POST',
       url: app._server + '/api/users/bind.php',
@@ -38,11 +39,14 @@ Page({
             url: '/pages/index/index'
           });
         }else{
-          console.log('绑定异常');
+          app.showErrorModal(res.data.message);
         }
       },
       fail: function(res){
-        console.log('绑定失败');
+        app.showErrorModal(res.errMsg);
+      },
+      complete: function(){
+        wx.hideToast();
       }
     });
   },

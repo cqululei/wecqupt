@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-      remind: '加载中...',
+      remind: '加载中',
       fontSize: 12,      // 字体大小, 24rpx=12px
       count: 10,         // 展示的消费次数
       width: 0,          // 画布宽
@@ -114,7 +114,7 @@ Page({
               }else{
                 app.showErrorModal(res.data.message);
                 _this.setData({
-                    remind: res.data.message
+                    remind: res.data.message || '未知错误'
                 });
               }
           },

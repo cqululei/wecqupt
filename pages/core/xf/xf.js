@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     xfData: [], // 学费数据
     stuInfo: {}, // 学生数据
     listAnimation: {} // 列表动画
@@ -23,7 +23,6 @@ Page({
       id: app._user.xs.xh,
       name: app._user.xs.xm
     });
-    app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_jzsf.php",
       data: {
@@ -50,7 +49,7 @@ Page({
         } else {
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: res.data.message
+            remind: res.data.message || '未知错误'
           });
         }
 
@@ -61,11 +60,6 @@ Page({
         _this.setData({
           remind: '网络错误'
         });
-      },
-
-      complete: function() {
-
-        wx.hideToast();
       }
     });
   },

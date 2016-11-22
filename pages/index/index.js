@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     core: [
       { id: 'kb', name: '课表查询' },
       { id: 'cj', name: '成绩查询' },
@@ -71,9 +71,6 @@ Page({
           'remind': '未绑定'
         });
       }else{
-        _this.setData({
-          'remind': ''
-        });
         _this.getCardData();
       }
     }, function(message){
@@ -111,7 +108,8 @@ Page({
           _this.setData({
             'card.kb.data': list,
             'card.kb.show': true,
-            'card.kb.nothing': !list.length
+            'card.kb.nothing': !list.length,
+            'remind': ''
           });
         }
       }
@@ -129,7 +127,7 @@ Page({
             var last = list[0],
                 last_time = last.time.split(' ')[0],
                 now_time = app.util.formatTime(new Date()).split(' ')[0];
-            //筛选并计算当日消费
+            //筛选并计算当日消费（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片通常不能展示）
             for(var i = 0, today_cost = [], cost_total = 0; i < list.length; i++){
               if(list[i].time.split(' ')[0] == now_time && list[i].cost.indexOf('-') == 0){
                 var cost_value = Math.abs(parseInt(list[i].cost));
@@ -147,7 +145,8 @@ Page({
             _this.setData({
               'card.ykt.data.last_time': last_time,
               'card.ykt.data.balance': parseFloat(last.balance),
-              'card.ykt.show': true	  //设为false（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片可不予展示）
+              'card.ykt.show': true,
+              'remind': ''
             });
           }
         }
@@ -166,7 +165,8 @@ Page({
               'card.sdf.data.record_time': info.record_time.split(' ')[0],
               'card.sdf.data.cost': info.elec_cost,
               'card.sdf.data.spend': info.elec_spend,
-              'card.sdf.show': true
+              'card.sdf.show': true,
+              'remind': ''
             });
           }
         }

@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     jyData: []
   },
   onLoad: function() {
@@ -21,7 +21,6 @@ Page({
       });
       return false;
     }
-    app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_booklist.php",
       data: {
@@ -36,7 +35,7 @@ Page({
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: res.data.message
+            remind: res.data.message || '未知错误'
           });
         }
       },
@@ -47,7 +46,6 @@ Page({
         });
       },
       complete: function() {
-        wx.hideToast();
         wx.stopPullDownRefresh();
       }
     });

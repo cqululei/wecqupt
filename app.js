@@ -24,7 +24,7 @@ App({
                 iv: info.iv
               },
               success: function(res){
-                if(res.data.status){
+                if(res.data.status >= 200 && res.data.status < 400){
                   var data = JSON.parse(_this.util.base64.decode(res.data.data));
                   console.log(data);
                   _this._user.is_bind = data.is_bind;

@@ -1,46 +1,38 @@
-/**detail.wxss**/
+/**detail.wxss (common)**/
 .container{
-    padding-left: 33rpx;
-    padding-right: 33rpx;
+    background: #fff;
+    padding: 0 30rpx 80rpx;
 }
 .title{
-    font-size: 44rpx;
-    margin-top: 50rpx;
-    line-height: 60rpx;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 40rpx;
+    line-height: 140%;
+    word-break: break-all;
 }
 .info{
-    margin-top: 41rpx;
+    margin-top: 30rpx;
     color: #b2b2b2;
 }
-.author{
-    margin-left: 60rpx;
-}
-.core{
-    margin-left: 38rpx;
-    color: #576b95;
+.info text{
+    padding: 0 20rpx 0 5rpx;
 }
 .detail{
-    text-indent: 46rpx;
-    font-size: 28rpx;
-    line-height: 42rpx;
-    /*margin-top: 0rpx;*/
-}
-.bottom{
-    background: #000;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    font-size: 24rpx;
-    color: #b2b2b2;
-    padding: 40rpx 0;
+    font-size: 11pt;
+    line-height: 150%;
+    padding: 50rpx 15rpx 50rpx;
+    border-bottom: 1rpx solid #eee;
+    margin-bottom: 50rpx;
 }
 .file{
     width: 100%;
     box-sizing: border-box;
     padding: 0 40rpx;
     height: 140rpx;
+    margin-bottom: 25rpx;
     background-color: #fcfcfc;
     border: 1rpx solid #ececec;
+    border-radius: 3px;
     display: flex;
     justify-content:space-between;
     align-items: center;

@@ -1,75 +1,65 @@
-//news.js
-//获取应用实例
+//detail.js (common)
 var app = getApp();
-Page({
+module.exports.ipage = {
   data: {
-    title: "",// 新闻标题
-    date: "",// 发布日期
-    author: "", // 发布作者
-    core: "", // 机构
-    content: "",// 新闻内容
-    file: "", // 附件，true or false
-    size: "234kb",// 附件大小
-    fileName: "这是附件这是附件.rar", // 附件名称
-    fileSource: "教务在线"// 附件来源
+    remind: "加载中",
+    title: "",    // 新闻标题
+    date: "",     // 发布日期
+    author: "",   // 发布作者
+    reading: "",   // 阅读量
+    content: "",  // 新闻内容
+    file: false,  // 附件，true or false
+    size: "",     // 附件大小
+    fileName: "", // 附件名称
+    fileSource: ""// 附件来源
   },
-  // 点击附件下载
-  downloadFile: function(){
-    wx.downloadFile({
-      url: 'http://source.lattecake.com/files/2016/09/demo.zip', //仅为示例，并非真实的资源
-      success: function(res) {
-        wx.saveFile({
-          tempFilePath: res.tempFilePath,
-          success: function(res) {
-            var savedFilePath = res.savedFilePath;
-            console.log(savedFilePath);
-          }
-        })
-      }
-    })
-    
+
+  convertHtmlToText: function(inputText){
+        var returnText = "" + inputText;
+        returnText = returnText.replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
+        return returnText;
   },
   
-  onLoad: function(){
+  onLoad: function(options){
     var _this = this;
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 10000
-    })
 
+    if(!options.type || !options.id) {
+      app.showErrorModal('404');
+      _this.setData({
+        remind: '404'
+      });
+      return false;
+    }
 
-    
     wx.request({
-      url: 'http://we.cqupt.edu.cn/api/news/jwgg_detail.php',
-      //资讯id
-      data: {
-        id: "677b42dc3c71f62af226a2d116909fe81fee8adf"
-      },
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      url: app._server + '/api/get_news_detail.php',
+      data: options,
       success: function(res){
-        console.log("success");
-        if(res.data.status == 20){
           console.log(res.data);
-          // 提取信息中的时间，作者，来源
-          var author = '',
-              info = [];//资讯信息 [2016.9.23,杨资,教务在线]
-          author = res.data.data[1].author.match(/:[\S]+/g);
-          author.forEach(function(e){
-            info.push(e.slice(1));
-          })
+        if(res.data.status === 200){
+          var info = res.data.data;
+          // 提取信息中的时间，作者，阅读量
+          var author_info = [];
+          if(info.author){
+            var author_info = info.author.split(' ').map(function(e){
+              return e.split(':')[1];
+            });
+          }
           _this.setData({
-            'title': res.data.data[0].title,//新闻标题
-            'date': info[0],
-            'author': info[2],
-            'core': info[1],
-            'content': res.data.data[2].body, // 新闻内容
+            date: author_info[0] || info.time || "",  // 发布日期
+            author: author_info[1] || "",     // 发布作者
+            reading: author_info[2] || "",    // 阅读量
+            title: info.title,            //新闻标题
+            content: _this.convertHtmlToText(info.body),  // 新闻内容
+            remind: ''
           })
+
           // 如果存在附件则提取附件里面的信息
-          if(res.data.file){
+          if(info.fjlist && info.fjlist.length){
+            var fjlist = info.fjlist;
+            
             wx.downloadFile({
-              url: 'http://source.lattecake.com/files/2016/09/demo.zip', //仅为示例，并非真实的资源
+              url: fjlist.flink, //仅为示例，并非真实的资源
               success: function(res) {
                 wx.getSavedFileInfo({
                   filePath: res.tempFilePath, //仅做示例用，非真正的文件路径
@@ -84,29 +74,30 @@ Page({
                       }
                     var size = bytesToSize(res.size);
                     _this.setData({
-                      'size': size  // 附件大小
+                      "file": true,
+                      'size': size,  // 附件大小
+                      'fileName': fjlist.fjtitle, // 附件名称
+                      'fileSource': "oa公告"
                     });
-                    console.log(size);
                   }
                 })
               }
             })
           }
           
+        }else{
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: res.data.message || '未知错误'
+          });
         }
-        // success
-        
       },
       fail: function(){
+        app.showErrorModal(res.errMsg);
         _this.setData({
-            'title': '获取信息失败'//新闻标题
-          })
-      },
-      complete: function() {
-        wx.hideToast();
-        console.log("complete");
-            // complete
+          remind: '网络错误'
+        });
       }
     })
   }
-});
+};

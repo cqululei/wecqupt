@@ -1,8 +1,11 @@
 <!--ykt.wxml-->
 <view class="container">
     <view wx:if="{{remind}}" class="remind-box">
-        <image class="remind-img" src="/images/index/nothing.png"></image>
-        <text class="remind-text">{{remind}}</text>
+        <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+        <block wx:else>
+          <image class="remind-img" src="/images/index/nothing.png"></image>
+          <text class="remind-text">{{remind}}</text>
+        </block>
     </view>
     <block wx:else>
 

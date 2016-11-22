@@ -83,7 +83,7 @@ wecqupt
 | 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       | ✔      | ✔       | ✔       |        |        |
 | 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
 |     |教务公告/OA公告/会议通知/学术讲座/综合新闻|(同上)| ✘       | ✘      | ✔       | ✘      | ✘      | ✘      |
-| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |         |        |        |
+| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔~      | ✔       |        |        |
 | 3a  | **【更多】** | pages/more/more            | ✔       | ✔      | ✘       | ✔.      | ✔      |        |
 |     | 用户信息     | (同上)                      | ✘       | ✘      | ✔       | ✘       | ✘      | ✘      |
 | 3b  | 绑定用户     | pages/more/login           | ✔~       | ✔     | ✔       | ✔       |        |        |

@@ -1,26 +1,31 @@
-<!--detail.wxml-->
+<!--detail.wxml (common)-->
 <view class="container">
-  <view class="title">
-    <text>{{title}}</text>
+  <view wx:if="{{remind}}" class="remind-box">
+    <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+    <block wx:else>
+      <image class="remind-img" src="/images/index/nothing.png"></image>
+      <text class="remind-text">{{remind}}</text>
+    </block>
   </view>
-  <view class="info">
-    <text>{{date}}</text>
-    <text class="author">{{author}}</text>
-    <text class="core">{{core}}</text>
-  </view>
-  <view class="detail">
-    <text>{{content}}</text>
-  </view>
-  <!--<view class="bottom">
-    <text>阅读 2333</text>
-    <text>投诉</text>
-  </view>-->
-  <view  class="file" bindtap="downloadFile">
-      <image src="/images/news/file.png" class="file-img"/>
-      <view class="fileNameSource">
-        <text class="file-name">{{fileName}}</text>
-        <text class="file-source">{{fileSource}}</text>
-      </view>   
-      <text>{{size}}</text>
-  </view>
+  <block wx:else>
+    <view class="title">
+      <text>{{title}}</text>
+    </view>
+    <view class="info">
+      <text wx:if="{{date}}">发布时间：{{date}}</text>
+      <text wx:if="{{author}}">作者：{{author}}</text>
+      <text wx:if="{{reading}}">阅读量：{{reading}}</text>
+    </view>
+    <view class="detail">
+      <text>{{content}}</text>
+    </view>
+    <view class="file" bindtap="downloadFile">
+        <image src="/images/news/file.png" class="file-img"/>
+        <view class="fileNameSource">
+          <text class="file-name">{{fileName}}</text>
+          <text class="file-source">{{fileSource}}</text>
+        </view>   
+        <text>{{size}}</text>
+    </view>
+  </block>
 </view>
