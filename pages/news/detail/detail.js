@@ -8,10 +8,17 @@ module.exports.ipage = {
     author: "",   // 发布作者
     reading: "",   // 阅读量
     content: "",  // 新闻内容
-    file: false,  // 附件，true or false
-    size: "",     // 附件大小
-    fileName: "", // 附件名称
-    fileSource: ""// 附件来源
+    files_len: 0,  // 附件数量
+    files_list: [],
+    file_loading: false, //下载状态
+    source: '',   // 附件来源
+    sources: {
+      'jw': '教务在线',
+      'oa': 'OA系统',
+      'hy': 'OA系统',
+      'jz': 'OA系统',
+      'new': '新闻中心'
+    }
   },
 
   convertHtmlToText: function(inputText){
@@ -22,7 +29,7 @@ module.exports.ipage = {
   
   onLoad: function(options){
     var _this = this;
-
+    
     if(!options.type || !options.id) {
       app.showErrorModal('404');
       _this.setData({
@@ -35,7 +42,6 @@ module.exports.ipage = {
       url: app._server + '/api/get_news_detail.php',
       data: options,
       success: function(res){
-          console.log(res.data);
         if(res.data.status === 200){
           var info = res.data.data;
           // 提取信息中的时间，作者，阅读量
@@ -51,40 +57,17 @@ module.exports.ipage = {
             reading: author_info[2] || "",    // 阅读量
             title: info.title,            //新闻标题
             content: _this.convertHtmlToText(info.body),  // 新闻内容
+            source: _this.data.sources[options.type],
             remind: ''
           })
 
           // 如果存在附件则提取附件里面的信息
           if(info.fjlist && info.fjlist.length){
-            var fjlist = info.fjlist;
-            
-            wx.downloadFile({
-              url: fjlist.flink, //仅为示例，并非真实的资源
-              success: function(res) {
-                wx.getSavedFileInfo({
-                  filePath: res.tempFilePath, //仅做示例用，非真正的文件路径
-                  success: function(res) {
-                    // 解析文件大小的函数
-                      function bytesToSize(bytes) {
-                          if (bytes === 0) return '0 B';
-                          var k = 1000, // or 1024
-                              sizes = ['B', 'KB', 'MB', 'GB'],
-                              i = Math.floor(Math.log(bytes) / Math.log(k));
-                        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-                      }
-                    var size = bytesToSize(res.size);
-                    _this.setData({
-                      "file": true,
-                      'size': size,  // 附件大小
-                      'fileName': fjlist.fjtitle, // 附件名称
-                      'fileSource': "oa公告"
-                    });
-                  }
-                })
-              }
-            })
+            _this.setData({
+              files_len: info.fjlist.length,
+              files_list: info.fjlist
+            });
           }
-          
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
@@ -99,5 +82,32 @@ module.exports.ipage = {
         });
       }
     })
+  },
+
+  getFj: function(e){
+    var _this = this;
+    _this.setData({
+      file_loading: true
+    });
+    wx.downloadFile({
+      url: e.currentTarget.dataset.url,
+      success: function(res) {
+        var filePath = res.tempFilePath;
+        wx.openDocument({
+          filePath: filePath,
+          success: function (res) {
+            console.log('预览文档成功');
+          },
+          fail: function (res) {
+            app.showErrorModal(res.errMsg);
+          },
+          complete: function (res) {
+            _this.setData({
+              file_loading: false
+            });
+          }
+        });
+      }
+    });
   }
 };

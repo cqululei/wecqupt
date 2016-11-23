@@ -20,7 +20,7 @@ Page({
       'time': {
         'term': app._time.term,
         'week': app._time.week,
-        'day': days[app._time.day]
+        'day': days[app._time.day - 1]
       },
       'is_bind': !!app._user.is_bind
     });

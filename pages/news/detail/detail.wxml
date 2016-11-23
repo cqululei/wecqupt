@@ -19,13 +19,20 @@
     <view class="detail">
       <text>{{content}}</text>
     </view>
-    <view class="file" bindtap="downloadFile">
-        <image src="/images/news/file.png" class="file-img"/>
-        <view class="fileNameSource">
-          <text class="file-name">{{fileName}}</text>
-          <text class="file-source">{{fileSource}}</text>
-        </view>   
-        <text>{{size}}</text>
-    </view>
+    <swiper class="files_list" wx:if="{{files_len}}" indicator-dots="{{files_len !== 1}}" autoplay="{{!file_loading}}">
+      <swiper-item wx:for="{{files_list}}" wx:key="fjid">
+        <view class="file">
+            <image src="/images/news/file.png" class="file-img"></image>
+            <view class="fileNameSource">
+              <text class="file-name">{{item.fjtitle}}</text>
+              <text class="file-source">{{source}}</text>
+            </view>
+            <view class="file-remind">
+              <image wx:if="{{file_loading}}" src="/images/index/loading.gif"></image>
+              <text wx:else data-url="{{item.flink}}" bindtap="getFj">点击预览</text>
+            </view>
+        </view>
+      </swiper-item>
+    </swiper>
   </block>
 </view>

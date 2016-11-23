@@ -64,6 +64,7 @@ Page({
   },
   login: function(){
     var _this = this;
+    //然后通过登录用户, 验证用户信息是否正确
     app.getUser(function(){
       //判断绑定状态
       if(!app._user.is_bind){

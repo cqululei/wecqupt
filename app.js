@@ -1,12 +1,15 @@
 //app.js
 App({
   onLaunch: function() {
-    //调用API从本地缓存中获取数据
+
+  },
+  //后台切换至前台时
+  onShow: function(){
+
   },
   //getUser函数，在index中调用
   getUser: function(success_cb, fail_cb) {
     var _this = this;
-    _this.showLoadToast();
     //登录
     wx.login({
       success: function(res){
@@ -26,7 +29,6 @@ App({
               success: function(res){
                 if(res.data.status >= 200 && res.data.status < 400){
                   var data = JSON.parse(_this.util.base64.decode(res.data.data));
-                  console.log(data);
                   _this._user.is_bind = data.is_bind;
                   _this._user.wx.openid = data.openid;
                   _this._user.xs = data.student;
@@ -47,9 +49,6 @@ App({
               fail: function(res){
                 //失败回调函数
                 typeof fail_cb == "function" && fail_cb(res.errMsg);
-              },
-              complete: function(){
-                wx.hideToast();
               }
             });
           });
