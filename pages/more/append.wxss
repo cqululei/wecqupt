@@ -1,1 +1,23 @@
 /**append.wxss**/
+@import './login.wxss';
+.container{
+  background-color: #f4f4f4;
+  padding: 0;
+}
+.append-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  height: 85rpx;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  margin: 10rpx 0;
+}
+.append-group-label {
+  width: 200rpx;
+}
+.append-group input,
+.append-group picker {
+  flex: 1;
+}

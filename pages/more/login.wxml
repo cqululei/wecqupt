@@ -1,11 +1,11 @@
 <!--login.wxml-->
 <view class="container">
-  <view class="login-hd">
+  <view class="hd">
     <image class="title" src="/images/more/title.png" mode="aspectFit"></image>
     <image class="logo" src="/images/more/logo.png"></image>
   </view>
 
-  <view class="login-bd">
+  <view class="bd">
     <form class="login-form">
       <view class="input-group {{userid_focus ? 'active' : ''}}">
         <text class="input-label">帐号</text>
@@ -13,7 +13,7 @@
       </view>
       <view class="input-group {{passwd_focus ? 'active' : ''}}">
         <text class="input-label">密码</text>
-        <input id="passwd" password="true" maxlength="6" placeholder="初始密码为身份证后6位" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
+        <input id="passwd" password="true" placeholder="初始密码为身份证后6位" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
       </view>
       <view class="login-help" bindtap="showHelp">
         <text>帮助</text>

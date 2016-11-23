@@ -4,7 +4,7 @@
   align-items: stretch;
   padding: 0;
 }
-.login-hd {
+.hd {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@
   border-radius: 100rpx;
   box-shadow: 0 5rpx 10rpx rgba(0,0,0,.25);
 }
-.login-bd {
+.bd {
   flex: 1;
   display: flex;
   flex-direction: column;

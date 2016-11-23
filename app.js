@@ -10,6 +10,7 @@ App({
   //getUser函数，在index中调用
   getUser: function(success_cb, fail_cb) {
     var _this = this;
+    _this.showLoadToast();
     //登录
     wx.login({
       success: function(res){
@@ -49,6 +50,9 @@ App({
               fail: function(res){
                 //失败回调函数
                 typeof fail_cb == "function" && fail_cb(res.errMsg);
+              },
+              complete: function(){
+                wx.hideToast();
               }
             });
           });
