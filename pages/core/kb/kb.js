@@ -5,7 +5,7 @@ Page({
   data: {
     _current: 0,
     scroll: {
-      top: 60,
+      top: 400,
       left: 300
     },
     blur: '',
@@ -13,6 +13,15 @@ Page({
   },
   onLoad: function(){
     var xh = "2014211418";
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        
+        that.setData({
+          windowHeight : res.windowHeight
+        });
+      }
+    })
     this.get_kb(xh);
   },
   showDetail: function(e){
@@ -45,6 +54,7 @@ Page({
       } else {
         _left -= 10;
       }
+      console.log(_top)
 
       that.setData({
         scroll: {
@@ -59,6 +69,7 @@ Page({
     console.log(e.target.dataset);
   },
   onScroll: function(e){
+    console.log(e.detail.scrollTop);
     this.setData({
       scroll: {
         top: e.detail.scrollTop,

@@ -1,9 +1,17 @@
 /**kb.wxss**/
 .container{
-
+    padding: 0; 
+}
+.pad{
+    height: 100rpx;
 }
 .blur-area{
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
     display: flex;
     transition: filter .3s;
 }
@@ -24,14 +32,12 @@
 .kb-ctn{
     position: absolute;
     width: 100%;
-    height: 1276rpx;
     z-index: 0;
 }
 .kb-num-ctn{
     position: relative;
     z-index: 200;
     width: 30rpx;
-    height: 1276rpx;
     text-align: center;
     background: #fff;
 }
@@ -56,9 +62,8 @@
     left: 30rpx;
     width: 924rpx;
     height: 1276rpx;
-    display: fixed;
-    flex-flow: row nowrap;
-    overflow: scroll;
+    display: flex;
+    align-items: stretch;
     z-index: 0;
 }
 .kb-cards-column{
@@ -104,12 +109,12 @@
 }
 .kb-card-name{
     font-size: 10pt;
-    padding-bottom: 4rpx;
+    padding-bottom: 10rpx;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-    line-height: 130%;
+    line-height: 120%;
 }
 .kb-bg{
     position: absolute;
@@ -154,7 +159,7 @@
 .kb-info-ctn{
     position: fixed;
     width: 100%;
-    height: 100rpx;
+    height: 8vh;
     left: 0;
     bottom: 0;
     border-top-left-radius: 15rpx;
@@ -168,7 +173,7 @@
     display: flex;
 }
 .kb-info-week{
-    line-height: 100rpx;
+    line-height: 8vh;
 }
 .kb-swipers{
     position: absolute;
@@ -179,13 +184,13 @@
     display: inline-block;
     width: 360rpx;
     height: 100rpx;
-    line-height: 100rpx;
+    line-height: 8vh;
     
 }
 .kb-week-swiper-item{
     width: 360rpx;
-    height: 100rpx;
-    line-height: 100rpx;
+    height: 8vh;
+    line-height: 8vh;
     text-align: center;
     
 }
@@ -194,7 +199,7 @@
     z-index: 999;
     right: 390rpx;
     width: 60rpx;
-    height: 100rpx;
+    height: 8vh;
     background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0.7)), to(rgba(86,165,238,0)));    
 }
 .kb-swiper-mask-right{
@@ -202,7 +207,7 @@
     z-index: 999;
     right: 72rpx;
     width: 90rpx;
-    height: 100rpx;
+    height: 8vh;
     background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0)), to(rgba(86,165,238,0.7)));    
 }
 
