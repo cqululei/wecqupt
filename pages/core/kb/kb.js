@@ -3,13 +3,15 @@
 var app = getApp();
 Page({
   data: {
+    _weeks : ['第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周'],    
     _current: 0,
+    scrollX: true,
+    scrollY: true,
     scroll: {
-      top: 400,
-      left: 300
+      top: 0,
+      left: 0
     },
     blur: '',
-    weeks : ['第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周']
   },
   onLoad: function(){
     var xh = "2014211418";
@@ -26,35 +28,35 @@ Page({
   },
   showDetail: function(e){
     var data = e.currentTarget.dataset;
-
-    this.setData({
-      tapTarget: {
-        week : data.week,
-        class: data.class
-      },
-      blur: 'blur',
-      detail: 'detail'
-    });
     var animation;
     var that = this;
     var _top = this.data.scroll.top,
         _left = this.data.scroll.left;
     function scrollAnimation() {
       if(_top==0&&_left==0){
-          animation = null;
-          return true;
+        clearTimeout(animation);
+        that.setData({
+          tapTarget: {
+            week : data.week,
+            class: data.class
+          },
+          blur: 'blur',
+          detail: 'detail',
+          scrollX: false,
+          scrollY: false
+        });
+        return true;
       }
-      if(_top < 10){
+      if(_top < 5){
         _top = 0;
       } else {
-        _top -= 10;
+        _top -= 5;
       }
-      if(_left < 10){
+      if(_left < 5){
         _left = 0;
       } else {
-        _left -= 10;
+        _left -= 5;
       }
-      console.log(_top)
 
       that.setData({
         scroll: {
@@ -63,13 +65,12 @@ Page({
         },
       });
       
-      animation = requestAnimationFrame(scrollAnimation);
+      animation = setTimeout(scrollAnimation,10);
     }
-    animation = requestAnimationFrame(scrollAnimation);
-    console.log(e.target.dataset);
+    animation = setTimeout(scrollAnimation,10);
+    
   },
   onScroll: function(e){
-    console.log(e.detail.scrollTop);
     this.setData({
       scroll: {
         top: e.detail.scrollTop,
@@ -77,11 +78,44 @@ Page({
       },
     });
   },
+  // onStart : function(e){
+  //   var start = e.touches[0].pageX;
+  //   this.setData({
+  //     touchmove : {
+  //       touches : start,
+  //       move : 0
+  //     }
+  //   });
+  // },
+  // onEnd : function(e){
+  //   this.setData({
+  //     touchmove : {
+  //       touches : 0,
+  //       move : 0
+  //     }
+  //   });
+  // },
+  // onMove: function(e){
+  //   var marginLeft = e.currentTarget.dataset.marginleft;
+  //   var start = this.data.touchmove.touches;
+  //   var move = +e.touches[0].pageX - (+start);
+  //   marginLeft = 0-(+marginLeft + move);
+  //   console.log(marginLeft);
+  //   this.setData({
+  //     touchmove : {
+  //       touches : start,
+  //       move : move
+  //     },
+  //     _marginLeft: marginLeft
+  //   });
+  // },
   hideDetail: function(){
     if (this.data.blur != ''){
       this.setData({
         blur: '',
-        detail: ''
+        detail: '',
+        scrollX: true,
+        scrollY: true
       });
     }
   },
@@ -220,7 +254,6 @@ Page({
             sun5 : sun[5],
           });
           
-          console.log(_this.data);
 
         }
 

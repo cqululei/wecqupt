@@ -12,7 +12,6 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
-    display: flex;
     transition: filter .3s;
 }
 .blur{
@@ -35,7 +34,7 @@
     z-index: 0;
 }
 .kb-num-ctn{
-    position: relative;
+    position: absolute;
     z-index: 200;
     width: 30rpx;
     text-align: center;
@@ -181,7 +180,7 @@
     width: 360rpx;
 }
 .kb-week-swiper{
-    display: inline-block;
+    /*display: inline-block;*/
     width: 360rpx;
     height: 100rpx;
     line-height: 8vh;
@@ -220,7 +219,6 @@
     bottom: 0;
     background: rgba(125,125,125,.3);
     z-index: 300;
-
 }
 .detail{
     display: block;
@@ -233,4 +231,44 @@
 .kb-detaile-card-ctn{
     position: absolute;
     width: 140rpx;
+}
+
+.week-0{
+    margin-left: 10rpx;
+}
+.week-1{
+    margin-left: 142rpx;
+}
+.week-2{
+    margin-left: 274rpx;
+}
+.week-3{
+    margin-left: 406rpx;
+}
+.week-4{
+    margin-left: 538rpx;
+}
+.week-5{
+    margin-left: 670rpx;
+}
+.week-6{
+    margin-left: 802rpx;
+}
+.class-0{
+    margin-top: 40rpx;
+}
+.class-1{
+    margin-top: 244rpx;
+}
+.class-2{
+    margin-top: 456rpx;
+}
+.class-3{
+    margin-top: 660rpx;
+}
+.class-4{
+    margin-top: 872rpx;
+}
+.class-5{
+    margin-top: 1076rpx;
 }

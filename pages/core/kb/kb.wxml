@@ -1,27 +1,27 @@
 <!--kb.wxml-->
 <view class="container">
     <view class="blur-area {{blur}}">
-        <view class="kb-num-ctn" style="height:92vh;margin-top:-{{scroll.top}}px">
-            <view class="mg-4-t">1</view>
-            <view class="mg-4">2</view>
-            <view>3</view>
-            <view class="mg-12">4</view>
-            <view>5</view>
-            <view class="mg-4">6</view>
-            <view>7</view>
-            <view class="mg-12">8</view>
-            <view>9</view>
-            <view class="mg-4">0</view>
-            <view>1</view>
-            <view>2</view>
-        </view>
-        <scroll-view bindscroll="onScroll" style="height:92vh" scroll-x="{{true}}" scroll-y="{{true}}" class="kb-ctn" scroll-top="{{scroll.top}}" scroll-left="{{scroll.left}}">
-            
+        
+        <scroll-view bindscroll="onScroll" style="height:92vh" scroll-x="{{scrollX}}" scroll-y="{{scrollY}}" class="kb-ctn" scroll-top="{{scroll.top}}" scroll-left="{{scroll.left}}">
+            <view class="kb-num-ctn" style="">
+                <view class="mg-4-t">1</view>
+                <view class="mg-4">2</view>
+                <view>3</view>
+                <view class="mg-12">4</view>
+                <view>5</view>
+                <view class="mg-4">6</view>
+                <view>7</view>
+                <view class="mg-12">8</view>
+                <view>9</view>
+                <view class="mg-4">0</view>
+                <view>1</view>
+                <view>2</view>
+            </view>
                 <view class="kb-cards-scroll">
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '1'}}" class="kb-bg"></view>
                         <view class="kb-title">周一</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{mon}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{mon}}" wx:for-index="wid">
                             <block wx:for="{{mon[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="0" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -34,7 +34,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '2'}}" class="kb-bg"></view> 
                         <view class="kb-title">周二</view>            
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{tue}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{tue}}" wx:for-index="wid">
                             <block wx:for="{{tue[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="1" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -47,7 +47,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '3'}}" class="kb-bg"></view>                
                         <view class="kb-title">周三</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{wed}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{wed}}" wx:for-index="wid">
                             <block wx:for="{{wed[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="2" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -60,7 +60,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '4'}}" class="kb-bg"></view>                
                         <view class="kb-title">周四</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{thu}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{thu}}" wx:for-index="wid">
                             <block wx:for="{{thu[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="3" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -73,7 +73,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '5'}}" class="kb-bg"></view>
                         <view class="kb-title">周五</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{fri}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{fri}}" wx:for-index="wid">
                             <block wx:for="{{fri[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="4" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -86,7 +86,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '6'}}" class="kb-bg"></view>
                         <view class="kb-title">周六</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{sat}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{sat}}" wx:for-index="wid">
                             <block wx:for="{{sat[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="5" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -99,7 +99,7 @@
                     <view class="kb-cards-column">
                         <view wx:if="{{day == '0'}}" class="kb-bg"></view>
                         <view class="kb-title">周天</view>
-                        <view class="kb-card mg-4" wx:key="{{wid}}" wx:for="{{sun}}" wx:for-index="wid">
+                        <view class="kb-card {{wid%2==0?'mg-4':'mg-12'}}" wx:key="{{wid}}" wx:for="{{sun}}" wx:for-index="wid">
                             <block wx:for="{{sun[wid]}}" wx:key="{{cid}}" wx:for-item="cards" wx:for-index="cid">
                                 <view data-week="6" data-class="{{wid}}" bindtap="showDetail" wx:key="{{index}}" class="mg-4 kb-card-content {{cid!==0?'k-sec':''}} {{cards.color}}" wx:for="{{cards.weeks}}" wx:for-item="weeks" wx:if="{{weeks == week || week == '*'}}">
                                     <text wx:if="{{cards.place < '99999'}}" class="kb-card-place-num">{{cards.place}}</text>
@@ -110,12 +110,10 @@
                         </view>
                     </view>
                 </view>
-        </scroll-view>
-                <view class="pad"></view>
-        
+        </scroll-view>        
     </view>
     <view bindtap="hideDetail" class="kb-detail {{detail}}">
-        <view style="left: {{tapTarget.left}};top:{{tapTarget.top}}" class="kb-detaile-card-ctn">
+        <view class="kb-detaile-card-ctn week-{{tapTarget.week}} class-{{tapTarget.class}}">
             <view class="kb-card kb-detail-card" wx:key="{{cid}}" wx:for="{{lessons[tapTarget.week][tapTarget.class]}}" wx:for-index="cid">
                 <view class="kb-card-content {{item.color}}">
                     <text wx:if="{{item.place < '99999'}}" class="kb-card-place-num">{{item.place}}</text>
@@ -132,7 +130,7 @@
             <view class="kb-swipers">
                 
                 <swiper current="{{_current}}" bindchange="currentChange" class="kb-week-swiper" duration="300">
-                    <block wx:key="{{index}}" wx:for="{{weeks}}">
+                    <block wx:key="{{index}}" wx:for="{{_weeks}}">
                         <swiper-item class="kb-week-swiper-item">
                             <text>{{item}}</text>
                         </swiper-item>
