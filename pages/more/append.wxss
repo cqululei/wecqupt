@@ -1,23 +1,29 @@
 /**append.wxss**/
 @import './login.wxss';
-.container{
-  background-color: #f4f4f4;
-  padding: 0;
-}
-.append-group {
-  display: flex;
-  align-items: center;
+.append-title {
+  position: absolute;
+  top: 120rpx;
   width: 100%;
-  background-color: #fff;
-  height: 85rpx;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  margin: 10rpx 0;
+  color: #777;
+  font-size: 22pt;
+  line-height: 200%;
+  text-align: center;
 }
-.append-group-label {
-  width: 200rpx;
+.append-form {
+  padding: 200rpx 0 50rpx;
 }
-.append-group input,
-.append-group picker {
-  flex: 1;
+.append-form .input-group {
+  padding: 20rpx 8rpx;
+  margin: 25rpx 3%;
+}
+.append-form .input-label {
+  font-size: 11pt;
+  height: 20rpx;
+  line-height: 20rpx;
+  padding: 0 20rpx;
+}
+.append-form .input-group input,
+.append-form .input-group picker {
+  font-size: 11pt;
+  padding: 0 20rpx;
 }

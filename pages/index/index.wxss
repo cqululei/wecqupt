@@ -294,7 +294,10 @@
   line-height: 150%;
   word-wrap: break-word;
   text-overflow: ellipsis;
-  overflow: hidden
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 .jy-timing, jy-return-time{
   line-height: 200%;

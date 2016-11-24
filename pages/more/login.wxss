@@ -27,12 +27,13 @@
   box-shadow: 0 5rpx 10rpx rgba(0,0,0,.25);
 }
 .bd {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
-.login-form {
+form {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -60,14 +61,17 @@
   padding: 0 25rpx;
   border-right: 1px solid #d8d8d8; 
 }
-.input-group input {
+.input-group input,
+.input-group picker {
   flex: 1;
   font-size: 13pt;
-  height: 25rpx;
-  line-height: 25rpx;
+  min-height: 52rpx;
+  height: 52rpx;
+  line-height: 52rpx;
   padding: 0 25rpx;
 }
-.input-placeholder {
+.input-placeholder,
+.input-group picker.placeholder {
   color: #ccc;
 }
 .login-help {

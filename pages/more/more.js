@@ -5,11 +5,7 @@ Page({
   data: {
     user: {}
   },
-  //下拉更新
-  onPullDownRefresh: function(){
-    this.getData();
-  },
-  onLoad: function(){
+  onShow: function(){
     this.getData();
   },
   getData: function(){
@@ -24,6 +20,5 @@ Page({
       },
       'is_bind': !!app._user.is_bind
     });
-    wx.stopPullDownRefresh();
   }
 });

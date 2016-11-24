@@ -35,12 +35,7 @@ Page({
       },
       'jy': {
         show: false,
-        data: {
-          'list': [
-            { 'book_name': '从你的全世界路过', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 },
-            { 'book_name': '一次又一次再一次的从你的全...', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 }
-          ]
-        }
+        data: {}
       },
       'sdf': {
         show: false,
@@ -50,13 +45,15 @@ Page({
           'cost': 0,
           'spend': 0
         }
-      }
+      },
+      'user': {}
     }
   },
   //下拉更新
   onPullDownRefresh: function(){
+    var _this = this;
     if(app._user.is_bind){
-      _this.getCardData();
+      this.getCardData();
     }
   },
   onLoad: function(){
@@ -83,6 +80,9 @@ Page({
   },
   getCardData: function(){
     var _this = this;
+    _this.setData({
+      user: app._user
+    });
     //获取课表数据
     wx.request({
       url: app._server + '/api/get_kebiao.php',
@@ -173,5 +173,24 @@ Page({
         }
       });
     }
+    //获取借阅信息
+    wx.request({
+      url: app._server + '/api/get_booklist.php',
+      data: {
+        id: app._user.xs.xh
+      },
+      success: function(res) {
+        if(res.data.status === 200){
+          var info = res.data.data;
+          if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
+            _this.setData({
+              'card.jy.data': info,
+              'card.jy.show': true,
+              'remind': ''
+            });
+          }
+        }
+      }
+    });
   }
 });

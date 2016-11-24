@@ -10,7 +10,7 @@ App({
   //getUser函数，在index中调用
   getUser: function(success_cb, fail_cb) {
     var _this = this;
-    _this.showLoadToast();
+    _this.showLoadToast('登录中');
     //登录
     wx.login({
       success: function(res){

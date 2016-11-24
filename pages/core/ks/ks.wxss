@@ -24,7 +24,7 @@
     margin-bottom: 15rpx;
     color: #222;
 }
-.ks-header-info,.ks-header-info-ksName{
+.ks-header-info, .ks-header-info-ksName{
     font-size: 11pt;
     line-height: 160%; 
     color: #888;
@@ -39,78 +39,84 @@
 }
 
 .ks-class-ctn{
-    width: 100%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 30rpx;
-    padding-right: 30rpx;
-    box-sizing: border-box;
+    align-items: stretch;
 }
-.ks-class-box{
-    width: 100%;
-    /*height: 100%;*/
-    background: rgb(255, 255, 255);
-    margin-bottom: 21rpx;
+
+.ks-class-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 11pt;
+    padding: 0 40rpx;
+    margin-bottom: 20rpx;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.ks-hd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 145rpx;
+}
+
+.ks-hd-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/**列表展开时标题的颜色变化 **/
+.ks-hd-name {
+    font-size: 12pt;
+    line-height: 225%;
+    letter-spacing: 1px;
+    transition: color .15s ease-in-out;
+}
+.ks-item-show .ks-hd-name {
+    transition: color .15s ease-in-out;
+    color: #7acfa6;
+}
+.ks-hd-other {
+    font-size: 10pt;
+    line-height: 100%;
+    color: #aaa;
+}
+.ks-item-show .ks-hd-place {
+    display: none;
+}
+
+/**列表展开的icon旋转 **/
+.ks-item-icon{
+    width: 30rpx;
+    height: 30rpx;
+    transition: transform .2s;
+    transform: rotate(0deg);
+}
+.ks-item-show .ks-item-icon{
+    transform: rotate(180deg);
+}
+
+.ks-detail {
+    display: none;
+    flex-direction: column;   
     overflow: hidden;
+    padding: 0;
 }
-.ks-class-show{
-    /*height: 100%;*/
-}
-.ks-class{
+.ks-item-show .ks-detail {
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    /*height: 492rpx;*/
-    padding-left: 44rpx;
-    padding-right: 44rpx;
-    transition: .3s;
+    padding: 5rpx 0 15rpx;
 }
-.ks-class-name{
-    width: 100%;
+.ks-detail-item {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
     align-items: center;
+    padding: 25rpx 5rpx 20rpx;
+    border-top: 1px solid #eee;
 }
-.ks-class-name text{
-    font-size: 30rpx;
-    color: rgb(0,0,0);
-    line-height: 137rpx;
+.ks-detail-label {
+    color: #888;
+    width: 50pt;
 }
-.ks-class-arrow{
-    width: 32rpx;
-    height: 18rpx;
-    background: url("imgs/arrow_down.png");
-    background-size: 100% 100%;
-    transform: rotateX(0);
-    transition: .3s;
-}
-.ks-class-items{
-    display: inline-block;
-    width: 100%;
-    margin: auto;
-    font-size: 32rpx;
-    color: rgb(0,0,0);
-    line-height: 90rpx;
-}
-.ks-class-date,.ks-class-time,.ks-class-place{
-    border-bottom: 2rpx rgb(212, 212, 212) solid;
-}
-.ks-class-name-show text{
-    opacity: 0.4;
-}
-.ks-class-name-show .ks-class-arrow{
-    transform: rotateX(180deg);
-}
-.ks-class-items-box{
-    max-height: 700rpx;
-    height: auto;
-    transition: max-height 0.3s ease-in;
-}
-.ks-class-items-hide{
-    max-height: 0;
-    transition: max-height 0.2s ease-out;
+.ks-detail-content {
+    flex: 1;
 }
