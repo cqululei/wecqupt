@@ -1,6 +1,6 @@
 /**kb.wxss**/
 .container{
-    padding: 0; 
+    padding-bottom: 0; 
 }
 .pad{
     height: 100rpx;
@@ -32,6 +32,7 @@
     position: absolute;
     width: 100%;
     z-index: 0;
+    transition: .3s;
 }
 .kb-num-ctn{
     position: absolute;
@@ -79,7 +80,6 @@
     position: relative;
     width: 120rpx;
     height: 200rpx;
-    overflow: hidden;
     box-sizing: border-box;
     border-radius: 5rpx;
     z-index: 100;
@@ -87,15 +87,17 @@
 }
 
 .kb-card-content{
+    position: absolute;
     background: #eee;
     width: 120rpx;
-    height: 200rpx;
+    min-height: 200rpx;
     padding: 0 12rpx;
     text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+    z-index: 101;
 }
 .kb-card-place-num{
     font-size: 13pt;
@@ -108,7 +110,7 @@
 }
 .kb-card-name{
     font-size: 10pt;
-    padding-bottom: 10rpx;
+    padding-bottom: 2rpx;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -158,7 +160,6 @@
 .kb-info-ctn{
     position: fixed;
     width: 100%;
-    height: 8vh;
     left: 0;
     bottom: 0;
     border-top-left-radius: 15rpx;
@@ -174,15 +175,70 @@
 .kb-info-week{
     line-height: 8vh;
 }
+.kb-info-card-scroll{
+    width: 100%;
+    height: 410rpx;
+    background: #56a5ee;
+    transition: .3s;
+    padding-left: 30rpx;
+}
+.kb-info-card{
+    position: absolute;
+    display: inline-block;
+    width: 480rpx;
+    height: 394rpx;
+    background: #56a5ee;
+    transition: .3s;
+    box-sizing: border-box;
+    padding-left: 30rpx;
+    padding-top: 30rpx;
+}
+.kb-info-card-shadow{
+    box-shadow: -5px 0 10px -5px rgba(124, 124, 124, .4);
+}
+.kb-info-card-content{
+    display: flex;
+    flex-flow: column nowrap;
+    color: #fff;
+}
+.info-type{
+    position: absolute;
+    width: 48rpx;
+    height: 72rpx;
+    font-size: 9.5pt;
+    line-height: 36rpx;
+    text-align: center;
+    color: #fff;
+    border-radius: 8rpx;
+    background: #fc7f94;
+    left: 30rpx;
+    top: 160rpx;
+}
+.info-name{
+    font-size: 16.5pt;
+    margin-bottom: 60rpx;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.info-item{
+    margin-left: 90rpx;
+}
+
 .kb-swipers{
     position: absolute;
     right: 72rpx;
     width: 360rpx;
 }
+.detail-week{
+    width: 360rpx;
+    line-height: 8vh;
+    text-align: center;
+}
 .kb-week-swiper{
     /*display: inline-block;*/
     width: 360rpx;
-    height: 100rpx;
+    height: 8vh;
     line-height: 8vh;
     
 }
@@ -219,10 +275,12 @@
     bottom: 0;
     background: rgba(125,125,125,.3);
     z-index: 300;
+    transition: .3s;
 }
 .detail{
     display: block;
 }
+
 .kb-detail-card{
     float: right;
     margin-left: -110rpx;
@@ -232,6 +290,9 @@
     position: absolute;
     width: 140rpx;
 }
+
+
+
 
 .week-0{
     margin-left: 10rpx;

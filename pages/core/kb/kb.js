@@ -11,64 +11,225 @@ Page({
       top: 0,
       left: 0
     },
+    infoMarginLeft: ['0','480rpx','600rpx'],
+    lowerFlag: true,
+    scrollFlag: 'lb',
+    _marginTop: '0',
+    _bottomHeight: '0',
     blur: '',
   },
   onLoad: function(){
-    var xh = "2014211418";
+    var xh = "2014210868";
     var that = this;
     wx.getSystemInfo({
       success: function(res) {
-        
         that.setData({
-          windowHeight : res.windowHeight
+          windowHeight : res.windowHeight,
+          windowWidth : res.windowWidth
         });
       }
     })
     this.get_kb(xh);
   },
+  overLower: function(){
+    this.setData({
+      lowerFlag: true
+    })
+  },
+  infoCardTap: function(e){
+    var cid = e.currentTarget.dataset.cid;
+    if (cid == 0){
+      this.setData({
+        infoMarginLeft: ['0','480rpx','600rpx'],
+      })
+      console.log(cid)
+    } else if (cid == 1){
+      this.setData({
+        infoMarginLeft: ['0','120rpx','600rpx'],
+      })
+      console.log(cid)
+    } else if (cid == 2){
+      this.setData({
+        infoMarginLeft: ['0','120rpx','240rpx'],
+      })
+      console.log(cid)
+    }
+  },
   showDetail: function(e){
     var data = e.currentTarget.dataset;
+    if (data.class < 3&&data.week<=4){
+      this.setData({
+        scrollFlag: 'lt'
+      })
+    } else if(data.class >= 3&&data.week>4){
+      this.setData({
+        scrollFlag: 'rb'
+      })
+    } else if(data.class < 3&&data.week>4){
+      this.setData({
+        scrollFlag: 'rt'
+      })
+    } else if(data.class >= 3&&data.week<=4){
+      this.setData({
+        scrollFlag: 'lb'
+      })
+    }
     var animation;
     var that = this;
     var _top = this.data.scroll.top,
         _left = this.data.scroll.left;
-    function scrollAnimation() {
-      if(_top==0&&_left==0){
-        clearTimeout(animation);
-        that.setData({
-          tapTarget: {
-            week : data.week,
-            class: data.class
-          },
-          blur: 'blur',
-          detail: 'detail',
-          scrollX: false,
-          scrollY: false
-        });
-        return true;
-      }
-      if(_top < 5){
-        _top = 0;
-      } else {
-        _top -= 5;
-      }
-      if(_left < 5){
-        _left = 0;
-      } else {
-        _left -= 5;
-      }
-
-      that.setData({
-        scroll: {
-          top: _top,
-          left: _left
-        },
-      });
-      
-      animation = setTimeout(scrollAnimation,10);
-    }
-    animation = setTimeout(scrollAnimation,10);
     
+      if(that.data.scrollFlag=='lb'){
+        function scrollAnimation() {
+          if(that.data.lowerFlag&&_left==0){
+            clearTimeout(animation);
+            var _fixedMarginTop = '-'+(+that.data.scroll.top + 205);
+            that.setData({
+              tapTarget: {
+                week : data.week,
+                class: data.class
+              },
+              _marginTop: '-205',
+              _bottomHeight: '205',
+              _fixedMarginTop: _fixedMarginTop,
+              _fixedMarginLeft: '0',
+              blur: 'blur',
+              detail: 'detail',
+              scrollX: false,
+              scrollY: false
+            });
+            return true;
+          }
+          if(_left < 5){
+            _left = 0;
+          } else {
+            _left -= 5;
+          }
+          that.setData({
+            scroll: {
+              top: _top,
+              left: _left
+            },
+          });
+          
+          animation = setTimeout(scrollAnimation,10);
+        }
+        animation = setTimeout(scrollAnimation,10);
+      } else if (this.data.scrollFlag=='lt') {
+        function scrollAnimation() {
+          if(_top==0&&_left==0){
+            clearTimeout(animation);
+            that.setData({
+              tapTarget: {
+                week : data.week,
+                class: data.class
+              },
+              _marginTop: '0',
+              _bottomHeight: '205',
+              _fixedMarginTop: '0',
+              _fixedMarginLeft: '0',
+              blur: 'blur',
+              detail: 'detail',
+              scrollX: false,
+              scrollY: false
+            });
+            return true;
+          }
+          if(_top < 5){
+            _top = 0;
+          } else {
+            _top -= 5;
+          }
+          if(_left < 5){
+            _left = 0;
+          } else {
+            _left -= 5;
+          }
+          that.setData({
+            scroll: {
+              top: _top,
+              left: _left
+            },
+          });
+          animation = setTimeout(scrollAnimation,10);
+        }
+        animation = setTimeout(scrollAnimation,10);
+      } else if (this.data.scrollFlag=='rt') {
+        function scrollAnimation() {
+          if(_top==0&&that.data.lowerFlag){
+            clearTimeout(animation);
+            var _fixedMarginLeft = '-104';
+            that.setData({
+              tapTarget: {
+                week : data.week,
+                class: data.class
+              },
+              _marginTop: '0',
+              _bottomHeight: '205',
+              _fixedMarginTop: '0',
+              _fixedMarginLeft: _fixedMarginLeft,
+              blur: 'blur',
+              detail: 'detail',
+              scrollX: false,
+              scrollY: false
+            });
+            return true;
+          }
+          if(_top < 5){
+            _top = 0;
+          } else {
+            _top -= 5;
+          }
+          if(!that.data.lowerFlag){
+            _left += 5;
+          }
+          that.setData({
+            scroll: {
+              top: _top,
+              left: _left
+            },
+          });
+          animation = setTimeout(scrollAnimation,10);
+        }
+        animation = setTimeout(scrollAnimation,10);
+      }  else if (this.data.scrollFlag=='rb') {
+        function scrollAnimation() {
+          if(that.data.lowerFlag){
+            clearTimeout(animation);
+            var _fixedMarginTop = '-'+(+that.data.scroll.top + 205);
+            var _fixedMarginLeft = '-104';
+            that.setData({
+              tapTarget: {
+                week : data.week,
+                class: data.class
+              },
+              _marginTop: '-205',
+              _bottomHeight: '205',
+              _fixedMarginTop: _fixedMarginTop,
+              _fixedMarginLeft: _fixedMarginLeft,
+              blur: 'blur',
+              detail: 'detail',
+              scrollX: false,
+              scrollY: false
+            });
+            return true;
+          }
+          if(!that.data.lowerFlag){
+            _top += 5;
+          }
+          if(!that.data.lowerFlag){
+            _left += 5;
+          }
+          that.setData({
+            scroll: {
+              top: _top,
+              left: _left
+            },
+          });
+          animation = setTimeout(scrollAnimation,10);
+        }
+        animation = setTimeout(scrollAnimation,10);
+      }
   },
   onScroll: function(e){
     this.setData({
@@ -76,46 +237,19 @@ Page({
         top: e.detail.scrollTop,
         left: e.detail.scrollLeft
       },
+      lowerFlag: false
     });
   },
-  // onStart : function(e){
-  //   var start = e.touches[0].pageX;
-  //   this.setData({
-  //     touchmove : {
-  //       touches : start,
-  //       move : 0
-  //     }
-  //   });
-  // },
-  // onEnd : function(e){
-  //   this.setData({
-  //     touchmove : {
-  //       touches : 0,
-  //       move : 0
-  //     }
-  //   });
-  // },
-  // onMove: function(e){
-  //   var marginLeft = e.currentTarget.dataset.marginleft;
-  //   var start = this.data.touchmove.touches;
-  //   var move = +e.touches[0].pageX - (+start);
-  //   marginLeft = 0-(+marginLeft + move);
-  //   console.log(marginLeft);
-  //   this.setData({
-  //     touchmove : {
-  //       touches : start,
-  //       move : move
-  //     },
-  //     _marginLeft: marginLeft
-  //   });
-  // },
   hideDetail: function(){
     if (this.data.blur != ''){
       this.setData({
         blur: '',
         detail: '',
         scrollX: true,
-        scrollY: true
+        scrollY: true,
+        _marginTop: '0',
+        _bottomHeight: '0',
+        lowerFlag: true
       });
     }
   },
