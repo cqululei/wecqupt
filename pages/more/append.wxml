@@ -15,11 +15,11 @@
         </view>
         <view class="input-group {{room_focus ? 'active' : ''}}">
             <text class="input-label">寝室号</text>
-            <input id="room" maxlength="3" placeholder="请输入寝室号（三位）" bindinput="roomInput" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input type="number" id="room" maxlength="3" placeholder="请输入寝室号（三位）" bindinput="roomInput" bindfocus="inputFocus" bindblur="inputBlur" />
         </view>
         <view class="input-group {{sfz_focus ? 'active' : ''}}">
             <text class="input-label">身份证后6位</text>
-            <input id="sfz" password="true" maxlength="6" placeholder="请输入身份证后6位" bindinput="sfzInput" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input type="number" id="sfz" password="true" maxlength="6" placeholder="请输入身份证后6位" bindinput="sfzInput" bindfocus="inputFocus" bindblur="inputBlur" />
         </view>
     </form>
     <view class="confirm-btn">

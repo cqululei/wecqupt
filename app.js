@@ -68,9 +68,9 @@ App({
       }
     });
   },
-  showErrorModal: function(content){
+  showErrorModal: function(content, title){
     wx.showModal({
-      title: '加载失败',
+      title: title || '加载失败',
       content: content || '未知错误',
       showCancel: false
     });
