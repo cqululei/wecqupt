@@ -6,8 +6,8 @@ var app = getApp();
 var WEEK_DATA = ['', '第一周', '第二周', '第三周', '第四周', '第五周', '第六周', '第七周', '第八周', '第九周', '第十周',
                     '十一周', '十二周', '十三周', '十四周', '十五周', '十六周', '十七周', '十八周'],
     DAY_DATA = ['', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
-    CLASSTIME_DATA = ['', {time: '1-2', index: '1@2'}, {time: '3-4', index: '3@4'}, {time: '5-6', index: '5@6'},
-                      {time: '7-8', index: '7@8'}, {time: '9-10', index: '9@10'}, {time: '11-12', index: '11@12'}],
+    CLASSTIME_DATA = ['', {time: '1-2节', index: '1@2'}, {time: '3-4节', index: '3@4'}, {time: '5-6节', index: '5@6'},
+                      {time: '7-8节', index: '7@8'}, {time: '9-10节', index: '9@10'}, {time: '11-12节', index: '11@12'}],
     BUILDING_DATA = ['', '', '二教', '三教', '四教', '五教', '', '', '八教', '其他'];
 
 Page({
@@ -24,7 +24,23 @@ Page({
       buildingNo: 2,
       classNo: 1,
     },
+    nowWeekNo: 1,
     testData: null
+  },
+
+  onLoad: function(){
+    this.setData({
+      'nowWeekNo': app._time.week,
+      'active.weekNo': app._time.week
+    });
+    // 初始默认显示
+    this.sendRequest();
+  },
+
+  //下拉更新
+  onPullDownRefresh: function(){
+
+    this.sendRequest();
   },
 
   // 发送请求的函数
@@ -33,17 +49,13 @@ Page({
     app.showLoadToast();
 
     var that = this;
-    var requestData, activeData = that.data.active;
-    if(!query){
-      requestData = activeData;
-    }else{
-      requestData = {
-        weekNo: query.weekNo || activeData.weekNo,
-        weekDay: query.weekDay || activeData.weekDay,
-        classNo: that.data.DATA.CLASSTIME_DATA[query.classNo || activeData.classNo].index,
-        buildingNo: query.buildingNo || activeData.buildingNo
-      };
-    }
+    var query = query || {}, activeData = that.data.active;
+    var requestData = {
+      weekNo: query.weekNo || activeData.weekNo,
+      weekDay: query.weekDay || activeData.weekDay,
+      classNo: that.data.DATA.CLASSTIME_DATA[query.classNo || activeData.classNo].index,
+      buildingNo: query.buildingNo || activeData.buildingNo
+    };
 
     // 对成功进行处理
     function doSuccess(data) {
@@ -145,17 +157,5 @@ Page({
         'active.buildingNo': index
       });
     });
-  },
-
-  onLoad: function(){
-
-    // 初始默认显示
-    this.sendRequest();
-  },
-
-  //下拉更新
-  onPullDownRefresh: function(){
-
-    this.sendRequest();
-  },
+  }
 });

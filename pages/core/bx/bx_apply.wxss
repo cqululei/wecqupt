@@ -8,11 +8,8 @@
     flex-direction: column;
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
-    margin-top: 35rpx;
+    margin-top: 30rpx;
     overflow: hidden;
-}
-.repair-detail-item-hd.service-area-hd{
-    border-bottom: none;
 }
 .repair-detail-item{
     display: flex;
@@ -23,28 +20,29 @@
     display: flex;
     align-items: center;
     height: 88rpx;
+    font-size: 11pt;
     margin-left: 30rpx;
 }
 .repair-detail-item-ft{
+    font-size: 10pt;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-right: 30rpx;
+}
+.repair-detail-picker {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 30rpx;
+}
+.repair-detail-info {
+    flex: 1;
 }
 .more-icon{
-    width: 15rpx;
-    height: 25rpx;
-    margin-left: 20rpx;
-}
-
-.more-icon-close{
-    transform: rotate(-90deg);
-    transition: transform .4s;
-}
-.service-info-show .more-icon-close{
-    transition: transform .4s;
-    transform: rotate(90deg);
+    width: 18rpx;
+    height: 27rpx;
+    margin-left: 30rpx;
 }
 
 
@@ -55,7 +53,7 @@
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
-    margin-top: 35rpx;
+    margin-top: 25rpx;
     overflow: hidden;
 }
 .reporter-detail-item{
@@ -65,8 +63,15 @@
     border-bottom: 1px solid #ddd;
     margin-left: 30rpx;
 }
-
-
+.reporter-detail-item.reporter-address {
+    border: none;
+}
+.reporter-user .reporter-detail-input{
+    color: #999;
+}
+.reporter-detail-name{
+    font-size: 11pt;
+}
 .service-cells-items{
     padding-left: 40rpx;
     padding-right: 40rpx;
@@ -77,13 +82,7 @@
     display: flex;
     align-items: center;
 }
-.servcie-cell-item:last-child{
-    border-bottom: none;
-}
-.reporter-detail-item.reporter-tel{
-    border-bottom: none
-}
-.reporter-detail-item-input{
+.reporter-detail-input{
     flex: 1;
     display: flex;
     align-items: center;
@@ -91,32 +90,49 @@
     padding-right: 30rpx;
     padding-left: 45rpx;
 }
-.reporter-detail-item-input input{
+.reporter-detail-input input{
     width: 100%;
 }
 .declare-context{
     display: flex;
     flex-direction: column;
-    margin-top: 35rpx;
+    margin-top: 15rpx;
     overflow: hidden;
 }
 .declare-context-panel{
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
-    padding: 30rpx;
 }
 .declare-context-title{
-    margin-left: 30rpx;
+    color: #999;
+    margin: 5rpx 0 10rpx 30rpx;
+}
+.declare-context-input {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    height: 88rpx;
+    padding: 0 30rpx;
 }
 .declare-context-textarea{
+    padding: 30rpx;
     width: 100%;
+    min-height: 200rpx;
 }
 .submit-declare{
-    padding: 38rpx 30rpx 0rpx 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40rpx 3%;
+    height: 80rpx;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #7acfa6;
+    color: #fff;
+    font-size: 12pt;
 }
-.submit-declare .submit-declare-btn{
-    background-color: #75c6b2;
+.submit-declare:active{
+    opacity: .8;
 }
 
 .service-cells-items{

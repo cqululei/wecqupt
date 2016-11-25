@@ -1,28 +1,28 @@
 <!--login.wxml-->
 <view class="container">
-  <view class="login-hd">
+  <view class="hd">
     <image class="title" src="/images/more/title.png" mode="aspectFit"></image>
     <image class="logo" src="/images/more/logo.png"></image>
   </view>
 
-  <view class="login-bd">
+  <view class="bd">
     <form class="login-form">
       <view class="input-group {{userid_focus ? 'active' : ''}}">
         <text class="input-label">帐号</text>
-        <input id="userid" maxlength="15" placeholder="请输入统一认证码" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" />
+        <input type="number" id="userid" maxlength="15" placeholder="请输入统一认证码" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" />
       </view>
       <view class="input-group {{passwd_focus ? 'active' : ''}}">
         <text class="input-label">密码</text>
-        <input id="passwd" password="true" maxlength="6" placeholder="初始密码为身份证后6位" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
+        <input password="true" id="passwd" placeholder="初始密码为身份证后6位" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
       </view>
       <view class="login-help" bindtap="showHelp">
         <text>帮助</text>
         <image class="login-help-img" src="/images/more/help.png"></image>
       </view>
     </form>
-    <navigator class="confirm-btn" bindtap="bind">
+    <view class="confirm-btn" bindtap="bind">
         <text>确认绑定</text>
-    </navigator>
+    </view>
   </view>
 
   <view class="help" id="help" wx:if="{{help_status}}" bindtap="tapHelp">

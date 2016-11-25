@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     cjInfo : [
 
     ],
@@ -29,7 +29,6 @@ Page({
       id: app._user.xs.xh,
       name: app._user.xs.xm
     });
-    app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_kscj.php",
       data: {
@@ -62,7 +61,7 @@ Page({
         } else {
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: res.data.message
+            remind: res.data.message || '未知错误'
           });
         }
 
@@ -73,16 +72,12 @@ Page({
         _this.setData({
           remind: '网络错误'
         });
-      },
-
-      complete: function(){
-        wx.hideToast();
       }
     });
 
     function changeNum(num){  
-      var china = new Array('零','一','二','三','四','五','六','七','八','九');  
-      var arr = new Array();  
+      var china = ['零','一','二','三','四','五','六','七','八','九'];
+      var arr = [];
       var n = ''.split.call(num,''); 
       for(var i = 0; i < n.length; i++){  
         arr[i] = china[n[i]];  

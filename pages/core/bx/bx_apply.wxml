@@ -1,55 +1,83 @@
 <!--bx_apply.wxml-->
 <view class="container">
-    <view class="repair-detail">
-        <block wx:for-items="{{list}}">
-            <view class="{{item.id}} repair-detail-item">
-                <view id="{{item.id}}" class="{{item.id}}-hd repair-detail-item-hd {{item.open ? 'service-info-show' : ''}}" bindtap="serviceToggle">
-                    <text class="{{item.id}}-name">{{item.name}}</text>
-                    <view class="{{item.id}}-ft repair-detail-item-ft">
-                        <text class="{{item.id}}-info">{{item.cItem}}</text>
-                        <image class="{{item.id}}-more more-icon more-icon-close" src="/images/core/bx/more.png"></image>
-                    </view>
-                </view>
-                <view class="{{item.id}}-bd  service-cells-items {{item.open ? 'service-items-show' : ''}}" >
-                    <block wx:if="{{item.id == 'serviceType'}}" wx:for="{{item.item}}" wx:for-item="itemName">
-                        <view class="{{item.id}}-item servcie-cell-item" bindtap="chooseItem" data-data-belong="{{item.id}}" data-data-bind="{{itemName}}" data-object-index="{{index}}">{{itemName}}</view>
-                    </block>
-                    
-                    <block wx:if="{{item.id == 'serviceObject'}}" wx:for="{{item.item}}" wx:for-item="itemName">
-                        <view class="{{item.id}}-item servcie-cell-item" bindtap="chooseItem" data-data-belong="{{item.id}}" data-data-bind="{{itemName.Name}}" data-object-index="{{index}}" data-categ-id="{{itemName.CategId}}" data-specific-id="{{itemName.Id}}">{{itemName.Name}}</view>
-                    </block>
-                    <block wx:if="{{item.id == 'serviceArea'}}" wx:for="{{item.item}}" wx:for-item="itemName">
-                        <view class="{{item.id}}-item servcie-cell-item" bindtap="chooseItem" data-data-belong="{{item.id}}" data-data-bind="{{itemName.Name}}" data-object-index="{{index}}" data-address-id="{{itemName.Id}}">{{itemName.Name}}</view>
-                    </block>
-                </view>
-            </view>
+    <view wx:if="{{remind}}" class="remind-box">
+        <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+        <block wx:else>
+          <image class="remind-img" src="/images/index/nothing.png"></image>
+          <text class="remind-text">{{remind}}</text>
         </block>
     </view>
-
-    <view class="reporter-detail">
-        <view class="reporter-address reporter-detail-item">
-            <text class="reporter-address-name">保修地址</text>
-            <view class="reporter-address-input reporter-detail-item-input">
-                <input type="text" placeholder="请输入地址" bindinput="listenerAddress"/>
+    <block wx:else>
+        <view class="repair-detail">
+            <view class="repair-detail-item">
+                <view class="repair-detail-item-hd">
+                    <text class="repair-detail-name">服务类型</text>
+                    <view class="repair-detail-item-ft">
+                        <picker class="repair-detail-picker" bindchange="listenerServiceType" value="{{serviceTypeValue}}" range="{{serviceTypeRange}}">  
+                            <text wx:if="{{serviceTypeValue === false}}" class="repair-detail-info">请选择服务类型</text>
+                            <text wx:else class="repair-detail-info">{{serviceTypeRange[serviceTypeValue]}}</text>
+                            <image class="more-icon" src="/images/more/enter.png"></image>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+            <view class="repair-detail-item">
+                <view class="repair-detail-item-hd">
+                    <text class="repair-detail-name">服务项目</text>
+                    <view class="repair-detail-item-ft">
+                        <picker class="repair-detail-picker" bindchange="listenerServiceObject" value="{{serviceObjectValue}}" range="{{serviceObjectRange}}">  
+                            <text wx:if="{{serviceObjectValue === false}}" class="repair-detail-info">请选择服务项目</text>
+                            <text wx:else class="repair-detail-info">{{serviceObjectRange[serviceObjectValue]}}</text>   
+                            <image class="more-icon" src="/images/more/enter.png"></image>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+            <view class="repair-detail-item">
+                <view class="repair-detail-item-hd">
+                    <text class="repair-detail-name">服务区域</text>
+                    <view class="repair-detail-item-ft">
+                        <picker class="repair-detail-picker" bindchange="listenerServiceArea" value="{{serviceAreaValue}}" range="{{serviceAreaRange}}">  
+                            <text wx:if="{{serviceAreaValue === false}}" class="repair-detail-info">请选择服务区域</text>
+                            <text wx:else class="repair-detail-info">{{serviceAreaRange[serviceAreaValue]}}</text>   
+                            <image class="more-icon" src="/images/more/enter.png"></image>
+                        </picker>
+                    </view>
+                </view>
             </view>
         </view>
 
-        <view class="reporter-tel reporter-detail-item">
-            <text>联系电话</text>
-            <view class="reporter-tel-input reporter-detail-item-input">
-                <input type="tel" maxlength="11" placeholder="请输入联系电话" bindinput="listenerTel"/>
+        <view class="reporter-detail">
+            <view class="reporter-user reporter-detail-item">
+                <text class="reporter-detail-name">报修人</text>
+                <view class="reporter-detail-input">
+                    <input value="{{formData.Name}}（{{formData.Id}}）" disabled="true"/>
+                </view>
+            </view>
+            <view class="reporter-tel reporter-detail-item">
+                <text class="reporter-detail-name">联系电话</text>
+                <view class="reporter-detail-input">
+                    <input type="number" maxlength="11" placeholder="请输入联系电话" bindinput="listenerTel"/>
+                </view>
+            </view>
+            <view class="reporter-address reporter-detail-item">
+                <text class="reporter-detail-name">报修地址</text>
+                <view class="reporter-detail-input">
+                    <input type="text" placeholder="请输入地址" bindinput="listenerAddress"/>
+                </view>
             </view>
         </view>
-    </view>
 
-    <view class="declare-context">
-        <text class="declare-context-title">申报内容</text>
-        <view class="declare-context-panel">
-            <textarea  class="declare-context-textarea" placeholder="请输入" bindfocus="listenerTextarea"></textarea>
+        <view class="declare-context">
+            <text class="declare-context-title">申报内容</text>
+            <view class="declare-context-panel">
+                <input class="declare-context-input" placeholder="请输入报修标题" bindinput="listenerTitle"/>
+                <textarea class="declare-context-textarea" placeholder="请输入具体内容" bindblur="listenerTextarea" auto-height></textarea>
+            </view>
         </view>
-    </view>
 
-    <view class="submit-declare">
-        <button class="submit-declare-btn" type="primary" bindtap="submitApply">提交申请</button>
-    </view>
+        <view class="submit-declare" bindtap="submitApply">
+            <text>提交申请</text>
+        </view>
+    </block>
 </view>

@@ -3,8 +3,14 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
-    jyData: []
+    remind: '加载中',
+    jyData: {
+      book_list: [],  //当前借阅列表
+      books_num: 0,   //当前借阅量
+      history: 0,     //历史借阅量
+      dbet: 0,        //欠费
+      nothing: true   //当前是否有借阅
+    }
   },
   onLoad: function() {
     this.getData();
@@ -21,22 +27,23 @@ Page({
       });
       return false;
     }
-    app.showLoadToast();
     wx.request({
       url: app._server + "/api/get_booklist.php",
       data: {
-        yktID: app._user.xs.ykth
+        id: app._user.xs.xh
       },
       success: function(res) {
         if(res.data.status === 200) {
+          var info = res.data.data
+          info.nothing = !parseInt(info.books_num) && (!info.book_list || !info.book_list.length);
           _this.setData({
-            jyData: res.data.data,
+            jyData: info,
             remind: ''
           });
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: res.data.message
+            remind: res.data.message || '未知错误'
           });
         }
       },
@@ -47,7 +54,6 @@ Page({
         });
       },
       complete: function() {
-        wx.hideToast();
         wx.stopPullDownRefresh();
       }
     });

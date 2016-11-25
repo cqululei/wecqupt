@@ -1,8 +1,11 @@
 <!--ykt.wxml-->
 <view class="container">
     <view wx:if="{{remind}}" class="remind-box">
-        <image class="remind-img" src="/images/index/nothing.png"></image>
-        <text class="remind-text">{{remind}}</text>
+        <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+        <block wx:else>
+          <image class="remind-img" src="/images/index/nothing.png"></image>
+          <text class="remind-text">{{remind}}</text>
+        </block>
     </view>
     <block wx:else>
 
@@ -30,7 +33,7 @@
             <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
             <view class="line" style="left: {{lineLeft}}px;"></view>
         </view>
-        
+        <text class="detail-remind">点击上图查看对应消费详情</text>
         <view class="ykt-detail-wraper">
             <view class="ykt-head">
                 <text class="ykt-type-name">消费详情</text>

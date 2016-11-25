@@ -1,5 +1,5 @@
 We重邮
-==
+===
 
 官网：https://we.cqu.pt \ http://we.cqupt.edu.cn
 
@@ -68,26 +68,26 @@ wecqupt
 
 | 编号 | 功能        | 路径                        | 设计初稿 | 页面重构 | 后端接口 | 数据交互 | 进入测试 | 微调联调 |
 |:---:| ----------- | -------------------------- |:-------:|:------:|:-------:|:-------:|:------:|:------:|
-| 1   | **【主页】** | pages/index/index(.wxml)   | ✔       | ✔      | ✘       | ✔~      |        |        |
+| 1   | **【主页】** | pages/index/index(.wxml)   | ✔       | ✔      | ✘       | ✔.      | ✔      |        |
 | 10  | 课表查询     | pages/core/kb/kb           | ✔       |        | ✔       |         |        |        |
 | 11  | 成绩查询     | pages/core/cj/cj           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
-| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔~      | ✔       |        |        |
-| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
+| 12  | 考试安排     | pages/core/ks/ks           | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
+| 13  | 空教室查询   | pages/core/kjs/kjs         | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
 | 14  | 学生查询     | pages/core/xs/xs           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
-| 15  | 一卡通       | pages/core/ykt/ykt         | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
-| 16  | 借阅信息     | pages/core/jy/jy           | ✔       | ✔~     | ✔~      | ✔.      | ✔~     |        |
+| 15  | 一卡通       | pages/core/ykt/ykt         | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
+| 16  | 借阅信息     | pages/core/jy/jy           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
 | 17  | 学费信息     | pages/core/xf/xf           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
-| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
-| 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       | ✔      | ✔       | ✔       |        |        |
-| 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       | ✔      | ✔       | ✔       |        |        |
-| 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       | ✔      | ✔       | ✔       |        |        |
+| 18  | 水电费查询   | pages/core/sdf/sdf         | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
+| 19a | 物业报修 列表 | pages/core/bx/bx           | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
+| 19b | 物业报修 申请 | pages/core/bx/bx_apply     | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
+| 19c | 物业报修 详情 | pages/core/bx/bx_detail    | ✔       | ✔      | ✔       | ✔.      | ✔      |        |
 | 2   | **【资讯】** | pages/news/news            | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
 |     |教务公告/OA公告/会议通知/学术讲座/综合新闻|(同上)| ✘       | ✘      | ✔       | ✘      | ✘      | ✘      |
-| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔       |         |        |        |
+| 20  | 资讯详情     | pages/news/detail          | ✔       | ✔      | ✔~      | ✔.      | ✔      |        |
 | 3a  | **【更多】** | pages/more/more            | ✔       | ✔      | ✘       | ✔.      | ✔      |        |
 |     | 用户信息     | (同上)                      | ✘       | ✘      | ✔       | ✘       | ✘      | ✘      |
 | 3b  | 绑定用户     | pages/more/login           | ✔~       | ✔     | ✔       | ✔       |        |        |
-| 3c  | 完善信息     | pages/more/append          | ✘       |        |         |         |        |        |
+| 3c  | 完善信息     | pages/more/append          | ✘       | ✔      |         |         |        |        |
 |     | 寝室绑定     | (同上)                      | ✘       | ✘      | ✘       | ✘       | ✘      | ✘      |
 | 30  | 关于        | pages/more/about           | ✔       |        | ✘       | ✘        |        |        |
 |     | 反馈        | (利用github api new-issue)  | ✔       |        |         |          |        |        |

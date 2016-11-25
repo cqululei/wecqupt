@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     core: [
       { id: 'kb', name: '课表查询' },
       { id: 'cj', name: '成绩查询' },
@@ -19,6 +19,20 @@ Page({
     card: {
       'kb': {
         show: false,
+        time_list: [
+          { begin: '8:00', end: '8:45' },
+          { begin: '8:55', end: '9:40' },
+          { begin: '10:05', end: '10:50' },
+          { begin: '11:00', end: '11:45' },
+          { begin: '14:00', end: '14:45' },
+          { begin: '14:55', end: '15:40' },
+          { begin: '16:05', end: '16:50' },
+          { begin: '17:00', end: '17:45' },
+          { begin: '19:00', end: '19:45' },
+          { begin: '19:55', end: '20:40' },
+          { begin: '20:50', end: '21:35' },
+          { begin: '21:45', end: '22:30' }
+        ],
         data: {}
       },
       'ykt': {
@@ -35,12 +49,7 @@ Page({
       },
       'jy': {
         show: false,
-        data: {
-          'list': [
-            { 'book_name': '从你的全世界路过', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 },
-            { 'book_name': '一次又一次再一次的从你的全...', 'pickup_time': '16-04-02', 'return_time': '16-06-02', 'timing': 61 }
-          ]
-        }
+        data: {}
       },
       'sdf': {
         show: false,
@@ -50,13 +59,15 @@ Page({
           'cost': 0,
           'spend': 0
         }
-      }
+      },
+      'user': {}
     }
   },
   //下拉更新
   onPullDownRefresh: function(){
+    var _this = this;
     if(app._user.is_bind){
-      _this.getCardData();
+      this.getCardData();
     }
   },
   onLoad: function(){
@@ -64,6 +75,7 @@ Page({
   },
   login: function(){
     var _this = this;
+    //然后通过登录用户, 验证用户信息是否正确
     app.getUser(function(){
       //判断绑定状态
       if(!app._user.is_bind){
@@ -71,9 +83,6 @@ Page({
           'remind': '未绑定'
         });
       }else{
-        _this.setData({
-          'remind': ''
-        });
         _this.getCardData();
       }
     }, function(message){
@@ -85,6 +94,9 @@ Page({
   },
   getCardData: function(){
     var _this = this;
+    _this.setData({
+      user: app._user
+    });
     //获取课表数据
     wx.request({
       url: app._server + '/api/get_kebiao.php',
@@ -95,13 +107,16 @@ Page({
         if(res.data.status === 200){
           var info = res.data.data,
               lessons = info.lessons[info.day-1],
-              list = [];
+              list = [],
+              time_list = _this.data.card.kb.time_list;
           for(var i = 0; i < 6; i++){
             for(var j = 0; j < lessons[i].length; j++){
               var lesson = lessons[i][j];
               if(lesson.weeks && lesson.weeks.indexOf(parseInt(info.week)) !== -1){
+                var begin_lesson = i + 1, end_lesson = i+lesson.number;
                 list.push({
-                  when: (i+1) + ' - ' + (i+lesson.number) + '节',
+                  when: begin_lesson+' - '+end_lesson+'节'
+                        +'（'+time_list[begin_lesson-1].begin+'~'+time_list[end_lesson-1].end+'）',
                   what: lesson.name,
                   where: lesson.place.trim()
                 });
@@ -111,7 +126,8 @@ Page({
           _this.setData({
             'card.kb.data': list,
             'card.kb.show': true,
-            'card.kb.nothing': !list.length
+            'card.kb.nothing': !list.length,
+            'remind': ''
           });
         }
       }
@@ -129,7 +145,7 @@ Page({
             var last = list[0],
                 last_time = last.time.split(' ')[0],
                 now_time = app.util.formatTime(new Date()).split(' ')[0];
-            //筛选并计算当日消费
+            //筛选并计算当日消费（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片通常不能展示）
             for(var i = 0, today_cost = [], cost_total = 0; i < list.length; i++){
               if(list[i].time.split(' ')[0] == now_time && list[i].cost.indexOf('-') == 0){
                 var cost_value = Math.abs(parseInt(list[i].cost));
@@ -147,7 +163,8 @@ Page({
             _this.setData({
               'card.ykt.data.last_time': last_time,
               'card.ykt.data.balance': parseFloat(last.balance),
-              'card.ykt.show': true	  //设为false（一卡通数据有一定延迟，无法成功获取到今日数据，主页卡片可不予展示）
+              'card.ykt.show': true,
+              'remind': ''
             });
           }
         }
@@ -166,11 +183,31 @@ Page({
               'card.sdf.data.record_time': info.record_time.split(' ')[0],
               'card.sdf.data.cost': info.elec_cost,
               'card.sdf.data.spend': info.elec_spend,
-              'card.sdf.show': true
+              'card.sdf.show': true,
+              'remind': ''
             });
           }
         }
       });
     }
+    //获取借阅信息
+    wx.request({
+      url: app._server + '/api/get_booklist.php',
+      data: {
+        id: app._user.xs.xh
+      },
+      success: function(res) {
+        if(res.data.status === 200){
+          var info = res.data.data;
+          if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
+            _this.setData({
+              'card.jy.data': info,
+              'card.jy.show': true,
+              'remind': ''
+            });
+          }
+        }
+      }
+    });
   }
 });

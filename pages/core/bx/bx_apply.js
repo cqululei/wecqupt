@@ -1,226 +1,212 @@
 //bx_apply.js
 //获取应用实例
 var app = getApp();
-
-var sendRequest = function (app, dataBelong, urlFooter, data, method){
-
-  var url = app._server + urlFooter,
-      that = this;
-
-  console.log(url, data, method);
-
-    // 对成功进行处理 
-  function doSuccess(data) {
-    if(dataBelong == "serviceType"){
-
-      for(var item in data){//遍历 data
-
-        that.data.list[0].item.push(item);//存入数组
-        that.data.serviceObject.push(data[item]);
-
-      }
-
-
-    }else if(dataBelong == "serviceArea"){
-
-       that.data.list[2].item = data;//存入数组
-       
-    }else if(dataBelong == "serviceApply"){
-      console.log(data);
-    }
-  }
-
-  // 对失败进行处理
-  function doFail(err) {
-    console.log(err);
-    
-  }
-
-    // 发送请求
-  wx.request({
-    url: url, 
-    data: data,
-    method: method,
-    header: {
-      'Content-Type': 'application/json'
-    },
-    success: function(res) {
-      console.log(res.data.data)
-      doSuccess(res.data.data);
-    },
-    fail: function(err) {
-      doFail(err);
-    },
-    complete: function () {
-      console.log(that.data);
-      
-    }
-  });
-
-};
-
-
-
-
 Page({
+  remind: '加载中',
   data: {
-    list:[
-      {
-        id: 'serviceType',
-        name: '服务类型',
-        cItem: '服务类型',
-        open: false,
-        item:[]
-      },
-      {
-        id: 'serviceObject',
-        name: '服务项目',
-        cItem: '具体服务项目',
-        CategoryId: 0,
-        SpecificId: 0,
-        open: false,
-        item:[]
-      },
-      {
-        id: 'serviceArea',
-        name: '服务区域',
-        cItem: '重庆邮电大学',
-        AddressId: 0,
-        open: false,
-        item:[]
-      }
-    ],
-    serviceObject:[]
+    serviceTypeList: {},      //获取到的服务类型列表数据
+    serviceAreaList: [],      //获取到的服务区域列表数据
+    serviceTypeValue: false,  //服务类型picker-value
+    serviceTypeRange: [],     //服务类型picker-range
+    serviceObjectValue: false,//服务项目picker-value
+    serviceObjectRange: [],   //服务项目picker-range
+    serviceAreaValue: false,  //服务区域picker-value
+    serviceAreaRange: [],     //服务区域picker-range  
+    formData: {             //表单数据
+        Id: '',         //统一认证码
+        Name: '',       //姓名
+        Title: '',      //标题
+        CategoryId: '', //服务类型
+        SpecificId: '', //服务项目id
+        Phone:  '',     //报修用户电话
+        AddressId:  '', //报修区域id
+        Address: '',    //报修地点
+        Content: ''     //报修内容
+    }
   },
   onLoad: function(){
-    this.serviceType();
-    this.serviceArea();
-  },
-  onReady: function(){
-    
-  },
-  onShow: function(){
-    
-  },
-  serviceType: function ( ) {
-    var serviceItemUrl = "/api/bx/get_repair_type.php",
-        data = {},
-        method = "GET",
-        dataBelong = "serviceType";
-
-    sendRequest.apply(this, [ app, dataBelong, serviceItemUrl, data, method ]);
-    
-  },
-  serviceObject: function () {
-    
-  },
-  serviceArea: function () {
-    var serviceAreasUrl = "/api/bx/get_repair_areas.php",
-        data = {},
-        method = "GET",
-        dataBelong = "serviceArea";
-
-   sendRequest.apply(this, [ app, dataBelong, serviceAreasUrl, data, method ]);
-    
-  },
-  serviceToggle: function (e) {
-    var id = e.currentTarget.id,
-        list = this.data.list;
-    console.log(id, list);
-    for(var i=0, len = list.length; i< len; i++){
-      if(list[i].id == id){
-        list[i].open = !list[i].open;
-      }else{
-        list[i].open = false;
-      }
+    if(!app._user.xs.ykth || !app._user.xs.xm){
+      app.showErrorModal('未绑定');
+      this.setData({
+        remind: '未绑定'
+      });
+      return false;
     }
     this.setData({
-      list: list
+      'formData.Id': app._user.xs.ykth,
+      'formData.Name': app._user.xs.xm
     });
-    console.log(this.data);
+    // 发送请求
+    this.getServiceType();
+    this.getServiceArea();
   },
-  chooseItem: function (e) {
-    var dataBelong = e.currentTarget.dataset.dataBelong,
-        dataBind = e.currentTarget.dataset.dataBind,
-        objectIndex = e.currentTarget.dataset.objectIndex,
-        list = this.data.list;      
-    console.log(dataBelong, dataBind);
-    for(var i=0, len = list.length; i< len; i++){
-      if(list[i].id == dataBelong){
-        list[i].cItem = dataBind;
+  getServiceType: function () {
+    var _this = this;
+    wx.request({
+      url: app._server + '/api/bx/get_repair_type.php',
+      success: function(res) {
+        if(res.data.status === 200){
+          var list = res.data.data, serviceTypeRange = [];
+          for(var key in list){ 
+            if(list.hasOwnProperty(key)){ 
+              serviceTypeRange.push(key);
+            }
+          }
+          _this.setData({
+            serviceTypeList: list,
+            serviceTypeRange: serviceTypeRange
+          });
+          if(_this.data.serviceTypeRange.length && _this.data.serviceAreaRange.length){  
+            _this.setData({
+              remind: ''
+            });
+          }
+        }else{
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: res.data.message || '未知错误'
+          });
+        }
+      },
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          remind: '网络错误'
+        });
       }
-    }
-    if(dataBelong == "serviceType"){
-      
-
-      
-      list[1].item = [];
-
-      if( this.data.serviceObject[objectIndex][0] instanceof Array ){
-        list[1].item = this.data.serviceObject[objectIndex][0];
-        list[1].CategoryId = this.data.serviceObject[objectIndex][0][0].CategId;
-        list[1].SpecificId = this.data.serviceObject[objectIndex][0][0].Id;
-        list[1].cItem = list[1].item[0].Name;
-      }else{
-        list[1].item.push(this.data.serviceObject[objectIndex][0]);
-        list[1].CategoryId = this.data.serviceObject[objectIndex][0].CategId;
-        list[1].SpecificId = this.data.serviceObject[objectIndex][0].Id;
-        list[1].cItem = list[1].item[0].Name;
-      }
-    }else if(dataBelong == "serviceArea"){
-      var addressId = e.currentTarget.dataset.addressId;
-      list[2].AddressId = addressId;
-    }else if(dataBelong == "serviceObject"){
-      var categId= e.currentTarget.dataset.categId,
-          specificId = e.currentTarget.dataset.specificId;
-
-          list[1].CategoryId = categId,
-          list[1].SpecificId = specificId;
-    }
-    this.setData({
-      list: list
     });
-    console.log(this.data);
+  },
+  getServiceArea: function () {
+    var _this = this;
+    wx.request({
+      url: app._server + '/api/bx/get_repair_areas.php',
+      success: function(res) {
+        if(res.data.status === 200){
+          var list = res.data.data;
+          var serviceAreaRange = list.map(function(e,i){
+            return e.Name;
+          });
+          _this.setData({
+            serviceAreaList: list,
+            serviceAreaRange: serviceAreaRange
+          });
+          if(_this.data.serviceTypeRange.length && _this.data.serviceAreaRange.length){  
+            _this.setData({
+              remind: ''
+            });
+          }
+        }else{
+          app.showErrorModal(res.data.message);
+          _this.setData({
+            remind: res.data.message || '未知错误'
+          });
+        }
+      },
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          remind: '网络错误'
+        });
+      }
+    });
+  },
+  listenerServiceType: function(e) {
+    var index = e.detail.value;
+    var theServiceTypeList = this.data.serviceTypeList[this.data.serviceTypeRange[index]];
+    var serviceObjectRange = theServiceTypeList.map(function(e, i){
+      return e.Name;
+    });
+    this.setData({
+      serviceTypeValue: index,
+      serviceObjectValue: false,
+      serviceObjectRange: serviceObjectRange
+    });
+  },
+  listenerServiceObject: function(e) {
+    if(!this.data.serviceObjectRange[e.detail.value]){
+      app.showErrorModal('请先选择服务类型', '提醒');
+      return false;
+    }
+    var index = e.detail.value;
+    var theServiceTypeList = this.data.serviceTypeList[this.data.serviceTypeRange[this.data.serviceTypeValue]];
+    this.setData({
+      serviceObjectValue: index,
+      'formData.CategoryId': theServiceTypeList[index].CategId,
+      'formData.SpecificId': theServiceTypeList[index].Id
+    });
+  },
+  listenerServiceArea: function(e) {
+    this.setData({
+      serviceAreaValue: e.detail.value,
+      'formData.AddressId': this.data.serviceAreaList[e.detail.value].Id
+    });
   },
   listenerAddress: function(e) {
-    this.data.address = e.detail.value;
+    this.setData({
+      'formData.Address': e.detail.value
+    });
   },
   listenerTel: function(e) {
-    this.data.tel = e.detail.value;
+    this.setData({
+      'formData.Phone': e.detail.value
+    });
+  },
+  listenerTitle: function(e) {
+    this.setData({
+      'formData.Title': e.detail.value
+    });
   },
   listenerTextarea: function(e) {
-    this.data.content = e.detail.value;
+    this.setData({
+      'formData.Content': e.detail.value
+    });
   },
   submitApply: function(e) {
-    console.log(this.data);
-    var dataBelong = "serviceApply",
-        serviceApplyUrl = "/api/bx/bx.php",
-        method = "GET";
-
-    var Title = this.data.list[0].cItem,
-        CategoryId = this.data.list[1].CategoryId,
-        SpecificId = this.data.list[1].SpecificId,
-        Phone = this.data.tel,
-        AddressId = this.data.list[2].AddressId,
-        Address = this.data.address,
-        Content = this.data.content;
-
-    var data = {
-      "Id": app._user.xs.ykt_id,
-      "Name": app._user.xs.name,
-      "Ip": app._server,
-      "Title": "We重邮项目测试,请勿派单",
-      "CategoryId": CategoryId,
-      "SpecificId": SpecificId,
-      "AddressId": AddressId,
-      "Phone": Phone,
-      "Content": "We重邮项目测试,期间给您带来的不便,请谅解",
-      "Address": Address
+    var _this = this,
+        formData = _this.data.formData;
+    // 验证表单
+    if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
+      app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
+      return false;
     }
-
-    
-
-    sendRequest.apply(this, [ app, dataBelong, serviceApplyUrl, data, method ]);
+    if(!formData.Phone || !formData.Address){
+      app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
+      return false;
+    }
+    if(!formData.Title || !formData.Content){
+      app.showErrorModal('请填写报修标题及内容', '提交失败');
+      return false;
+    }
+    if(formData.Phone.length !== 11){
+      app.showErrorModal('联系方式有误', '提交失败');
+      return false;
+    }
+    wx.request({
+      url: app._server + '/api/bx/bx.php',
+      data: formData,
+      success: function(res) {
+        if(res.data.status === 200){
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+          wx.navigateBack();
+        }else{
+          var errorMessage = (res.data.data && res.data.data.reason) || res.data.message;
+          app.showErrorModal(errorMessage);
+          _this.setData({
+            remind: errorMessage || '未知错误'
+          });
+        }
+      },
+      fail: function(res) {
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          remind: '网络错误'
+        });
+      }
+    });
 
   }
   

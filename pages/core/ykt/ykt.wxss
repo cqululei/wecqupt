@@ -74,11 +74,45 @@
     font-size: 10pt;
 }
 
+/* canvas */
+.grid-remind {
+    padding-left: 40rpx;
+    color: #999;
+    margin-bottom: 25rpx;
+}
+.grid-wraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+#ykt-canvas {
+    width: 100%;
+    height: 100%;
+}
+.line {
+    position: absolute;
+    z-index: 999;
+    top: 15px;
+    height: 265px;
+    width: 2px;
+    background: #ffcb63;
+}
+
 /* 详情盒子 */
+.detail-remind {
+    font-size: 9pt;
+    line-height: 100%;
+    color: #aaa;
+    text-align: center;
+    margin: 30rpx 5rpx;
+}
 .ykt-detail-wraper {
     display: flex;
     flex-direction: column;
-    margin: 50rpx 30rpx 30rpx;
+    margin: 0 30rpx 30rpx;
     background: #fff;
     border-radius: 3px;
 }
@@ -116,31 +150,4 @@
 }
 .detail-item-value {
     flex: 1;
-}
-
-/* canvas */
-.grid-remind {
-    padding-left: 40rpx;
-    color: #999;
-    margin-bottom: 25rpx;
-}
-.grid-wraper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 300px;
-}
-#ykt-canvas {
-    width: 100%;
-    height: 100%;
-}
-.line {
-    position: absolute;
-    z-index: 999;
-    top: 15px;
-    height: 265px;
-    width: 2px;
-    background: #ffcb63;
 }
