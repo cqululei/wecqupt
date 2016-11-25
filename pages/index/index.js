@@ -19,6 +19,20 @@ Page({
     card: {
       'kb': {
         show: false,
+        time_list: [
+          { begin: '8:00', end: '8:45' },
+          { begin: '8:55', end: '9:40' },
+          { begin: '10:05', end: '10:50' },
+          { begin: '11:00', end: '11:45' },
+          { begin: '14:00', end: '14:45' },
+          { begin: '14:55', end: '15:40' },
+          { begin: '16:05', end: '16:50' },
+          { begin: '17:00', end: '17:45' },
+          { begin: '19:00', end: '19:45' },
+          { begin: '19:55', end: '20:40' },
+          { begin: '20:50', end: '21:35' },
+          { begin: '21:45', end: '22:30' }
+        ],
         data: {}
       },
       'ykt': {
@@ -93,13 +107,16 @@ Page({
         if(res.data.status === 200){
           var info = res.data.data,
               lessons = info.lessons[info.day-1],
-              list = [];
+              list = [],
+              time_list = _this.data.card.kb.time_list;
           for(var i = 0; i < 6; i++){
             for(var j = 0; j < lessons[i].length; j++){
               var lesson = lessons[i][j];
               if(lesson.weeks && lesson.weeks.indexOf(parseInt(info.week)) !== -1){
+                var begin_lesson = i + 1, end_lesson = i+lesson.number;
                 list.push({
-                  when: (i+1) + ' - ' + (i+lesson.number) + '节',
+                  when: begin_lesson+' - '+end_lesson+'节'
+                        +'（'+time_list[begin_lesson-1].begin+'~'+time_list[end_lesson-1].end+'）',
                   what: lesson.name,
                   where: lesson.place.trim()
                 });
