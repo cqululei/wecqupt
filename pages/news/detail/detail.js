@@ -22,9 +22,10 @@ module.exports.ipage = {
   },
 
   convertHtmlToText: function(inputText){
-        var returnText = "" + inputText;
-        returnText = returnText.replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
-        return returnText;
+    var returnText = "" + inputText;
+    returnText = returnText.replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/ /ig, '')
+                  .replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
+    return returnText;
   },
   
   onLoad: function(options){
