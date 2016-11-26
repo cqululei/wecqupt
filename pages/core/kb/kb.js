@@ -5,6 +5,7 @@ Page({
   data: {
     _weeks : ['第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周'],    
     _current: 0,
+    targetCid: 0,
     scrollX: true,
     scrollY: true,
     scroll: {
@@ -19,44 +20,41 @@ Page({
     blur: '',
   },
   onLoad: function(){
-    var xh = "2014210868";
-    var that = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          windowHeight : res.windowHeight,
-          windowWidth : res.windowWidth
-        });
-      }
-    })
+    // onLoad时获取一次课表
+    var xh = "2014210868";  
     this.get_kb(xh);
   },
   overLower: function(){
+    // scroll到达右边界或下边界之一时执行，标记已到达边界
     this.setData({
       lowerFlag: true
     })
   },
   infoCardTap: function(e){
+    // 底部详情卡片的切换，由于可能存在超过3个课的情况，所以之后可能会修改。。
     var cid = e.currentTarget.dataset.cid;
     if (cid == 0){
       this.setData({
         infoMarginLeft: ['0','480rpx','600rpx'],
       })
-      console.log(cid)
     } else if (cid == 1){
       this.setData({
         infoMarginLeft: ['0','120rpx','600rpx'],
       })
-      console.log(cid)
     } else if (cid == 2){
       this.setData({
         infoMarginLeft: ['0','120rpx','240rpx'],
       })
-      console.log(cid)
     }
   },
   showDetail: function(e){
+    // 点击课程卡片后执行
     var data = e.currentTarget.dataset;
+    // 首先更新被点击课的cid
+    this.setData({
+      targetCid: data.cid
+    });
+    // 判断被点击课是前3节还是后3节，是不是周末
     if (data.class < 3&&data.week<=4){
       this.setData({
         scrollFlag: 'lt'
@@ -78,11 +76,14 @@ Page({
     var that = this;
     var _top = this.data.scroll.top,
         _left = this.data.scroll.left;
-    
+    // 根据之前判断的不同情况执行不同动画效果
       if(that.data.scrollFlag=='lb'){
+        // 左下        
         function scrollAnimation() {
+          //到头时就停止动画
           if(that.data.lowerFlag&&_left==0){
             clearTimeout(animation);
+            // 设定遮罩层的位置，加号是用来类型转换的
             var _fixedMarginTop = '-'+(+that.data.scroll.top + 205);
             that.setData({
               tapTarget: {
@@ -105,17 +106,19 @@ Page({
           } else {
             _left -= 5;
           }
+          // 这个动画其实就是在不断改变scroll的top和left值
           that.setData({
             scroll: {
               top: _top,
               left: _left
             },
           });
-          
+          // 真机调试时发现没有requestAnimationFrame
           animation = setTimeout(scrollAnimation,10);
         }
         animation = setTimeout(scrollAnimation,10);
       } else if (this.data.scrollFlag=='lt') {
+        // 左上
         function scrollAnimation() {
           if(_top==0&&_left==0){
             clearTimeout(animation);
@@ -155,6 +158,7 @@ Page({
         }
         animation = setTimeout(scrollAnimation,10);
       } else if (this.data.scrollFlag=='rt') {
+        // 右上
         function scrollAnimation() {
           if(_top==0&&that.data.lowerFlag){
             clearTimeout(animation);
@@ -193,6 +197,7 @@ Page({
         }
         animation = setTimeout(scrollAnimation,10);
       }  else if (this.data.scrollFlag=='rb') {
+        // 右下
         function scrollAnimation() {
           if(that.data.lowerFlag){
             clearTimeout(animation);
@@ -232,6 +237,7 @@ Page({
       }
   },
   onScroll: function(e){
+    // 滚动时触发，更新当前坐标，并将边界标记置为false
     this.setData({
       scroll: {
         top: e.detail.scrollTop,
@@ -241,6 +247,7 @@ Page({
     });
   },
   hideDetail: function(){
+    // 点击遮罩层时触发，取消主体部分的模糊，更新部分数据，并将边界标记置为true
     if (this.data.blur != ''){
       this.setData({
         blur: '',
@@ -254,6 +261,7 @@ Page({
     }
   },
   currentChange: function(e){
+    // 更改底部周数时触发，修改当前选择的周数
     var current = e.detail.current
     this.setData({
       _current: current,
@@ -261,6 +269,7 @@ Page({
     });
   },
   get_kb: function(xh){
+    // 根据获取课表
     var _this = this;
     wx.request({
       url: "https://we.cqu.pt/api/get_kebiao.php",
@@ -268,16 +277,13 @@ Page({
         xh: xh
       },
       success: function(res) {
-        console.log(res);
         if (res.data.status == 200){
-
           var _data = res.data.data;
-
           var colors = ['red','green','purple','yellow'];
           var i,j,k,c=0;
           var colorsDic = {};
           var _lessons = [];
-
+          // 为课程添加颜色
           for( i = 0 ; i < _data.lessons.length; i++){
             _lessons[i] = _data.lessons[i];
             for( j = 0; j < _lessons[i].length; j++){
@@ -286,18 +292,15 @@ Page({
                 if(_lessons[i][j][k].class_id){
                   if (!colorsDic[_lessons[i][j][k].class_id]) {
                     if (i>0 && _lessons[i-1][j][k] && _lessons[i-1][j][k].color == colors[c]) {
-                      c++;  // 与左边相同时改变颜色
-                      if (c == 4) c = 0;
+                      c++;  // 与左边相同时改变颜色（这里好像有些问题）
+                      c = (c == 4)?0:c;
                     }
-                    
                     colorsDic[_lessons[i][j][k].class_id] = colors[c];
                   }
-                                   
                   _lessons[i][j][k].color = colorsDic[_lessons[i][j][k].class_id];
-                  
                 }
                 c++; // k值相同不需要改变颜色
-                if (c == 4) c = 0;
+                c = (c == 4)?0:c;
               }
             }
           }
@@ -312,7 +315,7 @@ Page({
           var sat = _data.lessons[5];
           var sun = _data.lessons[6];
           var day_cn = '';
-
+          // 转换中文
           switch(day){
             case '0': day_cn = '星期天';
                     break;

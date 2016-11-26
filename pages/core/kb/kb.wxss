@@ -2,9 +2,7 @@
 .container{
     padding-bottom: 0; 
 }
-.pad{
-    height: 100rpx;
-}
+
 .blur-area{
     position: absolute;
     top: 0;
@@ -56,7 +54,7 @@
     margin-bottom: 12rpx;
 }
 
-.kb-cards-scroll{
+.kb-cards-ctn{
     position: absolute;
     top: 0;
     left: 30rpx;
@@ -158,7 +156,34 @@
     background: #ffcb63;
 }
 
+/* 遮罩层样式 */
+.kb-detail{
+    display: none;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(125,125,125,.3);
+    z-index: 300;
+    transition: .3s;
+}
+.detail{
+    display: block;
+}
+.kb-detail-card{
+    position: absolute;
+    box-shadow: 0 0 10px 1px #999;
+}
+.target-card{
+    z-index: 9999;
+}
+.kb-detaile-card-ctn{
+    position: absolute;
+    width: 120rpx;
+}
 
+/* 底部详情样式 */
 .kb-info-ctn{
     position: fixed;
     width: 100%;
@@ -268,54 +293,29 @@
     background: -webkit-gradient(linear, left top, right top, from(rgba(86,165,238,0)), to(rgba(86,165,238,0.7)));    
 }
 
-.kb-detail{
-    display: none;
-    position: fixed;
-    top:0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(125,125,125,.3);
-    z-index: 300;
-    transition: .3s;
-}
-.detail{
-    display: block;
-}
-
-.kb-detail-card{
-    float: right;
-    margin-left: -110rpx;
-    box-shadow: 0 0 10px 1px #999;
-}
-.kb-detaile-card-ctn{
-    position: absolute;
-    width: 140rpx;
-}
 
 
-
-
+/* 遮罩层里的卡片位置 */
 .week-0{
-    margin-left: 10rpx;
+    margin-left: 30rpx;
 }
 .week-1{
-    margin-left: 142rpx;
+    margin-left: 162rpx;
 }
 .week-2{
-    margin-left: 274rpx;
+    margin-left: 294rpx;
 }
 .week-3{
-    margin-left: 406rpx;
+    margin-left: 426rpx;
 }
 .week-4{
-    margin-left: 538rpx;
+    margin-left: 558rpx;
 }
 .week-5{
-    margin-left: 670rpx;
+    margin-left: 690rpx;
 }
 .week-6{
-    margin-left: 802rpx;
+    margin-left: 822rpx;
 }
 .class-0{
     margin-top: 40rpx;
