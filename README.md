@@ -28,8 +28,8 @@ We重邮（微信小程序）是...
 
 ```
 wecqupt
-  ├─ master       // 默认分支（**开发测试版本所用分支**；保护分支，只允许由[other]分支-Pull Requests-reviews而来，故无法push）
-  ├─ stable       // 稳定分支（**正式版本所用分支**；高级保护分支）
+  ├─ master       // 默认分支（**开发测试版本所用分支**；保护分支，只允许由[other]分支-Pull Requests-其他人review而来，故无法push）
+  ├─ stable       // 稳定分支（**正式版本所用分支**；高级保护分支，只允许管理员操作，通常由master分支-Pull Requests而来）
   └─ [other]      // 其他开发分支（只允许该项目Collaborators创建及push分支）
 ```
 
