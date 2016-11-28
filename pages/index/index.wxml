@@ -10,9 +10,12 @@
     </block>
   </view>
   <view wx:if="{{remind}}" class="remind-box">
-    <image class="remind-img" src="/images/index/nothing.png"></image>
-    <text class="remind-text">{{remind}}</text>
-    <navigator wx:if="{{remind == '未绑定'}}" url="/pages/more/login" class="remind-btn">前往绑定</navigator>
+    <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+    <block wx:else>
+      <image class="remind-img" src="/images/index/nothing.png"></image>
+      <text class="remind-text">{{remind}}</text>
+      <navigator wx:if="{{remind == '未绑定'}}" url="/pages/more/login" class="remind-btn">前往绑定</navigator>
+    </block>
   </view>
   <!--卡片列表-->
   <view wx:else class="main-card">
@@ -100,30 +103,30 @@
       <view class="card-item-bd">
         <view class="card-info-hd">
           <view class="card-info-left">
-            <text class="card-info-name">闵聪</text>
-            <text class="card-info-number">2013211664</text>
+            <text class="card-info-name">{{user.xs.xm}}</text>
+            <text class="card-info-number">{{user.xs.xh}}</text>
           </view>
           <view class="card-info-right">
-            <view>历史借阅：36</view>
-            <view>当前借阅：2</view>
+            <text>当前借阅：{{card.jy.data.books_num}}</text>
+            <text>欠费金额：{{card.jy.data.dbet}}</text>
           </view>
         </view>
         <view class="jy-list">
-          <view class="jy-item" wx:for="{{card.jy.data.list}}" wx:key="book_name">
+          <view class="jy-item" wx:for="{{card.jy.data.book_list}}" wx:key="book_name">
             <view class="jy-book">
               <view class="jy-pickup-time">
-                <text class="jy-pickup-time-value">{{item.pickup_time}}</text>
+                <text class="jy-pickup-time-value">{{item.jsrq}}</text>
                 <text class="jy-pickup-time-text">借</text>
               </view>
-              <text class="jy-book-name">{{item.book_name}}</text>
+              <text class="jy-book-name">{{item.book}}</text>
             </view>
             <view class="jy-timing">
               <text class="jy-timing-text">已借</text>
-              <text class="jy-timing-value">{{item.timing}}</text>
+              <text class="jy-timing-value">0</text>
               <text class="jy-timing-text">天</text>
             </view>
             <view class="jy-return-time">
-              <text class="jy-return-time-value">{{item.return_time}}</text>
+              <text class="jy-return-time-value">{{item.yhrq}}</text>
               <text class="jy-return-time-text">还</text>
             </view>
           </view>

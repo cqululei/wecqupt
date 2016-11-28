@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-      remind: '加载中...',
+      remind: '加载中',
       fontSize: 12,      // 字体大小, 24rpx=12px
       count: 10,         // 展示的消费次数
       width: 0,          // 画布宽
@@ -114,7 +114,7 @@ Page({
               }else{
                 app.showErrorModal(res.data.message);
                 _this.setData({
-                    remind: res.data.message
+                    remind: res.data.message || '未知错误'
                 });
               }
           },
@@ -156,7 +156,7 @@ Page({
       // 绘制竖网格
       context.setLineWidth(1);
       context.setLineCap("round");
-      context.setStrokeStyle("#cccccc");
+      context.setStrokeStyle("#dddddd");
       for (var i = 0; i < xArr.length; i ++) {
           context.beginPath();          
               context.moveTo(xArr[i] + gridMarginLeft, canvasHeight - gridMarginTop);
@@ -166,7 +166,7 @@ Page({
       }
            
           
-      context.setStrokeStyle("#cccccc");
+      context.setStrokeStyle("#dddddd");
       context.setFillStyle("#ffcb63");
       // 绘制横网格&纵轴金额  
       for (var i = 0; i <= gridNum; i ++) {

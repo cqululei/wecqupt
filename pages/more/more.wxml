@@ -28,7 +28,7 @@
           </view>
         </view>
       </view>
-      <navigator url="/pages/more/append" class="append-link">
+      <navigator url="append" class="append-link">
         <view class="more-btn">
           <image class="btn-icon" src="/images/more/append.png"></image>
           <text class="btn-text">完善信息</text>
@@ -63,7 +63,7 @@
         </view>
       </view>
     </navigator>
-    <navigator url="/pages/more/about" class="about-link">
+    <navigator url="about" class="about-link">
       <view class="more-btn">
         <image class="btn-icon" src="/images/more/about.png"></image>
         <text class="btn-text">关于</text>
@@ -74,7 +74,7 @@
     </navigator>
   </view>
 
-  <navigator url="/pages/more/login" class="login-btn">
+  <navigator url="login" class="login-btn">
     <text wx:if="{{is_bind}}">切换绑定</text>
     <text wx:else>立即绑定</text>
   </navigator>

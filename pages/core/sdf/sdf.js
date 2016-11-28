@@ -3,7 +3,7 @@
 var app = getApp();
 Page({
   data: {
-    remind: '加载中...',
+    remind: '加载中',
     userName: '',
     renderData: {}
   },
@@ -44,7 +44,7 @@ Page({
         }else{
           app.showErrorModal(res.data.message);
           _this.setData({
-            remind: res.data.message
+            remind: res.data.message || '未知错误'
           });
         }
       },
