@@ -15,7 +15,7 @@ Page({
   bind: function() {
     var _this = this;
     if(!_this.data.userid || !_this.data.passwd){
-      app.showErrorModal(res.data.message);
+      app.showErrorModal('账号及密码不能为空', '提醒');
       return false;
     }
     app.showLoadToast();
@@ -35,16 +35,17 @@ Page({
             duration: 2000
           });
           app.getUser();
-          wx.navigateBack();
+          wx.redirectTo({
+            url: 'append'
+          });
         }else{
+          wx.hideToast();
           app.showErrorModal(res.data.message);
         }
       },
       fail: function(res){
-        app.showErrorModal(res.errMsg);
-      },
-      complete: function(){
         wx.hideToast();
+        app.showErrorModal(res.errMsg);
       }
     });
   },

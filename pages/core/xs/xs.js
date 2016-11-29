@@ -70,10 +70,10 @@ Page({
   },
 
   // 搜索
-  search: function () {
+  search: function (key) {
 
     var that = this,
-        inputValue = that.data.header.inputValue,
+        inputValue = key || that.data.header.inputValue,
         messageDisplay = false,
         message = '',
         reDdata = null,
@@ -316,7 +316,13 @@ Page({
     }
   },
 
-  onLoad: function () {
-
+  onLoad: function (options) {
+    if(options.key){
+      this.setData({
+        'header.inputValue': options.key,
+        'main.page': 0
+      });
+      this.search();
+    }
   }
 });

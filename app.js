@@ -1,17 +1,25 @@
 //app.js
 App({
   onLaunch: function() {
-
+    var _this = this;
+    //读取缓存
+    wx.getStorage({
+      key: 'cache',
+      success: function(res) {
+        if(!!res.data){
+          _this.cache = res.data;
+          _this.processData(res.data);
+        }
+      } 
+    });
   },
   //后台切换至前台时
   onShow: function(){
 
   },
   //getUser函数，在index中调用
-  getUser: function(success_cb, fail_cb) {
+  getUser: function(update_cb) {
     var _this = this;
-    _this.showLoadToast('登录中');
-    //登录
     wx.login({
       success: function(res){
         if(res.code){
@@ -29,36 +37,42 @@ App({
               },
               success: function(res){
                 if(res.data.status >= 200 && res.data.status < 400){
-                  var data = JSON.parse(_this.util.base64.decode(res.data.data));
-                  _this._user.is_bind = data.is_bind;
-                  _this._user.wx.openid = data.openid;
-                  _this._user.xs = data.student;
-                  _this._time = data.time;
-                  _this._t = data['\x74\x6f\x6b\x65\x6e'];
+                  var status = false;
+                  //判断缓存是否有更新
+                  if(!_this.cache || _this.cache != res.data.data){
+                    wx.setStorage({
+                      key: "cache",
+                      data: res.data.data
+                    });
+                    status = true;
+                  }
+                  var data = _this.processData(res.data.data);
                   if(!data.is_bind){
                     wx.navigateTo({
                       url: '/pages/more/login'
                     });
                   }
-                  //成功回调函数
-                  typeof success_cb == "function" && success_cb();
-                }else{
-                  //失败回调函数
-                  typeof fail_cb == "function" && fail_cb(res.data.message);
+                  //如果缓存有更新，则执行回调函数
+                  if(status){
+                    typeof update_cb == "function" && update_cb();
+                  }
                 }
-              },
-              fail: function(res){
-                //失败回调函数
-                typeof fail_cb == "function" && fail_cb(res.errMsg);
-              },
-              complete: function(){
-                wx.hideToast();
               }
             });
           });
         }
       }
     });
+  },
+  processData: function(key){
+    var _this = this;
+    var data = JSON.parse(_this.util.base64.decode(key));
+    _this._user.is_bind = data.is_bind;
+    _this._user.wx.openid = data.openid;
+    _this._user.xs = data.student;
+    _this._time = data.time;
+    _this._t = data['\x74\x6f\x6b\x65\x6e'];
+    return data;
   },
   getUserInfo: function(cb){
     //获取微信用户信息
