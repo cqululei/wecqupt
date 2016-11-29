@@ -41,6 +41,13 @@ Page({
       success: function(res) {
         if (res.data.status == 200){
           var list = res.data.data;
+          if(!list || !list.length){
+            app.showErrorModal('无考试安排');
+            _this.setData({
+              remind: '无考试安排'
+            });
+            return false;
+          }
           var days = ['一','二','三','四','五','六','日'];
           for (var i = 0, len = list.length; i < len; ++i) {
             list[i].open = false;

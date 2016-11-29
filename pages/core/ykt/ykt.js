@@ -22,7 +22,7 @@ Page({
       var _this = this;
       wx.getSystemInfo({
           success: function(res) {
-              // 获取窗口宽, 计算画布宽 (减去padding: 10px;)
+              // 获取窗口宽, 计算画布宽
               _this.setData({
                 'width': res.windowWidth
               });

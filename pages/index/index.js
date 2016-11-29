@@ -96,22 +96,24 @@ Page({
   },
   login: function(){
     var _this = this;
+    //如果有缓存
+    if(!!app.cache){
+      _this.response();
+    }
     //然后通过登录用户, 验证用户信息是否正确
-    app.getUser(function(){
-      //判断绑定状态
-      if(!app._user.is_bind){
-        _this.setData({
-          'remind': '未绑定'
-        });
-      }else{
-        _this.getCardData();
-      }
-    }, function(message){
-      app.showErrorModal(message);
+    app.getUser(_this.response);
+  },
+  response: function(){
+    var _this = this;
+    //判断绑定状态
+    if(!app._user.is_bind){
       _this.setData({
-        'remind': '加载失败'
+        'remind': '未绑定'
       });
-    });
+    }else{
+      _this.getCardData();
+    }
+    console.log(_this);
   },
   getCardData: function(){
     var _this = this;
@@ -127,7 +129,8 @@ Page({
       success: function(res) {
         if(res.data.status === 200){
           var info = res.data.data,
-              lessons = info.lessons[info.day-1],
+              today = parseInt(info.day),
+              lessons = info.lessons[today===0 ? 6 : today-1], //day为0表示周日(6)，day为1表示周一(0)..
               list = [],
               time_list = _this.data.card.kb.time_list;
           for(var i = 0; i < 6; i++){
@@ -191,11 +194,15 @@ Page({
         }
       }
     });
-    if(!!app._user.xs.room && !!app._user.xs.room.length){
+    if(!!app._user.xs.room && !!app._user.xs.build){
       //获取水电费数据
       wx.request({
         url: app._server + '/api/get_elec.php',
-        data: app._user.xs.room,
+        data: {
+          buildingNo: app._user.xs.build,
+          floor: app._user.xs.room.slice(0,1),
+          room: parseInt(app._user.xs.room.slice(1))
+        },
         success: function(res) {
           if(res.data.status === 200){
             var info = res.data.data;
