@@ -99,7 +99,7 @@
                     <text class="kb-info-week" wx:if="{{toweek==week}}">星期{{_days[today]}}</text>
                     <text class="kb-info-week" wx:else bindtap="returnCurrent">返回{{toweek}}周</text>
                     <view class="kb-swipers" wx:if="{{week != '*'}}">
-                        <view class="kb-swiper-mask-left">
+                        <view class="kb-swiper-mask-left" data-target="week" data-direction="left" bindtap="swiperChangeBtn">
                             <image src="/images/core/common/left_g.png"></image>
                         </view>
                         <swiper class="kb-week-swiper" bindchange="currentChange" current="{{week-1}}" duration="300">
@@ -109,7 +109,7 @@
                                 </swiper-item>
                             </block>
                         </swiper>  
-                        <view class="kb-swiper-mask-right">
+                        <view class="kb-swiper-mask-right" data-target="week" data-direction="right" bindtap="swiperChangeBtn">
                             <image src="/images/core/common/right_g.png"></image>
                         </view>        
                     </view>
@@ -171,7 +171,7 @@
                 </block>
             </view>
             <view class="kb-info-card-swipers" wx:else>
-                <view class="kb-info-swiper-mask-left">
+                <view class="kb-info-swiper-mask-left" data-target="targetI" data-direction="left" bindtap="swiperChangeBtn">
                     <image src="/images/core/common/left_g.png"></image>
                 </view>
                 <swiper indicator-dots="true" current="{{targetI}}" bindchange="infoCardChange" duration="250">
@@ -207,7 +207,7 @@
                         </swiper-item>
                     </block>
                 </swiper>
-                <view class="kb-info-swiper-mask-right">
+                <view class="kb-info-swiper-mask-right" data-target="targetI" data-direction="right" bindtap="swiperChangeBtn">
                     <image src="/images/core/common/right_g.png"></image>
                 </view>
             </view>

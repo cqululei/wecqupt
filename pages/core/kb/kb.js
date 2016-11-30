@@ -198,6 +198,15 @@ Page({
       week: current+1
     });
   },
+  //点击左右按钮切换swiper
+  swiperChangeBtn: function(e){
+    var _this = this;
+    var dataset = e.currentTarget.dataset, i, data={};
+    if(dataset.direction == 'left'){ i = -1; }
+    else if(dataset.direction == 'right'){ i = 1; }
+    data[dataset.target] = parseInt(_this.data[dataset.target]) + i;
+    _this.setData(data);
+  },
   get_kb: function(xh){
     //数组去除指定值
     function removeByValue(array,val){

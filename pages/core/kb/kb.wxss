@@ -145,7 +145,7 @@
 
 .kb-bg{
     position: absolute;
-    width: 120rpx;
+    width: 100%;
     top: -8rpx;
     bottom: -12rpx;
     background: -webkit-gradient(linear, left top, left bottom, from(#eff7ff), color-stop(0.5, #8cc4ff), to(#eff7ff));
@@ -158,7 +158,7 @@
     right: 0;
     top: 50%;
     margin-top: -2rpx;
-    width: 120rpx;
+    width: 100%;
     height: 5rpx;
     background: #0069d9;
     z-index: 99;
