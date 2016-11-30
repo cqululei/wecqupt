@@ -119,9 +119,11 @@
                     <text class="kb-term">{{term}}</text>
                 </block>
                 <!--切换视图-->
-                <view class="kb-choose-view" bindtap="chooseView">
-                    <text class="active">{{week=='*'?'期':'周'}}</text>
-                    <text>{{week=='*'?'周':'期'}}</text>
+                <view class="kb-choose-view-box" bindtap="chooseView">
+                    <view class="kb-choose-view">
+                        <text class="active">{{week=='*'?'期':'周'}}</text>
+                        <text>{{week=='*'?'周':'期'}}</text>
+                    </view>
                 </view>
             </view>
             <block wx:else>

@@ -3,15 +3,13 @@ App({
   onLaunch: function() {
     var _this = this;
     //读取缓存
-    wx.getStorage({
-      key: 'cache',
-      success: function(res) {
-        if(!!res.data){
-          _this.cache = res.data;
-          _this.processData(res.data);
-        }
-      } 
-    });
+    try{
+      var data = wx.getStorageSync('cache')
+      if (data) {
+        _this.cache = data;
+        _this.processData(data);
+      }
+    }catch(e){}
   },
   //后台切换至前台时
   onShow: function(){
@@ -45,9 +43,9 @@ App({
                       data: res.data.data
                     });
                     status = true;
+                    _this.processData(res.data.data);
                   }
-                  var data = _this.processData(res.data.data);
-                  if(!data.is_bind){
+                  if(!_this._user.is_bind){
                     wx.navigateTo({
                       url: '/pages/more/login'
                     });

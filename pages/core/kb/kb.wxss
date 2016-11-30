@@ -219,6 +219,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 .kb-card-name-text{
     font-size: 10pt;
@@ -298,6 +299,7 @@
     background: #73b4ef;
     font-size: 11pt;
     transition: all .25s ease-in-out;
+    transform: translateZ(0);
 }
 .kb-info-ctn-open{
     height: 500rpx;
@@ -313,13 +315,17 @@
     flex: 1;
     text-align: center;
 }
+.kb-choose-view-box{
+    display: flex;
+    margin: 0 20rpx 0 62rpx;
+    padding: 25rpx;
+}
 .kb-choose-view{
     position: relative;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    margin: 25rpx 45rpx 25rpx 87rpx;
     width: 38rpx;
     height: 38rpx;
 }
@@ -348,7 +354,7 @@
 }
 .kb-info-week{
     width: 150rpx;
-    padding: 0 10rpx;
+    padding: 20rpx 10rpx;
     text-align: center;
 }
 .kb-swipers{
@@ -471,6 +477,7 @@
     background: #73b4ef;
     transition: .25s;
     box-sizing: border-box;
+    transform: translateZ(0);
 }
 .kb-info-card-static{
     flex-shrink: 0;
@@ -504,7 +511,6 @@
     display: flex;
     align-items: flex-start;
     font-size: 16pt;
-    font-weight: lighter;
     line-height: 120%;
     height: 100rpx;
     width: 550rpx;
