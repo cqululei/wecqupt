@@ -64,6 +64,11 @@ module.exports.ipage = {
 
           // 如果存在附件则提取附件里面的信息
           if(info.fjlist && info.fjlist.length){
+            info.fjlist.map(function(e){
+              //判断是否支持预览
+              e.preview = e.fjtitle.search(/\.doc|.xls|.ppt|.pdf|.docx|.xlsx|.pptx$/) !== -1;
+              return e;
+            });
             _this.setData({
               files_len: info.fjlist.length,
               files_list: info.fjlist
@@ -94,19 +99,45 @@ module.exports.ipage = {
       url: e.currentTarget.dataset.url,
       success: function(res) {
         var filePath = res.tempFilePath;
-        wx.openDocument({
-          filePath: filePath,
-          success: function (res) {
-            console.log('预览文档成功');
-          },
-          fail: function (res) {
-            app.showErrorModal(res.errMsg);
-          },
-          complete: function (res) {
-            _this.setData({
-              file_loading: false
-            });
-          }
+        if(e.currentTarget.dataset.preview === true || 'true'){
+          wx.openDocument({
+            filePath: filePath,
+            success: function (res) {
+              _this.setData({
+                file_loading: false
+              });
+            },
+            fail: function (res) {
+              _this.saveFj(filePath);
+            }
+          });
+        }else{
+          _this.saveFj(filePath);
+        }
+      },
+      file: function(res){
+        _this.setData({
+          file_loading: false
+        });
+        app.showErrorModal(res.errMsg, '下载失败');
+      }
+    });
+  },
+
+  saveFj: function(path){
+    var _this = this;
+    wx.saveFile({
+      tempFilePath: path,
+      success: function(res) {
+        var savedFilePath = res.savedFilePath;
+        app.showErrorModal('成功下载至 '+savedFilePath, '下载成功');
+      },
+      fail: function (res) {
+        app.showErrorModal(res.errMsg, '下载失败');
+      },
+      complete: function () {
+        _this.setData({
+          file_loading: false
         });
       }
     });
