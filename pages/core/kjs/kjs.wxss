@@ -78,10 +78,13 @@ page {
         .condition-li {
 
             display: inline-block;
-            width: 115rpx;
+            width: 110rpx;
             height: 120rpx;
             line-height: 120rpx;
             text-align: center;
+        }
+        .fix-view .condition-li {
+            width: 115rpx;
         }
         .week-active,
         .day-active,
