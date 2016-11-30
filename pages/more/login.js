@@ -23,7 +23,7 @@ Page({
       method: 'POST',
       url: app._server + '/api/users/bind.php',
       data: app.key({
-        openid: app._user.wx.openid,
+        openid: app._user.openid,
         xh: _this.data.userid,
         sfzh: _this.data.passwd
       }),

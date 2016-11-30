@@ -66,7 +66,7 @@ App({
     var _this = this;
     var data = JSON.parse(_this.util.base64.decode(key));
     _this._user.is_bind = data.is_bind;
-    _this._user.wx.openid = data.openid;
+    _this._user.openid = data.openid;
     _this._user.xs = data.student;
     _this._time = data.time;
     _this._t = data['\x74\x6f\x6b\x65\x6e'];

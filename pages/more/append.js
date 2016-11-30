@@ -83,7 +83,7 @@ Page({
       return false;
     }
     var data = {
-      openid: app._user.wx.openid
+      openid: app._user.openid
     };
     if(_this.data.ibuilding){
       var buildText = _this.data.buildings[_this.data.ibuilding];
@@ -96,6 +96,7 @@ Page({
     if(_this.data.sfz && _this.data.sfz != '000000'){
       data.sfzh = _this.data.sfz;
     }
+    console.log(data);
     app.showLoadToast();
     wx.request({
       url: app._server + '/api/users/set_info.php',
