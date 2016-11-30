@@ -8,7 +8,7 @@ var WEEK_DATA = ['', '第一周', '第二周', '第三周', '第四周', '第五
     DAY_DATA = ['', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
     CLASSTIME_DATA = ['', {time: '1-2节', index: '1@2'}, {time: '3-4节', index: '3@4'}, {time: '5-6节', index: '5@6'},
                       {time: '7-8节', index: '7@8'}, {time: '9-10节', index: '9@10'}, {time: '11-12节', index: '11@12'}],
-    BUILDING_DATA = ['', '', '二教', '三教', '四教', '五教', '', '', '八教', '其他'];
+    BUILDING_DATA = ['', '', '二教', '三教', '四教', '五教', '', '', '八教'];
 
 Page({
   data: {

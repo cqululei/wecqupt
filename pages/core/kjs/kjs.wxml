@@ -18,7 +18,7 @@
     <!--选择要查询的条件-->
     <view class="main-condition">
         <!--选择教学楼-->
-        <view class="fix-view condition-building condition" catchtap="chooseBuilding">
+        <view class="building-condition condition-building condition" catchtap="chooseBuilding">
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.BUILDING_DATA}}" wx:key="*this">
                 <block wx:if="{{item != ''}}">
@@ -28,7 +28,7 @@
             <view class="scroll-space"></view>
         </view>
         <!--选择课程时间段-->
-        <view class="fix-view condition-classTime condition" catchtap="chooseClaasTime">
+        <view class="day-condition condition-classTime condition" catchtap="chooseClaasTime">
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="index">
                 <block wx:if="{{!!item}}">
