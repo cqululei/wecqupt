@@ -319,6 +319,7 @@ Page({
   onLoad: function (options) {
     if(options.key){
       this.setData({
+        'header.searchChange': false,
         'header.inputValue': options.key,
         'main.page': 0
       });
