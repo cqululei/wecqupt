@@ -30,7 +30,7 @@ Page({
     });
     if(!app._user.xs.sfzh){
       _this.setData({
-        remind: '未完善身份证号'
+        remind: '未完善身份信息'
       });
       return false;
     }
