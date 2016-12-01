@@ -70,7 +70,7 @@
           </view>
           <view class="item-ul-kb item-ul-li">
             <text class="ul-li-label">课表</text>
-            <navigator url="/pages/core/kb/kb?xh={{item.xh}}&xm={{item.xm}}" class="ul-li-kb">点击查看</navigator>
+            <navigator redirect="true" url="/pages/core/kb/kb?xh={{item.xh}}&xm={{item.xm}}" class="ul-li-kb">点击查看</navigator>
           </view>
         </view>
       </view>

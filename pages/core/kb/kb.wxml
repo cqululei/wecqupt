@@ -162,7 +162,7 @@
                                     </view>
                                     <view class="info-item">
                                         <image class="info-item-icon" src="/images/core/xs.png"></image>
-                                        <navigator url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
+                                        <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
                                     </view>
                                 </view>
                             </view>
@@ -199,7 +199,7 @@
                                         </view>
                                         <view class="info-item">
                                             <image class="info-item-icon" src="/images/core/xs.png"></image>
-                                            <navigator url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
+                                            <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
                                         </view>
                                     </view>
                                 </view>
