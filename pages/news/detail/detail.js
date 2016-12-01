@@ -32,7 +32,6 @@ module.exports.ipage = {
     var _this = this;
     
     if(!options.type || !options.id) {
-      app.showErrorModal('404');
       _this.setData({
         remind: '404'
       });
@@ -48,7 +47,7 @@ module.exports.ipage = {
           // 提取信息中的时间，作者，阅读量
           var author_info = [];
           if(info.author){
-            var author_info = info.author.split(' ').map(function(e){
+            author_info = info.author.split(' ').map(function(e){
               return e.split(':')[1];
             });
           }

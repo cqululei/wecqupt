@@ -29,12 +29,14 @@ Page({
       }),
       success: function(res){
         if(res.data.status === 200){
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'success',
+            duration: 2000
+          });
+          app.showLoadToast('登录中');
           app.getUser(function(){
-            wx.showToast({
-              title: '绑定成功',
-              icon: 'success',
-              duration: 2000
-            });
+            wx.hideToast();
             wx.showModal({
               title: '提示',
               content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',

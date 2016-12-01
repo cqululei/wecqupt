@@ -87,6 +87,9 @@ Page({
           'remind': '未绑定'
         });
       }else{
+        _this.setData({
+          'remind': '加载中'
+        });
         _this.getCardData();
       }
     }

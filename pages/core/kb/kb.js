@@ -49,7 +49,6 @@ Page({
     // onLoad时获取一次课表
     var xh = options.xh || app._user.xs.xh;
     if(!xh){
-      app.showErrorModal('未绑定');
       _this.setData({
         remind: '未绑定'
       });

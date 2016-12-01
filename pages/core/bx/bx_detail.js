@@ -20,7 +20,6 @@ Page({
   getData: function () {
     var _this = this;
     if(!app._user.xs.ykth || !_this.data.bxID){
-      app.showErrorModal('404');
       _this.setData({
         remind: '404'
       });

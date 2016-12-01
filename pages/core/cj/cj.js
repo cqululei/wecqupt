@@ -19,7 +19,6 @@ Page({
   onLoad: function(){
     var _this = this;
     if(!app._user.xs.xh || !app._user.xs.xm){
-      app.showErrorModal('未绑定');
       _this.setData({
         remind: '未绑定'
       });
@@ -30,15 +29,15 @@ Page({
       name: app._user.xs.xm
     });
     if(!app._user.xs.sfzh){
-      app.showErrorModal('未完善身份证后6位');
       _this.setData({
-        remind: '未完善身份信息'
+        remind: '未完善身份证号'
       });
       return false;
     }
     wx.request({
       url: app._server + "/api/get_kscj.php",
       data: {
+        openid: app._user.openid,
         xh: app._user.xs.xh
       },
       success: function(res) {
