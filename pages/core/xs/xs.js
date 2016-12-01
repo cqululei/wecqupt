@@ -70,10 +70,10 @@ Page({
   },
 
   // 搜索
-  search: function () {
+  search: function (key) {
 
     var that = this,
-        inputValue = that.data.header.inputValue,
+        inputValue = key || that.data.header.inputValue,
         messageDisplay = false,
         message = '',
         reDdata = null,
@@ -316,7 +316,18 @@ Page({
     }
   },
 
-  onLoad: function () {
-
+  onLoad: function (options) {
+    if(options.key){
+      this.setData({
+        'main.mainDisplay': true,
+        'main.total': 0,
+        'main.page': 0,
+        'main.message': '上滑加载更多',
+        'header.searchChange': false,
+        'testData': [],
+        'header.inputValue': options.key
+      });
+      this.search();
+    }
   }
 });

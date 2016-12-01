@@ -6,7 +6,7 @@
         <block wx:else>
           <image class="remind-img" src="/images/index/nothing.png"></image>
           <text class="remind-text">{{remind}}</text>
-          <navigator wx:if="{{remind == '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
+          <navigator redirect="true" wx:if="{{remind == '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
         </block>
     </view>
 
@@ -16,7 +16,7 @@
         <view class="result-userInfo result-model">
             <view class="userInfo-dormitory">
                 <text class="dormitory-info">{{renderData.room_name}}寝室</text>
-                <navigator src="/pages/more/append" class="dormitory-resetBtn">修改寝室</navigator>
+                <navigator url="/pages/more/append" class="dormitory-resetBtn">修改寝室</navigator>
             </view>
             <view class="userInfo-basic">
                 <text class="basic-name">{{userName}}（{{userYkth}}）</text>
@@ -44,5 +44,6 @@
             <view class="specificInfo-item"><text>电止度</text><text class="specificInfo-item-value">{{renderData.elec_end}} 度</text></view>
             <view class="specificInfo-item"><text>当月免费电量</text><text class="specificInfo-item-value">{{renderData.elec_free}} 度</text></view>
         </view>
+        <image class="sdf-bg" mode="aspectFit" src="/images/core/sdf/sdf-bg.png"></image>
     </view>
 </view>

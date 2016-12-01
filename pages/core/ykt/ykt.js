@@ -22,7 +22,7 @@ Page({
       var _this = this;
       wx.getSystemInfo({
           success: function(res) {
-              // 获取窗口宽, 计算画布宽 (减去padding: 10px;)
+              // 获取窗口宽, 计算画布宽
               _this.setData({
                 'width': res.windowWidth
               });
@@ -33,7 +33,6 @@ Page({
   sendRequest: function() {
       var _this = this;
       if(!app._user.xs.ykth){
-        app.showErrorModal('未绑定');
         _this.setData({
             remind: '未绑定'
         });

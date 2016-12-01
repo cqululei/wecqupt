@@ -66,6 +66,10 @@
   display: flex;
   flex-direction: column;
 }
+.info-bd-left{
+  flex-shrink: 0;
+  padding-right: 30rpx;
+}
 /**more-list**/
 .more-list {
   flex: 1;

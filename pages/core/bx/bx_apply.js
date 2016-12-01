@@ -26,7 +26,6 @@ Page({
   },
   onLoad: function(){
     if(!app._user.xs.ykth || !app._user.xs.xm){
-      app.showErrorModal('未绑定');
       this.setData({
         remind: '未绑定'
       });
