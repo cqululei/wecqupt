@@ -319,9 +319,13 @@ Page({
   onLoad: function (options) {
     if(options.key){
       this.setData({
+        'main.mainDisplay': true,
+        'main.total': 0,
+        'main.page': 0,
+        'main.message': '上滑加载更多',
         'header.searchChange': false,
-        'header.inputValue': options.key,
-        'main.page': 0
+        'testData': [],
+        'header.inputValue': options.key
       });
       this.search();
     }

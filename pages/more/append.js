@@ -96,7 +96,6 @@ Page({
     if(_this.data.sfz && _this.data.sfz != '000000'){
       data.sfzh = _this.data.sfz;
     }
-    console.log(data);
     app.showLoadToast();
     wx.request({
       url: app._server + '/api/users/set_info.php',
@@ -104,15 +103,13 @@ Page({
       method: 'POST',
       success: function(res){
         if(res.data.status === 200){
+          app.appendInfo(data);
           wx.showToast({
             title: '保存成功',
             icon: 'success',
             duration: 2000
           });
-          app.getUser();
-          wx.navigateBack({
-            delta: 3
-          });
+          wx.navigateBack();
         }else{
           wx.hideToast();
           app.showErrorModal(res.data.message);

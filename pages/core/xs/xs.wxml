@@ -7,7 +7,7 @@
     <view class="header-search">
       <!--搜索框-->
       <view class="{{header.searchChange ? 'search-input' : 'search-input js-fous-input'}}">
-        <input class="input-text" value="{{header.inputValue}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" maxlength="10" />
+        <input class="input-text" value="{{header.inputValue}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" />
         <view class="input-confirm-button" bindtap="bindConfirmSearchTap" hidden="{{header.searchChange}}">
           <text>搜索</text>
         </view>

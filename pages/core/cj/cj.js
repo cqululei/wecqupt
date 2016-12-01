@@ -29,11 +29,17 @@ Page({
       id: app._user.xs.xh,
       name: app._user.xs.xm
     });
+    if(!app._user.xs.sfzh){
+      app.showErrorModal('未完善身份证后6位');
+      _this.setData({
+        remind: '未完善身份信息'
+      });
+      return false;
+    }
     wx.request({
       url: app._server + "/api/get_kscj.php",
       data: {
-        xh: app._user.xs.xh,
-        sfzh: app._user.xs.sfzh
+        xh: app._user.xs.xh
       },
       success: function(res) {
 

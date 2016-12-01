@@ -16,7 +16,7 @@ App({
 
   },
   //getUser函数，在index中调用
-  getUser: function(update_cb) {
+  getUser: function(update_cb, bind) {
     var _this = this;
     wx.login({
       success: function(res){
@@ -79,6 +79,14 @@ App({
         typeof cb == "function" && cb(res);
       }
     });
+  },
+  //完善信息
+  appendInfo: function(data){
+    var _this = this;
+    wx.removeStorage({ key: 'cache' });
+    _this._user.xs.build = data.build || '';
+    _this._user.xs.room = data.room || '';
+    _this._user.xs.sfzh = !!data.sfzh;
   },
   showErrorModal: function(content, title){
     wx.showModal({

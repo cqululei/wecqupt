@@ -6,7 +6,7 @@
         <block wx:else>
           <image class="remind-img" src="/images/index/nothing.png"></image>
           <text class="remind-text">{{remind}}</text>
-          <navigator wx:if="{{remind == '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
+          <navigator redirect="true" wx:if="{{remind == '未完善寝室信息'}}" url="/pages/more/append" class="remind-btn">前往完善</navigator>
         </block>
     </view>
 

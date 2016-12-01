@@ -29,14 +29,27 @@ Page({
       }),
       success: function(res){
         if(res.data.status === 200){
-          wx.showToast({
-            title: '绑定成功',
-            icon: 'success',
-            duration: 2000
-          });
-          app.getUser();
-          wx.redirectTo({
-            url: 'append'
+          app.getUser(function(){
+            wx.showToast({
+              title: '绑定成功',
+              icon: 'success',
+              duration: 2000
+            });
+            wx.showModal({
+              title: '提示',
+              content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
+              cancelText: '以后再说',
+              confirmText: '完善信息',
+              success: function(res) {
+                if (res.confirm) {
+                  wx.redirectTo({
+                    url: 'append'
+                  });
+                } else {
+                  wx.navigateBack();
+                }
+              }
+            });
           });
         }else{
           wx.hideToast();
