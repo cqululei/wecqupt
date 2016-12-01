@@ -3,22 +3,20 @@ App({
   onLaunch: function() {
     var _this = this;
     //读取缓存
-    wx.getStorage({
-      key: 'cache',
-      success: function(res) {
-        if(!!res.data){
-          _this.cache = res.data;
-          _this.processData(res.data);
-        }
-      } 
-    });
+    try{
+      var data = wx.getStorageSync('cache')
+      if (data) {
+        _this.cache = data;
+        _this.processData(data);
+      }
+    }catch(e){}
   },
   //后台切换至前台时
   onShow: function(){
 
   },
   //getUser函数，在index中调用
-  getUser: function(update_cb) {
+  getUser: function(update_cb, bind) {
     var _this = this;
     wx.login({
       success: function(res){
@@ -45,9 +43,9 @@ App({
                       data: res.data.data
                     });
                     status = true;
+                    _this.processData(res.data.data);
                   }
-                  var data = _this.processData(res.data.data);
-                  if(!data.is_bind){
+                  if(!_this._user.is_bind){
                     wx.navigateTo({
                       url: '/pages/more/login'
                     });
@@ -68,7 +66,7 @@ App({
     var _this = this;
     var data = JSON.parse(_this.util.base64.decode(key));
     _this._user.is_bind = data.is_bind;
-    _this._user.wx.openid = data.openid;
+    _this._user.openid = data.openid;
     _this._user.xs = data.student;
     _this._time = data.time;
     _this._t = data['\x74\x6f\x6b\x65\x6e'];
@@ -81,6 +79,14 @@ App({
         typeof cb == "function" && cb(res);
       }
     });
+  },
+  //完善信息
+  appendInfo: function(data){
+    var _this = this;
+    wx.removeStorage({ key: 'cache' });
+    _this._user.xs.build = data.build || '';
+    _this._user.xs.room = data.room || '';
+    _this._user.xs.sfzh = !!data.sfzh;
   },
   showErrorModal: function(content, title){
     wx.showModal({

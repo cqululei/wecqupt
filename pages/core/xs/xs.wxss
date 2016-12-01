@@ -58,12 +58,22 @@
         line-height: 85rpx;
     }
     .input-confirm-button {
-
-        color: #888;
-        font-weight: bold;
-        padding: 0 25rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20rpx;
         height: 85rpx;
-        line-height: 85rpx;
+        opacity: .95;
+    }
+    .input-confirm-button text{
+        font-size: 10pt;
+        background: #9f8bea;
+        color: #fff;
+        border-radius: 3px; 
+        padding: 3rpx 15rpx;
+    }
+    .input-confirm-button:active{
+        opacity: .8;
     }
 /* search-state
  ============================================================================ */
@@ -110,7 +120,6 @@
     width: 100%;
     flex-flow: column nowrap;
     overflow: hidden;
-    background-color: #f7f7f7;
  }
   /* main-title
  ============================================================================ */

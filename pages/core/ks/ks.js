@@ -23,7 +23,6 @@ Page({
   onLoad: function(){
     var _this = this;
     if(!app._user.xs.xh || !app._user.xs.xm){
-      app.showErrorModal('未绑定');
       _this.setData({
         remind: '未绑定'
       });
@@ -42,7 +41,6 @@ Page({
         if (res.data.status == 200){
           var list = res.data.data;
           if(!list || !list.length){
-            app.showErrorModal('无考试安排');
             _this.setData({
               remind: '无考试安排'
             });

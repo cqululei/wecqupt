@@ -11,14 +11,12 @@ Page({
   onLoad: function(){
     var _this = this;
     if(!app._user.xs.xm || !app._user.xs.xh){
-      app.showErrorModal('未绑定帐号');
       _this.setData({
         remind: '未绑定帐号'
       });
       return false;
     }
     if(!app._user.xs.room || !app._user.xs.build){
-      app.showErrorModal('未完善寝室信息');
       _this.setData({
         remind: '未完善寝室信息'
       });

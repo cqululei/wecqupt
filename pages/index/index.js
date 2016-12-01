@@ -87,6 +87,9 @@ Page({
           'remind': '未绑定'
         });
       }else{
+        _this.setData({
+          'remind': '加载中'
+        });
         _this.getCardData();
       }
     }
@@ -113,7 +116,6 @@ Page({
     }else{
       _this.getCardData();
     }
-    console.log(_this);
   },
   getCardData: function(){
     var _this = this;
@@ -127,6 +129,7 @@ Page({
         xh: app._user.xs.xh
       },
       success: function(res) {
+        wx.stopPullDownRefresh();
         if(res.data.status === 200){
           var info = res.data.data,
               today = parseInt(info.day),
@@ -163,6 +166,7 @@ Page({
         yktID: app._user.xs.ykth
       },
       success: function(res) {
+        wx.stopPullDownRefresh();
         if(res.data.status === 200){
           var list = res.data.data;
           if(list.length > 0){
@@ -204,6 +208,7 @@ Page({
           room: parseInt(app._user.xs.room.slice(1))
         },
         success: function(res) {
+          wx.stopPullDownRefresh();
           if(res.data.status === 200){
             var info = res.data.data;
             _this.setData({
@@ -225,6 +230,7 @@ Page({
         id: app._user.xs.xh
       },
       success: function(res) {
+        wx.stopPullDownRefresh();
         if(res.data.status === 200){
           var info = res.data.data;
           if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){

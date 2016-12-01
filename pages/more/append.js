@@ -83,7 +83,7 @@ Page({
       return false;
     }
     var data = {
-      openid: app._user.wx.openid
+      openid: app._user.openid
     };
     if(_this.data.ibuilding){
       var buildText = _this.data.buildings[_this.data.ibuilding];
@@ -103,15 +103,13 @@ Page({
       method: 'POST',
       success: function(res){
         if(res.data.status === 200){
+          app.appendInfo(data);
           wx.showToast({
             title: '保存成功',
             icon: 'success',
             duration: 2000
           });
-          app.getUser();
-          wx.navigateBack({
-            delta: 3
-          });
+          wx.navigateBack();
         }else{
           wx.hideToast();
           app.showErrorModal(res.data.message);

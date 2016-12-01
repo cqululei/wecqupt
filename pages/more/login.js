@@ -23,7 +23,7 @@ Page({
       method: 'POST',
       url: app._server + '/api/users/bind.php',
       data: app.key({
-        openid: app._user.wx.openid,
+        openid: app._user.openid,
         xh: _this.data.userid,
         sfzh: _this.data.passwd
       }),
@@ -34,9 +34,24 @@ Page({
             icon: 'success',
             duration: 2000
           });
-          app.getUser();
-          wx.redirectTo({
-            url: 'append'
+          app.showLoadToast('登录中');
+          app.getUser(function(){
+            wx.hideToast();
+            wx.showModal({
+              title: '提示',
+              content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
+              cancelText: '以后再说',
+              confirmText: '完善信息',
+              success: function(res) {
+                if (res.confirm) {
+                  wx.redirectTo({
+                    url: 'append'
+                  });
+                } else {
+                  wx.navigateBack();
+                }
+              }
+            });
           });
         }else{
           wx.hideToast();
