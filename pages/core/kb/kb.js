@@ -138,7 +138,7 @@ Page({
     });
     if(!lessons.length){ return false; }
     _this.setData({
-      targetX: dataset.day*128+35+8,
+      targetX: dataset.day*129+35+8,
       targetY: dataset.wid*206+Math.floor(dataset.wid/2)*4+60+8,
       targetDay: dataset.day,
       targetWid: dataset.wid,
