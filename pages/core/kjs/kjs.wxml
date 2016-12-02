@@ -18,31 +18,31 @@
     <!--选择要查询的条件-->
     <view class="main-condition">
         <!--选择教学楼-->
-        <scroll-view scroll-x class="condition-building condition" catchtap="chooseBuilding">
+        <view class="building-condition condition-building condition" catchtap="chooseBuilding">
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.BUILDING_DATA}}" wx:key="*this">
                 <block wx:if="{{item != ''}}">
-                    <view class="{{index == active.buildingNo ? 'condition-li building-active' : 'condition-li'}}"  data-buildingNo="{{index}}">{{item}}</view>
+                    <view class="condition-li {{index == active.buildingNo ? 'building-active' : ''}}"  data-buildingNo="{{index}}">{{item}}</view>
                 </block>
             </block>
             <view class="scroll-space"></view>
-        </scroll-view>
+        </view>
         <!--选择课程时间段-->
-        <scroll-view scroll-x class="condition-classTime condition" catchtap="chooseClaasTime">
+        <view class="day-condition condition-classTime condition" catchtap="chooseClaasTime">
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.CLASSTIME_DATA}}" wx:key="index">
                 <block wx:if="{{!!item}}">
-                    <view class="{{index == active.classNo ? 'condition-li classTime-active' : 'condition-li'}}"  data-classNo="{{index}}">{{item.time}}</view>
+                    <view class="condition-li {{index == active.classNo ? 'classTime-active' : ''}}"  data-classNo="{{index}}">{{item.time}}</view>
                 </block>
             </block>
             <view class="scroll-space"></view>
-        </scroll-view>
+        </view>
         <!--选择天-->
         <scroll-view scroll-x class="condition-day condition" catchtap="chooseDay">
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.DAY_DATA}}" wx:key="*this">
                 <block wx:if="{{!!item}}">
-                    <view class="{{index == active.weekDay ? 'condition-li day-active' : 'condition-li'}}"  data-dayNo="{{index}}">{{item}}</view>
+                    <view class="condition-li {{index == active.weekDay ? 'day-active' : ''}}"  data-dayNo="{{index}}">{{item}}</view>
                 </block>
             </block>
             <view class="scroll-space"></view>
@@ -52,7 +52,7 @@
             <view class="scroll-space"></view>
             <block wx:for="{{DATA.WEEK_DATA}}" wx:key="*this">
                 <block wx:if="{{!!item && index >= nowWeekNo}}">
-                    <view class="{{index == active.weekNo ? 'condition-li week-active' : 'condition-li'}}" data-weekNo="{{index}}">{{item}}</view>
+                    <view class="condition-li {{index == active.weekNo ? 'week-active' : ''}}" data-weekNo="{{index}}">{{item}}</view>
                 </block>
             </block>
             <view class="scroll-space"></view>

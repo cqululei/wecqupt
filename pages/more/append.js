@@ -13,10 +13,31 @@ Page({
       '30栋（明理苑7舍）', '31栋（明理苑8舍）', '32栋（宁静苑6舍）', '33栋（宁静苑7舍）', '34栋（宁静苑8舍）', '35栋（宁静苑9舍）', '36栋（四海苑1舍）', '37栋（四海苑2舍）', '39栋（明理苑9舍）'], // picker-range
     ibuilding: false,  // picker-index
     room_focus: false,
-    sfz_focus: false
+    sfz_focus: false,
+    room: '',
+    sfz: '' //000000表示已填写
   },
   onLoad: function(){
-
+    var _this = this;
+    if(app._user.xs.build){
+      _this.data.buildings.forEach(function(e,i){
+        if(e.split("栋")[0] == app._user.xs.build){
+          _this.setData({
+            ibuilding: i
+          });
+        }
+      });
+    }
+    if(app._user.xs.room){
+      _this.setData({
+        'room': app._user.xs.room
+      });
+    }
+    if(app._user.xs.sfzh){
+      _this.setData({
+        sfz: '000000'
+      });
+    }
   },
   buildingPicker: function(e) {
     this.setData({
@@ -45,4 +66,59 @@ Page({
       });
     }
   },
+  roomInput:  function(e){
+    this.setData({
+      'room': e.detail.value
+    });
+  },
+  sfzInput:  function(e){
+    this.setData({
+      'sfz': e.detail.value
+    });
+  },
+  confirm: function(){
+    var _this = this;
+    if(!_this.data.ibuilding && !_this.data.room && !_this.data.sfz){
+      app.showErrorModal('请先输入表单信息', '提醒');
+      return false;
+    }
+    var data = {
+      openid: app._user.openid
+    };
+    if(_this.data.ibuilding){
+      var buildText = _this.data.buildings[_this.data.ibuilding];
+      var build = buildText.split("栋")[0];
+      data.build = build;
+    }
+    if(_this.data.room){
+      data.room = _this.data.room;
+    }
+    if(_this.data.sfz && _this.data.sfz != '000000'){
+      data.sfzh = _this.data.sfz;
+    }
+    app.showLoadToast();
+    wx.request({
+      url: app._server + '/api/users/set_info.php',
+      data: app.key(data),
+      method: 'POST',
+      success: function(res){
+        if(res.data.status === 200){
+          app.appendInfo(data);
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success',
+            duration: 2000
+          });
+          wx.navigateBack();
+        }else{
+          wx.hideToast();
+          app.showErrorModal(res.data.message);
+        }
+      },
+      fail: function() {
+        wx.hideToast();
+        app.showErrorModal(res.errMsg);
+      }
+    })
+  }
 });

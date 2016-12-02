@@ -23,7 +23,6 @@ Page({
   onLoad: function(){
     var _this = this;
     if(!app._user.xs.xh || !app._user.xs.xm){
-      app.showErrorModal('未绑定');
       _this.setData({
         remind: '未绑定'
       });
@@ -41,6 +40,12 @@ Page({
       success: function(res) {
         if (res.data.status == 200){
           var list = res.data.data;
+          if(!list || !list.length){
+            _this.setData({
+              remind: '无考试安排'
+            });
+            return false;
+          }
           var days = ['一','二','三','四','五','六','日'];
           for (var i = 0, len = list.length; i < len; ++i) {
             list[i].open = false;

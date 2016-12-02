@@ -19,7 +19,6 @@ Page({
   onLoad: function(){
     var _this = this;
     if(!app._user.xs.xh || !app._user.xs.xm){
-      app.showErrorModal('未绑定');
       _this.setData({
         remind: '未绑定'
       });
@@ -29,11 +28,17 @@ Page({
       id: app._user.xs.xh,
       name: app._user.xs.xm
     });
+    if(!app._user.xs.sfzh){
+      _this.setData({
+        remind: '未完善身份信息'
+      });
+      return false;
+    }
     wx.request({
       url: app._server + "/api/get_kscj.php",
       data: {
-        xh: app._user.xs.xh,
-        sfzh: app._user.xs.sfzh
+        openid: app._user.openid,
+        xh: app._user.xs.xh
       },
       success: function(res) {
 
