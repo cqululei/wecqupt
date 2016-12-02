@@ -117,7 +117,7 @@ Page({
       if(lessons.length === 1){
         e.left = 0;
       }else{
-        //笼罩层卡片防止超出
+        //笼罩层卡片防止超出课表区域
         //周一~周四0~3:n lessons.length>=2*n+1时，设置left0为-n*128，否则设置为-60*(lessons.length-1)；
         //周日~周五6~4:n lessons.length>=2*(6-n)+1时，设置left0为-(7-n-lessons.length)*128，否则设置为-60*(lessons.length-1)；
         var left0 = -60*(lessons.length-1);
@@ -298,7 +298,7 @@ Page({
           dates = dates.map(function(e,m){
             var idates = _this.data._days.slice(0);  //0:周一,1:周二,..6:周日
             idates = idates.map(function(e,i){
-              var d = (m === week && i === today) ? nowD : new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate()-((week-m)*7+(today-i)));
+              var d = (m === (week-1) && i === today) ? nowD : new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate()-((week-1-m)*7+(today-i)));
               return {
                 month: d.getMonth() + 1,
                 date: d.getDate()
