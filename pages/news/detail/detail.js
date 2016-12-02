@@ -59,7 +59,7 @@ module.exports.ipage = {
             content: _this.convertHtmlToText(info.body),  // 新闻内容
             source: _this.data.sources[options.type],
             remind: ''
-          })
+          });
 
           // 如果存在附件则提取附件里面的信息
           if(info.fjlist && info.fjlist.length){
