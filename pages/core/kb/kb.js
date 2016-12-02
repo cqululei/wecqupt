@@ -32,7 +32,6 @@ Page({
     targetDay: 0, //target day
     targetWid: 0, //target wid
     targetI: 0,   //target 第几个active
-    
     targetLen: 0, //target 课程长度
     blur: false,
     today: '',  //当前星期数

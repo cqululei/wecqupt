@@ -131,7 +131,7 @@
                     <block>
                         <text wx:if="{{week != '*'}}" class="kb-info-week">{{toweek}}周周{{_days[targetDay]}}</text>
                         <text wx:else class="kb-info-week">星期{{_days[targetDay]}}</text>
-                        <text class="kb-lesson-time">{{targetWid*2+1}}-{{targetWid*2+2}}节</text>
+                        <text class="kb-lesson-time">{{targetWid*2+1}}-{{targetWid*2+targetLessons[targetI].number}}节</text>
                         <image class="kb-info-card-close" src="/images/core/common/down_w.png" bindtap="hideDetail"></image>
                     </block>
                 </view>
@@ -155,7 +155,7 @@
                                         <text class="info-item-value">{{item.place}}</text>（上课地点）
                                     </view>
                                     <view class="info-item">
-                                        <text class="info-item-value">{{item.all_week}}{{item.number===3?' / 三节连上':''}}</text>（课程周数）
+                                        <text class="info-item-value">{{item.all_week}}</text>（课程周数）
                                     </view>
                                     <view class="info-item">
                                         <text class="info-item-value">{{item.class_id}}</text>（班级编号）
