@@ -155,7 +155,7 @@
             <view>截至时间：{{card.sdf.data.record_time}}</view>
           </view>
         </view>
-        <text class="sdf-hd">本月用电：</text>
+        <text class="sdf-hd">{{card.sdf.data.month}}月用电：</text>
         <view class="sdf-bd">
           <view class="sdf-key">
             <text class="sdf-value">{{card.sdf.data.spend}}</text>
