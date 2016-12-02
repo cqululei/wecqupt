@@ -149,6 +149,9 @@ Page({
     this.setData({
       'formData.Phone': e.detail.value
     });
+    if(e.detail.value.length >= 11){
+      wx.hideKeyboard();
+    }
   },
   listenerTitle: function(e) {
     this.setData({
