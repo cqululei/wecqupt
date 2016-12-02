@@ -234,6 +234,14 @@ Page({
         if(res.data.status === 200){
           var info = res.data.data;
           if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
+            var nowTime = new Date().getTime();
+            info.book_list.map(function(e){
+              var oDate = e.yhrq.split('-'),
+                  oTime = new Date(oDate[0], oDate[1]-1, oDate[2]).getTime();
+              e.timing = parseInt((oTime - nowTime) / 1000 / 60 / 60 /24);
+              return e;
+            });
+            
             _this.setData({
               'card.jy.data': info,
               'card.jy.show': true,
