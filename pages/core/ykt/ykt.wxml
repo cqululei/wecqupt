@@ -36,7 +36,7 @@
         <view class="grid-wraper">
             <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
             <view class="line" style="left: {{lineLeft}}px;"></view>
-            <!--<view class="y-text">{{yText}}</view>-->
+            <view class="y-text">{{yText}}</view>
         </view>
         <text class="detail-remind">点击上图查看对应消费详情</text>
         <view class="ykt-detail-wraper">
