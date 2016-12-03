@@ -29,9 +29,14 @@
         </view>
 
         <text class="grid-remind">近10次消费情况：</text>
+        <view class="balance-consumption">
+            <text class="{{switchBtn ? 'current-btn' : ''}}" bindtap="switchBalance">余额</text>
+            <text class="{{switchBtn ? '' : 'current-btn'}}" bindtap="switchConsumption">消费</text>
+        </view>
         <view class="grid-wraper">
             <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
             <view class="line" style="left: {{lineLeft}}px;"></view>
+            <!--<view class="y-text">{{yText}}</view>-->
         </view>
         <text class="detail-remind">点击上图查看对应消费详情</text>
         <view class="ykt-detail-wraper">
