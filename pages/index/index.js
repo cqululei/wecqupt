@@ -214,7 +214,6 @@ Page({
             _this.setData({
               'card.sdf.data.room': info.room.split('-').join('栋'),
               'card.sdf.data.record_time': info.record_time.split(' ')[0],
-              'card.sdf.data.month': info.record_time.split(' ')[0].split('/')[2],
               'card.sdf.data.cost': info.elec_cost,
               'card.sdf.data.spend': info.elec_spend,
               'card.sdf.show': true,
