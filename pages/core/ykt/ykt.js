@@ -21,7 +21,7 @@ Page({
       ykt_id: '',
       switchBtn: true,  // true:余额 or false:消费
       options: {},
-      yText: "余额"
+      currentIndex: 0   // 当前点的索引，切换视图的时候保持当前详情
   },
   onLoad: function(){
       var _this = this;
@@ -74,7 +74,7 @@ Page({
                     canvasHeight = _this.data.height,
                     gridMarginTop = _this.data.gridMarginTop,  // 折线图上距离
                     gridMarginLeft = _this.data.gridMarginLeft, // 折线图左距离
-                    gridNum = 6,  //行数
+                    gridNum = 6,                     //横线行数
                     fontSize = _this.data.fontSize;  //字号
 
                 // 横坐标&余额&消费
@@ -100,11 +100,9 @@ Page({
                     gridMarginTop: gridMarginTop,     // 折线图上距离
                     gridMarginLeft: gridMarginLeft,   // 折线图左距离 
                     xArr: xArr,                       // 横坐标
-                    //switchArr: _this.data.switchArr,  // 点集
                     gridNum: gridNum,                 // 横网格线数量
                     context: context,                 // canvas上下文
                     len: len,                         // 数据数组长度
-                   // yArr: yArr,
                     spaceX: spaceX,
                     fontSize: fontSize
                 };
@@ -169,6 +167,7 @@ Page({
           spaceYe = tmp_maxY / gridNum,     
           gridHeight = canvasHeight - 2*gridMarginTop,
           spaceY = gridHeight / gridNum;
+
       // 绘制竖网格
       context.setLineWidth(1);
       context.setLineCap("round");
@@ -179,10 +178,10 @@ Page({
               context.lineTo(xArr[i] + gridMarginLeft, gridMarginTop);
               context.stroke();
           context.closePath();
-      }
-          
+      }          
       context.setStrokeStyle("#dddddd");
       context.setFillStyle("#ffcb63");
+
       // 绘制横网格&纵轴金额  
       for (var i = 0; i <= gridNum; i ++) {
           var numY = 0,
@@ -191,7 +190,6 @@ Page({
           if (i === 0) {
               numY = 0;
           } else {
-              //numY = Math.round(spaceYe * i);
               numY = (spaceYe * i).toFixed(1);
           }          
           context.beginPath();
@@ -233,8 +231,8 @@ Page({
           gridNum = options.gridNum,
           tmp_yArr = switchArr,
           len = options.len,
-          spaceX = options.spaceX;
-      var pointArr = [];
+          spaceX = options.spaceX,
+          pointArr = [];
 
       /* 
       * 点集的纵坐标
@@ -253,15 +251,14 @@ Page({
           spaceY = gridHeight / gridNum;
 
       for(var i = 0; i < len; i++){  
-          yArr.push(gridHeight - (tmp_maxY - tmp_yArr[i])*spaceY/spaceYe);
+          yArr.push(gridHeight - (tmp_maxY - tmp_yArr[i])*spaceY / spaceYe);
       } 
-     //console.log(yArr);
+
       /* 
       * 描点连线
       */  
-
       for(var i = 0; i < len; i ++){  
-          var x = xArr[i] + gridMarginLeft,           // 横坐标
+          var x = xArr[i] + gridMarginLeft,               // 横坐标
               y = canvasHeight - gridMarginTop -yArr[i]   // 纵坐标         
 
           // 将点在画布中的坐标&消费详情存入数组
@@ -288,7 +285,7 @@ Page({
           context.beginPath();
             context.arc(pointArr[i].x, pointArr[i].y, 2, 0, 2*Math.PI); // 画点              
             context.fill();  
-            context.fillText(tmp_yArr[i], pointArr[i].x + 3, pointArr[i].y - 3);  // 消费金额
+            context.fillText(tmp_yArr[i], pointArr[i].x + 3, pointArr[i].y - 3);  // 点的含义，画字
             context.fillText(i + 1, pointArr[i].x - 3, canvasHeight - 5); // 消费次数(横轴)              
           context.closePath();
 
@@ -316,36 +313,33 @@ Page({
 
       _this.setData({
           tapDetail: points[i].detail,
-          lineLeft: _this.data.gridMarginLeft + iwidth*i - 1
+          lineLeft: _this.data.gridMarginLeft + iwidth*i - 1,  // 详情竖线的left
+          currentIndex: i  // 当前点的索引，即显示当前详情
       });
   },
 
   // 切换当前视图--余额
   switchBalance: function() {
-      this.setData({
-          switchBtn: true,
-          yText: "余额"
-      });
-      
-        var context = this.data.options.context;
-        context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
-        this.drawLineXY(this.data.options, this.data.balanceArr);
-        this.drawPointLine(this.data.options, this.data.balanceArr);
+     
+      var context = this.data.options.context;
+      context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
+      this.drawLineXY(this.data.options, this.data.balanceArr);
+      this.drawPointLine(this.data.options, this.data.balanceArr);
         
-        wx.drawCanvas({
-            canvasId: "firstCanvas",
-            actions: context.getActions(),
-            reverse: true
-        });
+      wx.drawCanvas({
+          canvasId: "firstCanvas",
+          actions: context.getActions(),
+          reverse: true
+      });
+      this.setData({
+          switchBtn: false,
+          tapDetail: this.data.points[this.data.currentIndex].detail
+      });
   },
 
   // 切换当前视图--消费
   switchConsumption: function() {
-      this.setData({
-          switchBtn: false,
-          yText: "消费"
-      });     
-
+      
       var context = this.data.options.context;
       context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
       this.drawLineXY(this.data.options, this.data.costArr);
@@ -355,6 +349,10 @@ Page({
           canvasId: "firstCanvas",
           actions: context.getActions(),
           reverse: true
+      });
+      this.setData({
+          switchBtn: false,
+          tapDetail: this.data.points[this.data.currentIndex].detail
       });
   }
   
