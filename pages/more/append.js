@@ -61,21 +61,21 @@ Page({
   },
   confirm: function(){
     var _this = this;
-    if(!_this.data.ibuilding && !_this.data.room){
-      app.showErrorModal('请先输入表单信息', '提醒');
-      return false;
-    }
     var data = {
       openid: app._user.openid
     };
-    if(_this.data.ibuilding){
-      var buildText = _this.data.buildings[_this.data.ibuilding];
-      var build = buildText.split("栋")[0];
-      data.build = build;
+    if(!_this.data.ibuilding || !_this.data.room){
+      app.showErrorModal('请先输入表单信息', '提醒');
+      return false;
     }
-    if(_this.data.room){
-      data.room = _this.data.room;
+    if(!/^\d+$/.test(_this.data.room) || _this.data.room.length !== 3){
+      app.showErrorModal('请输入正确的寝室号', '提醒');
+      return false;
     }
+    var buildText = _this.data.buildings[_this.data.ibuilding];
+    var build = buildText.split("栋")[0];
+    data.build = build;
+    data.room = _this.data.room;
     app.showLoadToast();
     wx.request({
       url: app._server + '/api/users/set_info.php',
