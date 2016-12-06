@@ -196,6 +196,34 @@ Page({
       week: current+1
     });
   },
+  touchStartDetail: function(e){
+    this.setData({
+      startPoint: [e.touches[0].pageX, e.touches[0].pageY]
+    });
+  },
+  //滑动切换课程详情
+  touchEndDetail: function(e){
+    var _this = this;
+    var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
+        startPoint = _this.data.startPoint, i = 0;
+    if(curPoint[0] <= startPoint[0]){
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){   
+        if(_this.data.targetI != _this.data.targetLen - 1) {
+          i = 1;
+        }
+      }
+    }else{
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){    
+        if(_this.data.targetI != 0) {
+          i = -1;
+        }
+      }
+    }
+    if(!i){ return false; }
+    _this.setData({
+      targetI: parseInt(_this.data.targetI) + i
+    });
+  },
   //点击左右按钮切换swiper
   swiperChangeBtn: function(e){
     var _this = this;

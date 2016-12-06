@@ -137,7 +137,7 @@
                 </view>
             </block>
 
-            <view class="kb-info-card-tabs" wx:if="{{targetLen<=2}}">
+            <view class="kb-info-card-tabs" wx:if="{{targetLen<=2}}" catchtouchstart="touchStartDetail" catchtouchend="touchEndDetail">
                 <block wx:for="{{targetLessons}}" wx:key="{{cid}}" wx:for-index="cid" style="z-index:{{cid}};">
                     <view class="kb-info-card {{!cid ? '' : 'kb-info-card-shadow'}} {{targetI == cid ? 'kb-info-card-active' : 'kb-info-card-static'}}" data-index="{{cid}}" bindtap="infoCardTap">
                         <view class="kb-info-card-content">
