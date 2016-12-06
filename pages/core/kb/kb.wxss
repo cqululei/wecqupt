@@ -510,13 +510,13 @@
 .info-name{
     display: flex;
     align-items: center;
-    font-size: 16pt;
-    line-height: 120%;
-    height: 85rpx;
+    height: 100rpx;
     width: 600rpx;
     padding: 0 0 20rpx 20rpx;
 }
 .info-name text{
+    font-size: 16pt;
+    line-height: 120%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
