@@ -3,6 +3,9 @@
 var app = getApp();
 Page({
   data: {
+    rise_play: false,
+    flow_play: false,
+    content_active: false,
     help_status: false,
     userid_focus: false,
     passwd_focus: false,
@@ -11,6 +14,29 @@ Page({
   },
   onLoad: function(){
 
+  },
+  //上升视频加载完毕，自动播放
+  risePlay: function(e){
+    var _this = this;
+    _this.setData({
+      rise_play: true
+    });
+    setTimeout(function(){
+      _this.setData({
+        content_active: true
+      });
+    }, 500);
+  },
+  //上升视频加载结束，开始播放流动视频
+  riseEnd: function(){
+    this.setData({
+      flow_play: true
+    });
+    wx.createVideoContext('flow_video').play();
+  },
+  //循环播放流动视频
+  flowEnd: function(){
+    wx.createVideoContext('flow_video').play();
   },
   bind: function() {
     var _this = this;
