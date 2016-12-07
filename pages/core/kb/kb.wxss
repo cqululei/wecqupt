@@ -16,7 +16,7 @@
 }
 .blur-area{
     overflow: hidden;
-    transition: filter .3s;
+    transition: filter 0;
 }
 .blur{
     filter: blur(3px);    
@@ -37,7 +37,8 @@
     border-right: 1rpx solid #eee;
     padding-bottom: 12rpx;
     color: #777;
-    margin-bottom: 100rpx
+    margin-bottom: 100rpx;
+    transition: margin-bottom .15s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .main-box-active .kb-num-ctn{
     margin-bottom: 500rpx
@@ -86,7 +87,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    transition: .3s;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .kb-title{
     position: absolute;
@@ -127,6 +128,7 @@
     margin-left: 35rpx;
     margin-top: 60rpx;
     padding-bottom: 100rpx;
+    transition: margin-bottom .15s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .main-box-active .kb-cards-ctn{
     margin-bottom: 500rpx;
@@ -266,12 +268,12 @@
     left: 0;
     width: 965rpx;
     background: rgba(166,166,166,.45);
-    transition: .3s;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .kb-detail-card-content{
     position: absolute;
     box-shadow: 0 0 50rpx #bbb;
-    transition: .3s;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .kb-detail-card-content-active{
     transform: scale(1.08,1.08);
@@ -290,7 +292,7 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100rpx;
+    height: 500rpx;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -298,11 +300,11 @@
     border-top-right-radius: 15rpx;
     background: #73b4ef;
     font-size: 11pt;
-    transition: all .25s ease-in-out;
-    transform: translateZ(0);
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0,400rpx,0);
 }
 .kb-info-ctn-open{
-    height: 500rpx;
+    transform: translate3d(0,0,0);
 }
 .kb-info-title{
     color: #fff;
@@ -420,24 +422,25 @@
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    height: 0;
+    height: 400rpx;
     background: #73b4ef;
     box-sizing: border-box;
     padding-left: 20rpx;
     overflow: hidden;
     opacity: 0;
-    transition: .25s ease-in-out;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0,400rpx,0);
 }
 .kb-info-ctn-open .kb-info-card-tabs{
-    height: 400rpx;
     opacity: 1;
+    transform: translate3d(0,0,0);
 }
 .kb-info-card-swipers{
     position: relative;
     height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: .25s ease-in-out;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .kb-info-ctn-open .kb-info-card-swipers{
     height: 400rpx;
@@ -475,7 +478,7 @@
     align-items: center;
     justify-content: center;
     background: #73b4ef;
-    transition: .25s;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
     box-sizing: border-box;
     transform: translateZ(0);
 }
@@ -502,7 +505,7 @@
     color: #fff;
     box-sizing: border-box;
     padding: 0 10rpx;
-    transition: .25s;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .kb-info-card-swipers .kb-info-card-content{
     padding: 0 40rpx 20rpx;
@@ -564,9 +567,11 @@
     padding: 6rpx 0;
 }
 .info-item-value{
+    flex-shrink: 0;
     font-size: 12pt;
 }
 .info-item-icon{
+    flex-shrink: 0;
     width: 35rpx;
     height: 35rpx;
     margin-right: 10rpx;
