@@ -145,13 +145,3 @@
 .submit-declare:active{
     opacity: .8;
 }
-
-.service-cells-items{
-    
-    display: none;
-    transition: transform .4s;
-}
-.service-items-show{
-    display: block;
-    transition: transform .4s;
-}
