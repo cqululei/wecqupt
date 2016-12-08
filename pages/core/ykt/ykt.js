@@ -4,6 +4,7 @@ var app = getApp();
 Page({
   data: {
       remind: '加载中',
+      canvas_remind: '加载中',
       fontSize: 12,      // 字体大小, 24rpx=12px
       count: 10,         // 展示的消费次数
       width: 0,          // 画布宽
@@ -23,7 +24,7 @@ Page({
       options: {},
       currentIndex: 0   // 当前点的索引，切换视图的时候保持当前详情
   },
-  onShow: function(){
+  onLoad: function(){
       var _this = this;
       wx.getSystemInfo({
           success: function(res) {
@@ -120,11 +121,16 @@ Page({
                 */
                 _this.drawPointLine(_this.data.options, _this.data.switchArr);
                 
-                wx.drawCanvas({
-                    canvasId: "firstCanvas",
-                    actions: context.getActions(), // 获取绘图动作数组
-                    reserve: true
-                });
+                setTimeout(function(){
+                    wx.drawCanvas({
+                        canvasId: "firstCanvas",
+                        actions: context.getActions(), // 获取绘图动作数组
+                        reserve: true,
+                    });
+                    _this.setData({
+                      canvas_remind: ''
+                    });
+                }, 500);
               } else {
                 app.showErrorModal(res.data.message);
                 _this.setData({

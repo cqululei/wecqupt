@@ -33,10 +33,15 @@
             <text class="{{switchBtn ? '' : 'current-btn'}}" id="cost">交易额</text>
         </view>
         <view class="grid-wraper">
-            <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
-            <view class="line" style="left: {{lineLeft}}px;"></view>
-            <view class="y-text">{{switchBtn ? "余额" : "交易额"}}</view>
-            <view class="x-text">最近交易</view>
+            <view wx:if="{{canvas_remind}}" class="remind-box">
+                <image wx:if="{{canvas_remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+            </view>
+            <block wx:else>
+                <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
+                <view class="line" style="left: {{lineLeft}}px;"></view>
+                <view class="y-text">{{switchBtn ? "余额" : "交易额"}}</view>
+                <view class="x-text">最近交易</view>
+            </block>
         </view>
         <text class="detail-remind">点击上图查看对应交易详情</text>
         <view class="ykt-detail-wraper">
