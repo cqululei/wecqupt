@@ -76,11 +76,11 @@ Page({
     var l_user = _this.data.user,  //本页用户数据
         g_user = app._user; //全局用户数据
     //排除第一次加载页面的情况（全局用户数据未加载完整 或 本页用户数据与全局用户数据相等）
-    if(!g_user.openid || isEqualObject(l_user, g_user)){
+    if(!g_user.openid || isEqualObject(l_user.xs, g_user.xs)){
       return false;
     }
     //全局用户数据和本页用户数据不一致时，重新获取卡片数据
-    if(!isEqualObject(l_user, g_user)){
+    if(!isEqualObject(l_user.xs, g_user.xs)){
       //判断绑定状态
       if(!g_user.is_bind){
         _this.setData({
