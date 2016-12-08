@@ -1,11 +1,11 @@
 <!--login.wxml-->
 <view class="container">
-  <view wx:if="{{!rise_play}}" class="remind-box">
-    <image class="remind-img" src="/images/index/loading.gif"></image>
-  </view>
-  <video id="rise_video" hidden="{{flow_play}}" class="login_video {{rise_play?'':'video_hidden'}}" src="https://congm.in/rise.mp4" controls="{{false}}" autoplay="{{true}}" bindplay="risePlay" bindended="riseEnd"></video>
-  <video id="flow_video" class="login_video {{flow_play?'':'video_hidden'}}" src="https://congm.in/flow.mp4" controls="{{false}}" bindended="flowEnd"></video>
-  <view class="content {{content_active ? 'active' : ''}}" hidden="{{!rise_play}}">
+  <view class="content">
+    <view class="hd">
+        <image class="logo" src="/images/more/logo.png"></image>
+        <image class="wave" src="/images/more/wave.png" mode="aspectFill"></image>
+        <image class="wave wave-bg" src="/images/more/wave.png" mode="aspectFill"></image>
+    </view>
     <view class="bd">
       <form class="login-form">
         <view class="input-group {{userid_focus ? 'active' : ''}}">
