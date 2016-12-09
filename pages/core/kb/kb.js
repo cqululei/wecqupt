@@ -209,13 +209,13 @@ Page({
     if(curPoint[0] <= startPoint[0]){
       if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){   
         if(_this.data.targetI != _this.data.targetLen - 1) {
-          i = 1;
+          i = 1;//左滑
         }
       }
     }else{
       if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){    
         if(_this.data.targetI != 0) {
-          i = -1;
+          i = -1;//右滑
         }
       }
     }
