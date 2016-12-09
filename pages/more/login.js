@@ -3,14 +3,31 @@
 var app = getApp();
 Page({
   data: {
+    remind: '加载中',
     help_status: false,
     userid_focus: false,
     passwd_focus: false,
     userid: '',
-    passwd: ''
+    passwd: '',
+    angle: 0
   },
-  onLoad: function(){
-    
+  onReady: function(){
+    var _this = this;
+    setTimeout(function(){
+      _this.setData({
+        remind: ''
+      });
+    }, 1000);
+    wx.onAccelerometerChange(function(res) {
+      var angle = -(res.x*24).toFixed(1);
+      if(angle>12){ angle=12; }
+      else if(angle<-12){ angle=-12; }
+      if(_this.data.angle !== angle){
+        _this.setData({
+          angle: angle
+        });
+      }
+    });
   },
   bind: function() {
     var _this = this;

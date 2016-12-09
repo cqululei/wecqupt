@@ -3,6 +3,7 @@
 var app = getApp();
 Page({
   data: {
+    remind: '加载中',
     building_list: ['1','2','3','4','5','6','8','9',
       '10','11','12','15','16','17','18','19',
       '20','21','22','23A','23B','24','25','26','27','28','29',
@@ -13,7 +14,8 @@ Page({
       '30栋（明理苑7舍）', '31栋（明理苑8舍）', '32栋（宁静苑6舍）', '33栋（宁静苑7舍）', '34栋（宁静苑8舍）', '35栋（宁静苑9舍）', '36栋（四海苑1舍）', '37栋（四海苑2舍）', '39栋（明理苑9舍）'], // picker-range
     ibuilding: false,  // picker-index
     room_focus: false,
-    room: ''
+    room: '',
+    angle: 0
   },
   onLoad: function(){
     var _this = this;
@@ -31,6 +33,24 @@ Page({
         'room': app._user.xs.room
       });
     }
+    wx.onAccelerometerChange(function(res) {
+      var angle = -(res.x*24).toFixed(1);
+      if(angle>12){ angle=12; }
+      else if(angle<-12){ angle=-12; }
+      if(_this.data.angle !== angle){
+        _this.setData({
+          angle: angle
+        });
+      }
+    });
+  },
+  onReady: function(){
+    var _this = this;
+    setTimeout(function(){
+      _this.setData({
+        remind: ''
+      });
+    }, 1000);
   },
   buildingPicker: function(e) {
     this.setData({
