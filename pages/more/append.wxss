@@ -2,7 +2,7 @@
 @import './login.wxss';
 .append-title {
   position: absolute;
-  top: 75rpx;
+  top: 0;
   width: 100%;
   color: #777;
   font-size: 22pt;

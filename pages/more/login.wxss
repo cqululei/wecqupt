@@ -35,7 +35,7 @@
   width: 1000rpx;
   margin-left: -500rpx;
   height: 200rpx;
-  transition: all .2s;
+  transition: all .3s ease;
 }
 .hd::after {
   content: '';
@@ -108,6 +108,7 @@ form {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
+  transform: translate3d(0,-50rpx,0);
 }
 .input-group {
   display: flex;
