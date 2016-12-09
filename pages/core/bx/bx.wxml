@@ -25,7 +25,9 @@
             <view class="process review-process">
                 <view class="process-hd">
                     <image class="review-process-icon" src="/images/core/bx/bx_{{item.state}}.png"></image>
-                    <text class="order-number-name">{{item.wx_bt}}</text>
+                    <view class="order-number-name">
+                        <text>{{item.wx_bt}}</text>
+                    </view>
                     <view class="process-state">
                         <text class="process-state-name process-state-{{item.state}}">{{item.wx_wxztm}}</text>
                     </view>

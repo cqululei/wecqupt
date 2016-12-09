@@ -36,6 +36,7 @@ Page({
         if(res.data.status === 200) {
           var info = res.data.data;
           //报修内容过滤标签
+          info.wx_bt = _this.convertHtmlToText(info.wx_bxnr).replace(/[\r|\n]/g, "");
           info.wx_bxnr = _this.convertHtmlToText(info.wx_bxnr);
           //处理详情
           var state = [{
@@ -112,6 +113,6 @@ Page({
     returnText = returnText.replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/ /ig, '')
                   .replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
     return returnText;
-  },
+  }
   
 });

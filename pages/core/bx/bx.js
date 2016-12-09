@@ -46,6 +46,7 @@ Page({
           }else{
             for(var i = 0, len = list.length; i < len; i++) {
               list[i].state = that.data.process_state[list[i].wx_wxztm];
+              list[i].wx_bt = that.convertHtmlToText(list[i].wx_bxnr).replace(/[\r|\n]/g, "");
             }
             that.setData({
               'list': list,
@@ -69,6 +70,12 @@ Page({
         wx.stopPullDownRefresh();
       }
     });
+  },
+  convertHtmlToText: function(inputText){
+    var returnText = "" + inputText;
+    returnText = returnText.replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/ /ig, '')
+                  .replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
+    return returnText;
   }
   
 });
