@@ -46,15 +46,17 @@
   height: 160rpx;
   margin-left: -80rpx;
   border-radius: 160rpx;
-  animation: sway 7s ease-in-out infinite;
+  animation: sway 10s ease-in-out infinite;
   opacity: .95;
 }
 @keyframes sway{
-  0% {transform: translate3d(0,0,0) rotate(0deg); }
-  25% {transform: translate3d(0,-4rpx,0) rotate(-35deg); }
-  50% {transform: translate3d(0,-2rpx,0) rotate(15deg); }
-  75% {transform: translate3d(0,-6rpx,0) rotate(-25deg); }
-  100% {transform: translate3d(0,0,0) rotate(0deg); }
+  0% {transform: translate3d(0,20rpx,0) rotate(-15deg); }
+  17% {transform: translate3d(0,0rpx,0) rotate(25deg); }
+  34% {transform: translate3d(0,-20rpx,0) rotate(-20deg); }
+  50% {transform: translate3d(0,-10rpx,0) rotate(15deg); }
+  67% {transform: translate3d(0,10rpx,0) rotate(-25deg); }
+  84% {transform: translate3d(0,15rpx,0) rotate(15deg); }
+  100% {transform: translate3d(0,20rpx,0) rotate(-15deg); }
 }
 .wave {
   position: absolute;
