@@ -35,7 +35,7 @@ Page({
       app.showErrorModal('账号及密码不能为空', '提醒');
       return false;
     }
-    app.showLoadToast();
+    app.showLoadToast('绑定中');
     wx.request({
       method: 'POST',
       url: app._server + '/api/users/bind.php',
@@ -46,38 +46,39 @@ Page({
       }),
       success: function(res){
         if(res.data.status === 200){
-          wx.showToast({
-            title: '绑定成功',
-            icon: 'success',
-            duration: 2000
-          });
-          app.showLoadToast('登录中');
+          app.showLoadToast('请稍候');
           app.getUser(function(){
-            wx.hideToast();
-            wx.showModal({
-              title: '提示',
-              content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
-              cancelText: '以后再说',
-              confirmText: '完善信息',
-              success: function(res) {
-                if (res.confirm) {
-                  wx.redirectTo({
-                    url: 'append'
-                  });
-                } else {
-                  wx.navigateBack();
-                }
-              }
+            wx.showToast({
+              title: '绑定成功',
+              icon: 'success',
+              duration: 1500
             });
+            setTimeout(function(){
+              wx.showModal({
+                title: '提示',
+                content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
+                cancelText: '以后再说',
+                confirmText: '完善信息',
+                success: function(res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: 'append'
+                    });
+                  } else {
+                    wx.navigateBack();
+                  }
+                }
+              });
+            }, 1500);
           });
         }else{
           wx.hideToast();
-          app.showErrorModal(res.data.message);
+          app.showErrorModal(res.data.message, '绑定失败');
         }
       },
       fail: function(res){
         wx.hideToast();
-        app.showErrorModal(res.errMsg);
+        app.showErrorModal(res.errMsg, '绑定失败');
       }
     });
   },
