@@ -19,7 +19,7 @@ Page({
   },
   getData: function () {
     var _this = this;
-    if(!app._user.xs.ykth || !_this.data.bxID){
+    if(!app._user.we.ykth || !_this.data.bxID){
       _this.setData({
         remind: '404'
       });
@@ -29,7 +29,7 @@ Page({
     wx.request({
       url: app._server + "/api/bx/get_repair_detail.php", 
       data: {
-        "yktID": app._user.xs.ykth,
+        "yktID": app._user.we.ykth,
         "bxID": _this.data.bxID
       },
       success: function(res) {

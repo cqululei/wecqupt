@@ -46,17 +46,17 @@ Page({
       'term': app._time.term
     });
     // onLoad时获取一次课表
-    var xh = options.xh || app._user.xs.xh;
-    if(!xh){
+    var id = options.id || app._user.we.info.id;
+    if(!id){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
-    _this.get_kb(xh);
-    if(options.xh && options.xm){
+    _this.get_kb(id);
+    if(options.id && options.name){
       _this.setData({
-        xm: options.xm
+        name: options.name
       });
     }
   },
@@ -233,7 +233,7 @@ Page({
     data[dataset.target] = parseInt(_this.data[dataset.target]) + i;
     _this.setData(data);
   },
-  get_kb: function(xh){
+  get_kb: function(id){
     //数组去除指定值
     function removeByValue(array,val){
       for(var i=0,len=array.length;i<len;i++) {
@@ -246,7 +246,7 @@ Page({
     wx.request({
       url: "https://we.cqu.pt/api/get_kebiao.php",
       data: {
-        xh: xh
+        id: id
       },
       success: function(res) {
         if (res.data.status == 200){

@@ -22,20 +22,20 @@ Page({
   },
   onLoad: function(){
     var _this = this;
-    if(!app._user.xs.xh || !app._user.xs.xm){
+    if(!app._user.we.info.id || !app._user.we.info.name){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
     _this.setData({
-      id: app._user.xs.xh,
-      name: app._user.xs.xm
+      id: app._user.we.info.id,
+      name: app._user.we.info.name
     });
     wx.request({
       url: app._server + "/api/get_ks.php",
       data: {
-        xh: app._user.xs.xh
+        id: app._user.we.info.id
       },
       success: function(res) {
         if (res.data.status == 200){

@@ -23,7 +23,7 @@ Page({
   },
   getData: function(){
     var that = this;
-    if(!app._user.xs.ykth){
+    if(!app._user.we.ykth){
       that.setData({
         remind: '未绑定'
       });
@@ -33,7 +33,7 @@ Page({
     wx.request({
       url: app._server + "/api/bx/get_repair_list.php", 
       data: {
-        "yktID": app._user.xs.ykth
+        "yktID": app._user.we.ykth
       },
       success: function(res) {
 

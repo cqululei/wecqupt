@@ -38,7 +38,7 @@ Page({
   },
   sendRequest: function() {
       var _this = this;
-      if(!app._user.xs.ykth){
+      if(!app._user.we.ykth){
         _this.setData({
             remind: '未绑定'
         });
@@ -47,7 +47,7 @@ Page({
       wx.request({
           url: app._server + "/api/get_yktcost.php",
           data: {
-              yktID: app._user.xs.ykth
+              yktID: app._user.we.ykth
           },
           success: function(res) {
               if(res.data.status === 200){
@@ -84,7 +84,7 @@ Page({
                     tapDetail: dict[dict.length-1],
                     balance: parseFloat(data[data.length - 1].balance),
                     last_time: data[data.length - 1].time.split(' ')[0],
-                    ykt_id: app._user.xs.ykth,
+                    ykt_id: app._user.we.ykth,
                     lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
                     remind: '',
                     switchArr: balanceArr, // 将纵坐标的值初始化为余额集合

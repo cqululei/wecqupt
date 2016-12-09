@@ -21,7 +21,7 @@ Page({
   },
   getData: function() {
     var _this = this;
-    if(!app._user.xs.xh || !app._user.xs.xm){
+    if(!app._user.we.info.id || !app._user.we.info.name){
       _this.setData({
         remind: '未绑定'
       });
@@ -30,11 +30,11 @@ Page({
     wx.request({
       url: app._server + "/api/get_booklist.php",
       data: {
-        id: app._user.xs.xh
+        id: app._user.we.info.id
       },
       success: function(res) {
         if(res.data.status === 200) {
-          var info = res.data.data
+          var info = res.data.data;
           info.nothing = !parseInt(info.books_num) && (!info.book_list || !info.book_list.length);
           _this.setData({
             jyData: info,

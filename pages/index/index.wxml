@@ -103,8 +103,8 @@
       <view class="card-item-bd">
         <view class="card-info-hd">
           <view class="card-info-left">
-            <text class="card-info-name">{{user.xs.xm}}</text>
-            <text class="card-info-number">{{user.xs.xh}}</text>
+            <text class="card-info-name">{{user.we.info.name}}</text>
+            <text class="card-info-number">{{user.we.info.id}}</text>
           </view>
           <view class="card-info-right">
             <text>当前借阅：{{card.jy.data.books_num}}</text>

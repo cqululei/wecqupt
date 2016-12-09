@@ -67,9 +67,10 @@ App({
     var data = JSON.parse(_this.util.base64.decode(key));
     _this._user.is_bind = data.is_bind;
     _this._user.openid = data.openid;
-    _this._user.xs = data.student;
+    _this._user.we = data.user;
     _this._time = data.time;
     _this._t = data['\x74\x6f\x6b\x65\x6e'];
+    console.log(data);
     return data;
   },
   getUserInfo: function(cb){
@@ -84,8 +85,8 @@ App({
   appendInfo: function(data){
     var _this = this;
     wx.removeStorage({ key: 'cache' });
-    _this._user.xs.build = data.build || '';
-    _this._user.xs.room = data.room || '';
+    _this._user.we.build = data.build || '';
+    _this._user.we.room = data.room || '';
   },
   showErrorModal: function(content, title){
     wx.showModal({
@@ -107,8 +108,8 @@ App({
   _user: {
     //微信数据
     wx: {},
-    //学生数据
-    xs: {}
+    //学生\老师数据
+    we: {}
   },
   _time: {} //当前学期周数
 });

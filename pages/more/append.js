@@ -19,18 +19,18 @@ Page({
   },
   onLoad: function(){
     var _this = this;
-    if(app._user.xs.build){
+    if(app._user.we.build){
       _this.data.buildings.forEach(function(e,i){
-        if(e.split("栋")[0] == app._user.xs.build){
+        if(e.split("栋")[0] == app._user.we.build){
           _this.setData({
             ibuilding: i
           });
         }
       });
     }
-    if(app._user.xs.room){
+    if(app._user.we.room){
       _this.setData({
-        'room': app._user.xs.room
+        'room': app._user.we.room
       });
     }
     wx.onAccelerometerChange(function(res) {

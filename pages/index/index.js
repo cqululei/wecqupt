@@ -76,11 +76,11 @@ Page({
     var l_user = _this.data.user,  //本页用户数据
         g_user = app._user; //全局用户数据
     //排除第一次加载页面的情况（全局用户数据未加载完整 或 本页用户数据与全局用户数据相等）
-    if(!g_user.openid || isEqualObject(l_user.xs, g_user.xs)){
+    if(!g_user.openid || isEqualObject(l_user.we, g_user.we)){
       return false;
     }
     //全局用户数据和本页用户数据不一致时，重新获取卡片数据
-    if(!isEqualObject(l_user.xs, g_user.xs)){
+    if(!isEqualObject(l_user.we, g_user.we)){
       //判断绑定状态
       if(!g_user.is_bind){
         _this.setData({
@@ -126,7 +126,7 @@ Page({
     wx.request({
       url: app._server + '/api/get_kebiao.php',
       data: {
-        xh: app._user.xs.xh
+        id: app._user.we.info.id
       },
       success: function(res) {
         wx.stopPullDownRefresh();
@@ -163,7 +163,7 @@ Page({
     wx.request({
       url: app._server + '/api/get_yktcost.php',
       data: {
-        yktID: app._user.xs.ykth
+        yktID: app._user.we.ykth
       },
       success: function(res) {
         wx.stopPullDownRefresh();
@@ -198,14 +198,14 @@ Page({
         }
       }
     });
-    if(!!app._user.xs.room && !!app._user.xs.build){
+    if(!!app._user.we.room && !!app._user.we.build){
       //获取水电费数据
       wx.request({
         url: app._server + '/api/get_elec.php',
         data: {
-          buildingNo: app._user.xs.build,
-          floor: app._user.xs.room.slice(0,1),
-          room: parseInt(app._user.xs.room.slice(1))
+          buildingNo: app._user.we.build,
+          floor: app._user.we.room.slice(0,1),
+          room: parseInt(app._user.we.room.slice(1))
         },
         success: function(res) {
           wx.stopPullDownRefresh();
@@ -227,7 +227,7 @@ Page({
     wx.request({
       url: app._server + '/api/get_booklist.php',
       data: {
-        id: app._user.xs.xh
+        id: app._user.we.info.id
       },
       success: function(res) {
         wx.stopPullDownRefresh();

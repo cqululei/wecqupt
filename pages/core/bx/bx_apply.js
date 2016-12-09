@@ -25,15 +25,15 @@ Page({
     }
   },
   onLoad: function(){
-    if(!app._user.xs.ykth || !app._user.xs.xm){
+    if(!app._user.we.ykth || !app._user.we.info.name){
       this.setData({
         remind: '未绑定'
       });
       return false;
     }
     this.setData({
-      'formData.Id': app._user.xs.ykth,
-      'formData.Name': app._user.xs.xm
+      'formData.Id': app._user.we.ykth,
+      'formData.Name': app._user.we.info.name
     });
     // 发送请求
     this.getServiceType();
