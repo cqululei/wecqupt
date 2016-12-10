@@ -18,15 +18,16 @@ Page({
       data: [],
       showMore: true,
       remind: '上滑加载更多'
-    }
+    },
+    loading: false
   },
   onLoad: function(){
     
   },
   //下拉更新
   onPullDownRefresh: function(){
+    this.data.loading = true;
     this.setData({
-      'active.data': [],
       'active.showMore': true,
       'active.remind': '上滑加载更多',
       'page': 0
@@ -54,10 +55,10 @@ Page({
       wx.hideNavigationBarLoading();
       wx.request({
         url: app._server + '/api/' + _this.data.list[typeId].url,
-        method: 'POST',
-        data: app.key({
+        method: 'GET',
+        data: {
           page: _this.data.page + 1
-        }),
+        },
         success: function(res){
           if(res.data && res.data.status === 200){
             if(res.data.data){
@@ -107,10 +108,10 @@ Page({
       //获取资讯列表
       wx.request({
         url: app._server + '/api/' + _this.data.list[typeId].url,
-        method: 'POST',
-        data: app.key({
+        method: 'GET',
+        data: {
           page: _this.data.page + 1
-        }),
+        },
         success: function(res){
           if(res.data && res.data.status === 200){
             if(res.data.data){
@@ -143,6 +144,7 @@ Page({
         complete: function(){
           wx.hideNavigationBarLoading();
           wx.stopPullDownRefresh();
+          this.data.loading = false;          
         }
       });
     }

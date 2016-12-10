@@ -40,8 +40,7 @@ module.exports.ipage = {
     options.openid = app._user.openid;
     wx.request({
       url: app._server + '/api/get_news_detail.php',
-      method: 'POST',
-      data: app.key(options),
+      data: options,
       success: function(res){
         if(res.data && res.data.status === 200){
           var info = res.data.data;
