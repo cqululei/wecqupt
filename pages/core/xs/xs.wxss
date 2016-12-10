@@ -22,7 +22,7 @@
     margin: 0 4%;
     height: 75rpx;
     box-shadow: 5rpx 5rpx 15rpx #e2e2e2;
-    transition: all .2s ease-in-out;
+    transition: all .15s ease-in-out;
 }
 .home .search-input.js-fous-input{
     box-shadow: 5rpx 5rpx 20rpx #d2d2d2;

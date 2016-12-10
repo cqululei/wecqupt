@@ -1,22 +1,4 @@
 <!--xs.wxml-->
-<view class="container home" wx:if="">
-  <!--首屏-->
-  <image class="xs-logo" src="/images/core/xs.png"></image>
-  <view class="home-input {{!header.searchChange?'active':''}}">
-    <image class="home-icon" src="/images/core/xs/search-sign.png"></image>
-    <form class="home-input-form" bindsubmit="bindConfirmSearchTap">
-      <input class="home-input-text" value="{{header.inputValue}}" auto-focus bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search"/>
-    </form>
-    <view class="home-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
-      <image class="home-clear-icon" src="/images/core/xs/clear.png"></image>
-    </view>
-    <view class="home-confirm-button" bindtap="bindConfirmSearchTap">
-      <text>搜索</text>
-    </view>
-  </view>
-
-</view>
-
 <view class="container {{main.mainDisplay?'home':'active'}}">
 
   <!--头部-->
@@ -28,7 +10,7 @@
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
       </view>
       <form class="input-form" bindsubmit="bindConfirmSearchTap">
-        <input class="input-text" value="{{header.inputValue}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+        <input class="input-text" value="{{header.inputValue}}" auto-focus bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
       </form>
       <view class="input-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
         <image class="clear-icon" src="/images/core/xs/clear.png"></image>
