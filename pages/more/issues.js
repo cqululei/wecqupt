@@ -6,6 +6,7 @@ Page({
     title: '',
     content: '',
     info: '',
+    imgs: [],
     Authorization: 'dG9rZW4gYWNlODhiYzQ2ODIwZTlhZTdmMjJkZDY3MzI4NzhiZWFhNWE3YzkzZA=='
   },
   onLoad: function(){
@@ -23,6 +24,14 @@ Page({
         });
       }
     });
+    wx.request({
+      url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
+      // data: data,
+      method: 'POST',
+      success: function(res){
+        console.log(res.data.data.token);
+      }
+    })
   },
   listenerTitle: function(e){
     this.setData({
