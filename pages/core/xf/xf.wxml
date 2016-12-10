@@ -43,28 +43,28 @@
                             <text class="xf-detail-label">应缴总金额</text>
                             <text class="xf-detail-content">{{itemName.TotalPay}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-TotalTuition"> + 总学费</text>
+                        <view class="xf-detail-item xf-TotalTuition">
+                            <text class="xf-detail-label">总学费</text>
                             <text class="xf-detail-content">{{itemName.TotalTuition}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-MajorTuition"> + + 学费</text>
+                        <view class="xf-detail-item xf-MajorTuition">
+                            <text class="xf-detail-label">学费</text>
                             <text class="xf-detail-content">{{itemName.MajorTuition}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-GradeTuition"> + + 学分费</text>
+                        <view class="xf-detail-item xf-GradeTuition">
+                            <text class="xf-detail-label">学分费</text>
                             <text class="xf-detail-content">{{itemName.GradeTuition}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-SecMajorTuition"> + + 二专费</text>
+                        <view class="xf-detail-item xf-SecMajorTuition">
+                            <text class="xf-detail-label">二专费</text>
                             <text class="xf-detail-content">{{itemName.SecMajorTuition}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-ApartmentPay"> + 住宿费</text>
+                        <view class="xf-detail-item xf-ApartmentPay">
+                            <text class="xf-detail-label">住宿费</text>
                             <text class="xf-detail-content">{{itemName.ApartmentPay}}</text>
                         </view>
-                        <view class="xf-detail-item">
-                            <text class="xf-detail-label xf-CollectingPay"> + 书费</text>
+                        <view class="xf-detail-item xf-CollectingPay">
+                            <text class="xf-detail-label"> 书费</text>
                             <text class="xf-detail-content">{{itemName.CollectingPay}}</text>
                         </view>
                     </view>

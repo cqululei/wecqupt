@@ -20,6 +20,5 @@ Page({
       },
       'is_bind': !!app._user.is_bind
     });
-    console.log(_this.data)
   }
 });
