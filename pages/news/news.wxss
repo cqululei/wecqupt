@@ -21,6 +21,21 @@
 .filter-item#all{
   margin-left: 20rpx;
 }
+.loader{
+  display: inline-block;
+  width: 100%;
+  height: 160rpx;  
+  line-height: 160rpx;
+  margin-top: -160rpx;
+  letter-spacing: 10rpx;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 40rpx;
+}
+.loader image{
+  height: 80rpx;
+  width: 80rpx;
+}
 .content{
   display: flex;
   flex-direction: column;
