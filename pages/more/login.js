@@ -45,7 +45,7 @@ Page({
         passwd: _this.data.passwd
       }),
       success: function(res){
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           app.showLoadToast('请稍候');
           app.getUser(function(){
             wx.showToast({
@@ -53,23 +53,27 @@ Page({
               icon: 'success',
               duration: 1500
             });
-            setTimeout(function(){
-              wx.showModal({
-                title: '提示',
-                content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
-                cancelText: '以后再说',
-                confirmText: '完善信息',
-                success: function(res) {
-                  if (res.confirm) {
-                    wx.redirectTo({
-                      url: 'append'
-                    });
-                  } else {
-                    wx.navigateBack();
+            if(!app._user.teacher){
+              setTimeout(function(){
+                wx.showModal({
+                  title: '提示',
+                  content: '部分功能需要完善信息才能正常使用，是否前往完善信息？',
+                  cancelText: '以后再说',
+                  confirmText: '完善信息',
+                  success: function(res) {
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: 'append'
+                      });
+                    } else {
+                      wx.navigateBack();
+                    }
                   }
-                }
-              });
-            }, 1500);
+                });
+              }, 1500);
+            }else{
+              wx.navigateBack();
+            }
           });
         }else{
           wx.hideToast();

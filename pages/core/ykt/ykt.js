@@ -46,11 +46,13 @@ Page({
       }
       wx.request({
           url: app._server + "/api/get_yktcost.php",
-          data: {
+          method: 'POST',
+          data: app.key({
+              openid: app._user.openid,
               yktID: app._user.we.ykth
-          },
+          }),
           success: function(res) {
-              if(res.data.status === 200){
+              if(res.data && res.data.status === 200){
                 var data = res.data.data.slice(0, _this.data.count).reverse();
 
                 /*
@@ -132,7 +134,6 @@ Page({
                     });
                 }, 500);
               } else {
-                app.showErrorModal(res.data.message);
                 _this.setData({
                     remind: res.data.message || '未知错误'
                 });

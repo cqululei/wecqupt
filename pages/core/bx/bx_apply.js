@@ -44,7 +44,7 @@ Page({
     wx.request({
       url: app._server + '/api/bx/get_repair_type.php',
       success: function(res) {
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data, serviceTypeRange = [];
           for(var key in list){ 
             if(list.hasOwnProperty(key)){ 
@@ -61,7 +61,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -80,7 +79,7 @@ Page({
     wx.request({
       url: app._server + '/api/bx/get_repair_areas.php',
       success: function(res) {
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data;
           var serviceAreaRange = list.map(function(e,i){
             return e.Name;
@@ -95,7 +94,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -188,11 +186,13 @@ Page({
             app.showErrorModal('联系方式有误', '提交失败');
             return false;
           }
+          formData.openid = app._user.openid;
           wx.request({
             url: app._server + '/api/bx/bx.php',
-            data: formData,
+            method: 'POST',
+            data: app.key(formData),
             success: function(res) {
-              if(res.data.status === 200){
+              if(res.data && res.data.status === 200){
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
@@ -202,16 +202,10 @@ Page({
               }else{
                 var errorMessage = (res.data.data && res.data.data.reason) || res.data.message;
                 app.showErrorModal(errorMessage);
-                _this.setData({
-                  remind: errorMessage || '未知错误'
-                });
               }
             },
             fail: function(res) {
               app.showErrorModal(res.errMsg);
-              _this.setData({
-                remind: '网络错误'
-              });
             }
           });
         }

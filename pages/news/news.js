@@ -58,11 +58,12 @@ Page({
       //获取资讯列表
       wx.request({
         url: app._server + '/api/' + _this.data.list[tpyeId].url,
-        data: {
+        method: 'POST',
+        data: app.key({
           page: _this.data.page + 1
-        },
+        }),
         success: function(res){
-          if(res.data.status === 200){
+          if(res.data && res.data.status === 200){
             if(res.data.data){
               _this.setData({
                 'page': _this.data.page + 1,
@@ -108,44 +109,5 @@ Page({
       'page': 0
     });
     this.getNewsList(e.target.dataset.id);
-  },
-  //滑动切换
-  touchStartList: function(e){
-    this.setData({
-      startPoint: [e.touches[0].pageX, e.touches[0].pageY]
-    });
-  },
-  touchEndList: function(e){
-    var _this = this;
-    var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
-        startPoint = _this.data.startPoint, i = 0;
-    var pid = _this.data.active.id;
-    if(curPoint[0] <= startPoint[0]){
-      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){   
-        if(pid != _this.data.list.length - 1) {
-          //左滑
-          i = 1;
-        }
-      }
-    }else{
-      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){    
-        if(pid != 0) {
-          //右滑
-          i = -1;
-        }
-      }
-    }
-    if(!i){ return false; }
-    _this.setData({
-      'active': {
-        'id': pid + i,
-        'type': _this.data.list[pid + i].type,
-        data: [],
-        showMore: true,
-        remind: '上滑加载更多'
-      },
-      'page': 0
-    });
-    _this.getNewsList(_this.data.active.id);
-  },
+  }
 });

@@ -12,7 +12,7 @@
         <!-- 主体 -->
         <scroll-view class="main-box {{blur?'main-box-active':''}}" catchscroll="scrollYHandle" scroll-y="true" scroll-top="{{scroll.top}}">
             <!-- 左边课数，34节和78节marginBottom为12rpx，其他均为8rpx，课程卡片与这相同 -->
-            <view class="kb-num-ctn blur-area {{blur?'blur':''}}">
+            <view class="kb-num-ctn blur-area {{blur?'blur kb-num-ctn-hide':''}}">
                 <view class="kb-mon kb-date">
                     <block wx:if="{{week != '*'}}"><text>{{dates[week-1][0].month}}</text><text>月</text></block>
                 </view>
@@ -44,6 +44,24 @@
                             <text>周{{item}}</text>
                         </view>
                     </block>
+                </view>
+                <view class="kb-num-ctn kb-num-ctn-inner blur-area blur" wx:if="{{blur}}">
+                    <view class="kb-mon kb-date">
+                        <block wx:if="{{week != '*'}}"><text>{{dates[week-1][0].month}}</text><text>月</text></block>
+                    </view>
+                    <view class="mg-t">1</view>
+                    <view class="mg-8">2</view>
+                    <view>3</view>
+                    <view class="mg-12">4</view>
+                    <view>5</view>
+                    <view class="mg-8">6</view>
+                    <view>7</view>
+                    <view class="mg-12">8</view>
+                    <view>9</view>
+                    <view class="mg-8">10</view>
+                    <view>11</view>
+                    <view>12</view>
+                    <view class="kb-timeline-tri" style="top:{{timelineTop}}rpx"></view>
                 </view>
 
                 <!-- 卡片部分 -->
@@ -145,9 +163,12 @@
                                 <text>{{item.name}}</text>
                             </view>
                             <view class="info-bd">
-                                <view class="info-type">{{item.type}}</view> 
+                                <view class="info-type">
+                                    <text>{{item.type}}</text>
+                                    <text wx:if="{{item.more && !teacher}}">{{item.more}}</text>
+                                </view> 
                                 <view class="info-list">
-                                    <text class="info-text">{{item.xf_num}}</text>
+                                    <text class="info-text" wx:if="{{item.xf_num}}">{{item.xf_num}}</text>
                                     <view class="info-item">
                                         <text class="info-item-value">{{item.teacher}}</text>（任课教师）
                                     </view>
@@ -182,9 +203,12 @@
                                     <text>{{item.name}}</text>
                                 </view>
                                 <view class="info-bd">
-                                    <view class="info-type">{{item.type}}</view> 
+                                    <view class="info-type">
+                                        <text>{{item.type}}</text>
+                                        <text wx:if="{{item.more && !teacher}}">{{item.more}}</text>
+                                    </view> 
                                     <view class="info-list">
-                                        <text class="info-text">{{item.xf_num}}</text>
+                                        <text class="info-text" wx:if="{{item.xf_num}}">{{item.xf_num}}</text>
                                         <view class="info-item">
                                             <text class="info-item-value">{{item.teacher}}</text>（任课教师）
                                         </view>

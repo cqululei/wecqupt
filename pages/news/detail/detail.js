@@ -37,12 +37,13 @@ module.exports.ipage = {
       });
       return false;
     }
-
+    options.openid = app._user.openid;
     wx.request({
       url: app._server + '/api/get_news_detail.php',
-      data: options,
+      method: 'POST',
+      data: app.key(options),
       success: function(res){
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data;
           // 提取信息中的时间，作者，阅读量
           var author_info = [];

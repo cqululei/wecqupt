@@ -34,7 +34,7 @@ App({
                 iv: info.iv
               },
               success: function(res){
-                if(res.data.status >= 200 && res.data.status < 400){
+                if(res.data && res.data.status >= 200 && res.data.status < 400){
                   var status = false;
                   //判断缓存是否有更新
                   if(!_this.cache || _this.cache != res.data.data){
@@ -54,6 +54,17 @@ App({
                   if(status){
                     typeof update_cb == "function" && update_cb();
                   }
+                }else{
+                  //清除缓存
+                  if(_this.cache){
+                    wx.removeStorage({ key: 'cache' });
+                  }
+                }
+              },
+              fail: function(res){
+                //清除缓存
+                if(_this.cache){
+                  wx.removeStorage({ key: 'cache' });
                 }
               }
             });
@@ -66,11 +77,11 @@ App({
     var _this = this;
     var data = JSON.parse(_this.util.base64.decode(key));
     _this._user.is_bind = data.is_bind;
-    _this._user.openid = data.openid;
+    _this._user.openid = data.user.openid;
+    _this._user.teacher = data.user.type == '教职工';
     _this._user.we = data.user;
     _this._time = data.time;
     _this._t = data['\x74\x6f\x6b\x65\x6e'];
-    console.log(data);
     return data;
   },
   getUserInfo: function(cb){

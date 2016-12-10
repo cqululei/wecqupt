@@ -102,7 +102,7 @@ Page({
       data: app.key(data),
       method: 'POST',
       success: function(res){
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           app.appendInfo(data);
           wx.showToast({
             title: '保存成功',
