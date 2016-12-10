@@ -1,7 +1,6 @@
 {
-  "navigationBarBackgroundColor": "#FADD7F",
-  "navigationBarTextStyle": "#FEFFFF",
-  "navigationBarTitleText": "电费",
-  "backgroundColor": "#f0eff5",
-  "backgroundTextStyle": "light"
+  "navigationBarBackgroundColor": "#ffcb63",
+  "navigationBarTitleText": "电费查询",
+  "backgroundColor": "#ffcb63",
+  "enablePullDownRefresh": false
 }

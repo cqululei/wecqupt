@@ -2,9 +2,15 @@
   "pages": [
     "pages/index/index",
     "pages/news/news",
-    "pages/news/detail",
+    "pages/news/jw/jw_detail",
+    "pages/news/oa/oa_detail",
+    "pages/news/hy/hy_detail",
+    "pages/news/jz/jz_detail",
+    "pages/news/new/new_detail",
     "pages/more/login",
+    "pages/more/append",
     "pages/more/more",
+    "pages/more/issues",
     "pages/more/about",
     "pages/core/kb/kb",
     "pages/core/cj/cj",
@@ -49,6 +55,6 @@
     }]
   },
   "networkTimeout": {
-    "request": 10000
+    "request": 20000
   }
 }

@@ -17,27 +17,34 @@ Page({
       'type': 'all',
       data: [],
       showMore: true,
-      remind: '下拉加载更多'
+      remind: '上滑加载更多'
     }
   },
   onLoad: function(){
-    this.getNewsList(0);
+    
   },
+  //下拉更新
   onPullDownRefresh: function(){
     this.setData({
+      'active.data': [],
+      'active.showMore': true,
+      'active.remind': '上滑加载更多',
       'page': 0
     });
-    this.getNewsList(this.data.active.id);
+    this.getNewsList();
   },
+  //上滑加载更多
   onReachBottom: function(){
     var _this = this;
     if(_this.data.active.showMore){
-      _this.getNewsList(_this.data.active.id);
+      _this.getNewsList();
     }
   },
+  //获取新闻列表
   getNewsList: function(tpyeId){
-    app.showLoadToast();
     var _this = this;
+    tpyeId = tpyeId || _this.data.active.id;
+    app.showLoadToast();
     if(_this.data.page >= 5){
       _this.setData({
         'active.showMore': false,
@@ -60,7 +67,7 @@ Page({
               _this.setData({
                 'page': _this.data.page + 1,
                 'active.data': _this.data.active.data.concat(res.data.data),
-                'active.remind': '下拉加载更多'
+                'active.remind': '上滑加载更多'
               });
             }else{
               _this.setData({
@@ -68,33 +75,77 @@ Page({
                 'active.remind': '没有更多啦'
               });
             }
-            wx.hideToast();
           }else{
+            app.showErrorModal(res.data.message);
             _this.setData({
-              'active.remind': '错误'
+              'active.remind': '加载失败'
             });
           }
         },
         fail: function(res){
+          app.showErrorModal(res.errMsg);
           _this.setData({
-            'active.remind': '请求超时'
+            'active.remind': '网络错误'
           });
         },
         complete: function(){
+          wx.hideToast();
           wx.stopPullDownRefresh();
         }
       });
     }
   },
+  //获取焦点
   changeFilter: function(e){
     this.setData({
-      'active.id': e.target.dataset.id,
-      'active.type': e.target.id,
-      'active.data': [],
-      'active.showMore': true,
-      'active.remind': '下拉加载更多',
+      'active': {
+        'id': e.target.dataset.id,
+        'type': e.target.id,
+        data: [],
+        showMore: true,
+        remind: '上滑加载更多'
+      },
       'page': 0
     });
     this.getNewsList(e.target.dataset.id);
-  }
+  },
+  //滑动切换
+  touchStartList: function(e){
+    this.setData({
+      startPoint: [e.touches[0].pageX, e.touches[0].pageY]
+    });
+  },
+  touchEndList: function(e){
+    var _this = this;
+    var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
+        startPoint = _this.data.startPoint, i = 0;
+    var pid = _this.data.active.id;
+    if(curPoint[0] <= startPoint[0]){
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){   
+        if(pid != _this.data.list.length - 1) {
+          //左滑
+          i = 1;
+        }
+      }
+    }else{
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){    
+        if(pid != 0) {
+          //右滑
+          i = -1;
+        }
+      }
+    }
+    if(!i){ return false; }
+    _this.setData({
+      'active': {
+        'id': pid + i,
+        'type': _this.data.list[pid + i].type,
+        data: [],
+        showMore: true,
+        remind: '上滑加载更多'
+      },
+      'page': 0
+    });
+    _this.getNewsList(_this.data.active.id);
+  },
 });
