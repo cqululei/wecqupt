@@ -31,8 +31,7 @@
   height: 170rpx;
 }
 .main-core-item.disabled{
-  filter: grayscale(0.6);
-  opacity: .5;
+  color: #9c9c9c;
 }
 .core-item-icon{
   display: block;

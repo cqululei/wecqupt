@@ -8,7 +8,7 @@
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
       <view wx:else class="main-core-item disabled" bindtap="disabled_item">
-        <image class="core-item-icon" src="/images/core/{{item.id}}.png"></image>
+        <image class="core-item-icon" src="/images/core/{{item.id}}@disabled.png"></image>
         <text class="core-item-name">{{item.name}}</text>
       </view>
     </block>

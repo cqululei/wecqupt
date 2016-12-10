@@ -1,35 +1,46 @@
 <!--xs.wxml-->
-<view class="container">
+<view class="container home" wx:if="">
+  <!--首屏-->
+  <image class="xs-logo" src="/images/core/xs.png"></image>
+  <view class="home-input {{!header.searchChange?'active':''}}">
+    <image class="home-icon" src="/images/core/xs/search-sign.png"></image>
+    <form class="home-input-form" bindsubmit="bindConfirmSearchTap">
+      <input class="home-input-text" value="{{header.inputValue}}" auto-focus bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search"/>
+    </form>
+    <view class="home-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
+      <image class="home-clear-icon" src="/images/core/xs/clear.png"></image>
+    </view>
+    <view class="home-confirm-button" bindtap="bindConfirmSearchTap">
+      <text>搜索</text>
+    </view>
+  </view>
+
+</view>
+
+<view class="container {{main.mainDisplay?'home':'active'}}">
 
   <!--头部-->
   <view class="header">
-    <!--头部的搜索-->
-    <view class="header-search">
-      <!--搜索框-->
-      <view class="{{header.searchChange ? 'search-input' : 'search-input js-fous-input'}}">
-        <view class="search-icon-box" hidden="{{header.searchChange}}">
-          <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
-        </view>
-        <form class="input-form" bindsubmit="bindConfirmSearchTap">
-          <input class="input-text" value="{{header.inputValue}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" />
-        </form>
-        <view class="input-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
-          <image class="clear-icon" src="/images/core/xs/clear.png"></image>
-        </view>
-        <view class="input-confirm-button" bindtap="bindConfirmSearchTap" hidden="{{header.searchChange}}">
-          <text>搜索</text>
-        </view>
-      </view>
-      <!--搜索框的提示信息-->
-      <view class="search-state" hidden="{{!header.searchChange}}">
+    <image class="xs-logo" src="/images/core/xs.png"></image>
+    <!--搜索框-->
+    <view class="search-input {{header.searchChange ? '' : 'js-fous-input'}}">
+      <view class="search-icon-box">
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
-        <text class="state-text">姓名 / 学号 / 班级</text>
+      </view>
+      <form class="input-form" bindsubmit="bindConfirmSearchTap">
+        <input class="input-text" value="{{header.inputValue}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+      </form>
+      <view class="input-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
+        <image class="clear-icon" src="/images/core/xs/clear.png"></image>
+      </view>
+      <view class="input-confirm-button" bindtap="bindConfirmSearchTap" hidden="{{header.searchChange}}">
+        <text>搜索</text>
       </view>
     </view>
   </view>
 
   <!--页面主体部分-->
-  <view class="main" hidden="{{main.mainDisplay}}">
+  <view class="main" wx:if="{{!main.mainDisplay}}">
     <!--主体部分标题-->
     <view class="main-title">
       <text class="title-text">学生名单 （{{main.total}}人）</text>

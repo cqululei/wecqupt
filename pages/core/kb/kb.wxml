@@ -179,7 +179,7 @@
                                         <text class="info-item-value">{{item.all_week}}</text>（课程周数）
                                     </view>
                                     <view class="info-item">
-                                        <text class="info-item-value">{{item.class_id}}</text>（班级编号）
+                                        <text class="info-item-value">{{item.class_id}}</text>（教学班）
                                     </view>
                                     <view class="info-item">
                                         <image class="info-item-icon" src="/images/core/xs.png"></image>
@@ -219,7 +219,7 @@
                                             <text class="info-item-value">{{item.all_week}}{{item.number===3?' / 三节连上':''}}</text>（课程周数）
                                         </view>
                                         <view class="info-item">
-                                            <text class="info-item-value">{{item.class_id}}</text>（班级编号）
+                                            <text class="info-item-value">{{item.class_id}}</text>（教学班）
                                         </view>
                                         <view class="info-item">
                                             <image class="info-item-icon" src="/images/core/xs.png"></image>

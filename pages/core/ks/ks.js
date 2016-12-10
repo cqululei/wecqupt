@@ -30,15 +30,18 @@ Page({
     }
     _this.setData({
       id: app._user.we.info.id,
-      name: app._user.we.info.name
+      name: app._user.we.info.name,
+      teacher: app._user.teacher
     });
+    var data = {
+      openid: app._user.openid,
+      id: app._user.we.info.id
+    };
+    if(app._user.teacher){ data.type = 'teacher'; }
     wx.request({
       url: app._server + "/api/get_ks.php",
       method: 'POST',
-      data: app.key({
-        openid: app._user.openid,
-        id: app._user.we.info.id
-      }),
+      data: app.key(data),
       success: function(res) {
         if (res.data && res.data.status === 200){
           var list = res.data.data;
@@ -53,18 +56,24 @@ Page({
             list[i].open = false;
             list[i].index = i;
             list[i].day = days[list[i].day - 1];
-            list[i].time = list[i].time.replace('—','~');
+            list[i].time = list[i].time.trim().replace('—','~');
             list[i].lesson = list[i].lesson.replace(',','-');
             //倒计时提醒
             if(list[i].days > 0){
               list[i].countdown = '还有' + list[i].days + '天考试';
-              list[i].place = '（'+list[i].time+'）'+list[i].room+'@'+list[i].number; 
+              list[i].place = '（'+list[i].time+'）'+list[i].room;
+              if(!app._user.teacher){
+                list[i].place += '@'+list[i].number; 
+              }
             }else if(list[i].days < 0){
               list[i].countdown = '考试已过了' + (-list[i].days) + '天';
               list[i].place = '';
             }else{
               list[i].countdown = '今天考试';
-              list[i].place = '（'+list[i].time+'）'+list[i].room+'@'+list[i].number; 
+              list[i].place = '（'+list[i].time+'）'+list[i].room; 
+              if(!app._user.teacher){
+                list[i].place += '@'+list[i].number; 
+              }
             }
           }
           list[0].open = true;
