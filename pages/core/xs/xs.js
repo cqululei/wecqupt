@@ -202,7 +202,6 @@ Page({
             };
           }else{
             activeXh = xh.substr(strIndex, strLength);
-            console.log(activeXh)
             arrXh.splice(strIndex, strLength);
             xh = arrXh.join('');
 
@@ -270,14 +269,16 @@ Page({
     });
     app.showLoadToast();
     wx.request({
-      url: app._server + '/api/get_student_info.php', 
-      data: {
+      url: app._server + '/api/get_student_info.php',
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
         key: inputValue,
         page: that.data.main.page
-      },
+      }),
       success: function(res) {
         
-        if(res.data.status === 200) {
+        if(res.data && res.data.status === 200) {
 
           doSuccess(res.data.data, true);
         }else{

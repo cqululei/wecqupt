@@ -29,13 +29,15 @@ Page({
     // 发送请求
     wx.request({
       url: app._server + '/api/get_elec.php', 
-      data: {
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
         buildingNo: app._user.we.build,
         floor: app._user.we.room.slice(0,1),
         room: parseInt(app._user.we.room.slice(1))
-      },
+      }),
       success: function(res) {
-        if(res.data.status == 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data;
           _this.setData({
             'renderData': info,
@@ -44,7 +46,6 @@ Page({
             remind: ''
           });
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });

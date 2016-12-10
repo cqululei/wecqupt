@@ -16,7 +16,6 @@
 }
 .blur-area{
     overflow: hidden;
-    transition: filter 0;
 }
 .blur{
     filter: blur(3px);    
@@ -35,13 +34,15 @@
     align-items: stretch;
     background: #fff;
     border-right: 1rpx solid #eee;
-    padding-bottom: 12rpx;
+    margin-bottom: 12rpx;
     color: #777;
-    margin-bottom: 100rpx;
-    transition: margin-bottom .15s cubic-bezier(0.19, 1, 0.22, 1);
+    padding-bottom: 100rpx;
 }
-.main-box-active .kb-num-ctn{
-    margin-bottom: 500rpx
+.kb-num-ctn-inner{
+    z-index: 1;
+}
+.kb-num-ctn-hide{
+    transform: translate3d(-35rpx,0,0);
 }
 .kb-num-ctn view{
     height: 100rpx;
@@ -89,6 +90,9 @@
     align-items: stretch;
     transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
+.main-box-active .kb-ctn{
+    margin-bottom: 400rpx;
+}
 .kb-title{
     position: absolute;
     top: 0;
@@ -129,9 +133,6 @@
     margin-top: 60rpx;
     padding-bottom: 100rpx;
     transition: margin-bottom .15s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.main-box-active .kb-cards-ctn{
-    margin-bottom: 500rpx;
 }
 .kb-cards-column{
     position: relative;
@@ -533,14 +534,22 @@
 }
 .info-type{
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    margin: 20rpx;
+}
+.info-type text{
+    display: inline-block;
     width: 10pt;
     height: 64rpx;
-    padding: 8rpx;
-    margin: 20rpx;
     font-size: 10pt;
     line-height: 32rpx;
     text-align: center;
     color: #fff;
+    padding: 8rpx;
+    margin: 6rpx 0;
     border-radius: 8rpx;
     background: #e78ab0;
 }

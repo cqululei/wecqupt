@@ -38,12 +38,14 @@ Page({
     toweek: 1,  //当前周数
     week: 1,    //视图周数（'*'表示学期视图）
     lessons : [],  //课程data
-    dates: []     //本周日期
+    dates: [],     //本周日期
+    teacher: false   //是否为教师课表
   },
   onLoad: function(options){
     var _this = this;
     _this.setData({
-      'term': app._time.term
+      'term': app._time.term,
+      'teacher': app._user.teacher
     });
     // onLoad时获取一次课表
     var id = options.id || app._user.we.info.id;
@@ -242,14 +244,17 @@ Page({
       return array;
     }
     // 根据获取课表
-    var _this = this;
+    var _this = this, data = {
+      openid: app._user.openid,
+      id: id,
+    };
+    if(app._user.teacher){ data.type = 'teacher'; }
     wx.request({
       url: "https://we.cqu.pt/api/get_kebiao.php",
-      data: {
-        id: id
-      },
+      method: 'POST',
+      data: app.key(data),
       success: function(res) {
-        if (res.data.status == 200){
+        if (res.data && res.data.status === 200){
           var _data = res.data.data;
           var colors = ['red','green','purple','yellow'];
           var i,ilen,j,jlen,k,klen;
@@ -272,7 +277,7 @@ Page({
                   });
                   _lessons[i][j][k].conflictWeeks = conflictWeeks;
                   _lessons[i][j][k].klen = klen;
-                  _lessons[i][j][k].xf_num = parseFloat(_lessons[i][j][k].xf).toFixed(1);
+                  _lessons[i][j][k].xf_num = _lessons[i][j][k].xf ? parseFloat(_lessons[i][j][k].xf).toFixed(1) : '';
                   // 为课程上色
                   if (!colorsDic[_lessons[i][j][k].class_id]) { //如果该课还没有被上色
                     var iColors = !_colors.length ? colors.slice(0) : _colors.slice(0); // 本课程可选颜色
@@ -345,7 +350,6 @@ Page({
           });
 
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });

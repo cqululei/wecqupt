@@ -5,16 +5,16 @@ Page({
   data: {
     remind: '加载中',
     core: [
-      { id: 'kb', name: '课表查询' },
-      { id: 'cj', name: '成绩查询' },
-      { id: 'ks', name: '考试安排' },
-      { id: 'kjs', name: '空教室' },
-      { id: 'xs', name: '学生查询' },
-      { id: 'ykt', name: '一卡通' },
-      { id: 'jy', name: '借阅信息' },
-      { id: 'xf', name: '学费信息' },
-      { id: 'sdf', name: '电费查询' },
-      { id: 'bx', name: '物业报修' }
+      { id: 'kb', name: '课表查询', disabled: false, teacher_disabled: false },
+      { id: 'cj', name: '成绩查询', disabled: false, teacher_disabled: true },
+      { id: 'ks', name: '考试安排', disabled: false, teacher_disabled: false },
+      { id: 'kjs', name: '空教室', disabled: false, teacher_disabled: false },
+      { id: 'xs', name: '学生查询', disabled: false, teacher_disabled: false },
+      { id: 'ykt', name: '一卡通', disabled: false, teacher_disabled: false },
+      { id: 'jy', name: '借阅信息', disabled: false, teacher_disabled: false },
+      { id: 'xf', name: '学费信息', disabled: false, teacher_disabled: true },
+      { id: 'sdf', name: '电费查询', disabled: false, teacher_disabled: true },
+      { id: 'bx', name: '物业报修', disabled: false, teacher_disabled: false }
     ],
     card: {
       'kb': {
@@ -61,7 +61,8 @@ Page({
         }
       }
     },
-    user: {}
+    user: {},
+    disabledItemTap: false //点击了不可用的页面
   },
   //下拉更新
   onPullDownRefresh: function(){
@@ -101,9 +102,14 @@ Page({
     var _this = this;
     //如果有缓存
     if(!!app.cache){
-      _this.response();
+      try{
+        _this.response();
+      }catch(e){
+        //报错则清除缓存
+        wx.removeStorage({ key: 'cache' });
+      }
     }
-    //然后通过登录用户, 验证用户信息是否正确
+    //然后通过登录用户, 如果缓存更新将执行该回调函数
     app.getUser(_this.response);
   },
   response: function(){
@@ -117,20 +123,36 @@ Page({
       _this.getCardData();
     }
   },
+  disabled_item: function(){
+    var _this = this;
+    if(!_this.data.disabledItemTap){
+      _this.setData({
+        disabledItemTap: true
+      });
+      setTimeout(function(){
+        _this.setData({
+          disabledItemTap: false
+        });
+      }, 2000);
+    }
+  },
   getCardData: function(){
     var _this = this;
     _this.setData({
       user: app._user
     });
+    var kb_data = {
+      id: app._user.we.info.id,
+    };
+    if(app._user.teacher){ kb_data.type = 'teacher'; }
     //获取课表数据
     wx.request({
       url: app._server + '/api/get_kebiao.php',
-      data: {
-        id: app._user.we.info.id
-      },
+      method: 'POST',
+      data: app.key(kb_data),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data,
               today = parseInt(info.day),
               lessons = info.lessons[today===0 ? 6 : today-1], //day为0表示周日(6)，day为1表示周一(0)..
@@ -162,12 +184,13 @@ Page({
     //获取一卡通数据
     wx.request({
       url: app._server + '/api/get_yktcost.php',
-      data: {
+      method: 'POST',
+      data: app.key({
         yktID: app._user.we.ykth
-      },
+      }),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data;
           if(list.length > 0){
             var last = list[0],
@@ -202,14 +225,15 @@ Page({
       //获取水电费数据
       wx.request({
         url: app._server + '/api/get_elec.php',
-        data: {
+        method: 'POST',
+        data: app.key({
           buildingNo: app._user.we.build,
           floor: app._user.we.room.slice(0,1),
           room: parseInt(app._user.we.room.slice(1))
-        },
+        }),
         success: function(res) {
           wx.stopPullDownRefresh();
-          if(res.data.status === 200){
+          if(res.data && res.data.status === 200){
             var info = res.data.data;
             _this.setData({
               'card.sdf.data.room': info.room.split('-').join('栋'),
@@ -226,12 +250,13 @@ Page({
     //获取借阅信息
     wx.request({
       url: app._server + '/api/get_booklist.php',
-      data: {
-        id: app._user.we.info.id
-      },
+      method: 'POST',
+      data: app.key({
+        id: app._user.teacher ? app._user.we.ykth : app._user.we.info.id
+      }),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data;
           if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
             var nowTime = new Date().getTime();

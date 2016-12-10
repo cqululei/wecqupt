@@ -32,12 +32,14 @@ Page({
     // 发送请求
     wx.request({
       url: app._server + "/api/bx/get_repair_list.php", 
-      data: {
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
         "yktID": app._user.we.ykth
-      },
+      }),
       success: function(res) {
 
-        if(res.data.status === 200) {
+        if(res.data && res.data.status === 200) {
           var list = res.data.data;
           if(!list || !list.length){
             that.setData({
@@ -54,7 +56,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           that.setData({
             remind: res.data.message || '未知错误'
           });

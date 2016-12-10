@@ -24,12 +24,14 @@ Page({
     });
     wx.request({
       url: app._server + "/api/get_jzsf.php",
-      data: {
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
         id: app._user.we.info.id
-      },
+      }),
       success: function(res) {
 
-        if(res.data.status === 200) {
+        if(res.data && res.data.status === 200) {
           // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
           var list = res.data.data.reverse();
           for (var i = 0, len = list.length; i < len; ++i) {
@@ -46,7 +48,6 @@ Page({
             }
           });
         } else {
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });

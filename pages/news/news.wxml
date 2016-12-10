@@ -8,7 +8,7 @@
   </scroll-view>
   
   <!--新闻列表-->
-  <view class="content" catchtouchstart="touchStartList" catchtouchend="touchEndList">
+  <view class="content">
     <block wx:for="{{active.data}}" wx:key="item.articleid">
       <navigator url="/pages/news/{{item.type}}/{{item.type}}_detail?type={{item.type}}&id={{item.articleid}}">
         <view class="list-item {{item.type}}">

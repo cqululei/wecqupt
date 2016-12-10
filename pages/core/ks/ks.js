@@ -34,11 +34,13 @@ Page({
     });
     wx.request({
       url: app._server + "/api/get_ks.php",
-      data: {
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
         id: app._user.we.info.id
-      },
+      }),
       success: function(res) {
-        if (res.data.status == 200){
+        if (res.data && res.data.status === 200){
           var list = res.data.data;
           if(!list || !list.length){
             _this.setData({
@@ -71,7 +73,6 @@ Page({
             remind: ''
           });
         } else {
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });
