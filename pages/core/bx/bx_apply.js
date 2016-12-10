@@ -9,7 +9,7 @@ Page({
     serviceTypeValue: false,  //服务类型picker-value
     serviceTypeRange: [],     //服务类型picker-range
     serviceObjectValue: false,//服务项目picker-value
-    serviceObjectRange: [],   //服务项目picker-range
+    serviceObjectRange: ['请先选择服务类型'],   //服务项目picker-range
     serviceAreaValue: false,  //服务区域picker-value
     serviceAreaRange: [],     //服务区域picker-range  
     formData: {             //表单数据
@@ -25,15 +25,15 @@ Page({
     }
   },
   onLoad: function(){
-    if(!app._user.xs.ykth || !app._user.xs.xm){
+    if(!app._user.we.ykth || !app._user.we.info.name){
       this.setData({
         remind: '未绑定'
       });
       return false;
     }
     this.setData({
-      'formData.Id': app._user.xs.ykth,
-      'formData.Name': app._user.xs.xm
+      'formData.Id': app._user.we.ykth,
+      'formData.Name': app._user.we.info.name
     });
     // 发送请求
     this.getServiceType();
@@ -44,7 +44,7 @@ Page({
     wx.request({
       url: app._server + '/api/bx/get_repair_type.php',
       success: function(res) {
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data, serviceTypeRange = [];
           for(var key in list){ 
             if(list.hasOwnProperty(key)){ 
@@ -61,7 +61,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -80,7 +79,7 @@ Page({
     wx.request({
       url: app._server + '/api/bx/get_repair_areas.php',
       success: function(res) {
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data;
           var serviceAreaRange = list.map(function(e,i){
             return e.Name;
@@ -95,7 +94,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -122,7 +120,7 @@ Page({
     });
   },
   listenerServiceObject: function(e) {
-    if(!this.data.serviceObjectRange[e.detail.value]){
+    if(!this.data.serviceTypeValue){
       app.showErrorModal('请先选择服务类型', '提醒');
       return false;
     }
@@ -149,6 +147,9 @@ Page({
     this.setData({
       'formData.Phone': e.detail.value
     });
+    if(e.detail.value.length >= 11){
+      wx.hideKeyboard();
+    }
   },
   listenerTitle: function(e) {
     this.setData({
@@ -163,47 +164,51 @@ Page({
   submitApply: function(e) {
     var _this = this,
         formData = _this.data.formData;
-    // 验证表单
-    if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
-      app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
-      return false;
-    }
-    if(!formData.Phone || !formData.Address){
-      app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
-      return false;
-    }
-    if(!formData.Title || !formData.Content){
-      app.showErrorModal('请填写报修标题及内容', '提交失败');
-      return false;
-    }
-    if(formData.Phone.length !== 11){
-      app.showErrorModal('联系方式有误', '提交失败');
-      return false;
-    }
-    wx.request({
-      url: app._server + '/api/bx/bx.php',
-      data: formData,
+    wx.showModal({
+      title: '提示',
+      content: '是否确认提交申请？',
       success: function(res) {
-        if(res.data.status === 200){
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 2000
-          });
-          wx.navigateBack();
-        }else{
-          var errorMessage = (res.data.data && res.data.data.reason) || res.data.message;
-          app.showErrorModal(errorMessage);
-          _this.setData({
-            remind: errorMessage || '未知错误'
+        if (res.confirm) {
+          // 验证表单
+          if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
+            app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
+            return false;
+          }
+          if(!formData.Phone || !formData.Address){
+            app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
+            return false;
+          }
+          if(!formData.Title || !formData.Content){
+            app.showErrorModal('请填写报修标题及内容', '提交失败');
+            return false;
+          }
+          if(formData.Phone.length !== 11){
+            app.showErrorModal('联系方式有误', '提交失败');
+            return false;
+          }
+          formData.openid = app._user.openid;
+          wx.request({
+            url: app._server + '/api/bx/bx.php',
+            method: 'POST',
+            data: app.key(formData),
+            success: function(res) {
+              if(res.data && res.data.status === 200){
+                wx.showToast({
+                  title: '提交成功',
+                  icon: 'success',
+                  duration: 2000
+                });
+                wx.navigateBack();
+              }else{
+                var errorMessage = (res.data.data && res.data.data.reason) || res.data.message;
+                app.showErrorModal(errorMessage);
+              }
+            },
+            fail: function(res) {
+              app.showErrorModal(res.errMsg);
+            }
           });
         }
-      },
-      fail: function(res) {
-        app.showErrorModal(res.errMsg);
-        _this.setData({
-          remind: '网络错误'
-        });
       }
     });
 

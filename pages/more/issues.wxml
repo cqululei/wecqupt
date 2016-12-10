@@ -1,4 +1,15 @@
 <!--issues.wxml-->
 <view class="container">
-  
+  <view class="issues-panel">
+    <input class="issues-input" placeholder="请输入反馈标题" bindinput="listenerTitle" />
+    <textarea class="issues-textarea" placeholder="请输入反馈内容" bindblur="listenerTextarea" auto-height></textarea>
+  </view>
+  <text class="issues-label">选择图片（可选）</text>
+  <view class="issues-panel">
+    <view class="issues-photo-item add-photo" bindtap="choosePhoto"></view>
+  </view>
+  <text class="issues-remind">您的反馈将会以Issues的形式提交至We重邮的Github，您可通过访问 https://github.com/lanshan-studio/wecqupt/issues 来了解反馈动态；此外，您也可以直接在该网站进行详细反馈。</text>
+  <view class="submit-btn" bindtap="submit">
+    <text>提交反馈</text>
+  </view>
 </view>

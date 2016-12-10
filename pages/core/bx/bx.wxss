@@ -56,14 +56,19 @@
     border-bottom: 1px solid #e5e5e5;
 }
 .review-process-icon{
+    flex-shrink: 0;
     width: 45rpx;
     height: 45rpx;
     margin-right: 15rpx;
 }
 .order-number-name{
-    flex: 1;
+    flex: 1 1 auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .process-state{
+    flex: 0 0 100rpx;
     display: flex;
     align-items: center;
     justify-content: flex-end;
