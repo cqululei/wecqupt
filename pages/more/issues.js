@@ -13,9 +13,9 @@ Page({
     var _this = this;
     wx.getSystemInfo({
       success: function(res) {
-        var info = '用户信息\r\n';
+        var info = '---\r\n用户信息\r\n';
         info += '用户名：' + app._user.wx.nickName;
-        if(getApp()._user.we && getApp()._user.we.length){
+        if(app._user.we.type){
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
         }
         info += '\r\n手机型号：' + res.model;
@@ -91,8 +91,14 @@ Page({
       header: header,
       success: function(res){
         var text = '反馈成功，您可通过访问 ' + res.data.html_url + ' 了解反馈动态';
-        app.showErrorModal(text, '反馈成功');
-        wx.navigateBack();
+        wx.showModal({
+          title: '反馈成功',
+          content: text,
+          showCancel: false,
+          success: function(res) {
+            wx.navigateBack();
+          }
+        });
       },
       fail: function(res) {
         app.showErrorModal(res.errMsg);
