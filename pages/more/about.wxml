@@ -1,20 +1,20 @@
 <!--about.wxml-->
 <view class="container">
   <view class="header">
+    <view class="black-cover"></view>
     <image class="logo" src="/images/more/logo.png"></image>
+    <text>We重邮</text>
   </view>
   <view class="content">
     <view class="version">
-        <text>We 重邮 Beta</text>
-        <text class="fr navigator">查看日志</text>
+        <text>We重邮 v0.0.8 alpha</text>
+        <text class="fr navigator">更新日志</text>
     </view>
     <view class="describe">
-        <text class="desc-title">We 重邮 介绍</text>
-        <text class="desc-content">We重邮 不止是一个微信小程序 （小程序是有别于订阅号/服务号的一种全新的连接用户与服务的方式，可以在微信内被便捷地获取和传播，同时具有出色的使用体验）
-
-We重邮 是校园移动门户 （适用于学生和教师，并集查询课表、成绩、考试安排、空教室、其他学生、一卡通消费情况、借阅信息、学费信息、寝室电费、物业报修、校园资讯等各项功能于一身）
-
-We重邮 更是/更有... （搜人利器、点名神器、一卡通消费、学费信息、最好用的课表...）</text>
+        <text class="desc-title">介绍</text>
+        <text class="desc-content">We重邮 不止是一个微信小程序 （小程序是有别于订阅号/服务号的一种全新的连接用户与服务的方式，可以在微信内被便捷地获取和传播，同时具有出色的使用体验）</text>
+        <text class="desc-content">We重邮 是校园移动门户 （适用于学生和教师，并集查询课表、成绩、考试安排、空教室、其他学生、一卡通消费情况、借阅信息、学费信息、寝室电费、物业报修、校园资讯等各项功能于一身）</text>
+        <text class="desc-content">We重邮 更是/更有... （搜人利器、点名神器、一卡通消费、学费信息、最好用的课表...）</text>
     </view>
   </view>
   <view class="footer">

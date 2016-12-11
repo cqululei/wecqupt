@@ -15,8 +15,10 @@ Page({
       success: function(res) {
         var info = '用户信息\r\n';
         info += '用户名：' + app._user.wx.nickName;
-        info += '（' + app._user.we.info.name + '），';
-        info += '手机型号：' + res.model;
+        if(getApp()._user.we && getApp()._user.we.length){
+          info += '（' + app._user.we.info.name + '）';
+        }
+        info += '，手机型号：' + res.model;
         info += '（' + res.pixelRatio + '），';
         info += '微信版本号：' + res.version;
         _this.setData({

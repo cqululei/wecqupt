@@ -54,8 +54,12 @@ Page({
       });
       return false;
     }
+    if(!_this.data.page){
+      _this.setData({
+        'active.data': _this.data.list[typeId].storage
+      });
+    }
     _this.setData({
-      'active.data': _this.data.list[typeId].storage,
       'active.remind': '正在加载中'
     });
     wx.showNavigationBarLoading();
@@ -66,6 +70,7 @@ Page({
       },
       success: function(res){
         if(res.data && res.data.status === 200){
+          if(_this.data.active.id != typeId){ return false; }
           if(res.data.data){
             if(!_this.data.page){
               if(!_this.data.list[typeId].storage.length || app.util.md5(JSON.stringify(res.data.data)) != app.util.md5(JSON.stringify(_this.data.list[typeId].storage))){
