@@ -91,6 +91,16 @@ Page({
         _this.setData({
           'remind': '加载中'
         });
+        //清空数据
+        _this.setData({
+          user: app._user,
+          'card.kb.data': {},
+          'card.ykt.data': { 'last_time': '', 'balance': 0, 'cost_status': false,
+              'today_cost': { value: [], total: 0 }
+            },
+          'card.jy.data': {},
+          'card.sdf.data': { 'room': '', 'record_time': '', 'cost': 0, 'spend': 0 }
+        });
         _this.getCardData();
       }
     }
@@ -138,15 +148,6 @@ Page({
   },
   getCardData: function(){
     var _this = this;
-    _this.setData({
-      user: app._user,
-      'kb.data': {},
-      'ykt.data': { 'last_time': '', 'balance': 0, 'cost_status': false,
-          'today_cost': { value: [], total: 0 }
-        },
-      'jy.data': {},
-      'sdf.data': { 'room': '', 'record_time': '', 'cost': 0, 'spend': 0 }
-    });
     var kb_data = {
       id: app._user.we.info.id,
     };
