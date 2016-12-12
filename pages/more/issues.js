@@ -146,7 +146,7 @@ Page({
     content = _this.data.content + '\r\n\r\n' + _this.data.info;
     if(_this.data.imgLen){
       _this.data.imgs.forEach(function(e){
-        imgs += '\r\n\r\n' + '![img]('+e+'imageView2/2/w/750/interlace/0/q/88|watermark/2/text/V2Xph43pgq4=/font/5b6u6L2v6ZuF6buR/fontsize/500/fill/I0VGRUZFRg==/dissolve/100/gravity/SouthEast/dx/10/dy/10)';
+        imgs += '\r\n\r\n' + '![img]('+e+'?imageView2/2/w/750/interlace/0/q/88|watermark/2/text/V2Xph43pgq4=/font/5b6u6L2v6ZuF6buR/fontsize/500/fill/I0VGRUZFRg==/dissolve/100/gravity/SouthEast/dx/10/dy/10)';
       });
       content += imgs;
     }
