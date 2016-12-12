@@ -3,9 +3,14 @@
 var app = getApp();
 Page({
   data: {
-    
+    showLog: false
   },
-  onReady: function(){
+  onLoad: function(){
 
+  },
+  toggleLog: function(){
+    this.setData({
+      showLog: !this.data.showLog
+    });
   }
 });
