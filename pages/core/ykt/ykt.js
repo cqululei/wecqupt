@@ -4,6 +4,7 @@ var app = getApp();
 Page({
   data: {
       remind: '加载中',
+      canvas_remind: '加载中',
       fontSize: 12,      // 字体大小, 24rpx=12px
       count: 10,         // 展示的消费次数
       width: 0,          // 画布宽
@@ -19,7 +20,7 @@ Page({
       balance: 0,        // 当前余额（余额卡片上的展示数据）
       last_time: '',
       ykt_id: '',
-      switchBtn: true,  // true:余额 or false:消费
+      switchBtn: true,  // true:余额 or false:交易额
       options: {},
       currentIndex: 0   // 当前点的索引，切换视图的时候保持当前详情
   },
@@ -37,7 +38,7 @@ Page({
   },
   sendRequest: function() {
       var _this = this;
-      if(!app._user.xs.ykth){
+      if(!app._user.we.ykth){
         _this.setData({
             remind: '未绑定'
         });
@@ -45,20 +46,14 @@ Page({
       }
       wx.request({
           url: app._server + "/api/get_yktcost.php",
-          data: {
-              yktID: app._user.xs.ykth
-          },
+          method: 'POST',
+          data: app.key({
+              openid: app._user.openid,
+              yktID: app._user.we.ykth
+          }),
           success: function(res) {
-              if(res.data.status === 200){
+              if(res.data && res.data.status === 200){
                 var data = res.data.data.slice(0, _this.data.count).reverse();
-                _this.setData({
-                    dict: data,
-                    balance: parseFloat(data[data.length - 1].balance),
-                    last_time: data[data.length - 1].time.split(' ')[0],
-                    ykt_id: app._user.xs.ykth,
-                    lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
-                    remind: ''
-                });
 
                 /*
                 * 获取最近消费数据绘制折线图
@@ -81,12 +76,19 @@ Page({
                 for(var i = 0; i < len; i ++){
                     xArr.push(i * spaceX);  
                     balanceArr.push(parseFloat(dict[i].balance)); 
-                    if (dict[i].cost < 0) {
-                        dict[i].cost = -dict[i].cost;
+                    if(dict[i].transaction == '消费'){
+                      dict[i].cost = -Math.abs(dict[i].cost);
                     }
                     costArr.push(parseFloat(dict[i].cost));
-                }  
+                }
                 _this.setData({
+                    dict: data,
+                    tapDetail: dict[dict.length-1],
+                    balance: parseFloat(data[data.length - 1].balance),
+                    last_time: data[data.length - 1].time.split(' ')[0],
+                    ykt_id: app._user.we.ykth,
+                    lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
+                    remind: '',
                     switchArr: balanceArr, // 将纵坐标的值初始化为余额集合
                     costArr: costArr,    // 消费集合，切换折线的时候用
                     balanceArr: balanceArr
@@ -121,13 +123,17 @@ Page({
                 */
                 _this.drawPointLine(_this.data.options, _this.data.switchArr);
                 
-                wx.drawCanvas({
-                    canvasId: "firstCanvas",
-                    actions: context.getActions(), // 获取绘图动作数组
-                    reserve: true
-                });
+                setTimeout(function(){
+                    wx.drawCanvas({
+                        canvasId: "firstCanvas",
+                        actions: context.getActions(), // 获取绘图动作数组
+                        reserve: true,
+                    });
+                    _this.setData({
+                      canvas_remind: ''
+                    });
+                }, 500);
               } else {
-                app.showErrorModal(res.data.message);
                 _this.setData({
                     remind: res.data.message || '未知错误'
                 });
@@ -162,8 +168,8 @@ Page({
        * tmp_minY: 余额的最小值
        * tmp_maxY: 余额的最大值
       */
-      var tmp_minY = Math.min.apply(Math, tmp_yArr), 
-          tmp_maxY = Math.max.apply(Math, tmp_yArr),
+      var tmp_minY = Math.min.apply(Math, tmp_yArr.map(function(e){ return Math.abs(e); })), 
+          tmp_maxY = Math.max.apply(Math, tmp_yArr.map(function(e){ return Math.abs(e); })),
           spaceYe = tmp_maxY / gridNum,     
           gridHeight = canvasHeight - 2*gridMarginTop,
           spaceY = gridHeight / gridNum;
@@ -190,7 +196,7 @@ Page({
           if (i === 0) {
               numY = 0;
           } else {
-              numY = (spaceYe * i).toFixed(1);
+              numY = (spaceYe * i).toFixed(0);
           }          
           context.beginPath();
             context.moveTo(xArr[0] + gridMarginLeft, gridMarginTop + spaceY * i );
@@ -200,7 +206,15 @@ Page({
 
           context.beginPath();
             context.setFontSize(fontSize);
-            context.fillText(numY, gridMarginLeft - 25, canvasHeight - gridMarginTop - spaceY * i);
+            var left = 25;
+            if(numY<10){
+                left = 15;
+            }else if(numY<100){
+                left = 20;
+            }else if(numY<1000){
+                left = 25;
+            }
+            context.fillText(numY, gridMarginLeft - left, canvasHeight - gridMarginTop - spaceY * i + 3);
           context.closePath();
       }       
 
@@ -221,6 +235,7 @@ Page({
 
   // 描点&连线
   drawPointLine: function(options, switchArr) {
+      var _this = this;
       var context = options.context,
           yArr = [],
           gridMarginLeft = options.gridMarginLeft,
@@ -244,14 +259,15 @@ Page({
       * yArr: 点在画布中的纵坐标
       */
       
-      var tmp_minY = Math.min.apply(null, tmp_yArr), 
-          tmp_maxY = Math.max.apply(null, tmp_yArr),
+      var tmp_minY = Math.min.apply(Math, tmp_yArr.map(function(e){ return Math.abs(e); })), 
+          tmp_maxY = Math.max.apply(Math, tmp_yArr.map(function(e){ return Math.abs(e); })),
           spaceYe = tmp_maxY / gridNum,
           gridHeight = canvasHeight - 2*gridMarginTop,
-          spaceY = gridHeight / gridNum;
+          spaceY = gridHeight / gridNum,
+          switchBtn = Math.min.apply(Math, tmp_yArr) >= 0;
 
       for(var i = 0; i < len; i++){  
-          yArr.push(gridHeight - (tmp_maxY - tmp_yArr[i])*spaceY / spaceYe);
+          yArr.push(gridHeight - (tmp_maxY - Math.abs(tmp_yArr[i]))*spaceY / spaceYe);
       } 
 
       /* 
@@ -259,7 +275,7 @@ Page({
       */  
       for(var i = 0; i < len; i ++){  
           var x = xArr[i] + gridMarginLeft,               // 横坐标
-              y = canvasHeight - gridMarginTop -yArr[i]   // 纵坐标         
+              y = canvasHeight - gridMarginTop -yArr[i];  // 纵坐标         
 
           // 将点在画布中的坐标&消费详情存入数组
           pointArr.push({
@@ -275,6 +291,9 @@ Page({
       for(var i = 0, pLen = pointArr.length; i < pLen; i++){  
 
           if(pointArr[i+1]){
+            if((switchBtn && tmp_yArr[i+1]>tmp_yArr[i]) || (!switchBtn && (tmp_yArr[i]>0 || tmp_yArr[i+1]>0))){
+              context.setGlobalAlpha(0.66);
+            }
             context.beginPath();
                 context.moveTo(pointArr[i].x, pointArr[i].y);
                 context.lineTo(pointArr[i+1].x, pointArr[i+1].y);
@@ -282,19 +301,18 @@ Page({
             context.beginPath();
           }
 
+          context.setGlobalAlpha(1);
           context.beginPath();
             context.arc(pointArr[i].x, pointArr[i].y, 2, 0, 2*Math.PI); // 画点              
-            context.fill();  
-            context.fillText(tmp_yArr[i], pointArr[i].x + 3, pointArr[i].y - 3);  // 点的含义，画字
-            context.fillText(i + 1, pointArr[i].x - 3, canvasHeight - 5); // 消费次数(横轴)              
+            context.fill();
+            context.fillText((!switchBtn&&tmp_yArr[i]>0?'+':'')+tmp_yArr[i], pointArr[i].x + 3, pointArr[i].y - 3);  // 点的含义，画字
           context.closePath();
 
         pointArr[i].detail.balance = parseFloat(pointArr[i].detail.balance);
       }
       
-      this.setData({
-          points: pointArr,
-          tapDetail: pointArr[pointArr.length-1].detail
+      _this.setData({
+          points: pointArr
       });
   },
 
@@ -318,13 +336,14 @@ Page({
       });
   },
 
-  // 切换当前视图--余额
-  switchBalance: function() {
-     
+  // 切换视图
+  switchBtn: function(e) {
+      var id = e.target.id;
+      if(!id){ return false; }
       var context = this.data.options.context;
       context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
-      this.drawLineXY(this.data.options, this.data.balanceArr);
-      this.drawPointLine(this.data.options, this.data.balanceArr);
+      this.drawLineXY(this.data.options, this.data[id+'Arr']);
+      this.drawPointLine(this.data.options, this.data[id+'Arr']);
         
       wx.drawCanvas({
           canvasId: "firstCanvas",
@@ -332,27 +351,7 @@ Page({
           reverse: true
       });
       this.setData({
-          switchBtn: false,
-          tapDetail: this.data.points[this.data.currentIndex].detail
-      });
-  },
-
-  // 切换当前视图--消费
-  switchConsumption: function() {
-      
-      var context = this.data.options.context;
-      context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
-      this.drawLineXY(this.data.options, this.data.costArr);
-      this.drawPointLine(this.data.options, this.data.costArr);
-    
-      wx.drawCanvas({
-          canvasId: "firstCanvas",
-          actions: context.getActions(),
-          reverse: true
-      });
-      this.setData({
-          switchBtn: false,
-          tapDetail: this.data.points[this.data.currentIndex].detail
+          switchBtn: !this.data.switchBtn
       });
   }
   

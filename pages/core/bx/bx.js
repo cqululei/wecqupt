@@ -23,7 +23,7 @@ Page({
   },
   getData: function(){
     var that = this;
-    if(!app._user.xs.ykth){
+    if(!app._user.we.ykth){
       that.setData({
         remind: '未绑定'
       });
@@ -32,12 +32,14 @@ Page({
     // 发送请求
     wx.request({
       url: app._server + "/api/bx/get_repair_list.php", 
-      data: {
-        "yktID": app._user.xs.ykth
-      },
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid,
+        "yktID": app._user.we.ykth
+      }),
       success: function(res) {
 
-        if(res.data.status === 200) {
+        if(res.data && res.data.status === 200) {
           var list = res.data.data;
           if(!list || !list.length){
             that.setData({
@@ -46,6 +48,7 @@ Page({
           }else{
             for(var i = 0, len = list.length; i < len; i++) {
               list[i].state = that.data.process_state[list[i].wx_wxztm];
+              list[i].wx_bt = that.convertHtmlToText(list[i].wx_bxnr).replace(/[\r|\n]/g, "");
             }
             that.setData({
               'list': list,
@@ -53,7 +56,6 @@ Page({
             });
           }
         }else{
-          app.showErrorModal(res.data.message);
           that.setData({
             remind: res.data.message || '未知错误'
           });
@@ -69,6 +71,12 @@ Page({
         wx.stopPullDownRefresh();
       }
     });
+  },
+  convertHtmlToText: function(inputText){
+    var returnText = "" + inputText;
+    returnText = returnText.replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/ /ig, '')
+                  .replace(/&mdash/gi,'-').replace(/&ldquo/gi,'“').replace(/&rdquo/gi,'”');
+    return returnText;
   }
   
 });

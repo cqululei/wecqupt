@@ -2,7 +2,7 @@
 @import './login.wxss';
 .append-title {
   position: absolute;
-  top: 120rpx;
+  top: 75rpx;
   width: 100%;
   color: #777;
   font-size: 22pt;
@@ -10,11 +10,11 @@
   text-align: center;
 }
 .append-form {
-  padding: 200rpx 0 50rpx;
+  padding: 150rpx 0 50rpx;
 }
 .append-form .input-group {
   padding: 20rpx 8rpx;
-  margin: 25rpx 3%;
+  margin: 30rpx 3%;
 }
 .append-form .input-label {
   font-size: 11pt;

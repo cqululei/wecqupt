@@ -32,32 +32,33 @@ Page({
     targetDay: 0, //target day
     targetWid: 0, //target wid
     targetI: 0,   //target 第几个active
-    
     targetLen: 0, //target 课程长度
     blur: false,
     today: '',  //当前星期数
     toweek: 1,  //当前周数
     week: 1,    //视图周数（'*'表示学期视图）
     lessons : [],  //课程data
-    dates: []     //本周日期
+    dates: [],     //本周日期
+    teacher: false   //是否为教师课表
   },
   onLoad: function(options){
     var _this = this;
     _this.setData({
-      'term': app._time.term
+      'term': app._time.term,
+      'teacher': app._user.teacher
     });
     // onLoad时获取一次课表
-    var xh = options.xh || app._user.xs.xh;
-    if(!xh){
+    var id = options.id || app._user.we.info.id;
+    if(!id){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
-    _this.get_kb(xh);
-    if(options.xh && options.xm){
+    _this.get_kb(id);
+    if(options.id && options.name){
       _this.setData({
-        xm: options.xm
+        name: options.name
       });
     }
   },
@@ -118,7 +119,7 @@ Page({
       if(lessons.length === 1){
         e.left = 0;
       }else{
-        //笼罩层卡片防止超出
+        //笼罩层卡片防止超出课表区域
         //周一~周四0~3:n lessons.length>=2*n+1时，设置left0为-n*128，否则设置为-60*(lessons.length-1)；
         //周日~周五6~4:n lessons.length>=2*(6-n)+1时，设置left0为-(7-n-lessons.length)*128，否则设置为-60*(lessons.length-1)；
         var left0 = -60*(lessons.length-1);
@@ -139,7 +140,7 @@ Page({
     });
     if(!lessons.length){ return false; }
     _this.setData({
-      targetX: dataset.day*128+35+8,
+      targetX: dataset.day*129+35+8,
       targetY: dataset.wid*206+Math.floor(dataset.wid/2)*4+60+8,
       targetDay: dataset.day,
       targetWid: dataset.wid,
@@ -197,6 +198,34 @@ Page({
       week: current+1
     });
   },
+  touchStartDetail: function(e){
+    this.setData({
+      startPoint: [e.touches[0].pageX, e.touches[0].pageY]
+    });
+  },
+  //滑动切换课程详情
+  touchEndDetail: function(e){
+    var _this = this;
+    var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
+        startPoint = _this.data.startPoint, i = 0;
+    if(curPoint[0] <= startPoint[0]){
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){   
+        if(_this.data.targetI != _this.data.targetLen - 1) {
+          i = 1;//左滑
+        }
+      }
+    }else{
+      if(Math.abs(curPoint[0]-startPoint[0]) >= Math.abs(curPoint[1]-startPoint[1])){    
+        if(_this.data.targetI != 0) {
+          i = -1;//右滑
+        }
+      }
+    }
+    if(!i){ return false; }
+    _this.setData({
+      targetI: parseInt(_this.data.targetI) + i
+    });
+  },
   //点击左右按钮切换swiper
   swiperChangeBtn: function(e){
     var _this = this;
@@ -206,7 +235,7 @@ Page({
     data[dataset.target] = parseInt(_this.data[dataset.target]) + i;
     _this.setData(data);
   },
-  get_kb: function(xh){
+  get_kb: function(id){
     //数组去除指定值
     function removeByValue(array,val){
       for(var i=0,len=array.length;i<len;i++) {
@@ -215,14 +244,17 @@ Page({
       return array;
     }
     // 根据获取课表
-    var _this = this;
+    var _this = this, data = {
+      openid: app._user.openid,
+      id: id,
+    };
+    if(app._user.teacher){ data.type = 'teacher'; }
     wx.request({
       url: "https://we.cqu.pt/api/get_kebiao.php",
-      data: {
-        xh: xh
-      },
+      method: 'POST',
+      data: app.key(data),
       success: function(res) {
-        if (res.data.status == 200){
+        if (res.data && res.data.status === 200){
           var _data = res.data.data;
           var colors = ['red','green','purple','yellow'];
           var i,ilen,j,jlen,k,klen;
@@ -245,7 +277,7 @@ Page({
                   });
                   _lessons[i][j][k].conflictWeeks = conflictWeeks;
                   _lessons[i][j][k].klen = klen;
-                  _lessons[i][j][k].xf_num = parseFloat(_lessons[i][j][k].xf).toFixed(1);
+                  _lessons[i][j][k].xf_num = _lessons[i][j][k].xf ? parseFloat(_lessons[i][j][k].xf).toFixed(1) : '';
                   // 为课程上色
                   if (!colorsDic[_lessons[i][j][k].class_id]) { //如果该课还没有被上色
                     var iColors = !_colors.length ? colors.slice(0) : _colors.slice(0); // 本课程可选颜色
@@ -299,7 +331,7 @@ Page({
           dates = dates.map(function(e,m){
             var idates = _this.data._days.slice(0);  //0:周一,1:周二,..6:周日
             idates = idates.map(function(e,i){
-              var d = (m === week && i === today) ? nowD : new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate()-((week-m)*7+(today-i)));
+              var d = (m === (week-1) && i === today) ? nowD : new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate()-((week-1-m)*7+(today-i)));
               return {
                 month: d.getMonth() + 1,
                 date: d.getDate()
@@ -318,7 +350,6 @@ Page({
           });
 
         }else{
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });

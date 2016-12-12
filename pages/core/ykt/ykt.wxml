@@ -27,44 +27,50 @@
             </view>
         </view>
 
-        <text class="grid-remind">近10次消费情况：</text>
-        <view class="balance-consumption">
-            <text class="{{switchBtn ? 'current-btn' : ''}}" bindtap="switchBalance">余额</text>
-            <text class="{{switchBtn ? '' : 'current-btn'}}" bindtap="switchConsumption">消费</text>
+        <text class="grid-remind">近10次交易情况：</text>
+        <view class="balance-consumption" bindtap="switchBtn">
+            <text class="{{switchBtn ? 'current-btn' : ''}}" id="balance">余额</text>
+            <text class="{{switchBtn ? '' : 'current-btn'}}" id="cost">交易额</text>
         </view>
         <view class="grid-wraper">
-            <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
-            <view class="line" style="left: {{lineLeft}}px;"></view>
-            <view class="y-text">{{switchBtn ? "余额" : "消费"}}</view>
+            <view wx:if="{{canvas_remind}}" class="remind-box">
+                <image wx:if="{{canvas_remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
+            </view>
+            <block wx:else>
+                <canvas id="ykt-canvas" canvas-id="firstCanvas" bindtap="canvasTap"></canvas> 
+                <view class="line" style="left: {{lineLeft}}px;"></view>
+                <view class="y-text">{{switchBtn ? "余额" : "交易额"}}</view>
+                <view class="x-text">最近交易</view>
+            </block>
         </view>
-        <text class="detail-remind">点击上图查看对应消费详情</text>
+        <text class="detail-remind">点击上图查看对应交易详情</text>
         <view class="ykt-detail-wraper">
             <view class="ykt-head">
-                <text class="ykt-type-name">消费详情</text>
+                <text class="ykt-type-name">交易详情</text>
             </view>                          
             <view class="detail-list">
                 <view class="detail-item">
-                    <text class="detail-item-label">消费时间</text>
+                    <text class="detail-item-label">交易时间</text>
                     <text class="detail-item-value">{{tapDetail.time}}</text>
                 </view>
                 <view class="detail-item">
-                    <text class="detail-item-label">消费类型</text>
+                    <text class="detail-item-label">交易类型</text>
                     <text class="detail-item-value">{{tapDetail.transaction}}</text>
                 </view>
                 <view class="detail-item">
-                    <text class="detail-item-label">消费金额</text>
-                    <text class="detail-item-value">{{tapDetail.cost}}</text>
+                    <text class="detail-item-label">交易金额</text>
+                    <text class="detail-item-value">{{(tapDetail.cost>0?'+':'')+tapDetail.cost}}</text>
                 </view>
                 <view class="detail-item">
-                    <text class="detail-item-label">消费设备</text>
+                    <text class="detail-item-label">交易设备</text>
                     <text class="detail-item-value">{{tapDetail.device}}</text>
                 </view>
                 <view class="detail-item">
-                    <text class="detail-item-label">消费地点</text>
+                    <text class="detail-item-label">交易地点</text>
                     <text class="detail-item-value">{{tapDetail.address}}</text>
                 </view>
                 <view class="detail-item">
-                    <text class="detail-item-label">本次余额</text>
+                    <text class="detail-item-label">交易余额</text>
                     <text class="detail-item-value">{{tapDetail.balance}}</text>
                 </view>
             </view>

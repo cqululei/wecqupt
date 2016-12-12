@@ -19,7 +19,7 @@
                             <view class="repair-info-item">
                                 <text class="repair-info-bd repair-state-name">{{item.name}}</text>
                             </view>
-                            <view class="repair-info-item" wx:for="{{item.list}}" wx:for-index="key" wx:for-item="value">
+                            <view class="repair-info-item" wx:for="{{item.list}}" wx:key="key" wx:for-index="key" wx:for-item="value">
                                 <text class="repair-info-bd">{{key}}</text>
                                 <view class="repair-info-ft">
                                     <text>{{value}}</text>
