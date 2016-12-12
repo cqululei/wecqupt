@@ -23,7 +23,6 @@ Page({
     ],
     timelineTop: 0,
     scroll: {
-      top: 0,
       left: 0
     },
     targetLessons: [],
@@ -91,11 +90,6 @@ Page({
         title: _this.data.xm+'的课表'
       });
     }
-  },
-  scrollYHandle: function(e){
-    this.setData({
-      'scroll.top': e.detail.scrollTop
-    });
   },
   scrollXHandle: function(e){
     this.setData({
