@@ -26,13 +26,15 @@ Page({
   },
   //下拉更新
   onPullDownRefresh: function(){
-    this.data.loading = true;
-    this.setData({
+    var _this = this;
+    _this.data.loading = true;
+    _this.setData({
+      'active.data': [],
       'active.showMore': true,
       'active.remind': '上滑加载更多',
       'page': 0
     });
-    this.getNewsList();
+    _this.getNewsList();
   },
   //上滑加载更多
   onReachBottom: function(){
@@ -45,109 +47,81 @@ Page({
   getNewsList: function(typeId){
     var _this = this;
     typeId = typeId || _this.data.active.id;
-    wx.showNavigationBarLoading();
-    if (_this.data.list[typeId].storage.length && _this.data.page == 0){
-      _this.setData({
-        'page': _this.data.page + 1,
-        'active.data': _this.data.active.data.concat(_this.data.list[typeId].storage),
-        'active.remind': '上滑加载更多'
-      });
-      wx.hideNavigationBarLoading();
-      wx.request({
-        url: app._server + '/api/' + _this.data.list[typeId].url,
-        method: 'GET',
-        data: {
-          page: _this.data.page + 1
-        },
-        success: function(res){
-          if(res.data && res.data.status === 200){
-            if(res.data.data){
-              if(app.util.md5(JSON.stringify(res.data.data))!=app.util.md5(JSON.stringify(_this.data.list[typeId].storage))){
-                var d = {
-                  'page': _this.data.page + 1,
-                  'active.data': _this.data.active.data.concat(res.data.data),
-                  'active.remind': '上滑加载更多',
-                };
-                d['list['+typeId+'].storage']=  res.data.data
-                _this.setData(d);
-              }
-            }else{
-              _this.setData({
-                'active.showMore': false,
-                'active.remind': '没有更多啦'
-              });
-            }
-          }else{
-            app.showErrorModal(res.data.message);
-            _this.setData({
-              'active.remind': '加载失败'
-            });
-          }
-        },
-        fail: function(res){
-          app.showErrorModal(res.errMsg);
-          _this.setData({
-            'active.remind': '网络错误'
-          });
-        },
-        complete: function(){
-          wx.hideNavigationBarLoading();
-          wx.stopPullDownRefresh();
-        }
-      });
-    } else if (_this.data.page >= 5){
+    if (_this.data.page >= 5){
       _this.setData({
         'active.showMore': false,
         'active.remind': '没有更多啦'
       });
-      wx.hideNavigationBarLoading();
-    }else{
+      return false;
+    }
+    if(!_this.data.page){
       _this.setData({
-        'active.remind': '正在加载中'
+        'active.data': _this.data.list[typeId].storage
       });
-      //获取资讯列表
-      wx.request({
-        url: app._server + '/api/' + _this.data.list[typeId].url,
-        method: 'GET',
-        data: {
-          page: _this.data.page + 1
-        },
-        success: function(res){
-          if(res.data && res.data.status === 200){
-            if(res.data.data){
-              var d = {
-                'page': _this.data.page + 1,
-                'active.data': _this.data.active.data.concat(res.data.data),
-                'active.remind': '上滑加载更多',
-              };
-              d['list['+typeId+'].storage']=  res.data.data
-              _this.setData(d);
+    }
+    _this.setData({
+      'active.remind': '正在加载中'
+    });
+    wx.showNavigationBarLoading();
+    wx.request({
+      url: app._server + '/api/' + _this.data.list[typeId].url,
+      data: {
+        page: _this.data.page + 1
+      },
+      success: function(res){
+        if(res.data && res.data.status === 200){
+          if(_this.data.active.id != typeId){ return false; }
+          if(res.data.data){
+            if(!_this.data.page){
+              if(!_this.data.list[typeId].storage.length || app.util.md5(JSON.stringify(res.data.data)) != app.util.md5(JSON.stringify(_this.data.list[typeId].storage))){
+                var data = {
+                  'page': _this.data.page + 1,
+                  'active.data': res.data.data,
+                  'active.showMore': true,
+                  'active.remind': '上滑加载更多',
+                };
+                data['list['+typeId+'].storage'] = res.data.data;
+                _this.setData(data);
+              }else{
+                _this.setData({
+                  'page': _this.data.page + 1,
+                  'active.showMore': true,
+                  'active.remind': '上滑加载更多'
+                });
+              }
             }else{
               _this.setData({
-                'active.showMore': false,
-                'active.remind': '没有更多啦'
+                'page': _this.data.page + 1,
+                'active.data': _this.data.active.data.concat(res.data.data),
+                'active.showMore': true,
+                'active.remind': '上滑加载更多',
               });
             }
           }else{
-            app.showErrorModal(res.data.message);
             _this.setData({
-              'active.remind': '加载失败'
+              'active.showMore': false,
+              'active.remind': '没有更多啦'
             });
           }
-        },
-        fail: function(res){
-          app.showErrorModal(res.errMsg);
+        }else{
+          app.showErrorModal(res.data.message);
           _this.setData({
-            'active.remind': '网络错误'
+            'active.remind': '加载失败'
           });
-        },
-        complete: function(){
-          wx.hideNavigationBarLoading();
-          wx.stopPullDownRefresh();
-          this.data.loading = false;          
         }
-      });
-    }
+      },
+      fail: function(res){
+        app.showErrorModal(res.errMsg);
+        _this.setData({
+          'active.remind': '网络错误'
+        });
+      },
+      complete: function(){
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+        _this.data.loading = false; 
+      }
+    });
   },
   //获取焦点
   changeFilter: function(e){

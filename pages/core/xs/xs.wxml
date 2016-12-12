@@ -10,7 +10,7 @@
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
       </view>
       <form class="input-form" bindsubmit="bindConfirmSearchTap">
-        <input class="input-text" value="{{header.inputValue}}" auto-focus bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+        <input class="input-text" value="{{header.inputValue}}" auto-focus="{{header.searchChange}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
       </form>
       <view class="input-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
         <image class="clear-icon" src="/images/core/xs/clear.png"></image>
