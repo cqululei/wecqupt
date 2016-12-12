@@ -7,7 +7,11 @@ Page({
     content: '',
     info: '',
     imgs: [],
-    Authorization: 'dG9rZW4gYWNlODhiYzQ2ODIwZTlhZTdmMjJkZDY3MzI4NzhiZWFhNWE3YzkzZA=='
+    imgLen: 0,
+    Authorization: 'dG9rZW4gYWNlODhiYzQ2ODIwZTlhZTdmMjJkZDY3MzI4NzhiZWFhNWE3YzkzZA==',
+    upload: false,
+    uploading: false,
+    qiniu: ''
   },
   onLoad: function(){
     var _this = this;
@@ -28,10 +32,17 @@ Page({
     });
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
-      // data: data,
       method: 'POST',
+      data: app.key({
+        openid: app._user.openid
+      }),
       success: function(res){
-        console.log(res.data.data.token);
+        if(res.data.status === 200){
+          _this.setData({
+            upload: true,
+            qiniu: res.data.data.token
+          });
+        }
       }
     })
   },
@@ -46,47 +57,106 @@ Page({
     });
   },
   choosePhoto: function() {
-    wx.chooseImage({
-      sourceType: ['album'],
-      success: function (res) {
-        var tempFilePaths = res.tempFilePaths;
-        app.showErrorModal('上传图片暂不可用', '提醒');
-        // 上传图片
-        // wx.uploadFile({
-        //   url: 'http://up.qiniu.com',
-        //   header: {
-        //     'Content-Type': 'multipart/form-data'
-        //   },
-        //   filePath: tempFilePaths[0],
-        //   name: 'file',
-        //   formData:{
-        //     'user': 'test'
-        //   },
-        //   success: function(res){
-        //     var data = res.data
-        //     //do something
-        //   }
-        // });
+    var _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '上传图片需要消耗流量，是否继续？',
+      confirmText: '继续',
+      success: function(res) {
+        if (res.confirm) {
+          wx.chooseImage({
+            count: 4,
+            sourceType: ['album'],
+            success: function (res) {
+              var tempFilePaths = res.tempFilePaths, imgLen = tempFilePaths.length;
+              _this.setData({
+                uploading: true,
+                imgLen: imgLen
+              });
+              tempFilePaths.forEach(function(e){
+                _this.uploadImg(e);
+              });
+            }
+          });
+        }
       }
     });
   },
+  uploadImg: function(path){
+    var _this = this;
+    // 上传图片
+    wx.uploadFile({
+      url: 'https://up.qbox.me',
+      header: {
+        'Content-Type': 'multipart/form-data'
+      },
+      filePath: path,
+      name: 'file',
+      formData:{
+        token: _this.data.qiniu
+      },
+      success: function(res){
+        var data = JSON.parse(res.data);
+        if(data.key){
+          _this.setData({
+            imgs: _this.data.imgs.concat('http://cdn.we.cqu.pt/'+data.key)
+          });
+        }
+        if(_this.data.imgs.length === _this.data.imgLen){
+          _this.setData({
+            uploading: false
+          });
+        }
+      },
+      fail: function(res){
+        _this.setData({
+          imgLen: _this.data.imgLen - 1
+        });
+      }
+    });
+  },
+  previewPhoto: function(e){
+    var _this = this;
+    //预览图片
+    if(_this.data.uploading){
+      app.showErrorModal('正在上传图片', '预览失败');
+      return false;
+    }
+    wx.previewImage({
+      current: _this.data.imgs[e.target.dataset.index],
+      urls: _this.data.imgs
+    });
+  },
   submit: function(){
-    var _this = this, header = {}, data = {};
+    var _this = this, header = {}, title = '', content = '', imgs = '';
     header['Authorization'] = app.util.base64.decode(_this.data.Authorization);
+    if(_this.data.uploading){
+      app.showErrorModal('正在上传图片', '提交失败');
+      return false;
+    }
     if(!_this.data.title){
-      app.showErrorModal('请输入反馈标题', '反馈失败');
+      app.showErrorModal('请输入反馈标题', '提交失败');
       return false;
     }
     if(!_this.data.content){
-      app.showErrorModal('请输入反馈内容', '反馈失败');
+      app.showErrorModal('请输入反馈内容', '提交失败');
       return false;
     }
-    data.title = '【' + app._user.wx.nickName + '】' + _this.data.title;
-    data.body = _this.data.content + '\r\n\r\n' + _this.data.info;
+    title = '【' + app._user.wx.nickName + '】' + _this.data.title;
+    content = _this.data.content + '\r\n\r\n' + _this.data.info;
+    if(_this.data.imgLen){
+      _this.data.imgs.forEach(function(e){
+        imgs += '\r\n\r\n' + '![img]('+e+'?watermark/2/text/V2Xph43pgq4=/font/5b6u6L2v6ZuF6buR/fontsize/500/fill/I0VGRUZFRg==/dissolve/100/gravity/SouthEast/dx/10/dy/10)';
+      });
+      content += imgs;
+    }
     app.showLoadToast();
     wx.request({
       url: 'https://api.github.com/repos/lanshan-studio/wecqupt/issues',
-      data: data,
+      data: {
+        title: title,
+        body: content
+      },
       method: 'POST',
       header: header,
       success: function(res){

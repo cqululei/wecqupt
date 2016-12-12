@@ -20,6 +20,14 @@
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
 }
+.issues-img-panel{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15rpx 25rpx;
+}
 .issues-input{
     border-bottom: 1px solid #e5e5e5;
     padding: 15rpx 25rpx;
@@ -34,15 +42,25 @@
     align-items: center;
     justify-content: center;
     color: #888;
-    margin: 30rpx 40rpx;
-    width: 130rpx;
-    height: 130rpx;
+    margin: 20rpx;
+    margin-right: 0;
+    width: 135rpx;
+    height: 135rpx;
     border: 1rpx solid #e5e5e5;
     border-radius: 5rpx;
 }
+.issues-photo-item:active{
+    opacity: .8;
+}
+.issues-photo-item .remind-img{
+    padding: 0;
+}
+.issues-photo-item image{
+    width: 100%;
+    height: 100%;
+}
 .add-photo:active {
     background: #f0f0f0;
-    opacity: .8;
 }
 .add-photo::before, .add-photo::after{
     content: '';
