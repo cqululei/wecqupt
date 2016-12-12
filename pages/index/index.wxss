@@ -30,6 +30,9 @@
   width: 20%;
   height: 170rpx;
 }
+.main-core-item.disabled{
+  color: #9c9c9c;
+}
 .core-item-icon{
   display: block;
   width: 85rpx;
@@ -293,6 +296,7 @@
   font-weight: bold;
   line-height: 150%;
   word-wrap: break-word;
+  word-break: break-all;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;

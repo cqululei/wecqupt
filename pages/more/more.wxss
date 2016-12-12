@@ -1,6 +1,6 @@
 /**more.wxss**/
 .container{
-  background-color: #f4f4f4;
+  background-color: #f6f6f6;
   padding: 0;
 }
 .user-info, .more-btn {
@@ -110,5 +110,5 @@
   color: #fff;
   text-align: center;
   border-radius: 5px;
-  margin: 30rpx 3%;
+  margin: 40rpx 3%;
 }

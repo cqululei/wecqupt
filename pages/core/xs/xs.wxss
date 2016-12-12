@@ -1,13 +1,94 @@
 /**xs.wxss**/
 
 .container {
-
-    /*background: #f7f7f7 url('/images/core/xs/bg.png') no-repeat;*/
-    /*微信暂不支持静态bgimg文件，改用服务器url*/
-    background: #f7f7f7 url('https://we.cqu.pt/app/images/core/xs/bg.png') no-repeat;
-    background-size: 250rpx 250rpx;
-    background-position: 50% 50%;
+    background: #f7f7f7;
     padding: 0;
+}
+.container.home{
+    align-items: center;
+}
+
+/**首屏**/
+.home .xs-logo {
+    width: 180rpx;
+    height: 180rpx;
+    opacity: .9;
+    margin: 100rpx 0 75rpx;
+}
+.home .search-input{
+    position: relative;
+    display: flex;
+    width: 92%;
+    margin: 0 4%;
+    height: 75rpx;
+    box-shadow: 5rpx 5rpx 15rpx #e2e2e2;
+    transition: all .15s ease-in-out;
+}
+.home .search-input.js-fous-input{
+    box-shadow: 5rpx 5rpx 20rpx #d2d2d2;
+}
+.home .search-icon-box{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 20rpx;
+    width: 38rpx;
+    height: 38rpx;
+    margin-top: -16rpx;
+}
+.home .input-clear-button{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 115rpx;
+    padding: 15rpx;
+    margin-top: -30rpx;
+}
+.home .clear-icon{
+    width: 30rpx;
+    height: 30rpx;
+}
+.home .input-form{
+    position: relative;
+    background: #fff;
+    flex: 1;
+    display: flex;
+    height: 100%;
+    margin-right: 110rpx;
+}
+.home .input-text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    flex: 1;
+    display: flex;
+    height: 100%;
+    padding: 0 60rpx 0 70rpx;
+    font-size: 11pt;
+    line-height: 150%;
+}
+.input-placeholder {
+    color: #ccc;
+    font-size: 11pt;
+    line-height: 150%;
+}
+.home .input-confirm-button{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 75rpx;
+    width: 110rpx;
+    background: #9f8bea;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+.home .input-confirm-button:active{
+    opacity: .8;
 }
 
 /* ==========================================================================
@@ -15,24 +96,21 @@
  ============================================================================ */
 .header {
 
+    width: 100%;
     display: flex;
-    min-height: 85rpx;
-    background-color: #EFEFF4;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
 }
-/* header-search
- ============================================================================ */
-.header-search {
-
-    position: relative;
-    display: flex;
-    flex: 1;
-    background-color: #FFF;
-    overflow: hidden;
+.active .header{
+    min-height: 85rpx;
+    background-color: #fff;
+}
+.active .xs-logo{
+    display: none;
 }
 /* search-input
  ============================================================================ */
-.search-input {
+.active .search-input {
 
     position: absolute;
     z-index: 100;
@@ -40,24 +118,38 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 85rpx;
 }
-    .js-fous-input {
-        /*background: url('/images/core/xs/search-sign.png') no-repeat;*/
-        /*微信暂不支持静态bgimg文件，改用服务器url*/
-        background: url('https://we.cqu.pt/app/images/core/xs/search-sign.png') no-repeat;
-        background-size: 30rpx 30rpx;
-        background-position: 25rpx 50%;
-
+    .active .js-fous-input .search-icon-box{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20rpx;
+        height: 85rpx;
     }
-    .input-text {
+    .active .input-form {
+        flex: 1;
+        display: flex;
+        position: relative;
+        height: 85rpx;
+    }
+    .active .input-text {
         
         flex: 1;
-        padding: 0 75rpx;
+        position: absolute;
+        left: 0;
+        right: 0;
         font-size: 11pt;
+        line-height: 150%;
+        box-sizing: border-box;
+        width: 100%;
         height: 85rpx;
-        line-height: 85rpx;
+        padding-left: 70rpx;
     }
-    .input-confirm-button {
+    .active .input-clear-button{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -65,14 +157,26 @@
         height: 85rpx;
         opacity: .95;
     }
-    .input-confirm-button text{
+    .active .input-clear-button .clear-icon{
+        width: 30rpx;
+        height: 30rpx;
+    }
+    .active .input-confirm-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20rpx 0 10rpx;
+        height: 85rpx;
+        opacity: .95;
+    }
+    .active .input-confirm-button text{
         font-size: 10pt;
         background: #9f8bea;
         color: #fff;
         border-radius: 3px; 
         padding: 3rpx 15rpx;
     }
-    .input-confirm-button:active{
+    .active .input-confirm-button:active{
         opacity: .8;
     }
 /* search-state

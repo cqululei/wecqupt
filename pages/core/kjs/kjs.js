@@ -54,7 +54,8 @@ Page({
       weekNo: query.weekNo || activeData.weekNo,
       weekDay: query.weekDay || activeData.weekDay,
       classNo: that.data.DATA.CLASSTIME_DATA[query.classNo || activeData.classNo].index,
-      buildingNo: query.buildingNo || activeData.buildingNo
+      buildingNo: query.buildingNo || activeData.buildingNo,
+      openid: app._user.openid,
     };
 
     // 对成功进行处理
@@ -75,9 +76,10 @@ Page({
     // 发送请求
     wx.request({
       url: app._server + '/api/get_empty_room.php', 
-      data: requestData,
+      method: 'POST',
+      data: app.key(requestData),
       success: function(res) {
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           doSuccess(res.data.data);
           //执行回调函数
           if(bd){ bd(that); }

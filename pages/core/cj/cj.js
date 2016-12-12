@@ -18,31 +18,26 @@ Page({
   },
   onLoad: function(){
     var _this = this;
-    if(!app._user.xs.xh || !app._user.xs.xm){
+    if(!app._user.we.info.id || !app._user.we.info.name){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
     _this.setData({
-      id: app._user.xs.xh,
-      name: app._user.xs.xm
+      id: app._user.we.info.id,
+      name: app._user.we.info.name
     });
-    if(!app._user.xs.sfzh){
-      _this.setData({
-        remind: '未完善身份信息'
-      });
-      return false;
-    }
     wx.request({
       url: app._server + "/api/get_kscj.php",
-      data: {
+      method: 'POST',
+      data: app.key({
         openid: app._user.openid,
-        xh: app._user.xs.xh
-      },
+        id: app._user.we.info.id
+      }),
       success: function(res) {
 
-        if(res.data.status === 200) {
+        if(res.data && res.data.status === 200) {
           var _data = res.data.data;
 
           var term = _data[0].term;
@@ -64,7 +59,6 @@ Page({
             remind: ''
           });
         } else {
-          app.showErrorModal(res.data.message);
           _this.setData({
             remind: res.data.message || '未知错误'
           });

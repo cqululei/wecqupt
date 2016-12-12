@@ -13,7 +13,8 @@
             <view class="ks-text">
                 <text class="ks-header-title">考试安排</text>
                 <text class="ks-header-info-ksName">{{ks.ksName}}</text>
-                <text class="ks-header-info">学号：{{id}}</text>
+                <text class="ks-header-info" wx:if="{{!teacher}}">学号：{{id}}</text>
+                <text class="ks-header-info" wx:else>教师号：{{id}}</text>
                 <text class="ks-header-info">姓名：{{name}}</text>
             </view>
             <image class="ks-bg" src="/images/core/ks.png"></image>
@@ -50,9 +51,27 @@
                             <text class="ks-detail-label">地点</text>
                             <text class="ks-detail-content">{{item.room}}</text>
                         </view>
-                        <view class="ks-detail-item">
+                        <view class="ks-detail-item" wx:if="{{!teacher}}">
                             <text class="ks-detail-label">座位号</text>
                             <text class="ks-detail-content">{{item.number}}</text>
+                        </view>
+                        <block wx:else>
+                            <view class="ks-detail-item">
+                                <text class="ks-detail-label">主监考</text>
+                                <text class="ks-detail-content">{{item.main_supervisor}}</text>
+                            </view>
+                            <view class="ks-detail-item">
+                                <text class="ks-detail-label">副监考</text>
+                                <text class="ks-detail-content">{{item.supervisor?item.supervisor:'无'}}</text>
+                            </view>
+                        </block>
+                        <view class="ks-detail-item">
+                            <text class="ks-detail-label">任课教师</text>
+                            <text class="ks-detail-content">{{item.teacher?item.teacher:'无'}}</text>
+                        </view>
+                        <view class="ks-detail-item">
+                            <text class="ks-detail-label">教学班</text>
+                            <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}" class="ks-detail-content ks-jxb">{{item.class_id}}</navigator>
                         </view>
                     </view>
                 </view>

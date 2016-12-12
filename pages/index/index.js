@@ -5,16 +5,16 @@ Page({
   data: {
     remind: '加载中',
     core: [
-      { id: 'kb', name: '课表查询' },
-      { id: 'cj', name: '成绩查询' },
-      { id: 'ks', name: '考试安排' },
-      { id: 'kjs', name: '空教室' },
-      { id: 'xs', name: '学生查询' },
-      { id: 'ykt', name: '一卡通' },
-      { id: 'jy', name: '借阅信息' },
-      { id: 'xf', name: '学费信息' },
-      { id: 'sdf', name: '电费查询' },
-      { id: 'bx', name: '物业报修' }
+      { id: 'kb', name: '课表查询', disabled: false, teacher_disabled: false },
+      { id: 'cj', name: '成绩查询', disabled: false, teacher_disabled: true },
+      { id: 'ks', name: '考试安排', disabled: false, teacher_disabled: false },
+      { id: 'kjs', name: '空教室', disabled: false, teacher_disabled: false },
+      { id: 'xs', name: '学生查询', disabled: false, teacher_disabled: false },
+      { id: 'ykt', name: '一卡通', disabled: false, teacher_disabled: false },
+      { id: 'jy', name: '借阅信息', disabled: false, teacher_disabled: false },
+      { id: 'xf', name: '学费信息', disabled: false, teacher_disabled: true },
+      { id: 'sdf', name: '电费查询', disabled: false, teacher_disabled: true },
+      { id: 'bx', name: '物业报修', disabled: false, teacher_disabled: false }
     ],
     card: {
       'kb': {
@@ -61,7 +61,8 @@ Page({
         }
       }
     },
-    user: {}
+    user: {},
+    disabledItemTap: false //点击了不可用的页面
   },
   //下拉更新
   onPullDownRefresh: function(){
@@ -73,14 +74,14 @@ Page({
     var _this = this;
     function isEmptyObject(obj){ for(var key in obj){return false;} return true; }
     function isEqualObject(obj1, obj2){ if(JSON.stringify(obj1) != JSON.stringify(obj2)){return false;} return true; }
-    var l_user = this.data.user,  //本页用户数据
+    var l_user = _this.data.user,  //本页用户数据
         g_user = app._user; //全局用户数据
-    //排除第一次加载页面的情况（本页用户数据为空 或 本页用户数据与全局用户数据相等）
-    if(isEmptyObject(l_user) || isEqualObject(l_user, g_user)){
+    //排除第一次加载页面的情况（全局用户数据未加载完整 或 本页用户数据与全局用户数据相等）
+    if(!g_user.openid || isEqualObject(l_user.we, g_user.we)){
       return false;
     }
     //全局用户数据和本页用户数据不一致时，重新获取卡片数据
-    if(!isEqualObject(l_user, g_user)){
+    if(!isEqualObject(l_user.we, g_user.we)){
       //判断绑定状态
       if(!g_user.is_bind){
         _this.setData({
@@ -89,6 +90,14 @@ Page({
       }else{
         _this.setData({
           'remind': '加载中'
+        });
+        //清空数据
+        _this.setData({
+          user: app._user,
+          'card.kb.show': false,
+          'card.ykt.show': false,
+          'card.jy.show': false,
+          'card.sdf.show': false
         });
         _this.getCardData();
       }
@@ -101,9 +110,14 @@ Page({
     var _this = this;
     //如果有缓存
     if(!!app.cache){
-      _this.response();
+      try{
+        _this.response();
+      }catch(e){
+        //报错则清除缓存
+        wx.removeStorage({ key: 'cache' });
+      }
     }
-    //然后通过登录用户, 验证用户信息是否正确
+    //然后通过登录用户, 如果缓存更新将执行该回调函数
     app.getUser(_this.response);
   },
   response: function(){
@@ -114,23 +128,39 @@ Page({
         'remind': '未绑定'
       });
     }else{
+      _this.setData({
+        'remind': '加载中'
+      });
       _this.getCardData();
+    }
+  },
+  disabled_item: function(){
+    var _this = this;
+    if(!_this.data.disabledItemTap){
+      _this.setData({
+        disabledItemTap: true
+      });
+      setTimeout(function(){
+        _this.setData({
+          disabledItemTap: false
+        });
+      }, 2000);
     }
   },
   getCardData: function(){
     var _this = this;
-    _this.setData({
-      user: app._user
-    });
+    var kb_data = {
+      id: app._user.we.info.id,
+    };
+    if(app._user.teacher){ kb_data.type = 'teacher'; }
     //获取课表数据
     wx.request({
       url: app._server + '/api/get_kebiao.php',
-      data: {
-        xh: app._user.xs.xh
-      },
+      method: 'POST',
+      data: app.key(kb_data),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data,
               today = parseInt(info.day),
               lessons = info.lessons[today===0 ? 6 : today-1], //day为0表示周日(6)，day为1表示周一(0)..
@@ -162,12 +192,13 @@ Page({
     //获取一卡通数据
     wx.request({
       url: app._server + '/api/get_yktcost.php',
-      data: {
-        yktID: app._user.xs.ykth
-      },
+      method: 'POST',
+      data: app.key({
+        yktID: app._user.we.ykth
+      }),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var list = res.data.data;
           if(list.length > 0){
             var last = list[0],
@@ -198,18 +229,19 @@ Page({
         }
       }
     });
-    if(!!app._user.xs.room && !!app._user.xs.build){
+    if(!!app._user.we.room && !!app._user.we.build){
       //获取水电费数据
       wx.request({
         url: app._server + '/api/get_elec.php',
-        data: {
-          buildingNo: app._user.xs.build,
-          floor: app._user.xs.room.slice(0,1),
-          room: parseInt(app._user.xs.room.slice(1))
-        },
+        method: 'POST',
+        data: app.key({
+          buildingNo: app._user.we.build,
+          floor: app._user.we.room.slice(0,1),
+          room: parseInt(app._user.we.room.slice(1))
+        }),
         success: function(res) {
           wx.stopPullDownRefresh();
-          if(res.data.status === 200){
+          if(res.data && res.data.status === 200){
             var info = res.data.data;
             _this.setData({
               'card.sdf.data.room': info.room.split('-').join('栋'),
@@ -226,14 +258,22 @@ Page({
     //获取借阅信息
     wx.request({
       url: app._server + '/api/get_booklist.php',
-      data: {
-        id: app._user.xs.xh
-      },
+      method: 'POST',
+      data: app.key({
+        id: app._user.teacher ? app._user.we.ykth : app._user.we.info.id
+      }),
       success: function(res) {
         wx.stopPullDownRefresh();
-        if(res.data.status === 200){
+        if(res.data && res.data.status === 200){
           var info = res.data.data;
           if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
+            var nowTime = new Date().getTime();
+            info.book_list.map(function(e){
+              var oDate = e.yhrq.split('-'),
+                  oTime = new Date(oDate[0], oDate[1]-1, oDate[2]).getTime();
+              e.timing = parseInt((oTime - nowTime) / 1000 / 60 / 60 /24);
+              return e;
+            });
             _this.setData({
               'card.jy.data': info,
               'card.jy.show': true,

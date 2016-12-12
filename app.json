@@ -55,6 +55,6 @@
     }]
   },
   "networkTimeout": {
-    "request": 20000
+    "request": 15000
   }
 }
