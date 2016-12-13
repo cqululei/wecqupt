@@ -276,20 +276,19 @@ Page({
         if(res.data && res.data.status === 200) {
 
           doSuccess(res.data.data, true);
+          wx.hideToast();
         }else{
 
+          wx.hideToast();
           app.showErrorModal(res.data.message);
           doFail(res.data.message);
         }
       },
       fail: function(res) {
         
+        wx.hideToast();
         app.showErrorModal(res.errMsg);
         doFail(res.errMsg);
-      },
-      complete: function() {
-
-        wx.hideToast();
       }
     });
 
@@ -297,26 +296,14 @@ Page({
 
   // main——最优
   bindOpenList: function (e) {
+    console.log(e);
 
-    var index = isNaN(e) ? parseInt(e.currentTarget.dataset.index, 10) : e,
+    var index = parseInt(e.currentTarget.dataset.index),
         testData = this.data.testData,
-        curData = testData[ index ],
-        strObjFalse = '{"testData[' + index +'].display": false}',
-        strObjTrue = '{"testData[' + index +'].display": true}';
-    
-    strObjFalse = JSON.parse(strObjFalse);
-    strObjTrue = JSON.parse(strObjTrue);
-
-    if (curData.display) {
-      
-      curData.display = false;
-      this.setData(strObjFalse);
-    }
-    else {
-      
-      curData.display = true;
-      this.setData(strObjTrue);
-    }
+        curData = testData[index],
+        data = {};
+    data['testData['+index+'].display'] = !curData.display;
+    this.setData(data);
   },
 
   onLoad: function (options) {
