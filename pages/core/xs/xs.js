@@ -5,7 +5,7 @@ var app = getApp();
 Page({
   data: {
     header: {
-      searchChange: true, // input获取焦点的变化标识
+      defaultValue: '',
       inputValue: ''
     },
     main: {
@@ -22,36 +22,26 @@ Page({
     }
   },
 
-  // header——最优
-  bindSearchFocus: function () {
-    this.setData({
-      'header.searchChange': false
-    });
-  },
-
-  bindSearchBlur: function (e) {
-    if(!e.detail.value){
-      this.setData({
-        'header.searchChange': true
-      });
-    }
-  },
   bindClearSearchTap: function (e) {
     this.setData({
       'main.mainDisplay': true,
-      'header.inputValue': '',
-      'header.searchChange': false
+      'main.total': 0,
+      'main.sum': 0,
+      'main.page': 0,
+      'main.message': '上滑加载更多',
+      'testData': [],
+      'header.inputValue': ''
     });
   },
 
   bindSearchInput: function(e) {
     this.setData({
-      'main.mainDisplay': true,
+      'header.inputValue': e.detail.value,
       'main.total': 0,
+      'main.sum': 0,
       'main.page': 0,
       'main.message': '上滑加载更多',
-      'testData': [],
-      'header.inputValue': e.detail.value
+      'testData': []
     });
     if(!this.data.messageObj.messageDisplay){
       this.setData({
@@ -59,12 +49,17 @@ Page({
         'messageObj.message': ''
       });
     }
+    return e.detail.value;
   },
 
   // 点击搜索
   bindConfirmSearchTap: function () {
     this.setData({
-      'main.page': 0
+      'main.total': 0,
+      'main.sum': 0,
+      'main.page': 0,
+      'main.message': '上滑加载更多',
+      'testData': []
     });
     this.search();
   },
@@ -145,6 +140,7 @@ Page({
 
       numberSign = true;
     }
+    app.showLoadToast();
 
     // 处理成功返回的数据
     function doSuccess(data, messageDisplay) {
@@ -239,7 +235,7 @@ Page({
         'testData': that.data.testData.concat(reDdata),
         'main.mainDisplay': false,
         'main.total': data.total,
-        'main.sum': that.data.main.sum += data.rows.length,
+        'main.sum': that.data.main.sum + data.rows.length,
         'messageObj.messageDisplay': messageDisplay
       });
 
@@ -267,7 +263,6 @@ Page({
       'main.page': that.data.main.page + 1,
       'main.message': '正在加载中'
     });
-    app.showLoadToast();
     wx.request({
       url: app._server + '/api/get_student_info.php',
       method: 'POST',
@@ -327,12 +322,8 @@ Page({
   onLoad: function (options) {
     if(options.key){
       this.setData({
-        'main.mainDisplay': true,
-        'main.total': 0,
-        'main.page': 0,
-        'main.message': '上滑加载更多',
-        'header.searchChange': false,
-        'testData': [],
+        'main.mainDisplay': false,
+        'header.defaultValue': options.key,
         'header.inputValue': options.key
       });
       this.search();

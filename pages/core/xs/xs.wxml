@@ -5,24 +5,24 @@
   <view class="header">
     <image class="xs-logo" src="/images/core/xs.png"></image>
     <!--搜索框-->
-    <view class="search-input {{header.searchChange ? '' : 'js-fous-input'}}">
+    <view class="search-input">
       <view class="search-icon-box">
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
       </view>
-      <form class="input-form" bindsubmit="bindConfirmSearchTap">
-        <input class="input-text" value="{{header.inputValue}}" auto-focus="{{header.searchChange}}" bindfocus="bindSearchFocus" bindblur="bindSearchBlur" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+      <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
+        <input class="input-text" value="{{header.defaultValue}}" auto-focus="{{!header.defaultValue}}" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+        <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
+          <image class="clear-icon" src="/images/core/xs/clear.png"></image>
+        </button>
+        <button class="input-confirm-button" formType="submit" hover-class="none">
+          <text>搜索</text>
+        </button>
       </form>
-      <view class="input-clear-button" bindtap="bindClearSearchTap" hidden="{{header.searchChange}}">
-        <image class="clear-icon" src="/images/core/xs/clear.png"></image>
-      </view>
-      <view class="input-confirm-button" bindtap="bindConfirmSearchTap" hidden="{{header.searchChange}}">
-        <text>搜索</text>
-      </view>
     </view>
   </view>
 
   <!--页面主体部分-->
-  <view class="main" wx:if="{{!main.mainDisplay}}">
+  <view class="main" wx:if="{{main.total}}">
     <!--主体部分标题-->
     <view class="main-title">
       <text class="title-text">学生名单 （{{main.total}}人）</text>
