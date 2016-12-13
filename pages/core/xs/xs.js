@@ -240,7 +240,7 @@ Page({
       });
       wx.hideToast();
 
-      if (reDdata.length == 1) {
+      if (reDdata.length === 1) {
         that.bindOpenList(0);
       }
 
@@ -297,7 +297,7 @@ Page({
 
   // main——最优
   bindOpenList: function (e) {
-    var index = parseInt(e.currentTarget.dataset.index),
+    var index = !isNaN(e) ? e : parseInt(e.currentTarget.dataset.index),
         data = {};
     data['testData['+index+'].display'] = !this.data.testData[index].display;
     this.setData(data);
