@@ -169,7 +169,13 @@
             <text class="sdf-value">{{card.sdf.data.spend}}</text>
             <text class="sdf-text">度</text>
           </view>
-          <view class="sdf-key">
+          <view class="sdf-key" wx:if="{{card.sdf.data.cost<=0}}">
+            <text class="sdf-text">剩余</text>
+            <text class="sdf-value">{{-card.sdf.data.cost}}</text>
+            <text class="sdf-text">元</text>
+          </view>
+          <view class="sdf-key" wx:else>
+            <text class="sdf-text">用超</text>
             <text class="sdf-value">{{card.sdf.data.cost}}</text>
             <text class="sdf-text">元</text>
           </view>
