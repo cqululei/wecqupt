@@ -186,19 +186,27 @@
   border-bottom: 1px dotted #ddd;
 }
 .kb-item-left{
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  padding-right: 30rpx;
+  overflow: hidden;
 }
 .kb-item-what{
   font-size: 12pt;
   line-height: 200%;
   color: #777;
+  white-space: nowrap;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .kb-item-when{
   line-height: 125%;
   color: #bbb;
 }
 .kb-item-where{
+  flex: 0 0 auto;
   font-size: 14pt;
   color: #999;
   letter-spacing: 1px;
