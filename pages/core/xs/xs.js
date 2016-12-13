@@ -66,7 +66,7 @@ Page({
 
   // 上滑加载更多
   onReachBottom: function(){
-    if(this.data.main.message != '已全部加载'){
+    if(this.data.main.message != '已全部加载' && this.data.main.message != '正在加载中'){
       this.search();
     }
   },
@@ -140,7 +140,6 @@ Page({
 
       numberSign = true;
     }
-    app.showLoadToast();
 
     // 处理成功返回的数据
     function doSuccess(data, messageDisplay) {
@@ -236,8 +235,10 @@ Page({
         'main.mainDisplay': false,
         'main.total': data.total,
         'main.sum': that.data.main.sum + data.rows.length,
-        'messageObj.messageDisplay': messageDisplay
+        'messageObj.messageDisplay': messageDisplay,
+        'main.message': '上滑加载更多'
       });
+      wx.hideToast();
 
       if (reDdata.length == 1) {
         that.bindOpenList(0);
@@ -258,11 +259,12 @@ Page({
       
       setMessageObj(false, message);
     }
-
+    
     that.setData({
-      'main.page': that.data.main.page + 1,
-      'main.message': '正在加载中'
+      'main.message': '正在加载中',
+      'main.page': that.data.main.page + 1
     });
+    app.showLoadToast();
     wx.request({
       url: app._server + '/api/get_student_info.php',
       method: 'POST',
@@ -276,7 +278,6 @@ Page({
         if(res.data && res.data.status === 200) {
 
           doSuccess(res.data.data, true);
-          wx.hideToast();
         }else{
 
           wx.hideToast();
@@ -296,13 +297,9 @@ Page({
 
   // main——最优
   bindOpenList: function (e) {
-    console.log(e);
-
     var index = parseInt(e.currentTarget.dataset.index),
-        testData = this.data.testData,
-        curData = testData[index],
         data = {};
-    data['testData['+index+'].display'] = !curData.display;
+    data['testData['+index+'].display'] = !this.data.testData[index].display;
     this.setData(data);
   },
 
