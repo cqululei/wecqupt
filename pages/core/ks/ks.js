@@ -35,7 +35,8 @@ Page({
     });
     var data = {
       openid: app._user.openid,
-      id: app._user.we.info.id
+      // id: app._user.we.info.id
+      id: 2014212818
     };
     if(app._user.teacher){ data.type = 'teacher'; }
     wx.request({

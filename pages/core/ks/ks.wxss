@@ -64,6 +64,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding-right: 30rpx;
 }
 
 /**列表展开时标题的颜色变化 **/
@@ -72,6 +74,9 @@
     line-height: 225%;
     letter-spacing: 1px;
     transition: color .15s ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .ks-item-show .ks-hd-name {
     transition: color .15s ease-in-out;
@@ -88,6 +93,7 @@
 
 /**列表展开的icon旋转 **/
 .ks-item-icon{
+    flex-shrink: 0;
     width: 30rpx;
     height: 30rpx;
     transition: transform .2s;
