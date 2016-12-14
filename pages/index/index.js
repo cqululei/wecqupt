@@ -77,7 +77,7 @@ Page({
     var l_user = _this.data.user,  //本页用户数据
         g_user = app._user; //全局用户数据
     //排除第一次加载页面的情况（全局用户数据未加载完整 或 本页用户数据与全局用户数据相等）
-    if(!g_user.openid || isEqualObject(l_user.we, g_user.we)){
+    if(isEmptyObject(l_user) || !g_user.openid || isEqualObject(l_user.we, g_user.we)){
       return false;
     }
     //全局用户数据和本页用户数据不一致时，重新获取卡片数据
@@ -122,6 +122,9 @@ Page({
   },
   response: function(){
     var _this = this;
+    _this.setData({
+      user: app._user
+    });
     //判断绑定状态
     if(!app._user.is_bind){
       _this.setData({

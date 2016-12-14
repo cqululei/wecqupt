@@ -39,6 +39,7 @@
             <text class="desc-list-item">修复课表详情课程名有两行时会被遮住一部分的问题</text>
             <text class="desc-list-item">修复一卡通有时错位的问题</text>
             <text class="desc-list-item">修复了无法报修及报修列表无法即时更新的问题</text>
+            <text class="desc-list-item">修复了学生查询的一些问题</text>
           </view>
           <text class="desc-content">优化完善</text>
           <view class="desc-list">
