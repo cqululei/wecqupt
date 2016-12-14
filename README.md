@@ -14,6 +14,20 @@ We重邮
 
 更多截图见：https://github.com/lanshan-studio/wecqupt/issues/196
 
+---
+
+## 开源许可证 License AGPLv3
+
+> 开源是一种精神，We重邮微信小程序的开源更是蓝山工作室的一种进步
+> 
+> 开源是自由的，而不是免费的；Free(自由) is not free(免费)。 
+
+请认真阅读并遵守以下开源协议
+
+`AGPLv3` [GNU Affero General Public License v3.0](https://github.com/lanshan-studio/wecqupt/blob/master/LICENSE)
+
+---
+
 ## 版本日志
 
 > 版本号命名规则 vX.Y.Z
@@ -83,4 +97,4 @@ wecqupt
 
 更多详见wiki：[开发记录/开发须知](https://github.com/lanshan-studio/wecqupt/wiki)
 
-> @ 蓝山工作室 https://lanshan.studio
+> @ 重庆邮电大学 - 蓝山工作室 https://lanshan.studio
