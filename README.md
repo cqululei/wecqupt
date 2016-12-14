@@ -26,6 +26,8 @@ We重邮
 
 `AGPLv3` [GNU Affero General Public License v3.0](https://github.com/lanshan-studio/wecqupt/blob/master/LICENSE)
 
+此外，We重邮代码仅作学习微信小程序所用，版权归蓝山工作室所用，禁止私用，违者必究
+
 ---
 
 ## 版本日志
