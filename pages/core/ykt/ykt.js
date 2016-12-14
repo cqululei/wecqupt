@@ -339,7 +339,9 @@ Page({
   // 切换视图
   switchBtn: function(e) {
       var id = e.target.id;
-      if(!id){ return false; }
+      if(!id || (id=='balance'&&this.data.switchBtn) || (id=='cost'&&!this.data.switchBtn)){
+          return false;
+      }
       var context = this.data.options.context;
       context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
       this.drawLineXY(this.data.options, this.data[id+'Arr']);
