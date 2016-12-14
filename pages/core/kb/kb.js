@@ -85,9 +85,9 @@ Page({
   onReady: function(){
     var _this = this;
     //查询其他人课表时显示
-    if(_this.data.xm){
+    if(_this.data.name){
       wx.setNavigationBarTitle({
-        title: _this.data.xm+'的课表'
+        title: _this.data.name+'的课表'
       });
     }
   },

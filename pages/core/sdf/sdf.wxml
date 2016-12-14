@@ -32,17 +32,37 @@
                 </view>
             </view>
             <view class="chargeInfo-cost chargeInfo-model result-model">
-                <text class="chargeInfo-model-title">当月电费</text>
-                <view class="chargeInfo-model-info">
-                    <text class="model-info">{{renderData.elec_cost}}</text>元
-                </view>
+                <block wx:if="{{renderData.elec_cost<=0}}">
+                    <text class="chargeInfo-model-title">免费额度剩余</text>
+                    <view class="chargeInfo-model-info">
+                        <text class="model-info">{{-renderData.elec_cost}}</text>元
+                    </view>
+                </block>
+                <block wx:else>
+                    <text class="chargeInfo-model-title">当月电费用超</text>
+                    <view class="chargeInfo-model-info">
+                        <text class="model-info">{{renderData.elec_cost}}</text>元
+                    </view>
+                </block>
             </view>
         </view>
         <!--result-specificInfo-->
         <view class="result-specificInfo result-model">
-            <view class="specificInfo-item"><text>电起度</text><text class="specificInfo-item-value">{{renderData.elec_start}} 度</text></view>
-            <view class="specificInfo-item"><text>电止度</text><text class="specificInfo-item-value">{{renderData.elec_end}} 度</text></view>
-            <view class="specificInfo-item"><text>当月免费电量</text><text class="specificInfo-item-value">{{renderData.elec_free}} 度</text></view>
+            <view class="specificInfo-item">
+                <text class="specificInfo-item-label">电起度</text>
+                <text class="specificInfo-item-value">{{renderData.elec_start}}</text>
+                <text>度</text>
+            </view>
+            <view class="specificInfo-item">
+                <text class="specificInfo-item-label">电止度</text>
+                <text class="specificInfo-item-value">{{renderData.elec_end}}</text>
+                <text>度</text>
+            </view>
+            <view class="specificInfo-item">
+                <text class="specificInfo-item-label">每月免费电量</text>
+                <text class="specificInfo-item-value">{{renderData.elec_free}}</text>
+                <text>度</text>
+            </view>
         </view>
         <image class="sdf-bg" mode="aspectFit" src="/images/core/sdf/sdf-bg.png"></image>
     </view>

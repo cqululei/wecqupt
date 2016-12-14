@@ -5,7 +5,7 @@ var app = getApp();
 Page({
   data: {
     header: {
-      searchChange: true, // input获取焦点的变化标识
+      defaultValue: '',
       inputValue: ''
     },
     main: {
@@ -22,36 +22,26 @@ Page({
     }
   },
 
-  // header——最优
-  bindSearchFocus: function () {
-    this.setData({
-      'header.searchChange': false
-    });
-  },
-
-  bindSearchBlur: function (e) {
-    if(!e.detail.value){
-      this.setData({
-        'header.searchChange': true
-      });
-    }
-  },
   bindClearSearchTap: function (e) {
     this.setData({
       'main.mainDisplay': true,
-      'header.inputValue': '',
-      'header.searchChange': false
+      'main.total': 0,
+      'main.sum': 0,
+      'main.page': 0,
+      'main.message': '上滑加载更多',
+      'testData': [],
+      'header.inputValue': ''
     });
   },
 
   bindSearchInput: function(e) {
     this.setData({
-      'main.mainDisplay': true,
+      'header.inputValue': e.detail.value,
       'main.total': 0,
+      'main.sum': 0,
       'main.page': 0,
       'main.message': '上滑加载更多',
-      'testData': [],
-      'header.inputValue': e.detail.value
+      'testData': []
     });
     if(!this.data.messageObj.messageDisplay){
       this.setData({
@@ -59,19 +49,24 @@ Page({
         'messageObj.message': ''
       });
     }
+    return e.detail.value;
   },
 
   // 点击搜索
   bindConfirmSearchTap: function () {
     this.setData({
-      'main.page': 0
+      'main.total': 0,
+      'main.sum': 0,
+      'main.page': 0,
+      'main.message': '上滑加载更多',
+      'testData': []
     });
     this.search();
   },
 
   // 上滑加载更多
   onReachBottom: function(){
-    if(this.data.main.message != '已全部加载'){
+    if(this.data.main.message != '已全部加载' && this.data.main.message != '正在加载中'){
       this.search();
     }
   },
@@ -239,11 +234,13 @@ Page({
         'testData': that.data.testData.concat(reDdata),
         'main.mainDisplay': false,
         'main.total': data.total,
-        'main.sum': that.data.main.sum += data.rows.length,
-        'messageObj.messageDisplay': messageDisplay
+        'main.sum': that.data.main.sum + data.rows.length,
+        'messageObj.messageDisplay': messageDisplay,
+        'main.message': '上滑加载更多'
       });
+      wx.hideToast();
 
-      if (reDdata.length == 1) {
+      if (reDdata.length === 1) {
         that.bindOpenList(0);
       }
 
@@ -262,10 +259,10 @@ Page({
       
       setMessageObj(false, message);
     }
-
+    
     that.setData({
-      'main.page': that.data.main.page + 1,
-      'main.message': '正在加载中'
+      'main.message': '正在加载中',
+      'main.page': that.data.main.page + 1
     });
     app.showLoadToast();
     wx.request({
@@ -283,18 +280,16 @@ Page({
           doSuccess(res.data.data, true);
         }else{
 
+          wx.hideToast();
           app.showErrorModal(res.data.message);
           doFail(res.data.message);
         }
       },
       fail: function(res) {
         
+        wx.hideToast();
         app.showErrorModal(res.errMsg);
         doFail(res.errMsg);
-      },
-      complete: function() {
-
-        wx.hideToast();
       }
     });
 
@@ -302,37 +297,17 @@ Page({
 
   // main——最优
   bindOpenList: function (e) {
-
-    var index = isNaN(e) ? parseInt(e.currentTarget.dataset.index, 10) : e,
-        testData = this.data.testData,
-        curData = testData[ index ],
-        strObjFalse = '{"testData[' + index +'].display": false}',
-        strObjTrue = '{"testData[' + index +'].display": true}';
-    
-    strObjFalse = JSON.parse(strObjFalse);
-    strObjTrue = JSON.parse(strObjTrue);
-
-    if (curData.display) {
-      
-      curData.display = false;
-      this.setData(strObjFalse);
-    }
-    else {
-      
-      curData.display = true;
-      this.setData(strObjTrue);
-    }
+    var index = !isNaN(e) ? e : parseInt(e.currentTarget.dataset.index),
+        data = {};
+    data['testData['+index+'].display'] = !this.data.testData[index].display;
+    this.setData(data);
   },
 
   onLoad: function (options) {
     if(options.key){
       this.setData({
-        'main.mainDisplay': true,
-        'main.total': 0,
-        'main.page': 0,
-        'main.message': '上滑加载更多',
-        'header.searchChange': false,
-        'testData': [],
+        'main.mainDisplay': false,
+        'header.defaultValue': options.key,
         'header.inputValue': options.key
       });
       this.search();
