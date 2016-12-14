@@ -2,7 +2,7 @@
 <view class="container">
   <!--新闻分类-->
   <scroll-view class="filter" scroll-x="true">
-    <block wx:for="{{list}}" wx:key="id">
+    <block wx:for="{{list}}" wx:key="id" wx:if="{{item.enabled[user_type]}}">
       <image class="filter-item" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilter" src="/images/news/{{item.type + (active.type === item.type ? '@colour.png' : '@gray.png')}}"></image>
     </block>
   </scroll-view>
