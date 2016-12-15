@@ -5,12 +5,12 @@ Page({
   data: {
     page: 0,
     list: [
-      { id: 0, 'type': 'all', name: '头条',storage:[], url: 'get_newslist.php' },
-      { id: 1, 'type': 'jw', name: '教务公告',storage:[], url: 'news/jw_list.php' },
-      { id: 2, 'type': 'oa', name: 'OA公告',storage:[], url: 'news/oa_list.php' },
-      { id: 3, 'type': 'hy', name: '会议通知',storage:[], url: 'news/hy_list.php' },
-      { id: 4, 'type': 'jz', name: '学术讲座',storage:[], url: 'news/jz_list.php' },
-      { id: 5, 'type': 'new', name: '综合新闻',storage:[], url: 'news/new_list.php' },
+      { id: 0, 'type': 'all', name: '头条',storage:[], url: 'get_newslist.php', enabled: {guest:false, student:true, teacher:true} },
+      { id: 1, 'type': 'jw', name: '教务公告',storage:[], url: 'news/jw_list.php', enabled: {guest:false, student:true, teacher:true} },
+      { id: 2, 'type': 'oa', name: 'OA公告',storage:[], url: 'news/oa_list.php', enabled: {guest:false, student:true, teacher:true} },
+      { id: 3, 'type': 'hy', name: '会议通知',storage:[], url: 'news/hy_list.php', enabled: {guest:false, student:false, teacher:true} },
+      { id: 4, 'type': 'jz', name: '学术讲座',storage:[], url: 'news/jz_list.php', enabled: {guest:true, student:true, teacher:true} },
+      { id: 5, 'type': 'new', name: '综合新闻',storage:[], url: 'news/new_list.php', enabled: {guest:true, student:true, teacher:true} },
     ],
     'active': {
       id: 0,
@@ -19,10 +19,22 @@ Page({
       showMore: true,
       remind: '上滑加载更多'
     },
-    loading: false
+    loading: false,
+    user_type: 'guest'
   },
   onLoad: function(){
-    
+    if(app._user.is_bind){
+      this.setData({
+        user_type: !app._user.teacher ? 'student' : 'teacher'
+      });
+    }else{
+      this.setData({
+        'active': {
+          id: 5,
+          'type': 'new'
+        }
+      });
+    }
   },
   //下拉更新
   onPullDownRefresh: function(){
@@ -66,7 +78,8 @@ Page({
     wx.request({
       url: app._server + '/api/' + _this.data.list[typeId].url,
       data: {
-        page: _this.data.page + 1
+        page: _this.data.page + 1,
+        openid: app._user.openid
       },
       success: function(res){
         if(res.data && res.data.status === 200){
