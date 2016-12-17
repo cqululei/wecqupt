@@ -23,17 +23,15 @@ Page({
     user_type: 'guest',
     disabledRemind: false
   },
-  onLoad: function(){
+  onShow: function(){
     if(app._user.is_bind){
       this.setData({
         user_type: !app._user.teacher ? 'student' : 'teacher'
       });
     }else{
       this.setData({
-        'active': {
-          id: 5,
-          'type': 'new'
-        }
+        'active.id': 5,
+        'active.type': 'new'
       });
     }
   },
