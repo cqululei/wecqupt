@@ -39,8 +39,8 @@ Page({
   //下拉更新
   onPullDownRefresh: function(){
     var _this = this;
-    _this.data.loading = true;
     _this.setData({
+      'loading': true,
       'active.data': [],
       'active.showMore': true,
       'active.remind': '上滑加载更多',
@@ -132,7 +132,9 @@ Page({
       complete: function(){
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
-        _this.data.loading = false; 
+        _this.setData({
+          loading: false
+        });
       }
     });
   },

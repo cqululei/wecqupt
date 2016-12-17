@@ -10,7 +10,7 @@
   <!--新闻列表-->
   <view class="content">
     <view class="loader">
-      <image src="/images/index/loading.gif" wx-if="loading"></image>
+      <image src="/images/index/loading.gif" wx-if="{{loading}}"></image>
     </view>
     <block wx:for="{{active.data}}" wx:key="item.articleid">
       <navigator url="/pages/news/{{item.type}}/{{item.type}}_detail?type={{item.type}}&id={{item.articleid}}">

@@ -116,6 +116,9 @@ button::after{
     align-items: center;
 }
 .active .header{
+    position: fixed;
+    top: 0;
+    left: 0;
     min-height: 85rpx;
     background-color: #fff;
 }
@@ -244,6 +247,7 @@ button::after{
     width: 100%;
     flex-flow: column nowrap;
     overflow: hidden;
+    margin-top: 85rpx;
  }
   /* main-title
  ============================================================================ */
