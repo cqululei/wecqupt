@@ -20,7 +20,8 @@ Page({
       remind: '上滑加载更多'
     },
     loading: false,
-    user_type: 'guest'
+    user_type: 'guest',
+    disabledRemind: false
   },
   onLoad: function(){
     if(app._user.is_bind){
@@ -151,5 +152,19 @@ Page({
       'page': 0
     });
     this.getNewsList(e.target.dataset.id);
+  },
+  //无权限查询
+  changeFilterDisabled: function(){
+    var _this = this;
+    if(!_this.data.disabledRemind){
+      _this.setData({
+        disabledRemind: true
+      });
+      setTimeout(function(){
+        _this.setData({
+          disabledRemind: false
+        });
+      }, 2000);
+    }
   }
 });
