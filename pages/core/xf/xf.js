@@ -37,7 +37,7 @@ Page({
           for (var i = 0, len = list.length; i < len; ++i) {
             list[i].open = false;
           }
-
+          list[0].open = true;
           _this.setData({
             remind: '',
             xfData: list,

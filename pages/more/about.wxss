@@ -11,18 +11,16 @@
     text-align: center;
     box-sizing: border-box;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.header text{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+.header .title{
+    position: relative;
+    width: 600rpx;
+    height: 200rpx;
     z-index: 3;
-    font-size: 50pt;
-    line-height: 400rpx;
-    white-space: 2px;
-    text-align: center;
-    color: #fff;
+    opacity: .95;
 }
 .black-cover{
     position: absolute;
@@ -32,7 +30,7 @@
     width: 100%;
     height: 100%;
     background: #888;
-    opacity: .15;
+    opacity: .18;
 }
 .logo{
     position: absolute;

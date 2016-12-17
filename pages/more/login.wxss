@@ -16,7 +16,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding-bottom: 400rpx;
+  padding-bottom: 450rpx;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(244,244,244,0)), color-stop(0.1, #f4f4f4), to(#f4f4f4));
   opacity: 0;
   transform: translate3d(0,100%,0);
@@ -25,7 +25,21 @@
 @keyframes rise{
   0% {opacity: 0;transform: translate3d(0,100%,0);}
   50% {opacity: 1;}
-  100% {opacity: 1;transform: translate3d(0,400rpx,0);}
+  100% {opacity: 1;transform: translate3d(0,450rpx,0);}
+}
+.title{
+  position: absolute;
+  top: 30rpx;
+  left: 50%;
+  width: 600rpx;
+  height: 200rpx;
+  margin-left: -300rpx;
+  opacity: 0;
+  animation: show 2.5s cubic-bezier(0.19, 1, 0.22, 1) .5s forwards;
+}
+@keyframes show{
+  0% {opacity: 0;}
+  100% {opacity: .95;}
 }
 
 .hd {

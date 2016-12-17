@@ -20,27 +20,26 @@ Page({
       remind: '上滑加载更多'
     },
     loading: false,
-    user_type: 'guest'
+    user_type: 'guest',
+    disabledRemind: false
   },
-  onLoad: function(){
+  onShow: function(){
     if(app._user.is_bind){
       this.setData({
         user_type: !app._user.teacher ? 'student' : 'teacher'
       });
     }else{
       this.setData({
-        'active': {
-          id: 5,
-          'type': 'new'
-        }
+        'active.id': 5,
+        'active.type': 'new'
       });
     }
   },
   //下拉更新
   onPullDownRefresh: function(){
     var _this = this;
-    _this.data.loading = true;
     _this.setData({
+      'loading': true,
       'active.data': [],
       'active.showMore': true,
       'active.remind': '上滑加载更多',
@@ -132,7 +131,9 @@ Page({
       complete: function(){
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
-        _this.data.loading = false; 
+        _this.setData({
+          loading: false
+        });
       }
     });
   },
@@ -149,5 +150,19 @@ Page({
       'page': 0
     });
     this.getNewsList(e.target.dataset.id);
+  },
+  //无权限查询
+  changeFilterDisabled: function(){
+    var _this = this;
+    if(!_this.data.disabledRemind){
+      _this.setData({
+        disabledRemind: true
+      });
+      setTimeout(function(){
+        _this.setData({
+          disabledRemind: false
+        });
+      }, 2000);
+    }
   }
 });
