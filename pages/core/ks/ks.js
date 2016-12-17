@@ -63,7 +63,7 @@ Page({
               list[i].countdown = '还有' + list[i].days + '天考试';
               list[i].place = '（'+list[i].time+'）'+list[i].room;
               if(!app._user.teacher){
-                list[i].place += '@'+list[i].number; 
+                list[i].place += '#'+list[i].number; 
               }
             }else if(list[i].days < 0){
               list[i].countdown = '考试已过了' + (-list[i].days) + '天';
@@ -72,7 +72,7 @@ Page({
               list[i].countdown = '今天考试';
               list[i].place = '（'+list[i].time+'）'+list[i].room; 
               if(!app._user.teacher){
-                list[i].place += '@'+list[i].number; 
+                list[i].place += '#'+list[i].number; 
               }
             }
           }

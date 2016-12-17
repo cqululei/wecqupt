@@ -3,14 +3,14 @@
   <view class="header">
     <view class="black-cover"></view>
     <image class="logo" src="/images/more/logo.png"></image>
-    <text>We重邮</text>
+    <image class="title" src="/images/more/title.png"></image>
   </view>
   <view class="content">
     <view class="version">
       <view class="version-title">
         <text class="title-name">We重邮</text>
-        <text class="version-text">v0.0.8</text>
-        <text class="version-text">内测</text>
+        <text class="version-text">v0.0.9</text>
+        <text class="version-text">公测</text>
       </view>
       <view bindtap="toggleLog">
         <text class="version-log-link" wx:if="{{!showLog}}">更新日志</text> 
@@ -28,6 +28,21 @@
         <text class="desc-content">We重邮更是/更有... （搜人利器、点名神器、一卡通消费、学费信息、最好用的课表...）</text>
     </view>
     <view class="log-list" wx:else>
+      <view class="describe">
+          <view class="desc-title">
+            <text class="desc-v">v0.0.9 公测先行版</text>
+            <text class="desc-time">2016.12.17</text>
+          </view>
+          <text class="desc-content">修复BUG</text>
+          <text class="desc-content">优化完善</text>
+          <view class="desc-list">
+            <text class="desc-list-item">资讯设置权限，不同用户群体可访问不同类别，学生不再能访问会议通知</text>
+            <text class="desc-list-item">考试安排去掉了没有用处的教学班项</text>
+            <text class="desc-list-item">物业报修新增历史报修数，以及服务申报按钮优化</text>
+            <text class="desc-list-item">绑定、完善信息、关于新增"We重邮"字体图片</text>
+            <text class="desc-list-item">更多其他细节优化</text>
+          </view>
+      </view>
       <view class="describe">
           <view class="desc-title">
             <text class="desc-v">v0.0.8 内测版</text>

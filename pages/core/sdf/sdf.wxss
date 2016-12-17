@@ -98,9 +98,9 @@
 
                 color: #777;
                 font-weight: bold;
-                font-size: 35pt;
-                line-height: 100%;
-                padding: 0 10rpx 0 20rpx;
+                font-size: 40pt;
+                line-height: 120%;
+                padding: 0 15rpx 0 20rpx;
             }
 
 .result-specificInfo {
@@ -118,7 +118,7 @@
     }
     .specificInfo-item-value{
         
-        color: #999;
+        color: #888;
         font-weight: bold;
         font-size: 12pt;
         margin-right: 10rpx;
