@@ -164,26 +164,30 @@ Page({
   submitApply: function(e) {
     var _this = this,
         formData = _this.data.formData;
+    // 验证表单
+    if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
+      app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
+      return false;
+    }
+    if(!formData.Phone || !formData.Address){
+      app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
+      return false;
+    }
+    if(formData.Phone.length !== 11){
+      app.showErrorModal('联系方式有误', '提交失败');
+      return false;
+    }
+    if(!formData.Title){
+      app.showErrorModal('请填写报修标题', '提交失败');
+      return false;
+    }
     wx.showModal({
       title: '提示',
       content: '是否确认提交申请？',
       success: function(res) {
         if (res.confirm) {
-          // 验证表单
-          if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
-            app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
-            return false;
-          }
-          if(!formData.Phone || !formData.Address){
-            app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
-            return false;
-          }
-          if(!formData.Title || !formData.Content){
-            app.showErrorModal('请填写报修标题及内容', '提交失败');
-            return false;
-          }
-          if(formData.Phone.length !== 11){
-            app.showErrorModal('联系方式有误', '提交失败');
+          if(!formData.Content){
+            app.showErrorModal('请填写报修内容', '提交失败');
             return false;
           }
           formData.openid = app._user.openid;

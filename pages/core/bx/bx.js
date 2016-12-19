@@ -4,6 +4,10 @@ var app = getApp();
 Page({
   data: {
     remind: '加载中',
+    count: {
+      num: 0,
+      history: 0
+    },
     list: [],
     process_state: {
       '未审核': 'waited',
@@ -52,6 +56,7 @@ Page({
             }
             that.setData({
               'list': list,
+              'count.history': len,
               'remind': ''
             });
           }

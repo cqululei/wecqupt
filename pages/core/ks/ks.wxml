@@ -64,15 +64,11 @@
                                 <text class="ks-detail-label">副监考</text>
                                 <text class="ks-detail-content">{{item.supervisor?item.supervisor:'无'}}</text>
                             </view>
-                            <view class="ks-detail-item">
-                                <text class="ks-detail-label">任课教师</text>
-                                <text class="ks-detail-content">{{item.teacher}}</text>
-                            </view>
-                            <view class="ks-detail-item">
-                                <text class="ks-detail-label">教学班</text>
-                                <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}" class="ks-detail-content ks-jxb">{{item.class_id}}</navigator>
-                            </view>
                         </block>
+                        <view class="ks-detail-item">
+                            <text class="ks-detail-label">任课教师</text>
+                            <text class="ks-detail-content">{{item.teacher?item.teacher:'无'}}</text>
+                        </view>
                     </view>
                 </view>
             </block>

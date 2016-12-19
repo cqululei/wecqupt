@@ -10,7 +10,7 @@
     <block wx:else>
 
         <!-- 主体 -->
-        <scroll-view class="main-box {{blur?'main-box-active':''}}" catchscroll="scrollYHandle" scroll-y="true" scroll-top="{{scroll.top}}">
+        <view class="main-box {{blur?'main-box-active':''}}">
             <!-- 左边课数，34节和78节marginBottom为12rpx，其他均为8rpx，课程卡片与这相同 -->
             <view class="kb-num-ctn blur-area {{blur?'blur kb-num-ctn-hide':''}}">
                 <view class="kb-mon kb-date">
@@ -107,7 +107,7 @@
                 </view> 
 
             </scroll-view>        
-        </scroll-view>
+        </view>
 
         <!-- 底部 -->
         <view class="kb-info-ctn {{blur?'kb-info-ctn-open':''}}">

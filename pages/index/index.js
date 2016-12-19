@@ -77,7 +77,7 @@ Page({
     var l_user = _this.data.user,  //本页用户数据
         g_user = app._user; //全局用户数据
     //排除第一次加载页面的情况（全局用户数据未加载完整 或 本页用户数据与全局用户数据相等）
-    if(!g_user.openid || isEqualObject(l_user.we, g_user.we)){
+    if(isEmptyObject(l_user) || !g_user.openid || isEqualObject(l_user.we, g_user.we)){
       return false;
     }
     //全局用户数据和本页用户数据不一致时，重新获取卡片数据
@@ -90,6 +90,14 @@ Page({
       }else{
         _this.setData({
           'remind': '加载中'
+        });
+        //清空数据
+        _this.setData({
+          user: app._user,
+          'card.kb.show': false,
+          'card.ykt.show': false,
+          'card.jy.show': false,
+          'card.sdf.show': false
         });
         _this.getCardData();
       }
@@ -114,12 +122,18 @@ Page({
   },
   response: function(){
     var _this = this;
+    _this.setData({
+      user: app._user
+    });
     //判断绑定状态
     if(!app._user.is_bind){
       _this.setData({
         'remind': '未绑定'
       });
     }else{
+      _this.setData({
+        'remind': '加载中'
+      });
       _this.getCardData();
     }
   },
@@ -138,15 +152,6 @@ Page({
   },
   getCardData: function(){
     var _this = this;
-    _this.setData({
-      user: app._user,
-      'kb.data': {},
-      'ykt.data': { 'last_time': '', 'balance': 0, 'cost_status': false,
-          'today_cost': { value: [], total: 0 }
-        },
-      'jy.data': {},
-      'sdf.data': { 'room': '', 'record_time': '', 'cost': 0, 'spend': 0 }
-    });
     var kb_data = {
       id: app._user.we.info.id,
     };

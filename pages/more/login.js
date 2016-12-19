@@ -47,6 +47,11 @@ Page({
       success: function(res){
         if(res.data && res.data.status === 200){
           app.showLoadToast('请稍候');
+          //清除缓存
+          if(app.cache){
+            wx.removeStorage({ key: 'cache' });
+            app.cache = '';
+          }
           app.getUser(function(){
             wx.showToast({
               title: '绑定成功',

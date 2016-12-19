@@ -97,7 +97,7 @@ module.exports.ipage = {
       confirmText: '继续',
       success: function(res) {
         if (res.confirm) {
-          app.showLoadToast('下载中，请稍候...');
+          app.showLoadToast('下载中，请稍候');
           wx.showNavigationBarLoading();
           _this.setData({
             file_loading: true

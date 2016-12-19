@@ -58,6 +58,7 @@ App({
                   //清除缓存
                   if(_this.cache){
                     wx.removeStorage({ key: 'cache' });
+                    _this.cache = '';
                   }
                 }
               },
@@ -65,6 +66,7 @@ App({
                 //清除缓存
                 if(_this.cache){
                   wx.removeStorage({ key: 'cache' });
+                  _this.cache = '';
                 }
               }
             });
