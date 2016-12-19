@@ -23,6 +23,9 @@ Page({
     user_type: 'guest',
     disabledRemind: false
   },
+  onLoad: function(){
+    this.getNewsList();
+  },
   onShow: function(){
     if(app._user.is_bind){
       this.setData({
@@ -30,9 +33,11 @@ Page({
       });
     }else{
       this.setData({
+        user_type: 'guest',
         'active.id': 5,
         'active.type': 'new'
       });
+      this.getNewsList();
     }
   },
   //下拉更新
