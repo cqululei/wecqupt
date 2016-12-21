@@ -23,9 +23,15 @@
           <text class="desc-list-item">官网：https://we.cqu.pt、http://we.cqupt.edu.cn</text>
           <text class="desc-list-item">Github：https://github.com/lanshan-studio/wecqupt</text>
         </view>
-        <text class="desc-content">We重邮是一个微信小程序，是有别于订阅号/服务号的一种全新的连接用户与服务的方式，可以在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
-        <text class="desc-content">We重邮是碎片式信息一体化校园移动门户，适用于学生和教师，集课表、成绩、考试、空教室、学生、一卡通、借阅、学费、电费、报修、公告等各功能于一身。</text>
-        <text class="desc-content">We重邮更是/更有... （搜人利器、点名神器、一卡通消费、学费信息、最好用的课表...）</text>
+        <text class="desc-content">We重邮是由蓝山工作室出品的一个微信小程序，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
+        <text class="desc-content">We重邮是是碎片化、一站式、一体化校园移动门户，适用于学生和教师，集课表、成绩、考试、空教室、学生查询、一卡通、借阅、学费、电费、报修、公告等功能于一身。</text>
+        <text class="desc-content">We重邮有更好用的课表查询，本周视图、学期视图、对应日期及时钟轴，清晰明了。</text>
+        <text class="desc-content">We重邮有更方便的考试安排，帮你折算出考试周对应的日期，以及考试时间倒计时，一目了然。</text>
+        <text class="desc-content">We重邮有更强大的学生查询，搜人利器，通过模糊查询姓名、学号、班级就可以搜索到学生的学院、专业、课表等基本信息，适合于查同学课表以及寻找失主。</text>
+        <text class="desc-content">We重邮也是老师的点名神器，通过课表即可查询教学班学生名单，再也不用担心忘记带学生名单，点名方便快捷。（逃</text>
+        <text class="desc-content">We重邮还是校园生活助手与管家，一卡通余额及消费、寝室电费，一览无余，让同学们更合理安排生活费，此外还有校园物业服务申报，随叫随到。</text>
+        <text class="desc-content">We重邮更是个百事通，校内头条、教务公告、OA公告、会议通知、学术讲座、综合新闻等，随时随地即能了解校园动态，还能预览与下载附件，掌上办公，指日可待。</text>
+        <text class="desc-content">We重邮更是/更有... （期待您的发现）</text>
     </view>
     <view class="log-list" wx:else>
       <view class="describe">
