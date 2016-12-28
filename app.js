@@ -68,6 +68,7 @@ App({
                   wx.removeStorage({ key: 'cache' });
                   _this.cache = '';
                 }
+                console.warn(res.errMsg);
               }
             });
           });
@@ -112,6 +113,7 @@ App({
     wx.showToast({
       title: title || '加载中',
       icon: 'loading',
+      mask: true,
       duration: duration || 10000
     });
   },

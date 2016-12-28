@@ -94,8 +94,9 @@ Page({
                     balanceArr: balanceArr
                 });
 
-                //canvas 
-                var context = wx.createContext();
+                //canvas 创建上下文
+                var context = wx.createCanvasContext('firstCanvas');
+                // 配置
                 var options = {
                     canvasWidth: canvasWidth,         // 矩形宽度
                     canvasHeight: canvasHeight,       // 矩形高度
@@ -111,7 +112,6 @@ Page({
                 _this.setData({
                     options: options
                 });
-                context.clearRect(0, 0, canvasWidth, canvasHeight);
 
                 /*
                 * 绘制横轴&纵轴&网格线
@@ -122,17 +122,12 @@ Page({
                 * 描点连线
                 */
                 _this.drawPointLine(_this.data.options, _this.data.switchArr);
+
+                context.draw();
+                _this.setData({
+                    canvas_remind: ''
+                });
                 
-                setTimeout(function(){
-                    wx.drawCanvas({
-                        canvasId: "firstCanvas",
-                        actions: context.getActions(), // 获取绘图动作数组
-                        reserve: true,
-                    });
-                    _this.setData({
-                      canvas_remind: ''
-                    });
-                }, 500);
               } else {
                 _this.setData({
                     remind: res.data.message || '未知错误'
@@ -343,15 +338,10 @@ Page({
           return false;
       }
       var context = this.data.options.context;
-      context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
       this.drawLineXY(this.data.options, this.data[id+'Arr']);
       this.drawPointLine(this.data.options, this.data[id+'Arr']);
         
-      wx.drawCanvas({
-          canvasId: "firstCanvas",
-          actions: context.getActions(),
-          reverse: true
-      });
+      context.draw();
       this.setData({
           switchBtn: !this.data.switchBtn
       });

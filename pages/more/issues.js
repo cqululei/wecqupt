@@ -10,7 +10,8 @@ Page({
     imgLen: 0,
     upload: false,
     uploading: false,
-    qiniu: ''
+    qiniu: '',
+    showError: false
   },
   onLoad: function(){
     var _this = this;
@@ -22,7 +23,7 @@ Page({
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
         }
         info += '\r\n手机型号：' + res.model;
-        info += '（' +res.windowWidth+'x'+res.windowHeight+ '）';
+        info += '（'+res.platform+' - '+res.windowWidth+'x'+res.windowHeight+ '）';
         info += '\r\n微信版本号：' + res.version;
         _this.setData({
           info: info
@@ -70,7 +71,7 @@ Page({
               var tempFilePaths = res.tempFilePaths, imgLen = tempFilePaths.length;
               _this.setData({
                 uploading: true,
-                imgLen: imgLen
+                imgLen: _this.data.imgLen + imgLen
               });
               tempFilePaths.forEach(function(e){
                 _this.uploadImg(e);
@@ -128,12 +129,10 @@ Page({
   },
   submit: function(){
     var _this = this, title = '', content = '', imgs = '';
-    if(_this.data.uploading){
-      app.showErrorModal('正在上传图片', '提交失败');
-      return false;
-    }
-    if(!_this.data.title){
-      app.showErrorModal('请输入反馈标题', '提交失败');
+    _this.setData({
+      showError: true
+    });
+    if(_this.data.uploading || !_this.data.title || !_this.data.content){
       return false;
     }
     wx.showModal({
@@ -141,10 +140,6 @@ Page({
       content: '是否确认提交反馈？',
       success: function(res) {
         if (res.confirm) {
-          if(!_this.data.content){
-            app.showErrorModal('请输入反馈内容', '提交失败');
-            return false;
-          }
           title = '【' + app._user.wx.nickName + '】' + _this.data.title;
           content = _this.data.content + '\r\n\r\n' + _this.data.info;
           if(_this.data.imgLen){

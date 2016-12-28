@@ -120,7 +120,7 @@
                         <view class="kb-swiper-mask-left" data-target="week" data-direction="left" bindtap="swiperChangeBtn">
                             <image src="/images/core/common/left_g.png"></image>
                         </view>
-                        <swiper class="kb-week-swiper" bindchange="currentChange" current="{{week-1}}" duration="300">
+                        <swiper circular="{{true}}" class="kb-week-swiper" bindchange="currentChange" current="{{week-1}}" duration="300">
                             <block wx:for="{{_weeks}}" wx:key="{{index}}">
                                 <swiper-item class="kb-week-swiper-item">
                                     <text class="{{index==toweek-1?'active':''}}">{{item}}</text>
@@ -183,7 +183,7 @@
                                     </view>
                                     <view class="info-item">
                                         <image class="info-item-icon" src="/images/core/xs.png"></image>
-                                        <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
+                                        <navigator open-type="redirect" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
                                     </view>
                                 </view>
                             </view>
@@ -195,7 +195,7 @@
                 <view class="kb-info-swiper-mask-left" data-target="targetI" data-direction="left" bindtap="swiperChangeBtn">
                     <image src="/images/core/common/left_g.png"></image>
                 </view>
-                <swiper indicator-dots="true" current="{{targetI}}" bindchange="infoCardChange" duration="250">
+                <swiper circular="{{true}}" indicator-dots="true" current="{{targetI}}" bindchange="infoCardChange" duration="250">
                     <block wx:for="{{targetLessons}}" wx:key="{{cid}}" wx:for-index="cid" style="z-index:{{cid}};">
                         <swiper-item class="kb-info-card">
                             <view class="kb-info-card-content">
@@ -223,7 +223,7 @@
                                         </view>
                                         <view class="info-item">
                                             <image class="info-item-icon" src="/images/core/xs.png"></image>
-                                            <navigator redirect="true" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
+                                            <navigator open-type="redirect" url="/pages/core/xs/xs?key=教学班:{{item.class_id}}">查看学生名单</navigator>
                                         </view>
                                     </view>
                                 </view>

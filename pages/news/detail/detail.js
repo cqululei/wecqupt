@@ -20,6 +20,14 @@ module.exports.ipage = {
       'new': '新闻中心'
     }
   },
+  //分享
+  onShareAppMessage: function () {
+    return {
+      title: this.data.title,
+      desc: 'We重邮 - 新闻详情',
+      path: 'pages/news/'+this.data.type+'/'+this.data.type+'_detail?id='+options.id
+    }
+  },
 
   convertHtmlToText: function(inputText){
     var returnText = "" + inputText;
@@ -37,6 +45,10 @@ module.exports.ipage = {
       });
       return false;
     }
+    _this.setData({
+      'type': options.type,
+      id: options.id
+    });
     options.openid = app._user.openid;
     wx.request({
       url: app._server + '/api/get_news_detail.php',

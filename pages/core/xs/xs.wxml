@@ -10,7 +10,7 @@
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
       </view>
       <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
-        <input class="input-text" value="{{header.defaultValue}}" auto-focus="{{!header.defaultValue}}" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+        <input class="input-text" value="{{header.defaultValue}}" focus="{{!header.defaultValue}}" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" bindconfirm="bindConfirmSearchTap" />
         <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
           <image class="clear-icon" src="/images/core/xs/clear.png"></image>
         </button>
@@ -71,7 +71,7 @@
           </view>
           <view class="item-ul-kb item-ul-li">
             <text class="ul-li-label">课表</text>
-            <navigator redirect="true" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-kb">点击查看</navigator>
+            <navigator open-type="redirect" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-kb">点击查看</navigator>
           </view>
         </view>
       </view>

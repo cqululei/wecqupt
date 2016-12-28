@@ -115,7 +115,7 @@ Page({
           app.showErrorModal(res.data.message);
         }
       },
-      fail: function() {
+      fail: function(res) {
         wx.hideToast();
         app.showErrorModal(res.errMsg);
       }
