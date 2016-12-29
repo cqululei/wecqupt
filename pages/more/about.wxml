@@ -9,7 +9,7 @@
     <view class="version">
       <view class="version-title">
         <text class="title-name">We重邮</text>
-        <text class="version-text">v0.0.9</text>
+        <text class="version-text">v0.0.10</text>
         <text class="version-text">公测</text>
       </view>
       <view bindtap="toggleLog">
@@ -23,14 +23,50 @@
           <text class="desc-list-item">官网：https://we.cqu.pt、http://we.cqupt.edu.cn</text>
           <text class="desc-list-item">Github：https://github.com/lanshan-studio/wecqupt</text>
         </view>
-        <text class="desc-content">We重邮是一个微信小程序，是有别于订阅号/服务号的一种全新的连接用户与服务的方式，可以在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
-        <text class="desc-content">We重邮是碎片式信息一体化校园移动门户，适用于学生和教师，集课表、成绩、考试、空教室、学生、一卡通、借阅、学费、电费、报修、公告等各功能于一身。</text>
-        <text class="desc-content">We重邮更是/更有... （搜人利器、点名神器、一卡通消费、学费信息、最好用的课表...）</text>
+        <text class="desc-content">We重邮是由蓝山工作室出品的一个微信小程序，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
+        <text class="desc-content">We重邮是是碎片化、一站式、一体化校园移动门户，适用于学生和教师，集课表、成绩、考试、空教室、学生查询、一卡通、借阅、学费、电费、报修、公告等功能于一身。</text>
+        <text class="desc-content">We重邮有更好用的课表查询，本周视图、学期视图、对应日期及时钟轴，清晰明了。</text>
+        <text class="desc-content">We重邮有更方便的考试安排，帮你折算出考试周对应的日期，以及考试时间倒计时，一目了然。</text>
+        <text class="desc-content">We重邮有更强大的学生查询，搜人利器，通过模糊查询姓名、学号、班级就可以搜索到学生的学院、专业、课表等基本信息，适合于查同学课表以及寻找失主。</text>
+        <text class="desc-content">We重邮也是老师的点名神器，通过课表即可查询教学班学生名单，再也不用担心忘记带学生名单，点名方便快捷。（逃</text>
+        <text class="desc-content">We重邮还是校园生活助手与管家，一卡通余额及消费、寝室电费，一览无余，让同学们更合理安排生活费，此外还有校园物业服务申报，随叫随到。</text>
+        <text class="desc-content">We重邮更是个百事通，校内头条、教务公告、OA公告、会议通知、学术讲座、综合新闻等，随时随地即能了解校园动态，还能预览与下载附件，掌上办公，指日可待。</text>
+        <text class="desc-content">We重邮更是/更有... （期待您的发现）</text>
     </view>
     <view class="log-list" wx:else>
       <view class="describe">
           <view class="desc-title">
-            <text class="desc-v">v0.0.9 公测先行版</text>
+            <text class="desc-v">v0.0.10 公测先行版</text>
+            <text class="desc-time">2016.12.29</text>
+          </view>
+          <text class="desc-content">随着小程序官方版本更新，进行以下改善</text>
+          <view class="desc-list">
+            <text class="desc-list-item">新增验证appid机制，开发者需要正确的appid才能进行开发调试</text>
+            <text class="desc-list-item">一卡通页面canvas部分api废除及新增，代码发生一些变动及优化</text>
+            <text class="desc-list-item">加载中的showToast消息提示框新增参数mask透明蒙层，防止触摸穿透</text>
+            <text class="desc-list-item">新增分享页面功能，可分享：首页(即整个小程序)、课表、学生查询、新闻详情</text>
+            <text class="desc-list-item">新增设置disableScroll禁止登录、完善信息页面上下滚动</text>
+            <text class="desc-list-item">所有navigator废弃redirect属性，改用新增的open-type</text>
+            <text class="desc-list-item">课表周期及详情的swiper滑块采用circular衔接滑动</text>
+            <text class="desc-list-item">新增部分input及textarea与键盘的距离cursor-spacing</text>
+            <text class="desc-list-item">利用新增picker的disabled禁止没有选择服务类型就选择服务项目</text>
+            <text class="desc-list-item">利用新增input事件bindconfirm实现学生查询点击键盘完成按钮搜索</text>
+            <text class="desc-list-item">所有textarea改用bindinput来获取输入内容</text>
+            <text class="desc-list-item">反馈用户信息中新增platform客户端平台</text>
+          </view>
+          <text class="desc-content">修复部分BUG</text>
+          <text class="desc-content">优化完善</text>
+          <view class="desc-list">
+            <text class="desc-list-item">表单验证提示优化</text>
+            <text class="desc-list-item">借阅信息界面优化</text>
+            <text class="desc-list-item">物业报修服务申报按钮再度优化</text>
+            <text class="desc-list-item">学生查询新增搜索帮助信息</text>
+            <text class="desc-list-item">强化缓存机制，根据版本号判断是否更新从而清除缓存</text>
+          </view>
+      </view>
+      <view class="describe">
+          <view class="desc-title">
+            <text class="desc-v">v0.0.9 内测版</text>
             <text class="desc-time">2016.12.17</text>
           </view>
           <text class="desc-content">修复BUG</text>

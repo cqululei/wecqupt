@@ -4,13 +4,19 @@
   <!--头部-->
   <view class="header">
     <image class="xs-logo" src="/images/core/xs.png"></image>
+      <view class="header-more">
+        <view class="login-help" bindtap="showHelp">
+          <text>帮助</text>
+          <image class="login-help-img" src="/images/more/help.png"></image>
+        </view>
+      </view>
     <!--搜索框-->
     <view class="search-input">
       <view class="search-icon-box">
         <image class="search-icon" src="/images/core/xs/search-sign.png"></image>
       </view>
       <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
-        <input class="input-text" value="{{header.defaultValue}}" auto-focus="{{!header.defaultValue}}" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" />
+        <input class="input-text" value="{{header.defaultValue}}" focus="{{!header.defaultValue}}" bindinput="bindSearchInput" type="text" name="search" placeholder="姓名 / 学号 / 班级" bindconfirm="bindConfirmSearchTap" />
         <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
           <image class="clear-icon" src="/images/core/xs/clear.png"></image>
         </button>
@@ -71,7 +77,7 @@
           </view>
           <view class="item-ul-kb item-ul-li">
             <text class="ul-li-label">课表</text>
-            <navigator redirect="true" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-kb">点击查看</navigator>
+            <navigator open-type="redirect" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-kb">点击查看</navigator>
           </view>
         </view>
       </view>
@@ -81,6 +87,26 @@
       <text class="message-title">{{main.message}}</text>
     </view>
   </view>
+
+  <view class="help" id="help" wx:if="{{header.help_status}}" bindtap="tapHelp">
+    <view class="box">
+      <view class="box-hd">
+        <text class="box-title">帮助</text>
+        <image class="box-close" src="/images/more/close.png" bindtap="hideHelp"></image>
+      </view>
+      <view class="box-bd">
+        <view class="help-q">1、根据姓名、学号、班级、专业等查询</view>
+        <view class="help-a">
+          <text>您可以通过输入姓名、学号、班级、专业等学生信息的完整关键词进行精确搜索，也可以输入学生信息的前一部分进行模糊搜索。例如搜索 “闵” ，将会搜索到所有姓‘闵’的同学。</text>
+        </view>
+        <view class="help-q">2、根据课程教学班查询</view>
+        <view class="help-a">
+          <text>您可以通过输入 ‘教学班:’+教学班号 进行精确搜索。如搜索 “教学班:SK161572” ，将会搜索到SK161572教学班的学生名单。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
 
   <!--提示消息-->
   <view class="search-message" hidden="{{messageObj.messageDisplay}}">

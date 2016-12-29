@@ -56,10 +56,11 @@
 }
 .book-wraper {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: space-between;
     overflow: hidden;
-    padding: 20rpx 0;
+    padding: 35rpx 30rpx 10rpx;
     margin-bottom: 20rpx;
     background: #fff;
     border-radius: 3px;
@@ -67,31 +68,23 @@
 .book-name {  
     font-size: 15pt;
     line-height: 135%;
-    text-align: center;
-}
-.book-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10rpx 20rpx;
+    word-break: break-all;
 }
 .book-date {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20rpx;
-    font-size: 11pt;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 25rpx;
+    font-size: 9pt;
     color: #888;
 }
-.book-date text {
-    line-height: 150%;
+.yhrq-value{
+    font-size: 13pt;
 }
 
 .book-img {
-    margin-right: -20rpx;
-    height: 200rpx;
-    width: 200rpx;
-    opacity: 0.25;
+    height: 13pt;
+    width: 13pt;
+    margin-top: 2pt;
+    margin-right: 10rpx;
 }

@@ -24,7 +24,7 @@ Page({
     disabledRemind: false
   },
   onLoad: function(){
-    this.getNewsList();
+    
   },
   onShow: function(){
     if(app._user.is_bind){
@@ -37,8 +37,15 @@ Page({
         'active.id': 5,
         'active.type': 'new'
       });
-      this.getNewsList();
     }
+    this.setData({
+      'loading': true,
+      'active.data': [],
+      'active.showMore': true,
+      'active.remind': '上滑加载更多',
+      'page': 0
+    });
+    this.getNewsList();
   },
   //下拉更新
   onPullDownRefresh: function(){
@@ -62,6 +69,13 @@ Page({
   //获取新闻列表
   getNewsList: function(typeId){
     var _this = this;
+    if(app.dev_status){
+      this.setData({
+        'active.showMore': false,
+        'active.remind': app.dev_status
+      });
+      return;
+    }
     typeId = typeId || _this.data.active.id;
     if (_this.data.page >= 5){
       _this.setData({

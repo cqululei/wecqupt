@@ -3,6 +3,7 @@ var app = getApp();
 module.exports.ipage = {
   data: {
     remind: "加载中",
+    id: "",
     title: "",    // 新闻标题
     date: "",     // 发布日期
     author: "",   // 发布作者
@@ -18,6 +19,15 @@ module.exports.ipage = {
       'hy': 'OA系统',
       'jz': 'OA系统',
       'new': '新闻中心'
+    }
+  },
+  //分享
+  onShareAppMessage: function () {
+    var _this = this;
+    return {
+      title: _this.data.title,
+      desc: 'We重邮 - 资讯详情',
+      path: 'pages/news/'+_this.data.type+'/'+_this.data.type+'_detail?type='+_this.data.type+'&id='+_this.data.id
     }
   },
 
@@ -37,6 +47,10 @@ module.exports.ipage = {
       });
       return false;
     }
+    _this.setData({
+      'type': options.type,
+      id: options.id
+    });
     options.openid = app._user.openid;
     wx.request({
       url: app._server + '/api/get_news_detail.php',
