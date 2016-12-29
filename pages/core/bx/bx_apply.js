@@ -22,7 +22,8 @@ Page({
         AddressId:  '', //报修区域id
         Address: '',    //报修地点
         Content: ''     //报修内容
-    }
+    },
+    showError: false
   },
   onLoad: function(){
     if(!app._user.we.ykth || !app._user.we.info.name){
@@ -164,28 +165,18 @@ Page({
   submitApply: function(e) {
     var _this = this,
         formData = _this.data.formData;
+    _this.setData({
+        showError: true
+    }); 
+    // 验证表单
+    if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId || !formData.Phone || !formData.Address || formData.Phone.length !== 11 || !formData.Title || !formData.Content){
+      return false;
+    }
     wx.showModal({
       title: '提示',
       content: '是否确认提交申请？',
       success: function(res) {
         if (res.confirm) {
-          // 验证表单
-          if(!formData.CategoryId || !formData.SpecificId || !formData.AddressId){
-            app.showErrorModal('请检查服务类型、服务项目、服务区域是否选择完整', '提交失败');
-            return false;
-          }
-          if(!formData.Phone || !formData.Address){
-            app.showErrorModal('请检查联系方式、报修地址是否填写完整', '提交失败');
-            return false;
-          }
-          if(!formData.Title || !formData.Content){
-            app.showErrorModal('请填写报修标题及内容', '提交失败');
-            return false;
-          }
-          if(formData.Phone.length !== 11){
-            app.showErrorModal('联系方式有误', '提交失败');
-            return false;
-          }
           formData.openid = app._user.openid;
           wx.request({
             url: app._server + '/api/bx/bx.php',

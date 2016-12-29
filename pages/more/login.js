@@ -31,6 +31,10 @@ Page({
   },
   bind: function() {
     var _this = this;
+    if(app.dev_status){
+      app.showErrorModal(app.dev_status, '绑定失败');
+      return;
+    }
     if(!_this.data.userid || !_this.data.passwd){
       app.showErrorModal('账号及密码不能为空', '提醒');
       return false;

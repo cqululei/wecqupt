@@ -64,6 +64,14 @@ Page({
     user: {},
     disabledItemTap: false //点击了不可用的页面
   },
+  //分享
+  onShareAppMessage: function(){
+    return {
+      title: 'We重邮',
+      desc: '碎片化、一站式、一体化校园移动门户',
+      path: '/pages/index/index'
+    };
+  },
   //下拉更新
   onPullDownRefresh: function(){
     if(app._user.is_bind){
@@ -109,7 +117,7 @@ Page({
   login: function(){
     var _this = this;
     //如果有缓存
-    if(!!app.cache){
+    if(app.cache.version === app.version){
       try{
         _this.response();
       }catch(e){
@@ -122,6 +130,12 @@ Page({
   },
   response: function(){
     var _this = this;
+    if(app.dev_status){
+      _this.setData({
+        'remind': app.dev_status
+      });
+      return;
+    }
     _this.setData({
       user: app._user
     });
@@ -274,7 +288,7 @@ Page({
             info.book_list.map(function(e){
               var oDate = e.yhrq.split('-'),
                   oTime = new Date(oDate[0], oDate[1]-1, oDate[2]).getTime();
-              e.timing = parseInt((oTime - nowTime) / 1000 / 60 / 60 /24);
+              e.timing = parseInt((oTime - nowTime) / 1000 / 60 / 60 / 24);
               return e;
             });
             _this.setData({

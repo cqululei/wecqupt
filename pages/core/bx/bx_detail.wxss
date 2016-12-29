@@ -1,6 +1,6 @@
 /**bx_detail.wxss**/
 .container{
-    background-color: #f0eff5;
+    background-color: #f7f7f7;
 }
 
 .repair-state-panel, .work-sheet-panel{
@@ -9,15 +9,15 @@
     margin-top: 15rpx; 
 }
 .repair-state-title, .work-sheet-title{
-    color: #999;
+    color: #888;
     padding: 5rpx 0 10rpx 30rpx;
 }
 .repair-state, .work-sheet{
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     overflow: hidden;
 }
 .repair-state{
@@ -34,8 +34,8 @@
     width: 25rpx;
     height: 25rpx;
     border-radius: 50rpx;
-    background: #ccc;
-    border: 5rpx solid #e5e5e5;
+    background: #d8d8d8;
+    border: 5rpx solid #eee;
     margin: 15rpx 30rpx;
 }
 .repair-state-icon-waited{
@@ -67,7 +67,7 @@
     left: -47rpx;
     content: '';
     width: 5rpx;
-    background: #e5e5e5;
+    background: #eee;
     height: 100%;
 }
 .repair-state-info.repair-state-info-last{

@@ -1,22 +1,27 @@
 //app.js
 App({
+  version: 'v0.0.10', //版本号
   onLaunch: function() {
     var _this = this;
     //读取缓存
     try{
-      var data = wx.getStorageSync('cache')
+      var data = wx.getStorageSync('cache');
       if (data) {
-        _this.cache = data;
-        _this.processData(data);
+        if (_this.version !== data.version) {
+          wx.removeStorage({ key: 'cache' });
+        } else {
+          _this.cache = data;
+          _this.processData(data.user);
+        }
       }
-    }catch(e){}
+    }catch(e){console.warn('获取缓存失败');}
   },
   //后台切换至前台时
   onShow: function(){
 
   },
   //getUser函数，在index中调用
-  getUser: function(update_cb, bind) {
+  getUser: function(response) {
     var _this = this;
     wx.login({
       success: function(res){
@@ -24,6 +29,11 @@ App({
           //调用函数获取微信用户信息
           _this.getUserInfo(function(info){
             _this._user.wx = info.userInfo;
+            if(!info.encryptedData || !info.iv){
+              _this.dev_status = '无关联AppID';
+              typeof response == "function" && response();
+              return;
+            }
             //发送code与微信用户信息，获取学生数据
             wx.request({
               method: 'POST',
@@ -37,13 +47,17 @@ App({
                 if(res.data && res.data.status >= 200 && res.data.status < 400){
                   var status = false;
                   //判断缓存是否有更新
-                  if(!_this.cache || _this.cache != res.data.data){
+                  if(!_this.cache.version || _this.cache.user !== res.data.data){
+                    _this.cache = {
+                      version: _this.version,
+                      user: res.data.data
+                    };
                     wx.setStorage({
                       key: "cache",
-                      data: res.data.data
+                      data: _this.cache
                     });
                     status = true;
-                    _this.processData(res.data.data);
+                    _this.processData(_this.cache.user);
                   }
                   if(!_this._user.is_bind){
                     wx.navigateTo({
@@ -52,7 +66,7 @@ App({
                   }
                   //如果缓存有更新，则执行回调函数
                   if(status){
-                    typeof update_cb == "function" && update_cb();
+                    typeof response == "function" && response();
                   }
                 }else{
                   //清除缓存
@@ -68,6 +82,7 @@ App({
                   wx.removeStorage({ key: 'cache' });
                   _this.cache = '';
                 }
+                console.warn(res.errMsg);
               }
             });
           });
@@ -112,11 +127,13 @@ App({
     wx.showToast({
       title: title || '加载中',
       icon: 'loading',
+      mask: true,
       duration: duration || 10000
     });
   },
   util: require('./utils/util'),
   key: function(data){ return this.util.key(data) },
+  cache: {},
   _server: 'https://we.cqu.pt',
   _user: {
     //微信数据

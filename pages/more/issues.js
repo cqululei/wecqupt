@@ -8,10 +8,10 @@ Page({
     info: '',
     imgs: [],
     imgLen: 0,
-    Authorization: 'dG9rZW4gYWNlODhiYzQ2ODIwZTlhZTdmMjJkZDY3MzI4NzhiZWFhNWE3YzkzZA==',
     upload: false,
     uploading: false,
-    qiniu: ''
+    qiniu: '',
+    showError: false
   },
   onLoad: function(){
     var _this = this;
@@ -23,13 +23,14 @@ Page({
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
         }
         info += '\r\n手机型号：' + res.model;
-        info += '（' +res.windowWidth+'x'+res.windowHeight+ '）';
+        info += '（'+res.platform+' - '+res.windowWidth+'x'+res.windowHeight+ '）';
         info += '\r\n微信版本号：' + res.version;
         _this.setData({
           info: info
         });
       }
     });
+    if(app.dev_status){ return; }
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
       method: 'POST',
@@ -71,7 +72,7 @@ Page({
               var tempFilePaths = res.tempFilePaths, imgLen = tempFilePaths.length;
               _this.setData({
                 uploading: true,
-                imgLen: imgLen
+                imgLen: _this.data.imgLen + imgLen
               });
               tempFilePaths.forEach(function(e){
                 _this.uploadImg(e);
@@ -84,6 +85,10 @@ Page({
   },
   uploadImg: function(path){
     var _this = this;
+    if(app.dev_status){
+      app.showErrorModal('app.dev_status', '上传失败');
+      return;
+    }
     // 上传图片
     wx.uploadFile({
       url: 'https://up.qbox.me',
@@ -128,54 +133,63 @@ Page({
     });
   },
   submit: function(){
-    var _this = this, header = {}, title = '', content = '', imgs = '';
-    header['Authorization'] = app.util.base64.decode(_this.data.Authorization);
-    if(_this.data.uploading){
-      app.showErrorModal('正在上传图片', '提交失败');
+    var _this = this, title = '', content = '', imgs = '';
+    if(app.dev_status){
+      app.showErrorModal(app.dev_status, '上传失败');
+      return;
+    }
+    _this.setData({
+      showError: true
+    });
+    if(_this.data.uploading || !_this.data.title || !_this.data.content){
       return false;
     }
-    if(!_this.data.title){
-      app.showErrorModal('请输入反馈标题', '提交失败');
-      return false;
-    }
-    if(!_this.data.content){
-      app.showErrorModal('请输入反馈内容', '提交失败');
-      return false;
-    }
-    title = '【' + app._user.wx.nickName + '】' + _this.data.title;
-    content = _this.data.content + '\r\n\r\n' + _this.data.info;
-    if(_this.data.imgLen){
-      _this.data.imgs.forEach(function(e){
-        imgs += '\r\n\r\n' + '![img]('+e+'?imageView2/2/w/750/interlace/0/q/88|watermark/2/text/V2Xph43pgq4=/font/5b6u6L2v6ZuF6buR/fontsize/500/fill/I0VGRUZFRg==/dissolve/100/gravity/SouthEast/dx/10/dy/10)';
-      });
-      content += imgs;
-    }
-    app.showLoadToast();
-    wx.request({
-      url: 'https://api.github.com/repos/lanshan-studio/wecqupt/issues',
-      data: {
-        title: title,
-        body: content
-      },
-      method: 'POST',
-      header: header,
-      success: function(res){
-        var text = '反馈成功，您可通过访问 ' + res.data.html_url + ' 了解反馈动态';
-        wx.showModal({
-          title: '反馈成功',
-          content: text,
-          showCancel: false,
-          success: function(res) {
-            wx.navigateBack();
+    wx.showModal({
+      title: '提示',
+      content: '是否确认提交反馈？',
+      success: function(res) {
+        if (res.confirm) {
+          title = '【' + app._user.wx.nickName + '】' + _this.data.title;
+          content = _this.data.content + '\r\n\r\n' + _this.data.info;
+          if(_this.data.imgLen){
+            _this.data.imgs.forEach(function(e){
+              imgs += '\r\n\r\n' + '![img]('+e+'?imageView2/2/w/750/interlace/0/q/88|watermark/2/text/V2Xph43pgq4=/font/5b6u6L2v6ZuF6buR/fontsize/500/fill/I0VGRUZFRg==/dissolve/100/gravity/SouthEast/dx/10/dy/10)';
+            });
+            content += imgs;
           }
-        });
-      },
-      fail: function(res) {
-        app.showErrorModal(res.errMsg);
-      },
-      complete: function() {
-        wx.hideToast();
+          app.showLoadToast();
+          wx.request({
+            url: app._server + '/api/feedback.php',
+            data: app.key({
+              openid: app._user.openid,
+              title: title,
+              body: content
+            }),
+            method: 'POST',
+            success: function(res){
+              if(res.data.status === 200){
+                var text = '反馈成功，您可通过访问 ' + res.data.data.html_url + ' 了解反馈动态';
+                wx.showModal({
+                  title: '反馈成功',
+                  content: text,
+                  showCancel: false,
+                  success: function(res) {
+                    wx.navigateBack();
+                  }
+                });
+              }else{
+                app.showErrorModal(res.data.message, '提交失败');
+              }
+            },
+            fail: function(res) {
+              app.showErrorModal(res.errMsg, '提交失败');
+            },
+            complete: function() {
+              wx.hideToast();
+            }
+          });
+        }
       }
-    })
+    });
   }
 });

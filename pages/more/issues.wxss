@@ -28,13 +28,24 @@
     border-bottom: 1px solid #e5e5e5;
     padding: 15rpx 25rpx;
 }
+.issues-img-panel.error{
+    background: rgba(231, 138, 176, 0.06);
+}
 .issues-input{
     border-bottom: 1px solid #e5e5e5;
     padding: 15rpx 25rpx;
 }
+.issues-input.error{
+    background: rgba(231, 138, 176, 0.06);
+}
 .issues-textarea{
+    width: 100%;
     padding: 25rpx;
     min-height: 225rpx;
+    box-sizing:border-box;
+}
+.issues-textarea.error{
+    background: rgba(231, 138, 176, 0.06);
 }
 .issues-photo-item {
     position: relative;
@@ -105,4 +116,13 @@
     background-color: #7acfa6;
     color: #fff;
     font-size: 12pt;
+    line-height: 150%;
+    padding: 0;
+    border: none;
+}
+.submit-btn.disabled{
+    opacity: .7;
+}
+.submit-btn:active{
+    opacity: .7;
 }

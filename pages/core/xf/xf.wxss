@@ -110,8 +110,8 @@
 }
 
 .xf-TotalTuition, .xf-ApartmentPay, .xf-CollectingPay {
-    margin-left: 20rpx;
+    margin-left: 25rpx;
 }
 .xf-MajorTuition, .xf-GradeTuition, .xf-SecMajorTuition {
-    margin-left: 40rpx;
+    margin-left: 50rpx;
 }
