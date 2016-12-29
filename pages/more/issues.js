@@ -30,6 +30,7 @@ Page({
         });
       }
     });
+    if(app.dev_status){ return; }
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
       method: 'POST',
@@ -84,6 +85,10 @@ Page({
   },
   uploadImg: function(path){
     var _this = this;
+    if(app.dev_status){
+      app.showErrorModal('app.dev_status', '上传失败');
+      return;
+    }
     // 上传图片
     wx.uploadFile({
       url: 'https://up.qbox.me',
@@ -129,6 +134,10 @@ Page({
   },
   submit: function(){
     var _this = this, title = '', content = '', imgs = '';
+    if(app.dev_status){
+      app.showErrorModal(app.dev_status, '上传失败');
+      return;
+    }
     _this.setData({
       showError: true
     });

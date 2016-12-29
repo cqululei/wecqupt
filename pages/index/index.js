@@ -130,6 +130,12 @@ Page({
   },
   response: function(){
     var _this = this;
+    if(app.dev_status){
+      _this.setData({
+        'remind': app.dev_status
+      });
+      return;
+    }
     _this.setData({
       user: app._user
     });

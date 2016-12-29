@@ -21,7 +21,7 @@ App({
 
   },
   //getUser函数，在index中调用
-  getUser: function(update_cb, bind) {
+  getUser: function(response) {
     var _this = this;
     wx.login({
       success: function(res){
@@ -29,6 +29,11 @@ App({
           //调用函数获取微信用户信息
           _this.getUserInfo(function(info){
             _this._user.wx = info.userInfo;
+            if(!info.encryptedData || !info.iv){
+              _this.dev_status = '无关联AppID';
+              typeof response == "function" && response();
+              return;
+            }
             //发送code与微信用户信息，获取学生数据
             wx.request({
               method: 'POST',
@@ -61,7 +66,7 @@ App({
                   }
                   //如果缓存有更新，则执行回调函数
                   if(status){
-                    typeof update_cb == "function" && update_cb();
+                    typeof response == "function" && response();
                   }
                 }else{
                   //清除缓存

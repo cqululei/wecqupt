@@ -3,6 +3,7 @@ var app = getApp();
 module.exports.ipage = {
   data: {
     remind: "加载中",
+    id: "",
     title: "",    // 新闻标题
     date: "",     // 发布日期
     author: "",   // 发布作者
@@ -22,10 +23,11 @@ module.exports.ipage = {
   },
   //分享
   onShareAppMessage: function () {
+    var _this = this;
     return {
-      title: this.data.title,
+      title: _this.data.title,
       desc: 'We重邮 - 资讯详情',
-      path: 'pages/news/'+this.data.type+'/'+this.data.type+'_detail?id='+options.id
+      path: 'pages/news/'+_this.data.type+'/'+_this.data.type+'_detail?type='+_this.data.type+'&id='+_this.data.id
     }
   },
 
