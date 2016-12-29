@@ -1,15 +1,20 @@
 //app.js
 App({
+  version: 'v0.0.10', //版本号
   onLaunch: function() {
     var _this = this;
     //读取缓存
     try{
-      var data = wx.getStorageSync('cache')
+      var data = wx.getStorageSync('cache');
       if (data) {
-        _this.cache = data;
-        _this.processData(data);
+        if (_this.version !== data.version) {
+          wx.removeStorage({ key: 'cache' });
+        } else {
+          _this.cache = data;
+          _this.processData(data.user);
+        }
       }
-    }catch(e){}
+    }catch(e){console.warn('获取缓存失败');}
   },
   //后台切换至前台时
   onShow: function(){
@@ -37,13 +42,17 @@ App({
                 if(res.data && res.data.status >= 200 && res.data.status < 400){
                   var status = false;
                   //判断缓存是否有更新
-                  if(!_this.cache || _this.cache != res.data.data){
+                  if(!_this.cache.version || _this.cache.user !== res.data.data){
+                    _this.cache = {
+                      version: _this.version,
+                      user: res.data.data
+                    };
                     wx.setStorage({
                       key: "cache",
-                      data: res.data.data
+                      data: _this.cache
                     });
                     status = true;
-                    _this.processData(res.data.data);
+                    _this.processData(_this.cache.user);
                   }
                   if(!_this._user.is_bind){
                     wx.navigateTo({
@@ -119,6 +128,7 @@ App({
   },
   util: require('./utils/util'),
   key: function(data){ return this.util.key(data) },
+  cache: {},
   _server: 'https://we.cqu.pt',
   _user: {
     //微信数据

@@ -42,6 +42,7 @@
     width: 100%;
     padding: 25rpx;
     min-height: 225rpx;
+    box-sizing:border-box;
 }
 .issues-textarea.error{
     background: rgba(231, 138, 176, 0.06);

@@ -146,6 +146,7 @@
     padding: 30rpx;
     width: 100%;
     min-height: 200rpx;
+    box-sizing:border-box;
 }
 .declare-context-textarea.error{
     background: rgba(231, 138, 176, 0.06);

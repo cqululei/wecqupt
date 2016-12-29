@@ -117,7 +117,7 @@ Page({
   login: function(){
     var _this = this;
     //如果有缓存
-    if(!!app.cache){
+    if(app.cache.version === app.version){
       try{
         _this.response();
       }catch(e){

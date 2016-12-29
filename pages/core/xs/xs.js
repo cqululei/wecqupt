@@ -6,7 +6,8 @@ Page({
   data: {
     header: {
       defaultValue: '',
-      inputValue: ''
+      inputValue: '',
+      help_status: false
     },
     main: {
       mainDisplay: true, // main 显示的变化标识
@@ -320,5 +321,21 @@ Page({
       });
       this.search();
     }
+  },
+
+  tapHelp: function(e){
+    if(e.target.id == 'help'){
+      this.hideHelp();
+    }
+  },
+  showHelp: function(e){
+    this.setData({
+      'header.help_status': true
+    });
+  },
+  hideHelp: function(e){
+    this.setData({
+      'header.help_status': false
+    });
   }
 });

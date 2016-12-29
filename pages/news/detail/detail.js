@@ -24,7 +24,7 @@ module.exports.ipage = {
   onShareAppMessage: function () {
     return {
       title: this.data.title,
-      desc: 'We重邮 - 新闻详情',
+      desc: 'We重邮 - 资讯详情',
       path: 'pages/news/'+this.data.type+'/'+this.data.type+'_detail?id='+options.id
     }
   },

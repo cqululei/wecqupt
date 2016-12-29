@@ -64,12 +64,12 @@ Page({
       });
       return false;
     }
-    _this.get_kb(id);
     if(options.id && options.name){
       _this.setData({
         name: options.name
       });
     }
+    _this.get_kb(id);
   },
   onShow: function(){
     var _this = this;
@@ -202,13 +202,13 @@ Page({
       week: current+1
     });
   },
-  touchStartDetail: function(e){
+  bindStartDetail: function(e){
     this.setData({
       startPoint: [e.touches[0].pageX, e.touches[0].pageY]
     });
   },
   //滑动切换课程详情
-  touchEndDetail: function(e){
+  bindEndDetail: function(e){
     var _this = this;
     var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
         startPoint = _this.data.startPoint, i = 0;
@@ -252,7 +252,7 @@ Page({
       openid: app._user.openid,
       id: id,
     };
-    if(app._user.teacher){ data.type = 'teacher'; }
+    if(app._user.teacher && !_this.data.name){ data.type = 'teacher'; }
     wx.request({
       url: "https://we.cqu.pt/api/get_kebiao.php",
       method: 'POST',

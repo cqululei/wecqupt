@@ -40,20 +40,22 @@ Page({
           info.nothing = !parseInt(info.books_num) && (!info.book_list || !info.book_list.length);
           var colors = ['green','yellow','red','purple'],
               nowTime = new Date().getTime();
-          info.book_list.map(function(e){
-            var jDate = e.jsrq.split('-'), hDate = e.yhrq.split('-'),
-                jTime = new Date(jDate[0], jDate[1]-1, jDate[2]).getTime(),
-                hTime = new Date(hDate[0], hDate[1]-1, hDate[2]).getTime();
-            var sum = parseInt((hTime - jTime) / 1000 / 60 / 60 / 24),
-                timing = parseInt((hTime - nowTime) / 1000 / 60 / 60 / 24),
-                k = 1 - timing/sum, n = 0;
-            if(k < 0.3) { n = 0; }
-            else if(k < 0.7) { n = 1; }
-            else if(k <= 1) { n = 2; }
-            else if(k > 1) { n = 3; }
-            e.color = colors[n];
-            return e;
-          });
+          if(!info.nothing){
+            info.book_list.map(function(e){
+              var jDate = e.jsrq.split('-'), hDate = e.yhrq.split('-'),
+                  jTime = new Date(jDate[0], jDate[1]-1, jDate[2]).getTime(),
+                  hTime = new Date(hDate[0], hDate[1]-1, hDate[2]).getTime();
+              var sum = parseInt((hTime - jTime) / 1000 / 60 / 60 / 24),
+                  timing = parseInt((hTime - nowTime) / 1000 / 60 / 60 / 24),
+                  k = 1 - timing/sum, n = 0;
+              if(k < 0.3) { n = 0; }
+              else if(k < 0.7) { n = 1; }
+              else if(k <= 1) { n = 2; }
+              else if(k > 1) { n = 3; }
+              e.color = colors[n];
+              return e;
+            });
+          }
           _this.setData({
             jyData: info,
             remind: ''
