@@ -1,9 +1,13 @@
 <!--index.wxml-->
 <view class="container">
+    <view class="fix_tip {{offline?'active':''}}">
+        <text>离线缓存模式</text>
+    </view>
+
   <!--功能导航-->
   <view class="main-core">
     <block wx:for="{{core}}" wx:key="id">
-      <navigator wx:if="{{!remind && !item.disabled && (!user.teacher || !item.teacher_disabled) }}" class="main-core-item" url="{{'/pages/core/'+item.id+'/'+item.id}}">
+      <navigator wx:if="{{!remind && !item.disabled && (!user.teacher || !item.teacher_disabled) && (!offline || !item.offline_disabled) }}" class="main-core-item" url="{{'/pages/core/'+item.id+'/'+item.id}}">
         <image class="core-item-icon" src="/images/core/{{item.id}}.png"></image>
         <text class="core-item-name">{{item.name}}</text>
       </navigator>
