@@ -25,6 +25,7 @@ Page({
         info += '\r\n手机型号：' + res.model;
         info += '（'+res.platform+' - '+res.windowWidth+'x'+res.windowHeight+ '）';
         info += '\r\n微信版本号：' + res.version;
+        info += '\r\nWe重邮版本号：' + app.version;
         _this.setData({
           info: info
         });

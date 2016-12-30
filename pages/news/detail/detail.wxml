@@ -27,7 +27,7 @@
             </view>
             <view class="file-remind">
               <image wx:if="{{file_loading}}" src="/images/index/loading.gif"></image>
-              <text wx:else data-preview="{{item.preview}}" data-url="{{item.flink}}" bindtap="getFj">{{item.preview ? '点击预览' : '点击下载'}}</text>
+              <text wx:else data-preview="{{item.preview}}" data-url="{{item.flink}}" bindtap="getFj">{{item.preview ? '点击预览' : '无法预览'}}</text>
             </view>
         </view>
       </swiper-item>

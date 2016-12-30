@@ -24,9 +24,6 @@ Page({
     disabledRemind: false
   },
   onLoad: function(){
-    
-  },
-  onShow: function(){
     if(app._user.is_bind){
       this.setData({
         user_type: !app._user.teacher ? 'student' : 'teacher'
