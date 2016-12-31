@@ -31,8 +31,8 @@ Page({
   },
   bind: function() {
     var _this = this;
-    if(app.dev_status){
-      app.showErrorModal(app.dev_status, '绑定失败');
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '绑定失败');
       return;
     }
     if(!_this.data.userid || !_this.data.passwd){
@@ -52,10 +52,8 @@ Page({
         if(res.data && res.data.status === 200){
           app.showLoadToast('请稍候');
           //清除缓存
-          if(app.cache){
-            wx.removeStorage({ key: 'cache' });
-            app.cache = '';
-          }
+          app.cache = {};
+          wx.clearStorage();
           app.getUser(function(){
             wx.showToast({
               title: '绑定成功',

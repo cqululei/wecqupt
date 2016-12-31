@@ -24,9 +24,6 @@ Page({
     disabledRemind: false
   },
   onLoad: function(){
-    
-  },
-  onShow: function(){
     if(app._user.is_bind){
       this.setData({
         user_type: !app._user.teacher ? 'student' : 'teacher'
@@ -69,11 +66,13 @@ Page({
   //获取新闻列表
   getNewsList: function(typeId){
     var _this = this;
-    if(app.dev_status){
-      this.setData({
+    if(app.g_status){
+      _this.setData({
         'active.showMore': false,
-        'active.remind': app.dev_status
+        'active.remind': app.g_status,
+        loading: false
       });
+      wx.stopPullDownRefresh();
       return;
     }
     typeId = typeId || _this.data.active.id;
