@@ -9,7 +9,7 @@
     <view class="version">
       <view class="version-title">
         <text class="title-name">We重邮</text>
-        <text class="version-text">v0.1.0</text>
+        <text class="version-text">{{version}}</text>
         <text class="version-text">公测</text>
       </view>
       <view bindtap="toggleLog">

@@ -17,7 +17,7 @@ Page({
     var _this = this;
     wx.getSystemInfo({
       success: function(res) {
-        var info = '---\r\n用户信息\r\n';
+        var info = '---\r\n**用户信息**\r\n';
         info += '用户名：' + app._user.wx.nickName;
         if(app._user.we.type){
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
@@ -32,6 +32,7 @@ Page({
       }
     });
     if(app.g_status){ return; }
+    wx.showNavigationBarLoading();
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
       method: 'POST',
@@ -45,6 +46,9 @@ Page({
             qiniu: res.data.data.token
           });
         }
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     })
   },
@@ -90,6 +94,7 @@ Page({
       app.showErrorModal(app.g_status, '上传失败');
       return;
     }
+    wx.showNavigationBarLoading();
     // 上传图片
     wx.uploadFile({
       url: 'https://up.qbox.me',
@@ -118,6 +123,9 @@ Page({
         _this.setData({
           imgLen: _this.data.imgLen - 1
         });
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     });
   },
