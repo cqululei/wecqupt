@@ -17,7 +17,7 @@ Page({
     var _this = this;
     wx.getSystemInfo({
       success: function(res) {
-        var info = '---\r\n用户信息\r\n';
+        var info = '---\r\n**用户信息**\r\n';
         info += '用户名：' + app._user.wx.nickName;
         if(app._user.we.type){
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
@@ -25,12 +25,14 @@ Page({
         info += '\r\n手机型号：' + res.model;
         info += '（'+res.platform+' - '+res.windowWidth+'x'+res.windowHeight+ '）';
         info += '\r\n微信版本号：' + res.version;
+        info += '\r\nWe重邮版本号：' + app.version;
         _this.setData({
           info: info
         });
       }
     });
-    if(app.dev_status){ return; }
+    if(app.g_status){ return; }
+    wx.showNavigationBarLoading();
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
       method: 'POST',
@@ -44,6 +46,9 @@ Page({
             qiniu: res.data.data.token
           });
         }
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     })
   },
@@ -85,10 +90,11 @@ Page({
   },
   uploadImg: function(path){
     var _this = this;
-    if(app.dev_status){
-      app.showErrorModal('app.dev_status', '上传失败');
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '上传失败');
       return;
     }
+    wx.showNavigationBarLoading();
     // 上传图片
     wx.uploadFile({
       url: 'https://up.qbox.me',
@@ -117,6 +123,9 @@ Page({
         _this.setData({
           imgLen: _this.data.imgLen - 1
         });
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     });
   },
@@ -134,8 +143,8 @@ Page({
   },
   submit: function(){
     var _this = this, title = '', content = '', imgs = '';
-    if(app.dev_status){
-      app.showErrorModal(app.dev_status, '上传失败');
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '提交失败');
       return;
     }
     _this.setData({
