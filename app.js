@@ -1,6 +1,6 @@
 //app.js
 App({
-  version: 'v0.1.0', //版本号
+  version: 'v0.1.0t', //版本号
   onLaunch: function() {
     var _this = this;
     //读取缓存
@@ -64,7 +64,7 @@ App({
                 if(res.data && res.data.status >= 200 && res.data.status < 400){
                   var status = false, data = res.data.data;
                   //判断缓存是否有更新
-                  if(!_this.cache.version || _this.cache.user !== data){
+                  if(_this.cache.version !== _this.version || _this.cache.user !== data){
                     _this.saveCache('version', _this.version);
                     _this.saveCache('user', data);
                     _this.processData(data);
