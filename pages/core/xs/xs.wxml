@@ -75,9 +75,13 @@
             <text class="ul-li-label">班级</text>
             <text class="ul-li-content">{{item.bj}}</text>
           </view>
-          <view class="item-ul-kb item-ul-li">
+          <view class="item-ul-more item-ul-li">
+            <text class="ul-li-label">考试</text>
+            <navigator open-type="redirect" url="/pages/core/ks/ks?id={{item.xh}}&name={{item.xm}}" class="ul-li-more ul-li-ks">点击查看</navigator>
+          </view>
+          <view class="item-ul-more item-ul-li">
             <text class="ul-li-label">课表</text>
-            <navigator open-type="redirect" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-kb">点击查看</navigator>
+            <navigator open-type="redirect" url="/pages/core/kb/kb?id={{item.xh}}&name={{item.xm}}" class="ul-li-more ul-li-kb">点击查看</navigator>
           </view>
         </view>
       </view>

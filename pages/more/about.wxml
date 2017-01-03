@@ -45,6 +45,11 @@
             <text class="desc-list-item">支持离线缓存模式的功能：首页、我的课表、成绩查询、考试安排、一卡通、借阅信息、学费信息、电费查询</text>
             <text class="desc-list-item">不支持离线缓存模式的功能：空教室、学生查询、物业报修、资讯列表及详情、绑定及切换绑定、完善信息、反馈</text>
           </view>
+          <text class="desc-content">优化完善</text>
+          <view class="desc-list">
+            <text class="desc-list-item">根据学生查询可以查询他人考试安排</text>
+            <text class="desc-list-item">可以分享考试安排</text>
+          </view>
       </view>
       <view class="describe">
           <view class="desc-title">
@@ -56,7 +61,7 @@
             <text class="desc-list-item">新增验证appid机制，开发者需要正确的appid才能进行开发调试</text>
             <text class="desc-list-item">一卡通页面canvas部分api废除及新增，代码发生一些变动及优化</text>
             <text class="desc-list-item">加载中的showToast消息提示框新增参数mask透明蒙层，防止触摸穿透</text>
-            <text class="desc-list-item">新增分享页面功能，可分享：首页(即整个小程序)、课表、学生查询、新闻详情</text>
+            <text class="desc-list-item">新增分享页面功能，可分享：首页(即整个小程序)、课表、学生查询、新闻详情（后续增加考试安排分享）</text>
             <text class="desc-list-item">新增设置disableScroll禁止登录、完善信息页面上下滚动</text>
             <text class="desc-list-item">所有navigator废弃redirect属性，改用新增的open-type</text>
             <text class="desc-list-item">课表周期及详情的swiper滑块采用circular衔接滑动</text>

@@ -20,22 +20,45 @@ Page({
     data.show[id] = !this.data.show[id];
     this.setData(data);
   },
-  onLoad: function(){
+  //分享
+  onShareAppMessage: function(){
+    var name = this.data.name || app._user.we.info.name,
+        id = this.data.id || app._user.we.info.id;
+    return {
+      title: name + '的考试安排',
+      desc: 'We重邮 - 考试安排',
+      path: '/pages/core/ks/ks?id='+id+'&name='+name
+    };
+  },
+  onLoad: function(options){
     var _this = this;
-    if(!app._user.we.info.id || !app._user.we.info.name){
+    var id, name;
+    if(options.id && options.name){
+      id = options.id;
+      name = options.name;
+      _this.setData({
+        teacher: false
+      });
+    }else{
+      id = app._user.we.info.id,
+      name = app._user.we.info.name;
+      _this.setData({
+        teacher: app._user.teacher
+      });
+    }
+    if(!id || !name){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
     _this.setData({
-      id: app._user.we.info.id,
-      name: app._user.we.info.name,
-      teacher: app._user.teacher
+      id: id,
+      name: name
     });
     var data = {
       openid: app._user.openid,
-      id: app._user.we.info.id
+      id: id
     };
     if(app._user.teacher){ data.type = 'teacher'; }
 
