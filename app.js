@@ -36,6 +36,17 @@ App({
   onShow: function(){
 
   },
+  //判断是否有登录信息
+  loginLoad: function(onLoad){
+    var _this = this;
+    if(!_this._t){  //无登录信息
+      _this.getUser(function(e){
+        typeof onLoad == "function" && onLoad(e);
+      });
+    }else{  //有登录信息
+      typeof onLoad == "function" && onLoad();
+    }
+  },
   //getUser函数，在index中调用
   getUser: function(response) {
     var _this = this;

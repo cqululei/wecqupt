@@ -135,7 +135,7 @@ Page({
       }
     }
     //然后通过登录用户, 如果缓存更新将执行该回调函数
-    app.getUser(function(status){
+    app.loginLoad(function(status){
       _this.response.call(_this, status);
     });
   },
