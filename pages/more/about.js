@@ -8,7 +8,8 @@ Page({
   },
   onLoad: function(){
     this.setData({
-      version: app.version
+      version: app.version,
+      year: new Date().getFullYear()
     });
   },
   toggleLog: function(){
