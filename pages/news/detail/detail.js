@@ -40,6 +40,12 @@ module.exports.ipage = {
   
   onLoad: function(options){
     var _this = this;
+    app.loginLoad(function(){
+      _this.loginHandler.call(_this, options);
+    });
+  },
+  loginHandler: function(options){
+    var _this = this;
     
     if(!options.type || !options.id) {
       _this.setData({
