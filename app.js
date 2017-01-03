@@ -17,7 +17,8 @@ App({
           _this.cache = {};
           wx.clearStorage();
         } else {
-          _this.processData(_this.cache.user);
+          _this._user.wx = _this.cache.userinfo.userInfo || {};
+          _this.processData(_this.cache.userdata);
         }
       }
     } catch(e) { console.warn('获取缓存失败'); }
@@ -36,7 +37,7 @@ App({
   onShow: function(){
 
   },
-  //判断是否有登录信息
+  //判断是否有登录信息，让分享时自动登录
   loginLoad: function(onLoad){
     var _this = this;
     if(!_this._t){  //无登录信息
@@ -56,6 +57,7 @@ App({
         if(res.code){
           //调用函数获取微信用户信息
           _this.getUserInfo(function(info){
+            _this.saveCache('userinfo', info);
             _this._user.wx = info.userInfo;
             if(!info.encryptedData || !info.iv){
               _this.g_status = '无关联AppID';
@@ -75,9 +77,9 @@ App({
                 if(res.data && res.data.status >= 200 && res.data.status < 400){
                   var status = false, data = res.data.data;
                   //判断缓存是否有更新
-                  if(_this.cache.version !== _this.version || _this.cache.user !== data){
+                  if(_this.cache.version !== _this.version || _this.cache.userdata !== data){
                     _this.saveCache('version', _this.version);
-                    _this.saveCache('user', data);
+                    _this.saveCache('userdata', data);
                     _this.processData(data);
                     status = true;
                   }
@@ -107,7 +109,7 @@ App({
                 }else{
                   status = '网络错误';
                 }
-                  _this.g_status = status;
+                _this.g_status = status;
                 typeof response == "function" && response(status);
                 console.warn(status);
               },
