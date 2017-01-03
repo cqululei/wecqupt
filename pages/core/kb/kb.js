@@ -56,6 +56,7 @@ Page({
       _this.loginHandler.call(_this, options);
     });
   },
+  //让分享时自动登录
   loginHandler: function(options){
     var _this = this;
     _this.setData({

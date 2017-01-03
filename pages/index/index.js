@@ -134,8 +134,8 @@ Page({
         wx.clearStorage();
       }
     }
-    //然后通过登录用户, 如果缓存更新将执行该回调函数
-    app.loginLoad(function(status){
+    //然后再尝试登录用户, 如果缓存更新将执行该回调函数
+    app.getUser(function(status){
       _this.response.call(_this, status);
     });
   },
