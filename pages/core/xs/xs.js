@@ -318,6 +318,7 @@ Page({
       _this.loginHandler.call(_this, options);
     });
   },
+  //让分享时自动登录
   loginHandler: function (options) {
     if(options.key){
       this.setData({
