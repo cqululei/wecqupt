@@ -312,7 +312,13 @@ Page({
     this.setData(data);
   },
 
-  onLoad: function (options) {
+  onLoad: function(options){
+    var _this = this;
+    app.loginLoad(function(){
+      _this.loginHandler.call(_this, options);
+    });
+  },
+  loginHandler: function (options) {
     if(options.key){
       this.setData({
         'main.mainDisplay': false,
