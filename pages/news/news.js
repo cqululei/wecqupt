@@ -23,17 +23,26 @@ Page({
     user_type: 'guest',
     disabledRemind: false
   },
-  onShow: function(){
+  onLoad: function(){
     if(app._user.is_bind){
       this.setData({
         user_type: !app._user.teacher ? 'student' : 'teacher'
       });
     }else{
       this.setData({
+        user_type: 'guest',
         'active.id': 5,
         'active.type': 'new'
       });
     }
+    this.setData({
+      'loading': true,
+      'active.data': [],
+      'active.showMore': true,
+      'active.remind': '上滑加载更多',
+      'page': 0
+    });
+    this.getNewsList();
   },
   //下拉更新
   onPullDownRefresh: function(){
@@ -57,6 +66,15 @@ Page({
   //获取新闻列表
   getNewsList: function(typeId){
     var _this = this;
+    if(app.g_status){
+      _this.setData({
+        'active.showMore': false,
+        'active.remind': app.g_status,
+        loading: false
+      });
+      wx.stopPullDownRefresh();
+      return;
+    }
     typeId = typeId || _this.data.active.id;
     if (_this.data.page >= 5){
       _this.setData({

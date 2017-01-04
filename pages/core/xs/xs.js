@@ -6,7 +6,8 @@ Page({
   data: {
     header: {
       defaultValue: '',
-      inputValue: ''
+      inputValue: '',
+      help_status: false
     },
     main: {
       mainDisplay: true, // main 显示的变化标识
@@ -20,6 +21,15 @@ Page({
       messageDisplay: true,
       message: '' 
     }
+  },
+  //分享
+  onShareAppMessage: function(){
+    var key = this.data.header.inputValue;
+    return {
+      title: key || '学生查询',
+      desc: key ? 'We重邮 - 学生查询' : 'We重邮',
+      path: '/pages/core/xs/xs' + (key?('?key='+key):'')
+    };
   },
 
   bindClearSearchTap: function (e) {
@@ -258,6 +268,7 @@ Page({
       var message = typeof err === 'undefined' ? '未搜索到相关结果' : err;
       
       setMessageObj(false, message);
+      wx.hideToast();
     }
     
     that.setData({
@@ -280,14 +291,12 @@ Page({
           doSuccess(res.data.data, true);
         }else{
 
-          wx.hideToast();
           app.showErrorModal(res.data.message);
           doFail(res.data.message);
         }
       },
       fail: function(res) {
         
-        wx.hideToast();
         app.showErrorModal(res.errMsg);
         doFail(res.errMsg);
       }
@@ -303,7 +312,14 @@ Page({
     this.setData(data);
   },
 
-  onLoad: function (options) {
+  onLoad: function(options){
+    var _this = this;
+    app.loginLoad(function(){
+      _this.loginHandler.call(_this, options);
+    });
+  },
+  //让分享时自动登录
+  loginHandler: function (options) {
     if(options.key){
       this.setData({
         'main.mainDisplay': false,
@@ -312,5 +328,21 @@ Page({
       });
       this.search();
     }
+  },
+
+  tapHelp: function(e){
+    if(e.target.id == 'help'){
+      this.hideHelp();
+    }
+  },
+  showHelp: function(e){
+    this.setData({
+      'header.help_status': true
+    });
+  },
+  hideHelp: function(e){
+    this.setData({
+      'header.help_status': false
+    });
   }
 });

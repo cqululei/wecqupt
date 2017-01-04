@@ -1,11 +1,18 @@
 /**bx.wxss**/
 .container{
     background-color: #f7f7f7;
+    padding-top: 200rpx;
 }
 .service-nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     display: flex;
     background: #fff;
-    border-bottom: 1px solid #eee;
+    background: rgba(255,255,255,.9);
+    border-bottom: 1rpx solid #eee;
     margin-bottom: 10rpx;
 }
 .service-nav-item {
@@ -17,11 +24,6 @@
     height: 160rpx;
     padding: 20rpx;
     border-right: 1rpx solid #eee;
-    background: #fcfcfc;
-}
-.service-history{
-    width: 200rpx;
-    flex-shrink: 0;
 }
 .service-apply-btn{
     flex: 1;
@@ -30,7 +32,7 @@
     font-size: 25pt;
     font-weight: bold;
     color: #7acfa6;
-    background: rgba(122,207,166,.05);
+    background: rgba(122,207,166,.1);
 }
 .service-apply-btn:active{
     background: #fff;
@@ -58,7 +60,7 @@
 
 .service-process-title{
     color: #888;
-    padding: 15rpx 20rpx;
+    padding: 20rpx 20rpx 15rpx;
 }
 .process{
     display: flex;

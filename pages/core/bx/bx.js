@@ -4,10 +4,7 @@ var app = getApp();
 Page({
   data: {
     remind: '加载中',
-    count: {
-      num: 0,
-      history: 0
-    },
+    count: '-',
     list: [],
     process_state: {
       '未审核': 'waited',
@@ -56,20 +53,22 @@ Page({
             }
             that.setData({
               'list': list,
-              'count.history': len,
+              'count': len,
               'remind': ''
             });
           }
         }else{
           that.setData({
-            remind: res.data.message || '未知错误'
+            remind: res.data.message || '未知错误',
+            'count': 0
           });
         }
       },
       fail: function(res) {
         app.showErrorModal(res.errMsg);
         that.setData({
-          remind: '网络错误'
+          remind: '网络错误',
+          'count': 0
         });
       },
       complete: function(){

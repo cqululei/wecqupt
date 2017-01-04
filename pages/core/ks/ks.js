@@ -20,24 +20,96 @@ Page({
     data.show[id] = !this.data.show[id];
     this.setData(data);
   },
-  onLoad: function(){
+  //分享
+  onShareAppMessage: function(){
+    var name = this.data.name || app._user.we.info.name,
+        id = this.data.id || app._user.we.info.id;
+    return {
+      title: name + '的考试安排',
+      desc: 'We重邮 - 考试安排',
+      path: '/pages/core/ks/ks?id='+id+'&name='+name
+    };
+  },
+  onLoad: function(options){
     var _this = this;
-    if(!app._user.we.info.id || !app._user.we.info.name){
+    app.loginLoad(function(){
+      _this.loginHandler.call(_this, options);
+    });
+  },
+  //让分享时自动登录
+  loginHandler: function(options){
+    var _this = this;
+    var id, name;
+    if(options.id && options.name){
+      id = options.id;
+      name = options.name;
+      _this.setData({
+        teacher: false
+      });
+    }else{
+      id = app._user.we.info.id,
+      name = app._user.we.info.name;
+      _this.setData({
+        teacher: app._user.teacher
+      });
+    }
+    if(!id || !name){
       _this.setData({
         remind: '未绑定'
       });
       return false;
     }
     _this.setData({
-      id: app._user.we.info.id,
-      name: app._user.we.info.name,
-      teacher: app._user.teacher
+      id: id,
+      name: name
     });
     var data = {
       openid: app._user.openid,
-      id: app._user.we.info.id
+      id: id
     };
     if(app._user.teacher){ data.type = 'teacher'; }
+
+    //判断并读取缓存
+    if(app.cache.ks){ ksRender(app.cache.ks); }
+    function ksRender(list){
+      if(!list || !list.length){
+        _this.setData({
+          remind: '无考试安排'
+        });
+        return false;
+      }
+      var days = ['一','二','三','四','五','六','日'];
+      for (var i = 0, len = list.length; i < len; ++i) {
+        list[i].open = false;
+        list[i].index = i;
+        list[i].day = days[list[i].day - 1];
+        list[i].time = list[i].time.trim().replace('—','~');
+        list[i].lesson = list[i].lesson.replace(',','-');
+        //倒计时提醒
+        if(list[i].days > 0){
+          list[i].countdown = '还有' + list[i].days + '天考试';
+          list[i].place = '（'+list[i].time+'）'+list[i].room;
+          if(!app._user.teacher){
+            list[i].place += '#'+list[i].number; 
+          }
+        }else if(list[i].days < 0){
+          list[i].countdown = '考试已过了' + (-list[i].days) + '天';
+          list[i].place = '';
+        }else{
+          list[i].countdown = '今天考试';
+          list[i].place = '（'+list[i].time+'）'+list[i].room; 
+          if(!app._user.teacher){
+            list[i].place += '#'+list[i].number; 
+          }
+        }
+      }
+      list[0].open = true;
+      _this.setData({
+        list: list,
+        remind: ''
+      });
+    }
+    wx.showNavigationBarLoading();
     wx.request({
       url: app._server + "/api/get_ks.php",
       method: 'POST',
@@ -45,42 +117,12 @@ Page({
       success: function(res) {
         if (res.data && res.data.status === 200){
           var list = res.data.data;
-          if(!list || !list.length){
-            _this.setData({
-              remind: '无考试安排'
-            });
-            return false;
+          if(list) {
+            //保存考试缓存
+            app.saveCache('ks', list);
+            ksRender(list);
           }
-          var days = ['一','二','三','四','五','六','日'];
-          for (var i = 0, len = list.length; i < len; ++i) {
-            list[i].open = false;
-            list[i].index = i;
-            list[i].day = days[list[i].day - 1];
-            list[i].time = list[i].time.trim().replace('—','~');
-            list[i].lesson = list[i].lesson.replace(',','-');
-            //倒计时提醒
-            if(list[i].days > 0){
-              list[i].countdown = '还有' + list[i].days + '天考试';
-              list[i].place = '（'+list[i].time+'）'+list[i].room;
-              if(!app._user.teacher){
-                list[i].place += '#'+list[i].number; 
-              }
-            }else if(list[i].days < 0){
-              list[i].countdown = '考试已过了' + (-list[i].days) + '天';
-              list[i].place = '';
-            }else{
-              list[i].countdown = '今天考试';
-              list[i].place = '（'+list[i].time+'）'+list[i].room; 
-              if(!app._user.teacher){
-                list[i].place += '#'+list[i].number; 
-              }
-            }
-          }
-          list[0].open = true;
-          _this.setData({
-            list: list,
-            remind: ''
-          });
+
         } else {
           _this.setData({
             remind: res.data.message || '未知错误'
@@ -88,10 +130,15 @@ Page({
         }
       },
       fail: function(res) {
-        app.showErrorModal(res.errMsg);
-        _this.setData({
-          remind: '网络错误'
-        });
+        if(this.data.remind == '加载中'){
+          this.setData({
+            remind: '网络错误'
+          });
+        }
+        console.warn('网络错误');
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     });
   },

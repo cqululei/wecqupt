@@ -22,6 +22,26 @@ Page({
       id: app._user.we.info.id,
       name: app._user.we.info.name
     });
+    //判断并读取缓存
+    if(app.cache.xf){ xfRender(app.cache.xf); }
+    function xfRender(info){
+      // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
+      var list = info.reverse();
+      for (var i = 0, len = list.length; i < len; ++i) {
+        list[i].open = false;
+      }
+      list[0].open = true;
+      _this.setData({
+        remind: '',
+        xfData: list,
+        stuInfo: {
+          sno: list[0].StuID,
+          sname: list[0].StuName,
+          remind: ''
+        }
+      });
+    }
+    wx.showNavigationBarLoading();
     wx.request({
       url: app._server + "/api/get_jzsf.php",
       method: 'POST',
@@ -32,21 +52,13 @@ Page({
       success: function(res) {
 
         if(res.data && res.data.status === 200) {
-          // 为每一个学年设置是否显示当前学年学费详情的标志open, false表示不显示
-          var list = res.data.data.reverse();
-          for (var i = 0, len = list.length; i < len; ++i) {
-            list[i].open = false;
+          var info = res.data.data;
+          if(info) {
+            //保存学费缓存
+            app.saveCache('xf', info);
+            xfRender(info);
           }
-          list[0].open = true;
-          _this.setData({
-            remind: '',
-            xfData: list,
-            stuInfo: {
-              sno: list[0].StuID,
-              sname: list[0].StuName,
-              remind: ''
-            }
-          });
+
         } else {
           _this.setData({
             remind: res.data.message || '未知错误'
@@ -54,12 +66,16 @@ Page({
         }
 
       },
-      
       fail: function(res) {
-        app.showErrorModal(res.errMsg);
-        _this.setData({
-          remind: '网络错误'
-        });
+        if(this.data.remind == '加载中'){
+          this.setData({
+            remind: '网络错误'
+          });
+        }
+        console.warn('网络错误');
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     });
   },

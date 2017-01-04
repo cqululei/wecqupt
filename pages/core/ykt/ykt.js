@@ -44,6 +44,84 @@ Page({
         });
         return false;
       }
+      //判断并读取缓存
+      if(app.cache.ykt){ yktRender(app.cache.ykt); }
+      function yktRender(info){
+        var data = info.slice(0, _this.data.count).reverse();
+        /*
+        * 获取最近消费数据绘制折线图
+        **/
+        var dict = data;
+        var len = dict.length,
+            xArr = [],           // x轴坐标
+            yArr = [],           // 余额点在画布中的纵坐标
+            balanceArr = [],       // 余额金额集合
+            costArr = [],        // 消费金额集合
+            canvasWidth = _this.data.width,
+            spaceX = (canvasWidth - 2*_this.data.gridMarginLeft) / (_this.data.count - 1),   // 表示横坐标的间隔距离
+            canvasHeight = _this.data.height,
+            gridMarginTop = _this.data.gridMarginTop,  // 折线图上距离
+            gridMarginLeft = _this.data.gridMarginLeft, // 折线图左距离
+            gridNum = 6,                     //横线行数
+            fontSize = _this.data.fontSize;  //字号
+
+        // 横坐标&余额&消费
+        for(var i = 0; i < len; i ++){
+            xArr.push(i * spaceX);  
+            balanceArr.push(parseFloat(dict[i].balance)); 
+            if(dict[i].transaction == '消费'){
+                dict[i].cost = -Math.abs(dict[i].cost);
+            }
+            costArr.push(parseFloat(dict[i].cost));
+        }
+        _this.setData({
+            dict: data,
+            tapDetail: dict[dict.length-1],
+            balance: parseFloat(data[data.length - 1].balance),
+            last_time: data[data.length - 1].time.split(' ')[0],
+            ykt_id: app._user.we.ykth,
+            lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
+            remind: '',
+            switchArr: balanceArr, // 将纵坐标的值初始化为余额集合
+            costArr: costArr,    // 消费集合，切换折线的时候用
+            balanceArr: balanceArr
+        });
+
+        //canvas 创建上下文
+        var context = wx.createCanvasContext('firstCanvas');
+        // 配置
+        var options = {
+            canvasWidth: canvasWidth,         // 矩形宽度
+            canvasHeight: canvasHeight,       // 矩形高度
+            gridMarginTop: gridMarginTop,     // 折线图上距离
+            gridMarginLeft: gridMarginLeft,   // 折线图左距离 
+            xArr: xArr,                       // 横坐标
+            gridNum: gridNum,                 // 横网格线数量
+            context: context,                 // canvas上下文
+            len: len,                         // 数据数组长度
+            spaceX: spaceX,
+            fontSize: fontSize
+        };
+        _this.setData({
+            options: options
+        });
+
+        /*
+        * 绘制横轴&纵轴&网格线
+        */
+        _this.drawLineXY(_this.data.options, _this.data.switchArr);
+
+        /*
+        * 描点连线
+        */
+        _this.drawPointLine(_this.data.options, _this.data.switchArr);
+
+        context.draw();
+        _this.setData({
+            canvas_remind: ''
+        });
+      }
+      wx.showNavigationBarLoading();
       wx.request({
           url: app._server + "/api/get_yktcost.php",
           method: 'POST',
@@ -53,86 +131,13 @@ Page({
           }),
           success: function(res) {
               if(res.data && res.data.status === 200){
-                var data = res.data.data.slice(0, _this.data.count).reverse();
-
-                /*
-                * 获取最近消费数据绘制折线图
-                **/
-                var dict = data;
-                var len = dict.length,
-                    xArr = [],           // x轴坐标
-                    yArr = [],           // 余额点在画布中的纵坐标
-                    balanceArr = [],       // 余额金额集合
-                    costArr = [],        // 消费金额集合
-                    canvasWidth = _this.data.width,
-                    spaceX = (canvasWidth - 2*_this.data.gridMarginLeft) / (_this.data.count - 1),   // 表示横坐标的间隔距离
-                    canvasHeight = _this.data.height,
-                    gridMarginTop = _this.data.gridMarginTop,  // 折线图上距离
-                    gridMarginLeft = _this.data.gridMarginLeft, // 折线图左距离
-                    gridNum = 6,                     //横线行数
-                    fontSize = _this.data.fontSize;  //字号
-
-                // 横坐标&余额&消费
-                for(var i = 0; i < len; i ++){
-                    xArr.push(i * spaceX);  
-                    balanceArr.push(parseFloat(dict[i].balance)); 
-                    if(dict[i].transaction == '消费'){
-                      dict[i].cost = -Math.abs(dict[i].cost);
-                    }
-                    costArr.push(parseFloat(dict[i].cost));
+                var info = res.data.data;
+                if(info) {
+                    //保存一卡通缓存
+                    app.saveCache('ykt', info);
+                    yktRender(info);
                 }
-                _this.setData({
-                    dict: data,
-                    tapDetail: dict[dict.length-1],
-                    balance: parseFloat(data[data.length - 1].balance),
-                    last_time: data[data.length - 1].time.split(' ')[0],
-                    ykt_id: app._user.we.ykth,
-                    lineLeft: _this.data.width - _this.data.gridMarginLeft - 1,
-                    remind: '',
-                    switchArr: balanceArr, // 将纵坐标的值初始化为余额集合
-                    costArr: costArr,    // 消费集合，切换折线的时候用
-                    balanceArr: balanceArr
-                });
-
-                //canvas 
-                var context = wx.createContext();
-                var options = {
-                    canvasWidth: canvasWidth,         // 矩形宽度
-                    canvasHeight: canvasHeight,       // 矩形高度
-                    gridMarginTop: gridMarginTop,     // 折线图上距离
-                    gridMarginLeft: gridMarginLeft,   // 折线图左距离 
-                    xArr: xArr,                       // 横坐标
-                    gridNum: gridNum,                 // 横网格线数量
-                    context: context,                 // canvas上下文
-                    len: len,                         // 数据数组长度
-                    spaceX: spaceX,
-                    fontSize: fontSize
-                };
-                _this.setData({
-                    options: options
-                });
-                context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-                /*
-                * 绘制横轴&纵轴&网格线
-                */
-                _this.drawLineXY(_this.data.options, _this.data.switchArr);
-
-                /*
-                * 描点连线
-                */
-                _this.drawPointLine(_this.data.options, _this.data.switchArr);
                 
-                setTimeout(function(){
-                    wx.drawCanvas({
-                        canvasId: "firstCanvas",
-                        actions: context.getActions(), // 获取绘图动作数组
-                        reserve: true,
-                    });
-                    _this.setData({
-                      canvas_remind: ''
-                    });
-                }, 500);
               } else {
                 _this.setData({
                     remind: res.data.message || '未知错误'
@@ -140,11 +145,16 @@ Page({
               }
           },
           fail: function(res){
-            app.showErrorModal(res.errMsg);
-            _this.setData({
+            if(this.data.remind == '加载中'){
+            this.setData({
                 remind: '网络错误'
             });
-          },
+            }
+            console.warn('网络错误');
+        },
+        complete: function() {
+            wx.hideNavigationBarLoading();
+        }
       });
   },
 
@@ -343,15 +353,10 @@ Page({
           return false;
       }
       var context = this.data.options.context;
-      context.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight);
       this.drawLineXY(this.data.options, this.data[id+'Arr']);
       this.drawPointLine(this.data.options, this.data[id+'Arr']);
         
-      wx.drawCanvas({
-          canvasId: "firstCanvas",
-          actions: context.getActions(),
-          reverse: true
-      });
+      context.draw();
       this.setData({
           switchBtn: !this.data.switchBtn
       });

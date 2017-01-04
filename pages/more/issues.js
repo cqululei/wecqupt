@@ -10,25 +10,29 @@ Page({
     imgLen: 0,
     upload: false,
     uploading: false,
-    qiniu: ''
+    qiniu: '',
+    showError: false
   },
   onLoad: function(){
     var _this = this;
     wx.getSystemInfo({
       success: function(res) {
-        var info = '---\r\n用户信息\r\n';
+        var info = '---\r\n**用户信息**\r\n';
         info += '用户名：' + app._user.wx.nickName;
         if(app._user.we.type){
           info += '（' + app._user.we.type + '-' + app._user.we.info.name + '-' + app._user.we.info.id + '）';
         }
         info += '\r\n手机型号：' + res.model;
-        info += '（' +res.windowWidth+'x'+res.windowHeight+ '）';
+        info += '（'+res.platform+' - '+res.windowWidth+'x'+res.windowHeight+ '）';
         info += '\r\n微信版本号：' + res.version;
+        info += '\r\nWe重邮版本号：' + app.version;
         _this.setData({
           info: info
         });
       }
     });
+    if(app.g_status){ return; }
+    wx.showNavigationBarLoading();
     wx.request({
       url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
       method: 'POST',
@@ -42,6 +46,9 @@ Page({
             qiniu: res.data.data.token
           });
         }
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     })
   },
@@ -70,7 +77,7 @@ Page({
               var tempFilePaths = res.tempFilePaths, imgLen = tempFilePaths.length;
               _this.setData({
                 uploading: true,
-                imgLen: imgLen
+                imgLen: _this.data.imgLen + imgLen
               });
               tempFilePaths.forEach(function(e){
                 _this.uploadImg(e);
@@ -83,6 +90,11 @@ Page({
   },
   uploadImg: function(path){
     var _this = this;
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '上传失败');
+      return;
+    }
+    wx.showNavigationBarLoading();
     // 上传图片
     wx.uploadFile({
       url: 'https://up.qbox.me',
@@ -111,6 +123,9 @@ Page({
         _this.setData({
           imgLen: _this.data.imgLen - 1
         });
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
       }
     });
   },
@@ -128,12 +143,14 @@ Page({
   },
   submit: function(){
     var _this = this, title = '', content = '', imgs = '';
-    if(_this.data.uploading){
-      app.showErrorModal('正在上传图片', '提交失败');
-      return false;
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '提交失败');
+      return;
     }
-    if(!_this.data.title){
-      app.showErrorModal('请输入反馈标题', '提交失败');
+    _this.setData({
+      showError: true
+    });
+    if(_this.data.uploading || !_this.data.title || !_this.data.content){
       return false;
     }
     wx.showModal({
@@ -141,10 +158,6 @@ Page({
       content: '是否确认提交反馈？',
       success: function(res) {
         if (res.confirm) {
-          if(!_this.data.content){
-            app.showErrorModal('请输入反馈内容', '提交失败');
-            return false;
-          }
           title = '【' + app._user.wx.nickName + '】' + _this.data.title;
           content = _this.data.content + '\r\n\r\n' + _this.data.info;
           if(_this.data.imgLen){

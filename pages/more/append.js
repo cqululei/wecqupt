@@ -81,6 +81,10 @@ Page({
   },
   confirm: function(){
     var _this = this;
+    if(app.g_status){
+      app.showErrorModal(app.g_status, '提交失败');
+      return;
+    }
     var data = {
       openid: app._user.openid
     };
@@ -115,7 +119,7 @@ Page({
           app.showErrorModal(res.data.message);
         }
       },
-      fail: function() {
+      fail: function(res) {
         wx.hideToast();
         app.showErrorModal(res.errMsg);
       }
