@@ -67,10 +67,10 @@ Page({
       openid: app._user.openid,
       id: id
     };
-    if(app._user.teacher){ data.type = 'teacher'; }
+    if(app._user.teacher && !options.name){ data.type = 'teacher'; }
 
     //判断并读取缓存
-    if(app.cache.ks){ ksRender(app.cache.ks); }
+    if(app.cache.ks && !options.name){ ksRender(app.cache.ks); }
     function ksRender(list){
       if(!list || !list.length){
         _this.setData({
@@ -118,8 +118,10 @@ Page({
         if (res.data && res.data.status === 200){
           var list = res.data.data;
           if(list) {
-            //保存考试缓存
-            app.saveCache('ks', list);
+            if(!options.name){
+              //保存考试缓存
+              app.saveCache('ks', list);
+            }
             ksRender(list);
           }
 
