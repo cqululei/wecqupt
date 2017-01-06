@@ -77,7 +77,7 @@
           </view>
           <view class="item-ul-more item-ul-li">
             <text class="ul-li-label">考试</text>
-            <navigator open-type="redirect" url="/pages/core/ks/ks?id={{item.xh}}&name={{item.xm}}" class="ul-li-more ul-li-ks">点击查看</navigator>
+            <navigator url="/pages/core/ks/ks?id={{item.xh}}&name={{item.xm}}" class="ul-li-more ul-li-ks">点击查看</navigator>
           </view>
           <view class="item-ul-more item-ul-li">
             <text class="ul-li-label">课表</text>
