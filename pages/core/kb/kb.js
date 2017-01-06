@@ -216,7 +216,7 @@ Page({
     });
   },
   //滑动切换课程详情
-  bindEndDetail: function(e){
+  bindMoveDetail: function(e){
     var _this = this;
     var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
         startPoint = _this.data.startPoint, i = 0;
