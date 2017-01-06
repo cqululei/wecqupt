@@ -50,6 +50,8 @@
             <text class="desc-list-item">根据学生查询可以查询他人考试安排</text>
             <text class="desc-list-item">现在可以分享考试安排页面了</text>
             <text class="desc-list-item">打开分享单页时也将会进行自动登录</text>
+            <text class="desc-list-item">阻止了课表详情的滑动穿透</text>
+            <text class="desc-list-item">兼容用户拒绝授权时的场景</text>
           </view>
       </view>
       <view class="describe">

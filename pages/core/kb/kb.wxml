@@ -110,7 +110,7 @@
         </view>
 
         <!-- 底部 -->
-        <view class="kb-info-ctn {{blur?'kb-info-ctn-open':''}}">
+        <view class="kb-info-ctn {{blur?'kb-info-ctn-open':''}}" catchtouchmove="catchMoveDetail">
 
             <view class="kb-info-title" wx:if="{{!blur}}">
                 <block wx:if="{{week != '*'}}">
