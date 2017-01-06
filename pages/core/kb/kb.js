@@ -209,6 +209,7 @@ Page({
       week: current+1
     });
   },
+  catchMoveDetail: function(){ /*阻止滑动穿透*/ },
   bindStartDetail: function(e){
     this.setData({
       startPoint: [e.touches[0].pageX, e.touches[0].pageY]
