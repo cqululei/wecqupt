@@ -47,6 +47,7 @@
           <view class="desc-list">
             <text class="desc-list-item">阻止了课表详情的滑动穿透</text>
             <text class="desc-list-item">兼容用户拒绝授权时的场景</text>
+            <text class="desc-list-item">完善物业报修响应时间的正确性</text>
           </view>
       </view>
       <view class="describe">

@@ -48,7 +48,7 @@
                             <text class="process-item-name">响应时间</text>
                         </view>
                         <view class="process-item-ft">
-                            <text class="process-item-info">{{item.xysj}}</text>
+                            <text class="process-item-info">{{item.xysj=='120分钟以上响应'?'未响应':item.xysj}}</text>
                         </view>
                     </view>
                 </view> 
