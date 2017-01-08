@@ -67,7 +67,7 @@ Page({
             list: {
               '受理人': info.wx_slr,
               '承修部门': info.wx_cxbmm,
-              '响应时间': info.xysj
+              '响应时间': info.xysj=='120分钟以上响应'?'未响应':info.xysj
             }
           },{
             'type': 'waited',
