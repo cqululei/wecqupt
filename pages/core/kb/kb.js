@@ -379,8 +379,8 @@ Page({
         }
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }

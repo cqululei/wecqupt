@@ -36,6 +36,21 @@
     <view class="log-list" wx:else>
       <view class="describe">
           <view class="desc-title">
+            <text class="desc-v">v0.1.1 公测版</text>
+            <text class="desc-time">2017.01.09</text>
+          </view>
+          <text class="desc-content">修复BUG</text>
+          <view class="desc-list">
+            <text class="desc-list-item">修复无网离线缓存模式情况下请求失败出现的错误</text>
+          </view>
+          <text class="desc-content">优化完善</text>
+          <view class="desc-list">
+            <text class="desc-list-item">阻止了课表详情的滑动穿透</text>
+            <text class="desc-list-item">兼容用户拒绝授权时的场景</text>
+          </view>
+      </view>
+      <view class="describe">
+          <view class="desc-title">
             <text class="desc-v">v0.1.0 公测版</text>
             <text class="desc-time">2017.01.09</text>
           </view>
@@ -50,8 +65,6 @@
             <text class="desc-list-item">根据学生查询可以查询他人考试安排</text>
             <text class="desc-list-item">现在可以分享考试安排页面了</text>
             <text class="desc-list-item">打开分享单页时也将会进行自动登录</text>
-            <text class="desc-list-item">阻止了课表详情的滑动穿透</text>
-            <text class="desc-list-item">兼容用户拒绝授权时的场景</text>
           </view>
       </view>
       <view class="describe">
