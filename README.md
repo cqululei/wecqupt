@@ -22,6 +22,7 @@ We重邮
 
 ---
 
+<img src="https://cloud.githubusercontent.com/assets/11243798/21806457/5fe63014-d774-11e6-94bd-6dc1b3cc2270.jpg" alt="二维码" width="50%">
 <img src="https://cloud.githubusercontent.com/assets/11243798/21165504/c4c85a02-c1da-11e6-8937-36e9a8f5de59.png" alt="首页" width="50%">
 
 更多截图见：https://github.com/lanshan-studio/wecqupt/issues/196

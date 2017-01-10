@@ -76,11 +76,22 @@
     text-align: center;
 }
 .version-log-link{
+    position: relative;
     font-size: 12pt;
     color: #7acfa6;
 }
 .version-log-link:active{
     opacity: .8;
+}
+.update-log::after{
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: -1px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e55c5c;
 }
 .log-list{
     display: flex;

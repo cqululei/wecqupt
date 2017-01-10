@@ -18,7 +18,7 @@
             <view class="item-labels">
               <text wx:for="{{item.content.labels}}" wx:key="id" wx:for-item="label" class="item-label">{{label.name}}</text>
             </view>
-            <text class="item-status" wx:if="{{item.content.state == 'close'}}">已解决</text>
+            <text class="item-status" wx:if="{{item.content.state == 'closed'}}">已解决</text>
             <text class="item-status" wx:elif="{{item.content.state == 'open'}}">进行中</text>
           </block>
         </view>

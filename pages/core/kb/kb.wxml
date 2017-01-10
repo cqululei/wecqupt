@@ -71,7 +71,7 @@
                         <!-- today 0周一,1周二 -->
                         <block wx:if="{{(today===day) && (toweek == week)}}">
                             <view class="kb-bg" style="background:-webkit-gradient(linear,left top,left bottom,from(#eff7ff),color-stop({{(timelineTop+4)/1260}}, #8cc4ff),to(#eff7ff));"></view>
-                            <view class="kb-timeline" style="top:{{timelineTop}}rpx"></view>
+                            <view class="kb-timeline" style="display:block;top:{{timelineTop}}rpx"></view>
                         </block>
                         <!-- 循环当天的的6节课 -->
                         <view class="kb-card {{wid%2==0?'mg-8':'mg-12'}}" wx:for="{{day_lesson}}" wx:key="{{wid}}" wx:for-index="wid">
