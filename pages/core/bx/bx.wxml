@@ -3,7 +3,7 @@
     <view class="service-nav">
         <navigator class="service-nav-item service-apply-btn" url="bx_apply">
             <image class="service-apply-icon" src="/images/core/bx.png"></image>
-            <text>服务申报</text>
+            <text>申报入口</text>
         </navigator> 
     </view>
     <view wx:if="{{remind}}" class="remind-box">
@@ -48,7 +48,7 @@
                             <text class="process-item-name">响应时间</text>
                         </view>
                         <view class="process-item-ft">
-                            <text class="process-item-info">{{item.xysj}}</text>
+                            <text class="process-item-info">{{item.xysj=='120分钟以上响应'?'未响应':item.xysj}}</text>
                         </view>
                     </view>
                 </view> 

@@ -32,7 +32,7 @@ Page({
       _this.setData({
         'renderData': info,
         'renderData.room_name': info.room.split('-').join('栋'),
-        'renderData.last_time': info.record_time.split(' ')[0],
+        'renderData.record_time': info.record_time.split(' ')[0].split('/').join('-'),
         remind: ''
       });
     }
@@ -54,17 +54,18 @@ Page({
             //保存电费缓存
             app.saveCache('sdf', info);
             sdfRender(info);
-          }
+          }else{ _this.setData({ remind: '暂无数据' }); }
 
         }else{
+          app.removeCache('sdf');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
         }
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }

@@ -30,6 +30,14 @@ Page({
       path: '/pages/core/ks/ks?id='+id+'&name='+name
     };
   },
+  //下拉更新
+  onPullDownRefresh: function(){
+    var _this = this;
+    _this.loginHandler({
+      id: _this.data.id || app._user.we.info.id,
+      name: _this.data.name || app._user.we.info.name
+    });
+  },
   onLoad: function(options){
     var _this = this;
     app.loginLoad(function(){
@@ -123,17 +131,18 @@ Page({
               app.saveCache('ks', list);
             }
             ksRender(list);
-          }
+          } else { _this.setData({ remind: '暂无数据' }); }
 
         } else {
+          app.removeCache('ks');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
         }
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }
@@ -141,6 +150,7 @@ Page({
       },
       complete: function() {
         wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
       }
     });
   },

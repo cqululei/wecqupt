@@ -1,6 +1,6 @@
 //app.js
 App({
-  version: 'v0.1.0', //版本号
+  version: 'v0.1.2', //版本号
   onLaunch: function() {
     var _this = this;
     //读取缓存
@@ -31,6 +31,15 @@ App({
     wx.setStorage({
       key: key,
       data: value
+    });
+  },
+  //清除缓存
+  removeCache: function(key) {
+    if(!key){return;}
+    var _this = this;
+    _this.cache[key] = '';
+    wx.removeStorage({
+      key: key
     });
   },
   //后台切换至前台时
@@ -98,7 +107,7 @@ App({
                     _this.cache = {};
                     wx.clearStorage();
                   }
-                  typeof response == "function" && response('加载失败');
+                  typeof response == "function" && response(res.data.message || '加载失败');
                 }
               },
               fail: function(res){

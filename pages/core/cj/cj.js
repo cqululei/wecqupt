@@ -66,9 +66,10 @@ Page({
             //保存成绩缓存
             app.saveCache('cj', _data);
             cjRender(_data);
-          }
+          } else { _this.setData({ remind: '暂无数据' }); }
 
         } else {
+          app.removeCache('cj');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -76,8 +77,8 @@ Page({
 
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }

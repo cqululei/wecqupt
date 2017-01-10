@@ -136,17 +136,18 @@ Page({
                     //保存一卡通缓存
                     app.saveCache('ykt', info);
                     yktRender(info);
-                }
+                }else{ _this.setData({ remind: '暂无数据' }); }
                 
               } else {
+                app.removeCache('ykt');
                 _this.setData({
                     remind: res.data.message || '未知错误'
                 });
               }
           },
           fail: function(res){
-            if(this.data.remind == '加载中'){
-            this.setData({
+            if(_this.data.remind == '加载中'){
+            _this.setData({
                 remind: '网络错误'
             });
             }

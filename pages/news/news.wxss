@@ -17,10 +17,16 @@
   margin: 20rpx;
   margin-left: 0;
   border-radius: 5rpx;
-  box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #e5e5e5;
+  opacity: .66;
 }
 .filter-item#all{
   margin-left: 20rpx;
+}
+.filter-item.active{
+  opacity: 1;
+  transform: scale(1.08,1.08);
+  box-shadow: 1px 2px 3px #ddd;
 }
 .loader{
   display: inline-block;

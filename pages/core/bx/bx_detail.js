@@ -38,7 +38,7 @@ Page({
         if(res.data && res.data.status === 200) {
           var info = res.data.data;
           //报修内容过滤标签
-          info.wx_bt = _this.convertHtmlToText(info.wx_bxnr).replace(/[\r|\n]/g, "");
+          info.wx_bt = _this.convertHtmlToText(info.wx_bt).replace(/[\r|\n]/g, "");
           info.wx_bxnr = _this.convertHtmlToText(info.wx_bxnr);
           //处理详情
           var state = [{
@@ -67,7 +67,7 @@ Page({
             list: {
               '受理人': info.wx_slr,
               '承修部门': info.wx_cxbmm,
-              '响应时间': info.xysj
+              '响应时间': info.xysj=='120分钟以上响应'?'未响应':info.xysj
             }
           },{
             'type': 'waited',

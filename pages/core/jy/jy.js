@@ -30,7 +30,7 @@ Page({
     //判断并读取缓存
     if(app.cache.jy){ jyRender(app.cache.jy); }
     function jyRender(info){
-      info.nothing = !parseInt(info.books_num) && (!info.book_list || !info.book_list.length);
+      info.nothing = !parseInt(info.books_num) || !info.book_list || !info.book_list.length;
       var colors = ['green','yellow','red','purple'],
           nowTime = new Date().getTime();
       if(!info.nothing){
@@ -56,11 +56,11 @@ Page({
     }
     wx.showNavigationBarLoading();
     wx.request({
-      url: app._server + "/api/get_booklist.php",
+      url: app._server + "/api/get_books.php",
       method: 'POST',
       data: app.key({
         openid: app._user.openid,
-        id: app._user.teacher ? app._user.we.ykth : app._user.we.info.id
+        ykth: app._user.we.ykth
       }),
       success: function(res) {
         if(res.data && res.data.status === 200) {
@@ -69,17 +69,18 @@ Page({
             //保存借阅缓存
             app.saveCache('jy', info);
             jyRender(info);
-          }
+          }else{ _this.setData({ remind: '暂无数据' }); }
 
         }else{
+          app.removeCache('jy');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
         }
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }

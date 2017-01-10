@@ -57,9 +57,10 @@ Page({
             //保存学费缓存
             app.saveCache('xf', info);
             xfRender(info);
-          }
+          }else{ _this.setData({ remind: '暂无数据' }); }
 
         } else {
+          app.removeCache('xf');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
@@ -67,8 +68,8 @@ Page({
 
       },
       fail: function(res) {
-        if(this.data.remind == '加载中'){
-          this.setData({
+        if(_this.data.remind == '加载中'){
+          _this.setData({
             remind: '网络错误'
           });
         }
