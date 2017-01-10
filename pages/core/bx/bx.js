@@ -49,7 +49,7 @@ Page({
           }else{
             for(var i = 0, len = list.length; i < len; i++) {
               list[i].state = that.data.process_state[list[i].wx_wxztm];
-              list[i].wx_bt = that.convertHtmlToText(list[i].wx_bxnr).replace(/[\r|\n]/g, "");
+              list[i].wx_bt = that.convertHtmlToText(list[i].wx_bt).replace(/[\r|\n]/g, "");
             }
             that.setData({
               'list': list,

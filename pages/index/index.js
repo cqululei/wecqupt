@@ -225,6 +225,8 @@ Page({
       id: app._user.we.info.id,
     };
     if(app._user.teacher){ kb_data.type = 'teacher'; }
+    var loadsum = 0; //正在请求连接数
+    loadsum++; //新增正在请求连接
     wx.request({
       url: app._server + '/api/get_kebiao.php',
       method: 'POST',
@@ -237,11 +239,19 @@ Page({
             app.saveCache('kb', info);
             kbRender(info);
           }
-        }
+        }else{ app.removeCache('kb'); }
       },
       complete: function() {
-        wx.hideNavigationBarLoading();
-        wx.stopPullDownRefresh();
+        loadsum--; //减少正在请求连接
+        if(!loadsum){
+          if(_this.data.remind == '加载中'){
+            _this.setData({
+              remind: '首页暂无展示'
+            });
+          }
+          wx.hideNavigationBarLoading();
+          wx.stopPullDownRefresh();
+        }
       }
     });
 
@@ -275,6 +285,7 @@ Page({
       }
     }
     //获取一卡通数据
+    loadsum++; //新增正在请求连接
     wx.request({
       url: app._server + '/api/get_yktcost.php',
       method: 'POST',
@@ -289,11 +300,19 @@ Page({
             app.saveCache('ykt', list);
             yktRender(list);
           }
-        }
+        }else{ app.removeCache('ykt'); }
       },
       complete: function() {
-        wx.hideNavigationBarLoading();
-        wx.stopPullDownRefresh();
+        loadsum--; //减少正在请求连接
+        if(!loadsum){
+          if(_this.data.remind){
+            _this.setData({
+              remind: '首页暂无展示'
+            });
+          }
+          wx.hideNavigationBarLoading();
+          wx.stopPullDownRefresh();
+        }
       }
     });
 
@@ -301,7 +320,7 @@ Page({
     function sdfRender(info){
       _this.setData({
         'card.sdf.data.room': info.room.split('-').join('栋'),
-        'card.sdf.data.record_time': info.record_time.split(' ')[0],
+        'card.sdf.data.record_time': info.record_time.split(' ')[0].split('/').join('-'),
         'card.sdf.data.cost': info.elec_cost,
         'card.sdf.data.spend': info.elec_spend,
         'card.sdf.show': true,
@@ -310,6 +329,7 @@ Page({
     }
     if(!!app._user.we.room && !!app._user.we.build){
       //获取水电费数据
+      loadsum++; //新增正在请求连接
       wx.request({
         url: app._server + '/api/get_elec.php',
         method: 'POST',
@@ -326,18 +346,26 @@ Page({
               app.saveCache('sdf', info);
               sdfRender(info);
             }
-          }
+          }else{ app.removeCache('sdf'); }
         },
         complete: function() {
-          wx.hideNavigationBarLoading();
-          wx.stopPullDownRefresh();
+          loadsum--; //减少正在请求连接
+          if(!loadsum){
+            if(_this.data.remind){
+              _this.setData({
+                remind: '首页暂无展示'
+              });
+            }
+            wx.hideNavigationBarLoading();
+            wx.stopPullDownRefresh();
+          }
         }
       });
     }
 
     //借阅信息渲染
     function jyRender(info){
-      if(parseInt(info.books_num) || (info.book_list && info.book_list.length)){
+      if(parseInt(info.books_num) && info.book_list && info.book_list.length){
         var nowTime = new Date().getTime();
         info.book_list.map(function(e){
           var oDate = e.yhrq.split('-'),
@@ -353,11 +381,12 @@ Page({
       }
     }
     //获取借阅信息
+    loadsum++; //新增正在请求连接
     wx.request({
-      url: app._server + '/api/get_booklist.php',
+      url: app._server + "/api/get_books.php",
       method: 'POST',
       data: app.key({
-        id: app._user.teacher ? app._user.we.ykth : app._user.we.info.id
+        ykth: app._user.we.ykth
       }),
       success: function(res) {
         if(res.data && res.data.status === 200){
@@ -367,11 +396,19 @@ Page({
             app.saveCache('jy', info);
             jyRender(info);
           }
-        }
+        }else{ app.removeCache('jy'); }
       },
       complete: function() {
-        wx.hideNavigationBarLoading();
-        wx.stopPullDownRefresh();
+        loadsum--; //减少正在请求连接
+        if(!loadsum){
+          if(_this.data.remind){
+            _this.setData({
+              remind: '首页暂无展示'
+            });
+          }
+          wx.hideNavigationBarLoading();
+          wx.stopPullDownRefresh();
+        }
       }
     });
   }

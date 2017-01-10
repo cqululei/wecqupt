@@ -22,15 +22,6 @@ Page({
       message: '' 
     }
   },
-  //分享
-  onShareAppMessage: function(){
-    var key = this.data.header.inputValue;
-    return {
-      title: key || '学生查询',
-      desc: key ? 'We重邮 - 学生查询' : 'We重邮',
-      path: '/pages/core/xs/xs' + (key?('?key='+key):'')
-    };
-  },
 
   bindClearSearchTap: function (e) {
     this.setData({

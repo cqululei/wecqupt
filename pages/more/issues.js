@@ -3,6 +3,13 @@
 var app = getApp();
 Page({
   data: {
+    list_remind: '加载中',
+    list: {
+      status: false,  //是否显示列表
+      count: '-',   //次数
+      data: [],    //列表内容
+      open: 0      //被展示的序号
+    },
     title: '',
     content: '',
     info: '',
@@ -34,7 +41,43 @@ Page({
     if(app.g_status){ return; }
     wx.showNavigationBarLoading();
     wx.request({
-      url: 'https://we.cqu.pt/api/upload/get_upload_token.php',
+      url: app._server + '/api/get_feedback.php',
+      method: 'POST',
+      data: app.key({
+        openid: app._user.openid
+      }),
+      success: function(res){
+        if(res.data.status === 200){
+          var list = res.data.data;
+          if(list && list.length){
+            _this.setData({
+              'list.count': list.length,
+              'list.data': list,
+              'list_remind': ''
+            });
+          }else{
+            _this.setData({
+              'list_remind': '暂无反馈记录',
+              'list.count': 0
+            });
+          }
+        }else{
+          _this.setData({
+            'list_remind': '加载失败'
+          });
+        }
+      },
+      fail: function(){
+        _this.setData({
+          'list_remind': '加载失败'
+        });
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
+      }
+    });
+    wx.request({
+      url: app._server + '/api/upload/get_upload_token.php',
       method: 'POST',
       data: app.key({
         openid: app._user.openid
@@ -50,7 +93,63 @@ Page({
       complete: function() {
         wx.hideNavigationBarLoading();
       }
-    })
+    });
+  },
+  getIssue: function(id, index) {
+    var _this = this, thedata = _this.data.list.data[index];
+    if(!thedata.content){
+      _this.setData({
+        'item_remind': '加载中...'
+      });
+    }else{ return; }
+    wx.showNavigationBarLoading();
+    wx.request({
+      url: 'https://api.github.com/repos/lanshan-studio/wecqupt/issues/' + id,
+      success: function(res){
+        var data = {}, content = res.data;
+        content.body = content.body.split('\r\n\r\n---\r\n**用户信息**\r\n')[0];
+        data['list.data['+index+'].content'] = content;
+        data['item_remind'] = '';
+        _this.setData(data);
+      },
+      fail: function() {
+        _this.setData({
+          'item_remind': '加载失败'
+        });
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
+      }
+    });
+    wx.request({
+      url: 'https://api.github.com/repos/lanshan-studio/wecqupt/issues/' + id + '/comments',
+      success: function(res){
+        var data = {};
+        data['list.data['+index+'].comments'] = res.data;
+        _this.setData(data);
+      },
+      complete: function() {
+        wx.hideNavigationBarLoading();
+      }
+    });
+  },
+  openList: function(e) {
+    var _this = this, list = _this.data.list;
+    if(!list.status && list.count){
+      _this.getIssue(list.data[0].issues, 0);
+    }
+    _this.setData({
+      'list.status': !list.status
+    });
+  },
+  openItem: function(e) {
+    var _this = this, index = e.currentTarget.dataset.index, list = _this.data.list;
+    if(index != list.open){
+      _this.getIssue(list.data[index].issues, index);
+      _this.setData({
+        'list.open': index
+      });
+    }
   },
   listenerTitle: function(e){
     this.setData({

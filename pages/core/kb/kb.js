@@ -370,9 +370,10 @@ Page({
               app.saveCache('kb', _data);
             }
             kbRender(_data);
-          }
+          }else{ _this.setData({ remind: '暂无数据' }); }
 
         }else{
+          app.removeCache('kb');
           _this.setData({
             remind: res.data.message || '未知错误'
           });

@@ -3,8 +3,8 @@
   <!--新闻分类-->
   <scroll-view class="filter" scroll-x="true">
     <block wx:for="{{list}}" wx:key="id">
-      <image wx:if="{{item.enabled[user_type]}}" class="filter-item" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilter" src="/images/news/{{item.type + (active.type === item.type ? '@colour.png' : '@gray.png')}}"></image>
-      <image wx:else class="filter-item" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilterDisabled" src="/images/news/{{item.type}}@gray.png"></image>
+      <image wx:if="{{item.enabled[user_type]}}" class="filter-item {{active.type === item.type ? 'active' : ''}}" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilter" src="/images/news/{{item.type}}@colour.png"></image>
+      <image wx:else class="filter-item disabled" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilterDisabled" src="/images/news/{{item.type}}@gray.png"></image>
     </block>
   </scroll-view>
   

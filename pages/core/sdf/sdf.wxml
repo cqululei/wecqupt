@@ -20,7 +20,7 @@
             </view>
             <view class="userInfo-basic">
                 <text class="basic-name">{{userName}}（{{userYkth}}）</text>
-                <text class="basic-time">截至时间：{{renderData.last_time}}</text>
+                <text class="basic-time">截至时间：{{renderData.record_time}}</text>
             </view>
         </view>
         <!--result-chargeInfo-->

@@ -39,6 +39,10 @@ Page({
       app.showErrorModal('账号及密码不能为空', '提醒');
       return false;
     }
+    if(!app._user.openid){
+      app.showErrorModal('未能成功登录', '错误');
+      return false;
+    }
     app.showLoadToast('绑定中');
     wx.request({
       method: 'POST',

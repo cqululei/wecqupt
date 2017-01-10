@@ -3,7 +3,7 @@
     <view class="service-nav">
         <navigator class="service-nav-item service-apply-btn" url="bx_apply">
             <image class="service-apply-icon" src="/images/core/bx.png"></image>
-            <text>服务申报</text>
+            <text>申报入口</text>
         </navigator> 
     </view>
     <view wx:if="{{remind}}" class="remind-box">
