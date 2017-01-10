@@ -157,8 +157,10 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#eff7ff), color-stop(0.5, #8cc4ff), to(#eff7ff));
     z-index: 1;
     opacity: .6;
+    transition: all .1s;
 }
 .kb-timeline{
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
