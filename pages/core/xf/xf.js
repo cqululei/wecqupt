@@ -57,9 +57,10 @@ Page({
             //保存学费缓存
             app.saveCache('xf', info);
             xfRender(info);
-          }
+          }else{ _this.setData({ remind: '暂无数据' }); }
 
         } else {
+          app.removeCache('xf');
           _this.setData({
             remind: res.data.message || '未知错误'
           });

@@ -66,9 +66,10 @@ Page({
             //保存成绩缓存
             app.saveCache('cj', _data);
             cjRender(_data);
-          }
+          } else { _this.setData({ remind: '暂无数据' }); }
 
         } else {
+          app.removeCache('cj');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
