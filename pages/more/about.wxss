@@ -146,16 +146,12 @@
     color: #c2c2c2;
 }
 .footer-lanshan{
-    height: 10pt;
-    line-height: 10pt;
-    font-size: 10pt;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 8rpx;
 }
 .footer-lanshan image{
-    width: 10pt;
-    height: 10pt;
+    width: 8pt;
+    height: 8pt;
     margin-right: 5rpx;
 }

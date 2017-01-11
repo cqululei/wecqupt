@@ -20,7 +20,7 @@
     <view class="describe" wx:if="{{!showLog}}">
         <text class="desc-title">简介</text>
         <view class="desc-list">
-          <text class="desc-list-item">官网：https://we.cqu.pt、http://we.cqupt.edu.cn</text>
+          <text class="desc-list-item">官网：http://we.cqupt.edu.cn</text>
           <text class="desc-list-item">Github：https://github.com/lanshan-studio/wecqupt</text>
         </view>
         <text class="desc-content">We重邮是一款微信小程序，由重庆邮电大学信息化办/信息中心指导，蓝山工作室（学生技术组织/团队）开发，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
@@ -197,11 +197,11 @@
     </view>
   </view>
   <view class="footer">
+    <text>重庆邮电大学信息化办/信息中心</text>
     <view class="footer-lanshan">
         <image src="/images/more/lanshan.png"></image>
-        <text>蓝山工作室</text>
+        <text>蓝山工作室 · 教育信息化创新创业协会</text>
     </view>
-    <text>信息中心/信息化办 · 教育信息化创新创业协会</text>
     <text>Copyright @ {{year}} All Rights Reserved</text>
   </view>
 </view>

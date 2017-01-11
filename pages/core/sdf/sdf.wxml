@@ -64,6 +64,6 @@
                 <text>度</text>
             </view>
         </view>
-        <image class="sdf-bg" mode="aspectFit" src="/images/core/sdf/sdf-bg.png"></image>
+        <image class="sdf-bg" src="/images/core/sdf/sdf-bg.png"></image>
     </view>
 </view>

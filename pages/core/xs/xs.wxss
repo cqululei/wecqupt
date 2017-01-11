@@ -2,7 +2,6 @@
 
 .container {
     background: #f7f7f7;
-    padding: 0;
 }
 .container.home{
     align-items: center;

@@ -4,14 +4,20 @@ page{
   font-size: 10pt;
   line-height: 150%;
   color: #666;
-  height: 100%;
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 .container {
   position: relative;
-  min-height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
   padding-bottom: 100rpx;
+  box-sizing: border-box;
 } 
 
 .remind-box {
@@ -63,4 +69,17 @@ page{
     border-radius: 10rpx;
     background: rgba(66,66,66,.6);
     color: #fff;
+}
+
+.lanshan-studio{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 9pt;
+  line-height: 100%;
+  padding: 9pt 0;
+  text-align: center;
+  opacity: 0.15;
 }
