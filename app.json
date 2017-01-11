@@ -55,8 +55,8 @@
     }]
   },
   "networkTimeout": {
-    "request": 10000,
-    "uploadFile": 15000,
-    "downloadFile": 15000
+    "request": 20000,
+    "uploadFile": 30000,
+    "downloadFile": 30000
   }
 }

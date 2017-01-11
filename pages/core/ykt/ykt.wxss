@@ -1,7 +1,8 @@
 /**ykt.wxss**/
 .container {
     background-color: #f7f7f7;
-    padding: 30rpx 0;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
 }
 
 /* 今日余额 */
