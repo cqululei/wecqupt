@@ -23,7 +23,7 @@
           <text class="desc-list-item">官网：http://we.cqupt.edu.cn</text>
           <text class="desc-list-item">Github：https://github.com/lanshan-studio/wecqupt</text>
         </view>
-        <text class="desc-content">We重邮是一款微信小程序，由蓝山工作室（学生技术组织/团队）开发，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
+        <text class="desc-content">We重邮是一款微信小程序，由重庆邮电大学信息化办/信息中心指导，蓝山工作室（学生技术组织/团队）开发，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
         <text class="desc-content">We重邮是碎片化、一站式、一体化校园移动门户，适用于学生和教师，集课表、成绩、考试、空教室、学生查询、一卡通、借阅、学费、电费、报修、资讯等功能于一身。</text>
         <text class="desc-content">We重邮有更好用的课表查询，本周视图、学期视图、对应日期及时钟轴，清晰明了。</text>
         <text class="desc-content">We重邮有更方便的考试安排，帮你折算出考试周对应的日期，以及考试时间倒计时，一目了然。</text>
@@ -201,6 +201,7 @@
         <image src="/images/more/lanshan.png"></image>
         <text>蓝山工作室</text>
     </view>
+    <text>信息化办/信息中心 · 教育信息化办研发中心</text>
     <text>Copyright @ {{year}} All Rights Reserved</text>
   </view>
 </view>
